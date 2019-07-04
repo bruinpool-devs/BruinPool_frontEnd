@@ -16,3 +16,23 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
 2. `npm start` should automatically direct your browser to `localhost:3000`, where you can view the app.
 3. Make sure to also have the [backend repository](https://github.com/bruinpool-devs/BruinPool_backEnd) running locally.
 4. Open the codebase with an IDE (i.e. VS Code, Sublime Text), and then get coding! :)
+
+## Additional Tools
+
+1. Having [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
+   installed in Chrome will help with debugging during development.
+
+## Directory Structure
+
+    .
+    ├── node_modules
+    ├── src
+    │   ├── components
+    |   |   └── pages
+    │   ├── context
+    |   |   └── state / reducer / context
+    │   ├── App.css
+    │   ├── App.js
+    |   └── index.js
+    ├── package-lock.json
+    └── package.json
