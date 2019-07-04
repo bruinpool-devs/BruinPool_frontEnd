@@ -32,7 +32,7 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
 ## Deploy Instructions
 
 1. Frontend is deployed using [Netlify](https://www.netlify.com/). Create Netlify account and request to be added to BruinPool group.
-2. Netlify is connected to GitHub, so it automatically keeps track of any new changes that are pushed to the master branch.
+2. Netlify is connected to GitHub, so it automatically keeps track of any new changes that are pushed to the branch.
 3. Run `npm install netlify-cli -g` to enable Netlify command line operations. May need to add `sudo` for Mac/Linux.
 4. When you are ready to deploy new changes, run `npm run build` to create static package that can be deployed.
 5. Finally, run `netlify deploy --prod`, which should deploy your new changes to the live site.
