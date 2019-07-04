@@ -1,6 +1,6 @@
 # BruinPool Frontend
 
-This is the frontend code repository for Bruinpool: made with ReactJS.
+This is the frontend code repository for Bruinpool: made with ReactJS.<br>
 For additional guidance/help, email justinhan1997@gmail.com or your current Engineering Manager.
 
 ## Local Environment Setup
