@@ -60,7 +60,7 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
 
 Instead of using 3rd party libraries such as [Redux](https://redux.js.org/) for state management, we have
 decided to incorporate [React Hooks](https://reactjs.org/docs/hooks-intro.html) and
-[React Context API](https://reactjs.org/docs/context.html) to globally manage our state.<br><br>
+[React Context API](https://reactjs.org/docs/context.html) to globally manage our state.<br>
 
 1. `mainContext.js` is where we initially define the context used for the app.
 2. `mainReducer.js` is where we define state mutations for each action type.
