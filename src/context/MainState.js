@@ -14,7 +14,10 @@ import {
   FETCH_DRIVE_HISTORY,
   FETCH_MORE_DRIVE_HISTORY,
   FETCH_UPCOMING_DRIVE,
-  INCREMENT_DRIVER_NUM
+  INCREMENT_DRIVER_NUM,
+  TOGGLE_EDIT_MODAL,
+  TOGGLE_INFO_MODAL,
+  FETCH_NOTIFICATION
 } from "./types";
 
 const MainState = ({ children }) => {
@@ -27,7 +30,11 @@ const MainState = ({ children }) => {
     upcomingDrive: [],
     riderPageNum: 1,
     driverPageNum: 1,
-    filter: null
+    filter: null,
+    editModal: false,
+    infoModal: false,
+    newNoti: [],
+    oldNoti: []
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -147,7 +154,7 @@ const MainState = ({ children }) => {
         userInfo,
         status: "join"
       })
-      .then(response => {
+      .then(() => {
         alert("Joined!");
         cookieAuth(authToken);
         fetchRideFeed();
@@ -170,7 +177,7 @@ const MainState = ({ children }) => {
         userInfo,
         status: "cancel"
       })
-      .then(response => {
+      .then(() => {
         alert("Canceled!");
         cookieAuth(authToken);
         fetchRideFeed();
@@ -188,7 +195,7 @@ const MainState = ({ children }) => {
       .put("/rideList", {
         entry
       })
-      .then(response => {
+      .then(() => {
         alert("Edited!");
         cookieAuth(authToken);
         fetchUpcomingDrive();
@@ -348,6 +355,109 @@ const MainState = ({ children }) => {
       });
   };
 
+  // CANCEL DRIVE
+  const cancelDrive = ride => {
+    const { authToken } = state;
+    axios
+      .delete("/rideList", {
+        params: {
+          ride
+        }
+      })
+      .then(() => {
+        alert("Deleted!");
+        cookieAuth(authToken);
+        fetchDriveHistory();
+        fetchUpcomingDrive();
+        fetchRideFeed();
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // TOGGLE EDIT MODAL
+  const toggleEditModal = entry => {
+    dispatch({
+      type: TOGGLE_EDIT_MODAL,
+      payload: entry
+    });
+  };
+
+  // TOGGLE INFO MODAL
+  const toggleInfoModal = entry => {
+    dispatch({
+      type: TOGGLE_INFO_MODAL,
+      payload: entry
+    });
+  };
+
+  // FETCH NOTIFICATIONS
+  const fetchNotification = authToken => {
+    const notiDivider = noti => {
+      const newNoti = [];
+      const oldNoti = [];
+
+      noti.forEach(item => {
+        if (item.viewed) {
+          oldNoti.push(item);
+        } else {
+          newNoti.push(item);
+        }
+      });
+
+      return [newNoti, oldNoti];
+    };
+
+    axios
+      .get("/notification", {
+        params: {
+          authToken
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: FETCH_NOTIFICATION,
+          payload: notiDivider(res.data)
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // CLEAR NOTIFICATIONS
+  const clearNotification = () => {
+    const { userInfo } = state;
+
+    axios
+      .put("/notification", {
+        email: userInfo.email
+      })
+      .then(() => {
+        return;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH PROFILE PICTURE
+  const fetchProfilePic = (username, cb) => {
+    axios
+      .get("/usersPic", {
+        params: {
+          username
+        }
+      })
+      .then(res => {
+        cb(res.data);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  };
+
   return (
     <MainContext.Provider
       value={{
@@ -360,6 +470,10 @@ const MainState = ({ children }) => {
         riderPageNum: state.riderPageNum,
         driverPageNum: state.driverPageNum,
         filter: state.filter,
+        editModal: state.editModal,
+        infoModal: state.infoModal,
+        newNoti: state.newNoti,
+        oldNoti: state.oldNoti,
         login,
         cookieAuth,
         logout,
@@ -372,7 +486,13 @@ const MainState = ({ children }) => {
         fetchUpcomingRide,
         fetchDriveHistory,
         fetchMoreDriveHistory,
-        fetchUpcomingDrive
+        fetchUpcomingDrive,
+        cancelDrive,
+        toggleEditModal,
+        toggleInfoModal,
+        fetchNotification,
+        clearNotification,
+        fetchProfilePic
       }}
     >
       {children}

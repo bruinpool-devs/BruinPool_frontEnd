@@ -9,7 +9,10 @@ import {
   FETCH_DRIVE_HISTORY,
   FETCH_MORE_DRIVE_HISTORY,
   FETCH_UPCOMING_DRIVE,
-  INCREMENT_DRIVER_NUM
+  INCREMENT_DRIVER_NUM,
+  TOGGLE_EDIT_MODAL,
+  TOGGLE_INFO_MODAL,
+  FETCH_NOTIFICATION
 } from "./types";
 
 export default (state, action) => {
@@ -68,6 +71,22 @@ export default (state, action) => {
       return {
         ...state,
         driverPageNum: action.payload
+      };
+    case TOGGLE_EDIT_MODAL:
+      return {
+        ...state,
+        editModal: action.payload
+      };
+    case TOGGLE_INFO_MODAL:
+      return {
+        ...state,
+        infoModal: action.payload
+      };
+    case FETCH_NOTIFICATION:
+      return {
+        ...state,
+        newNoti: action.payload[0],
+        oldNoti: action.payload[1]
       };
     default:
       return state;
