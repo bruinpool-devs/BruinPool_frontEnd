@@ -44,7 +44,17 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
     ├── node_modules
     ├── src
     │   ├── components
+    |   |   ├── modals
+    |   |   |   ├── EditModal
+    |   |   |   |   ├── EditModal.css
+    |   |   |   |   └── EditModal.js
+    |   |   |   └── InfoModal
+    |   |   |   |   ├── InfoModal.css
+    |   |   |   |   └── InfoModal.js
     |   |   └── pages
+    |   |   |   └── LandingPage
+    |   |   |   |   ├── LandingPage.css
+    |   |   |   |   └── LandingPage.js
     │   ├── context
     |   |   ├── mainContext.js
     |   |   ├── mainReducer.js
