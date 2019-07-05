@@ -13,7 +13,7 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
 ## Local Development Setup
 
 1. Within the root directory, run `npm start` to get the React app running on your local environment.
-2. `npm start` should automatically direct your browser to `localhost:3000`, where you can view the app.
+2. `npm start` should automatically direct your browser to `localhost:3006`, where you can view the app.
 3. Make sure to also have the [backend repository](https://github.com/bruinpool-devs/BruinPool_backEnd) running locally.
 4. Open the codebase with an IDE (i.e. VS Code, Sublime Text), and then get coding! :)
 
