@@ -5,10 +5,9 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
 
 ## Local Environment Setup
 
-1. Install nodeJS by following installation guides from https://nodejs.org/en/download/
-2. Clone the repository to your local environment using `git clone https://github.com/bruinpool-devs/bruinpool_frontend.git`
-3. `cd` into the clone repository, and install all used packages & dependencies using:
-   `npm install`
+1. Install nodeJS by following installation guides from https://nodejs.org/en/download/.
+2. Clone the repository to your local environment using `git clone https://github.com/bruinpool-devs/bruinpool_frontend.git`.
+3. `cd` into the clone repository, and install all used packages & dependencies using: `npm install`.
 
 ## Local Development Setup
 
@@ -46,15 +45,22 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
     │   ├── components
     |   |   ├── modals
     |   |   |   ├── EditModal
-    |   |   |   |   ├── EditModal.css
-    |   |   |   |   └── EditModal.js
     |   |   |   └── InfoModal
-    |   |   |   |   ├── InfoModal.css
-    |   |   |   |   └── InfoModal.js
+    |   |   ├── modules
+    |   |   |   ├── LoginForm
+    |   |   |   ├── RideFeed
+    |   |   |   ├── SignupForm
+    |   |   |   └── UpcomingFeed
+    |   |   ├── navbar
     |   |   └── pages
-    |   |   |   └── LandingPage
-    |   |   |   |   ├── LandingPage.css
-    |   |   |   |   └── LandingPage.js
+    |   |   |   ├── DriverPage
+    |   |   |   ├── HelpPage
+    |   |   |   ├── LandingPage
+    |   |   |   ├── MyAccountPage
+    |   |   |   ├── NotificationPage
+    |   |   |   ├── RideHistoryPage
+    |   |   |   ├── RiderPage
+    |   |   |   └── SettingsPage
     │   ├── context
     |   |   ├── mainContext.js
     |   |   ├── mainReducer.js
