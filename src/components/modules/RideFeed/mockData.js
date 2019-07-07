@@ -1,21 +1,21 @@
 const feed = [
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser1",
     ownerPhoneNumber: "9999999999",
     from: "Los Angeles",
     to: "San Diego",
     date: "6/15/19",
     time: "2:00PM",
     price: 20,
-    seats: 4,
+    seats: 0,
     detail:
       "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser2",
     ownerPhoneNumber: "9999999999",
     from: "Los Angeles",
     to: "San Diego",
@@ -29,7 +29,7 @@ const feed = [
   },
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser3",
     ownerPhoneNumber: "9999999999",
     from: "Los Angeles",
     to: "San Diego",
@@ -43,7 +43,7 @@ const feed = [
   },
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser4",
     ownerPhoneNumber: "9999999999",
     from: "Los Angeles",
     to: "San Diego",
@@ -57,7 +57,7 @@ const feed = [
   },
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser5",
     ownerPhoneNumber: "9999999999",
     from: "Los Angeles",
     to: "San Diego",
@@ -71,7 +71,7 @@ const feed = [
   },
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser6",
     ownerPhoneNumber: "9999999999",
     from: "Los Angeles",
     to: "San Diego",
@@ -88,11 +88,12 @@ const feed = [
 const upcoming = [
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser1",
     ownerPhoneNumber: "9999999999",
-    from: "Los Angeles",
-    to: "San Diego",
-    date: new Date(),
+    from: "UCLA",
+    to: "Pasadena",
+    date: "5/04/19",
+    time: "5:00AM",
     price: 20,
     seats: 4,
     detail:
@@ -101,11 +102,12 @@ const upcoming = [
   },
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser2",
     ownerPhoneNumber: "9999999999",
-    from: "Los Angeles",
-    to: "San Diego",
-    date: new Date(),
+    from: "UCLA",
+    to: "Orange County",
+    date: "5/04/19",
+    time: "5:00AM",
     price: 20,
     seats: 3,
     detail:
@@ -114,37 +116,12 @@ const upcoming = [
   },
   {
     ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
+    ownerUsername: "testuser3",
     ownerPhoneNumber: "9999999999",
-    from: "Los Angeles",
+    from: "San Francisco",
     to: "San Diego",
-    date: new Date(),
-    price: 20,
-    seats: 4,
-    detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
-    passengers: []
-  },
-  {
-    ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
-    ownerPhoneNumber: "9999999999",
-    from: "Los Angeles",
-    to: "San Diego",
-    date: new Date(),
-    price: 20,
-    seats: 4,
-    detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
-    passengers: []
-  },
-  {
-    ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser",
-    ownerPhoneNumber: "9999999999",
-    from: "Los Angeles",
-    to: "San Diego",
-    date: new Date(),
+    date: "5/04/19",
+    time: "5:00AM",
     price: 20,
     seats: 4,
     detail:

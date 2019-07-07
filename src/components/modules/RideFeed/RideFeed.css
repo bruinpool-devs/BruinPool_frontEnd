@@ -1,10 +1,46 @@
+.ride-feed-container {
+  display: flex;
+  flex-flow: column;
+  width: 60%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.table-header {
+  display: flex;
+  flex-flow: row;
+  min-height: 40px;
+  min-width: 700px;
+  width: 100%;
+  z-index: 100;
+  color: black;
+  align-items: center;
+  justify-content: center;
+}
+
+.table-entry {
+  font-size: 18px;
+  margin-right: 11%;
+}
+
+.table-entry-first {
+  font-size: 18px;
+  margin-right: 11%;
+  margin-left: 8%;
+}
+
+.table-entry-spacing {
+  font-size: 18px;
+  margin-right: 14%;
+}
+
 .rideCard {
   display: flex;
   flex-flow: row;
   background-color: #f6f7fb;
   min-height: 100px;
   min-width: 700px;
-  width: 60%;
+  width: 100%;
   margin-top: 20px;
   z-index: 100;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
@@ -22,8 +58,34 @@
   margin-right: 10%;
 }
 
+.circular-border {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: #119cf1;
+}
+
+.circular-border-full {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border-style: solid;
+  border-width: 3px;
+  border-color: red;
+}
+
 .card-value-first {
   font-size: 20px;
-  margin-right: 10%;
-  margin-left: 6%;
+  margin-right: 8%;
+  margin-left: 7%;
 }
