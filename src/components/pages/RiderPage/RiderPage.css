@@ -1,0 +1,21 @@
+.rider-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: #e8e9ee;
+  display: flex;
+}
+
+.rider-container {
+  margin-top: 10px;
+  margin-left: 40px;
+  width: 100%;
+  height: 100%;
+  font-family: "Source Sans Pro", sans-serif;
+  display: flex;
+  flex-flow: column;
+}
+
+.rider-container h1 {
+  letter-spacing: 2px;
+  color: #535459;
+}

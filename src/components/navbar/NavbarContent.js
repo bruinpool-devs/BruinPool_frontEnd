@@ -61,7 +61,7 @@ const NavbarContent = ({ history, location }) => {
   }
 
   return (
-    <div className="container">
+    <div className="navbar-container">
       <h2 onClick={() => history.push("/")}>BRUINPOOL</h2>
       <div className={rideClass}>
         <FontAwesomeIcon icon={faHome} pull="left" />
