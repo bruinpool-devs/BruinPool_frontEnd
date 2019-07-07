@@ -37,6 +37,15 @@
   border-radius: 10px;
 }
 
+.upcoming-card:hover {
+  cursor: pointer;
+  border-style: solid;
+  border-width: 1px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+
 .upcoming-1 {
   display: flex;
   flex-flow: row;
