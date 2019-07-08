@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "react-sidebar";
 import NavBarContent from "./NavbarContent";
 
-const mobileView = window.matchMedia(`(min-width: 800px)`);
+const mobileView = window.matchMedia(`(min-width: 1000px)`);
 
 const Navbar = ({ children }) => {
   useEffect(() => {
