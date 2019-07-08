@@ -1,7 +1,28 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 
 .navbar-container {
-  margin-top: 30px;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.navbar-container .routes {
+  height: 50%;
+  display: flex;
+  flex-flow: column;
+}
+
+.navbar-container .bear-image {
+  height: 50%;
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-end;
+}
+
+.bear-image img {
+  width: 120px;
+  height: 120px;
+  margin-left: 15%;
 }
 
 .navbar-item {
@@ -9,7 +30,7 @@
   font-family: "Source Sans Pro", sans-serif;
   font-size: 22px;
   margin-left: 20px;
-  padding-bottom: 0.1px;
+  margin-top: 17px;
 }
 
 .navbar-item-active {
@@ -18,7 +39,7 @@
   font-size: 22px;
   font-weight: bold;
   margin-left: 20px;
-  padding-bottom: 0.1px;
+  margin-top: 17px;
 }
 
 .navbar-item-active p {
@@ -38,6 +59,7 @@
   color: white;
   font-family: "Source Sans Pro", sans-serif;
   font-size: 30px;
+  margin-top: 30px;
   margin-left: 20px;
   margin-bottom: 60px;
   letter-spacing: 2px;

@@ -7,7 +7,7 @@
 }
 
 .rider-container {
-  margin-top: 10px;
+  margin-top: 30px;
   margin-left: 40px;
   width: 100%;
   height: 100%;
@@ -17,9 +17,36 @@
   overflow-y: auto;
 }
 
-.rider-container h1 {
-  letter-spacing: 2px;
+.button-row {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  width: 60%;
+  min-width: 700px;
+}
+
+.button-row .title {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-start;
+  width: 10%;
+}
+
+.button-row .buttons {
+  display: flex;
+  flex-flow: row;
+  justify-content: flex-end;
+  width: 90%;
+}
+
+.notification-button {
+  margin-right: 15px;
+}
+
+.button-row h1 {
+  letter-spacing: 0.5px;
   color: #535459;
+  font-size: 38px;
 }
 
 .feed-container {
@@ -28,4 +55,5 @@
   width: 100%;
   height: 100%;
   overflow-y: auto;
+  margin-top: 10px;
 }

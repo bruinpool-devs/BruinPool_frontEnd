@@ -62,26 +62,31 @@ const NavbarContent = ({ history, location }) => {
 
   return (
     <div className="navbar-container">
-      <h2 onClick={() => history.push("/")}>BRUINPOOL</h2>
-      <div className={rideClass}>
-        <FontAwesomeIcon icon={faHome} pull="left" />
-        <p onClick={() => history.push("/rider")}>RIDE</p>
+      <div className="routes">
+        <h2 onClick={() => history.push("/")}>BRUINPOOL</h2>
+        <div className={rideClass}>
+          <FontAwesomeIcon icon={faHome} pull="left" />
+          <p onClick={() => history.push("/rider")}>RIDE</p>
+        </div>
+        <div className={driveClass}>
+          <FontAwesomeIcon icon={faCar} pull="left" />
+          <p onClick={() => history.push("/driver")}>DRIVE</p>
+        </div>
+        <div className={historyClass}>
+          <FontAwesomeIcon icon={faUser} pull="left" />
+          <p onClick={() => history.push("/history")}>RIDE HISTORY</p>
+        </div>
+        <div className={helpClass}>
+          <FontAwesomeIcon icon={faQuestion} pull="left" />
+          <p onClick={() => history.push("/help")}>HELP</p>
+        </div>
+        <div className={settingsClass}>
+          <FontAwesomeIcon icon={faCog} pull="left" />
+          <p onClick={() => history.push("/settings")}>SETTINGS</p>
+        </div>
       </div>
-      <div className={driveClass}>
-        <FontAwesomeIcon icon={faCar} pull="left" />
-        <p onClick={() => history.push("/driver")}>DRIVE</p>
-      </div>
-      <div className={historyClass}>
-        <FontAwesomeIcon icon={faUser} pull="left" />
-        <p onClick={() => history.push("/history")}>RIDE HISTORY</p>
-      </div>
-      <div className={helpClass}>
-        <FontAwesomeIcon icon={faQuestion} pull="left" />
-        <p onClick={() => history.push("/help")}>HELP</p>
-      </div>
-      <div className={settingsClass}>
-        <FontAwesomeIcon icon={faCog} pull="left" />
-        <p onClick={() => history.push("/settings")}>SETTINGS</p>
+      <div className="bear-image">
+        <img src={process.env.PUBLIC_URL + "/images/bp_logo.svg"} alt="bear" />
       </div>
     </div>
   );

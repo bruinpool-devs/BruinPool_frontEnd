@@ -31,7 +31,7 @@
 
 .table-entry-spacing {
   font-size: 18px;
-  margin-right: 14%;
+  margin-right: 15%;
 }
 
 .rideCard {
@@ -41,7 +41,7 @@
   min-height: 100px;
   min-width: 700px;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 11px;
   z-index: 100;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
