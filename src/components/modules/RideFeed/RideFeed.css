@@ -94,3 +94,9 @@
   margin-right: 8%;
   margin-left: 7%;
 }
+
+@media screen and (max-width: 1400px) {
+  .ride-feed-container {
+    width: 98%;
+  }
+}

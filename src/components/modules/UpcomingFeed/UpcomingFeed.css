@@ -75,7 +75,7 @@
   .upcoming-feed-container {
     visibility: hidden;
     display: none;
-    width: 1px;
-    height: 1px;
+    width: 0%;
+    height: 0%;
   }
 }
