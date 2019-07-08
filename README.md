@@ -82,3 +82,16 @@ decided to incorporate [React Hooks](https://reactjs.org/docs/hooks-intro.html) 
 2. `mainReducer.js` is where we define state mutations for each action type.
 3. `MainState.js` is where we initialize our global state and mutation methods.
 4. `types.js` is where we define our action types used in `mainReducer.js`.
+
+## Route Information
+
+| Component        | Route          |
+| ---------------- | -------------- |
+| LandingPage      | /              |
+| RiderPage        | /rider         |
+| DriverPage       | /driver        |
+| RideHistoryPage  | /history       |
+| HelpPage         | /help          |
+| SettingsPage     | /settings      |
+| NotificationPage | /notifications |
+| MyAccountPage    | /myaccount     |
