@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
 
+.bars-container {
+  width: 100%;
+  background-color: #e8e9ee;
+}
+
 .navbar-container {
   height: 100%;
   display: flex;

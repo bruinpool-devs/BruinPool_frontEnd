@@ -62,4 +62,8 @@
   .button-row {
     width: 98%;
   }
+
+  .rider-container {
+    margin-top: 10px;
+  }
 }
