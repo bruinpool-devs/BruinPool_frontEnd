@@ -11,6 +11,7 @@
     "classnames": "^2.2.6",
     "jshint": "^2.10.2",
     "lodash": "^4.17.14",
+    "lodash.template": "^4.5.0",
     "mdbreact": "^4.17.0",
     "netlify": "^2.4.6",
     "react": "^16.8.6",
