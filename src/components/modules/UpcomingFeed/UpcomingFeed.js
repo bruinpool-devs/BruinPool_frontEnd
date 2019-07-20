@@ -9,30 +9,39 @@ const UpcomingFeed = () => {
   return (
     <div className="upcoming-feed-container">
       <div className="header-card">
-        <h3>Upcoming Rides</h3>
+        <div>Upcoming Rides</div>
       </div>
-      {upcoming.slice(0, 3).map(ride => (
-        <div key={ride.ownerUsername} className="upcoming-card">
-          <div className="upcoming-1">
-            <div className="spacing">{ride.from}</div>
-            <FontAwesomeIcon icon={faCarSide} />
-            <div className="spacing">{ride.to}</div>
+      {upcoming.slice(0, 3).map(ride => {
+        var from = ride.from;
+        var to = ride.to;
+
+        if (from.length > 9) {
+          from = ride.from.match(/\b(\w)/g).join("");
+        } else if (to.length > 9) {
+          to = ride.to.match(/\b(\w)/g).join("");
+        }
+
+        return (
+          <div key={ride.ownerUsername} className="upcoming-card">
+            <div className="upcoming-1">
+              <div className="spacing">{from}</div>
+              <FontAwesomeIcon icon={faCarSide} style={{ color: "#A2DAEF" }} />
+              <div className="spacing">{to}</div>
+            </div>
+            <div className="upcoming-2">
+              <div className="item">
+                {ride.date} <br />
+                {ride.time}
+              </div>
+              <div className="item">
+                Driver: <br />
+                {ride.ownerUsername}
+              </div>
+              <div className="item">${ride.price}</div>
+            </div>
           </div>
-          <div className="upcoming-2">
-            <div className="item">
-              Date/Time: <br />
-              {ride.date} - {ride.time}
-            </div>
-            <div className="item">
-              Driver: <br />
-              {ride.ownerUsername}
-            </div>
-            <div className="item">
-              Price: <br />${ride.price}
-            </div>
-          </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

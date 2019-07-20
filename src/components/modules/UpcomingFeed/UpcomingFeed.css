@@ -3,10 +3,10 @@
   flex-flow: column;
   overflow-y: auto;
   margin-left: 30px;
-  width: 30%;
+  width: 26.3%;
   height: 70%;
-  margin-top: 3.5%;
-  color: #535459;
+  margin-top: 41px;
+  color: #5c5c5c;
 }
 
 .header-card {
@@ -16,21 +16,28 @@
   align-items: center;
   background-color: #ffffff;
   width: 100%;
+  min-width: 310px;
   height: 10%;
+  min-height: 50px;
   z-index: 100;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
+  font-weight: bold;
+  font-size: 26px;
 }
 
 .upcoming-card {
   display: flex;
   flex-flow: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 20px;
+  justify-content: space-between;
+  padding: 8% 18%;
+  margin-top: 15px;
   background-color: #ffffff;
   width: 100%;
+  min-width: 310px;
   height: 30%;
+  min-height: 120px;
   z-index: 100;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -48,11 +55,10 @@
 .upcoming-1 {
   display: flex;
   flex-flow: row;
-  width: 80%;
-  height: 33%;
-  justify-content: space-evenly;
+  width: 100%;
+  justify-content: space-between;
   align-items: center;
-  font-size: 23px;
+  font-size: 22px;
   font-weight: bold;
   letter-spacing: 2px;
 }
@@ -60,18 +66,19 @@
 .upcoming-2 {
   display: flex;
   flex-flow: row;
-  width: 80%;
-  height: 33%;
-  justify-content: space-evenly;
+  width: 100%;
+  justify-content: space-between;
   align-items: center;
-  font-size: 20px;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1px;
 }
 
 .upcoming-1 .spacing {
   white-space: nowrap;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 950px) {
   .upcoming-feed-container {
     visibility: hidden;
     display: none;

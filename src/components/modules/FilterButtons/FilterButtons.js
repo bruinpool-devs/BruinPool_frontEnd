@@ -12,7 +12,7 @@ class CustomInput extends Component {
   render() {
     return (
       <Button style={filterButtonStyle} onClick={this.props.onClick}>
-        Date / Time
+        Date
       </Button>
     );
   }
@@ -41,7 +41,8 @@ const FilterButtons = () => {
         style={{
           backgroundColor: "#1D96EF",
           height: "38px",
-          borderWidth: "0px"
+          borderWidth: "0px",
+          borderRadius: "10px"
         }}
       >
         <FontAwesomeIcon
@@ -61,8 +62,10 @@ const filterButtonStyle = {
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  marginRight: "16px",
-  height: "38px"
+  marginRight: "14px",
+  height: "38px",
+  borderRadius: "10px",
+  borderColor: "#5C5C5C"
 };
 
 export default FilterButtons;

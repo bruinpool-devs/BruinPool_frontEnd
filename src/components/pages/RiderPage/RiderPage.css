@@ -3,7 +3,6 @@
   height: 100%;
   background-color: #f7f9fc;
   display: flex;
-  overflow-y: auto;
 }
 
 .rider-container {
@@ -14,7 +13,7 @@
   font-family: "Source Sans Pro", sans-serif;
   display: flex;
   flex-flow: column;
-  overflow-y: auto;
+  background-color: #f7f9fc;
 }
 
 .title-row {
@@ -22,7 +21,7 @@
   flex-flow: row;
   align-items: center;
   width: 96%;
-  min-width: 700px;
+  min-width: 500px;
   height: 60px;
 }
 
@@ -58,14 +57,16 @@
   height: 100%;
   overflow-y: auto;
   margin-top: 10px;
+  background-color: #f7f9fc;
 }
 
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 950px) {
   .title-row {
     width: 98%;
   }
 
   .rider-container {
-    margin-top: 10px;
+    margin-top: 5px;
+    margin-left: 20px;
   }
 }

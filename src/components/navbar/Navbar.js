@@ -5,7 +5,7 @@ import { Button } from "reactstrap";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const mobileView = window.matchMedia(`(min-width: 1000px)`);
+const mobileView = window.matchMedia(`(min-width: 950px)`);
 
 const Navbar = ({ children }) => {
   useEffect(() => {
@@ -31,7 +31,7 @@ const Navbar = ({ children }) => {
   const styles = {
     sidebar: {
       background: "#1D96EF",
-      width: "270px",
+      width: "288px",
       zIndex: "4"
     }
   };
@@ -48,9 +48,12 @@ const Navbar = ({ children }) => {
         {renderButton && (
           <Button
             style={{
-              width: "48px",
-              height: "48px",
-              margin: "3px 0px 0px 20px"
+              width: "40px",
+              height: "40px",
+              margin: "5px 0px 0px 20px",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
             }}
             color="primary"
             onClick={() => onSetSidebarOpen(true)}

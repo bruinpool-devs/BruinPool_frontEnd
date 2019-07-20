@@ -8,9 +8,9 @@ const RideFeed = () => {
   return (
     <div className="ride-feed-container">
       <div className="table-header">
-        <div className="table-entry-first">Date</div>
+        <div className="table-entry">Date</div>
         <div className="table-entry">Time</div>
-        <div className="table-entry-spacing">From</div>
+        <div className="table-entry">From</div>
         <div className="table-entry">To</div>
         <div className="table-entry">Price</div>
         <div className="table-entry">Seats</div>
@@ -20,11 +20,11 @@ const RideFeed = () => {
 
         return (
           <div key={ride.ownerUsername} className="rideCard">
-            <div className="card-value-first">{ride.date}</div>
+            <div className="card-value">{ride.date}</div>
             <div className="card-value">{ride.time}</div>
             <div className="card-value">{ride.from}</div>
             <div className="card-value">{ride.to}</div>
-            <div className="card-value">{ride.price}</div>
+            <div className="card-value">${ride.price}</div>
             <div className="card-value">
               {!rideFull && <div className="circular-border">{ride.seats}</div>}
               {rideFull && <div className="circular-border-full">FULL</div>}
