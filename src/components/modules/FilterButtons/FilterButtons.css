@@ -11,6 +11,5 @@
 @media screen and (max-width: 700px) {
   .filter-row {
     width: 98%;
-    justify-content: flex-end;
   }
 }

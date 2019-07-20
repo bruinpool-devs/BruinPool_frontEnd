@@ -50,7 +50,7 @@ const Navbar = ({ children }) => {
             style={{
               width: "40px",
               height: "40px",
-              margin: "5px 0px 0px 20px",
+              margin: "5px 0px 0px 16px",
               display: "flex",
               justifyContent: "center",
               alignItems: "center"

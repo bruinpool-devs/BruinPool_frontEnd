@@ -62,11 +62,11 @@
 
 @media screen and (max-width: 950px) {
   .title-row {
-    width: 98%;
+    width: 97%;
   }
 
   .rider-container {
     margin-top: 5px;
-    margin-left: 20px;
+    margin-left: 16px;
   }
 }
