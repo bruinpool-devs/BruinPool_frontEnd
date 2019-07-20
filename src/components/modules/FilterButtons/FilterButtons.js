@@ -2,9 +2,6 @@ import React, { Component, useState } from "react";
 import { Button } from "reactstrap";
 import DatePicker from "react-datepicker";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-
 import "./FilterButtons.css";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -37,19 +34,6 @@ const FilterButtons = () => {
       <Button style={filterButtonStyle}>Destination</Button>
       <Button style={filterButtonStyle}>Price</Button>
       <Button style={filterButtonStyle}>Seats</Button>
-      <Button
-        style={{
-          backgroundColor: "#1D96EF",
-          height: "38px",
-          borderWidth: "0px",
-          borderRadius: "10px"
-        }}
-      >
-        <FontAwesomeIcon
-          icon={faSearch}
-          style={{ width: "18px", height: "18px" }}
-        />
-      </Button>
     </div>
   );
 };
@@ -57,13 +41,13 @@ const FilterButtons = () => {
 const filterButtonStyle = {
   backgroundColor: "#f7f9fc",
   color: "#5C5C5C",
-  fontSize: "20px",
+  fontSize: "18px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
   alignItems: "center",
-  marginRight: "14px",
-  height: "38px",
+  marginRight: "5px",
+  height: "36px",
   borderRadius: "10px",
   borderColor: "#5C5C5C"
 };
