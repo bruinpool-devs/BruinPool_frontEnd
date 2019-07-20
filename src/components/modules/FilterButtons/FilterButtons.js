@@ -33,6 +33,7 @@ const FilterButtons = () => {
       <Button style={filterButtonStyle}>Start</Button>
       <Button style={filterButtonStyle}>End</Button>
       <Button style={filterButtonStyle}>Price</Button>
+      <Button style={filterButtonStyle}>Seats</Button>
     </div>
   );
 };
