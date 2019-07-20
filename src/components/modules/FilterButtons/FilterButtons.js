@@ -30,10 +30,9 @@ const FilterButtons = () => {
         dateFormat="MMMM d, yyyy h:mm aa"
         timeCaption="Time"
       />
-      <Button style={filterButtonStyle}>Departure</Button>
-      <Button style={filterButtonStyle}>Destination</Button>
+      <Button style={filterButtonStyle}>Start</Button>
+      <Button style={filterButtonStyle}>End</Button>
       <Button style={filterButtonStyle}>Price</Button>
-      <Button style={filterButtonStyle}>Seats</Button>
     </div>
   );
 };
