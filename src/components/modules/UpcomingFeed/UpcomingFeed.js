@@ -12,7 +12,7 @@ const UpcomingFeed = () => {
         <h3>Upcoming Rides</h3>
       </div>
       {upcoming.slice(0, 3).map(ride => (
-        <div className="upcoming-card">
+        <div key={ride.ownerUsername} className="upcoming-card">
           <div className="upcoming-1">
             <div className="spacing">{ride.from}</div>
             <FontAwesomeIcon icon={faCarSide} />

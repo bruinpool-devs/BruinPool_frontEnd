@@ -1,0 +1,6 @@
+.filter-row {
+  display: flex;
+  flex-direction: row;
+  margin-top: 13px;
+  margin-left: 3px;
+}

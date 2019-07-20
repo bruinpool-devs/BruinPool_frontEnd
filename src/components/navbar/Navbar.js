@@ -30,8 +30,8 @@ const Navbar = ({ children }) => {
 
   const styles = {
     sidebar: {
-      background: "#339FFF",
-      width: "240px",
+      background: "#1D96EF",
+      width: "270px",
       zIndex: "4"
     }
   };
