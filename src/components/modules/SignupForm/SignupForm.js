@@ -46,7 +46,7 @@ const SignupForm = ({ history }) => {
               />
             </FormGroup>
             <FormGroup style={{ marginLeft: "21px", marginTop: "25px" }}>
-              <Label check style={{ color: "#B2B2B2", fontSize: "14px" }}>
+              <Label check style={{ color: "#B2B2B2", fontSize: "15px" }}>
                 <Input type="checkbox" />
                 <div>
                   Agree to{" "}
