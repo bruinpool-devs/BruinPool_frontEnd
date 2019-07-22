@@ -8,8 +8,9 @@
   border-bottom: 1px solid #d3d3d3;
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 950px) {
   .filter-row {
     width: 98%;
+    height: 43px;
   }
 }

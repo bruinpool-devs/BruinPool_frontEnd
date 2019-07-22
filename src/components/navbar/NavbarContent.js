@@ -65,23 +65,43 @@ const NavbarContent = ({ history, location }) => {
       <div className="routes">
         <h2 onClick={() => history.push("/")}>BRUINPOOL</h2>
         <div className={rideClass}>
-          <FontAwesomeIcon icon={faHome} pull="left" />
+          <FontAwesomeIcon
+            icon={faHome}
+            pull="left"
+            style={{ marginTop: "4px" }}
+          />
           <p onClick={() => history.push("/rider")}>RIDE</p>
         </div>
         <div className={driveClass}>
-          <FontAwesomeIcon icon={faCar} pull="left" />
+          <FontAwesomeIcon
+            icon={faCar}
+            pull="left"
+            style={{ marginTop: "4px" }}
+          />
           <p onClick={() => history.push("/driver")}>DRIVE</p>
         </div>
         <div className={historyClass}>
-          <FontAwesomeIcon icon={faUser} pull="left" />
+          <FontAwesomeIcon
+            icon={faUser}
+            pull="left"
+            style={{ marginTop: "4px" }}
+          />
           <p onClick={() => history.push("/history")}>RIDE HISTORY</p>
         </div>
         <div className={helpClass}>
-          <FontAwesomeIcon icon={faQuestion} pull="left" />
+          <FontAwesomeIcon
+            icon={faQuestion}
+            pull="left"
+            style={{ marginTop: "4px" }}
+          />
           <p onClick={() => history.push("/help")}>HELP</p>
         </div>
         <div className={settingsClass}>
-          <FontAwesomeIcon icon={faCog} pull="left" />
+          <FontAwesomeIcon
+            icon={faCog}
+            pull="left"
+            style={{ marginTop: "4px" }}
+          />
           <p onClick={() => history.push("/settings")}>SETTINGS</p>
         </div>
       </div>
