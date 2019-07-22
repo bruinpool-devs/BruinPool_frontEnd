@@ -25,7 +25,7 @@ const RideFeed = () => {
             <div className="card-value">{ride.from}</div>
             <div className="card-value">{ride.to}</div>
             <div className="card-value">${ride.price}</div>
-            <div className="card-value">
+            <div className="card-value" style={{ marginLeft: "-5px" }}>
               {!rideFull && <div className="circular-border">{ride.seats}</div>}
               {rideFull && <div className="circular-border-full">FULL</div>}
             </div>

@@ -14,7 +14,8 @@
   display: flex;
   flex-flow: column;
   height: 482px;
-  width: 380px;
+  width: 480px;
+  min-width: 480px;
   font-family: "Source Sans Pro", sans-serif;
   margin-top: -25px;
   margin-left: -13%;
@@ -54,5 +55,6 @@
 @media screen and (max-width: 1000px) {
   .signup-form {
     margin-left: 0;
+    margin-right: -100px;
   }
 }
