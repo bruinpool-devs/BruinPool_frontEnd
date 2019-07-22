@@ -31,7 +31,7 @@ const LocationModal = props => {
               props.toggleModal(false);
             }}
           >
-            {location}
+            <div className="location-text">{location}</div>
           </Button>
         ))}
       </div>
@@ -49,7 +49,7 @@ const LocationModal = props => {
               props.toggleModal(false);
             }}
           >
-            {location}
+            <div className="location-text">{location}</div>
           </Button>
         ))}
       </div>
@@ -64,7 +64,6 @@ const locationButtonStyle = {
   borderWidth: "1.5px",
   width: "58%",
   minWidth: "135px",
-  fontSize: "18px",
   marginTop: "12px",
   height: "30px",
   display: "flex",
