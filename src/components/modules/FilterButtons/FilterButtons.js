@@ -135,7 +135,7 @@ const FilterButtons = () => {
 var filterButtonStyle = {
   backgroundColor: "#f7f9fc",
   color: "#5C5C5C",
-  fontSize: "18px",
+  fontSize: "19px",
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
@@ -147,9 +147,9 @@ var filterButtonStyle = {
 };
 
 var mobileButtonStyle = _.extend({}, filterButtonStyle, {
-  fontSize: "11px",
-  width: "60px",
-  height: "30px",
+  fontSize: "12px",
+  width: "64px",
+  height: "31px",
   marginRight: "6px"
 });
 

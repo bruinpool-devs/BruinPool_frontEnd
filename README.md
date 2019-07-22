@@ -45,8 +45,12 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
     │   ├── components
     |   |   ├── modals
     |   |   |   ├── EditModal
-    |   |   |   └── InfoModal
+    |   |   |   ├── InfoModal
+    |   |   |   ├── LocationModal
+    |   |   |   ├── PriceModal
+    |   |   |   └── SeatsModal
     |   |   ├── modules
+    |   |   |   ├── FilterButtons
     |   |   |   ├── LoginForm
     |   |   |   ├── RideFeed
     |   |   |   ├── SignupForm
