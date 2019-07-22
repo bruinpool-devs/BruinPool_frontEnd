@@ -1,9 +1,10 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 
 import "./SignupForm.css";
 
-const SignupForm = () => {
+const SignupForm = ({ history }) => {
   return (
     <div className="signup-wrapper">
       <div className="signup-form">
@@ -20,8 +21,7 @@ const SignupForm = () => {
         </div>
         <div className="form">
           <Form>
-            <FormGroup>
-              <Label for="email">Email</Label>
+            <FormGroup style={{ marginTop: "20px", width: "317px" }}>
               <Input
                 type="email"
                 name="email"
@@ -29,34 +29,78 @@ const SignupForm = () => {
                 placeholder="youruniversityemail@address.com"
               />
             </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
+            <FormGroup style={{ marginTop: "25px", width: "317px" }}>
               <Input
                 type="password"
                 name="password"
                 id="password"
-                placeholder="mypassword"
+                placeholder="Password"
               />
             </FormGroup>
-            <FormGroup>
-              <Label for="password-confirm">Password Confirmation</Label>
+            <FormGroup style={{ marginTop: "25px", width: "317px" }}>
               <Input
                 type="password"
                 name="password-confirm"
                 id="password-confirm"
-                placeholder="mypassword"
+                placeholder="Password Confirmation"
               />
             </FormGroup>
-            <FormGroup>
-              <Label check style={{ "margin-left": "21px" }}>
+            <FormGroup style={{ marginLeft: "21px", marginTop: "25px" }}>
+              <Label check style={{ color: "#B2B2B2", fontSize: "14px" }}>
                 <Input type="checkbox" />
-                Agree to{" "}
-                <span className="terms-and-conditions">
-                  Terms and Conditions
-                </span>
+                <div>
+                  Agree to{" "}
+                  <span className="terms-and-conditions">
+                    Terms and Conditions
+                  </span>
+                </div>
               </Label>
             </FormGroup>
-            <Button>Submit</Button>
+            <div className="form-buttons">
+              <Button
+                onClick={() => history.push("/rider")}
+                style={{
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                  letterSpacing: "1px",
+                  width: "150px",
+                  height: "34px",
+                  display: "flex",
+                  borderRadius: "17px",
+                  backgroundColor: "#1D96EF",
+                  borderWidth: "0px",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center",
+                  marginRight: "18px"
+                }}
+              >
+                <div style={{ marginTop: "-3px" }}>Sign Up</div>
+              </Button>
+              <Button
+                onClick={() => history.push("/rider")}
+                style={{
+                  fontSize: "18px",
+                  fontWeight: "bold",
+                  letterSpacing: "1px",
+                  width: "150px",
+                  height: "34px",
+                  display: "flex",
+                  borderRadius: "17px",
+                  backgroundColor: "white",
+                  color: "#A2A2A2",
+                  borderWidth: "1px",
+                  borderColor: "#B2B2B2",
+                  flexDirection: "row",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  textAlign: "center"
+                }}
+              >
+                <div style={{ marginTop: "-3px" }}>Sign In</div>
+              </Button>
+            </div>
           </Form>
         </div>
       </div>
@@ -64,4 +108,4 @@ const SignupForm = () => {
   );
 };
 
-export default SignupForm;
+export default withRouter(SignupForm);

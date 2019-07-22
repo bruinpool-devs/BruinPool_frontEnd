@@ -12,11 +12,7 @@ const LandingPage = () => {
 
   return (
     <div className="landing-container">
-      <div className="landing-image">
-        <img
-          src={process.env.PUBLIC_URL + "/images/login_photo.jpg"}
-          alt="landing"
-        />
+      <div className="landing-image" style={imageStyle}>
         <div className="text">
           <h1>BRUINPOOL</h1>
           <p>Save money, Make friends</p>
@@ -27,6 +23,13 @@ const LandingPage = () => {
       </div>
     </div>
   );
+};
+
+const imageStyle = {
+  backgroundImage: `url(${process.env.PUBLIC_URL}/images/login_photo.jpg)`,
+  backgroundPosition: "center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat"
 };
 
 export default withRouter(LandingPage);
