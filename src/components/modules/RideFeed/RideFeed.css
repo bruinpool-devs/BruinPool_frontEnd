@@ -39,11 +39,7 @@
 
 .rideCard:hover {
   cursor: pointer;
-  border-style: solid;
-  border-width: 1px;
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
+  box-shadow: 0 5px 4px 0 #1d96ef;
 }
 
 .card-value {

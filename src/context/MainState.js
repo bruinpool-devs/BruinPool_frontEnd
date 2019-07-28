@@ -20,6 +20,8 @@ import {
   FETCH_NOTIFICATION
 } from "./types";
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+
 const MainState = ({ children }) => {
   const initialState = {
     authToken: "",

@@ -32,6 +32,7 @@ const RideFeed = () => {
           </div>
         );
       })}
+      <br />
     </div>
   );
 };

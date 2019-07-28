@@ -30,6 +30,12 @@
   margin-left: 15%;
 }
 
+@media screen and (max-height: 600px) {
+  .bear-image img {
+    display: none;
+  }
+}
+
 .navbar-item {
   color: white;
   font-family: "Source Sans Pro", sans-serif;
