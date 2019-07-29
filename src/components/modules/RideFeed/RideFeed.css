@@ -30,8 +30,9 @@
   color: #5c5c5c;
   min-height: 100px;
   min-width: 200px;
-  width: 100%;
+  width: 98%;
   margin-top: 11px;
+  margin-left: 1%;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   align-items: center;
@@ -39,7 +40,8 @@
 
 .rideCard:hover {
   cursor: pointer;
-  box-shadow: 0 5px 4px 0 #1d96ef;
+  box-shadow: 0 0 17px #1d96ef;
+  -webkit-box-shadow: 0 0 17px #1d96ef;
 }
 
 .card-value {
