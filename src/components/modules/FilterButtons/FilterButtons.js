@@ -24,8 +24,8 @@ class CustomInput extends Component {
 const FilterButtons = () => {
   const [, updateWindow] = useState();
   const [date, setDate] = useState(new Date());
-  const [departure, setDeparture] = useState("");
-  const [destination, setDestination] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [price, setPrice] = useState("");
   const [seats, setSeats] = useState("");
   const [modal, toggleModal] = useState(false);
@@ -52,20 +52,20 @@ const FilterButtons = () => {
       <Button
         style={chooseStyle()}
         onClick={() => {
-          setModalType("Departure");
+          setModalType("From");
           toggleModal(!modal);
         }}
       >
-        Departure
+        From
       </Button>
       <Button
         style={chooseStyle()}
         onClick={() => {
-          setModalType("Destination");
+          setModalType("To");
           toggleModal(!modal);
         }}
       >
-        Destination
+        To
       </Button>
       <Button
         style={chooseStyle()}
@@ -90,25 +90,23 @@ const FilterButtons = () => {
         toggle={() => toggleModal(!modal)}
         modalTransition={{ timeout: 100 }}
         backdropTransition={{ timeout: 100 }}
-        size={
-          modalType === "Departure" || modalType === "Destination" ? "lg" : "sm"
-        }
+        size={modalType === "From" || modalType === "To" ? "lg" : "sm"}
       >
         <ModalHeader toggle={() => toggleModal(!modal)}>
           {modalType}
         </ModalHeader>
         <ModalBody>
-          {modalType === "Departure" && (
+          {modalType === "From" && (
             <LocationModal
-              location={departure}
-              setLocation={setDeparture}
+              location={from}
+              setLocation={setFrom}
               toggleModal={toggleModal}
             />
           )}
-          {modalType === "Destination" && (
+          {modalType === "To" && (
             <LocationModal
-              location={destination}
-              setLocation={setDestination}
+              location={to}
+              setLocation={setTo}
               toggleModal={toggleModal}
             />
           )}
