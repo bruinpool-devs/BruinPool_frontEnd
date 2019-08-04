@@ -16,7 +16,6 @@
   align-items: center;
   background-color: #ffffff;
   width: 98%;
-  min-width: 310px;
   height: 10%;
   min-height: 50px;
   z-index: 100;
@@ -37,7 +36,6 @@
   margin-left: 1%;
   background-color: #ffffff;
   width: 98%;
-  min-width: 310px;
   height: 27%;
   min-height: 120px;
   z-index: 100;
@@ -83,5 +81,17 @@
     display: none;
     width: 0%;
     height: 0%;
+  }
+}
+
+@media screen and (max-width: 1300px) {
+  .upcoming-card {
+    padding: 8% 4%;
+  }
+}
+
+@media screen and (max-width: 1500px) {
+  .upcoming-card {
+    padding: 8% 8%;
   }
 }
