@@ -140,6 +140,7 @@ var filterButtonStyle = {
   alignItems: "center",
   marginRight: "19px",
   height: "36px",
+  width: "98px",
   borderRadius: "10px",
   borderColor: "#5C5C5C",
   boxShadow: "none"

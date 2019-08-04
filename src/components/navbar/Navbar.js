@@ -83,7 +83,13 @@ const Navbar = ({ children }) => {
                 BRUINPOOL
               </h2>
             </div>
-            <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center"
+              }}
+            >
               <Button
                 style={{
                   width: "48px",
@@ -95,7 +101,7 @@ const Navbar = ({ children }) => {
                 }}
               >
                 <FontAwesomeIcon
-                  style={{ width: "22px", height: "22px" }}
+                  style={{ width: "20px", height: "20px" }}
                   icon={faBell}
                 />
               </Button>
@@ -106,11 +112,11 @@ const Navbar = ({ children }) => {
                   backgroundColor: "#1D96EF",
                   borderWidth: "0px",
                   boxShadow: "none",
-                  marginRight: "5px"
+                  marginRight: "2px"
                 }}
               >
                 <FontAwesomeIcon
-                  style={{ width: "22px", height: "22px" }}
+                  style={{ width: "20px", height: "20px" }}
                   icon={faUser}
                 />
               </Button>
