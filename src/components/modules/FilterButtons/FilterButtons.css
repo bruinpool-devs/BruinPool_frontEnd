@@ -10,8 +10,9 @@
 
 @media screen and (max-width: 950px) {
   .filter-row {
-    width: 98%;
+    width: 95%;
     height: 43px;
     margin-top: 2px;
+    padding-bottom: 2px;
   }
 }

@@ -147,8 +147,8 @@ var filterButtonStyle = {
 };
 
 var mobileButtonStyle = _.extend({}, filterButtonStyle, {
-  fontSize: "14px",
-  width: "72px",
+  fontSize: "13px",
+  width: "67px",
   height: "30px",
   marginRight: "6px"
 });
