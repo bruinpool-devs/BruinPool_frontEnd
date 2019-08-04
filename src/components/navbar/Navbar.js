@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Sidebar from "react-sidebar";
 import NavBarContent from "./NavbarContent";
-import { Button } from "reactstrap";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { Button, Navbar as MobileBar } from "reactstrap";
+import { faBars, faBell, faUser } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const mobileView = window.matchMedia(`(min-width: 950px)`);
@@ -46,20 +46,76 @@ const Navbar = ({ children }) => {
     >
       <div className="bars-container">
         {renderButton && (
-          <Button
-            style={{
-              width: "40px",
-              height: "40px",
-              margin: "5px 0px 0px 10px",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
-            color="primary"
-            onClick={() => onSetSidebarOpen(true)}
-          >
-            <FontAwesomeIcon icon={faBars} />
-          </Button>
+          <MobileBar style={{ backgroundColor: "#1d96ef", height: "60px" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center"
+              }}
+            >
+              <Button
+                style={{
+                  width: "40px",
+                  height: "40px",
+                  margin: "5px 0px 5px 0px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  backgroundColor: "#1d96ef",
+                  borderWidth: "0px",
+                  boxShadow: "none"
+                }}
+                onClick={() => onSetSidebarOpen(true)}
+              >
+                <FontAwesomeIcon
+                  icon={faBars}
+                  style={{ width: "18px", height: "18px" }}
+                />
+              </Button>
+              <h2
+                style={{
+                  color: "white",
+                  margin: "0px 0px 0px 6px",
+                  fontSize: "25px"
+                }}
+              >
+                BRUINPOOL
+              </h2>
+            </div>
+            <div>
+              <Button
+                style={{
+                  width: "48px",
+                  height: "48px",
+                  backgroundColor: "#1D96EF",
+                  borderWidth: "0px",
+                  boxShadow: "none",
+                  marginRight: "8px"
+                }}
+              >
+                <FontAwesomeIcon
+                  style={{ width: "22px", height: "22px" }}
+                  icon={faBell}
+                />
+              </Button>
+              <Button
+                style={{
+                  width: "48px",
+                  height: "48px",
+                  backgroundColor: "#1D96EF",
+                  borderWidth: "0px",
+                  boxShadow: "none",
+                  marginRight: "5px"
+                }}
+              >
+                <FontAwesomeIcon
+                  style={{ width: "22px", height: "22px" }}
+                  icon={faUser}
+                />
+              </Button>
+            </div>
+          </MobileBar>
         )}
       </div>
       {children}

@@ -28,7 +28,6 @@ const LocationModal = props => {
             }
             onClick={() => {
               props.setLocation(location);
-              props.toggleModal(false);
             }}
           >
             <div className="location-text">{location}</div>
@@ -46,7 +45,6 @@ const LocationModal = props => {
             }
             onClick={() => {
               props.setLocation(location);
-              props.toggleModal(false);
             }}
           >
             <div className="location-text">{location}</div>
@@ -69,7 +67,8 @@ const locationButtonStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
+  boxShadow: "none"
 };
 
 var activeButtonStyle = _.extend({}, locationButtonStyle, {

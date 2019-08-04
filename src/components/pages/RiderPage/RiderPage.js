@@ -27,7 +27,8 @@ const RiderPage = () => {
                       width: "48px",
                       height: "48px",
                       backgroundColor: "#1D96EF",
-                      borderWidth: "0px"
+                      borderWidth: "0px",
+                      boxShadow: "none"
                     }}
                   >
                     <FontAwesomeIcon
@@ -42,7 +43,8 @@ const RiderPage = () => {
                       width: "48px",
                       height: "48px",
                       backgroundColor: "#1D96EF",
-                      borderWidth: "0px"
+                      borderWidth: "0px",
+                      boxShadow: "none"
                     }}
                   >
                     <FontAwesomeIcon

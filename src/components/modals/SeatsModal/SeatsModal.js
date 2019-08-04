@@ -15,7 +15,6 @@ const SeatsModal = props => {
           style={props.seats === filter ? activeButtonStyle : seatsButtonStyle}
           onClick={() => {
             props.setSeats(filter);
-            props.toggleModal(false);
           }}
         >
           {filter}
@@ -37,7 +36,8 @@ const seatsButtonStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
+  boxShadow: "none"
 };
 
 var activeButtonStyle = _.extend({}, seatsButtonStyle, {

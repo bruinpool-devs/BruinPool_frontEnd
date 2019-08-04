@@ -141,13 +141,14 @@ var filterButtonStyle = {
   marginRight: "19px",
   height: "36px",
   borderRadius: "10px",
-  borderColor: "#5C5C5C"
+  borderColor: "#5C5C5C",
+  boxShadow: "none"
 };
 
 var mobileButtonStyle = _.extend({}, filterButtonStyle, {
-  fontSize: "12px",
-  width: "64px",
-  height: "31px",
+  fontSize: "14px",
+  width: "72px",
+  height: "30px",
   marginRight: "6px"
 });
 

@@ -15,7 +15,6 @@ const PriceModal = props => {
           style={props.price === filter ? activeButtonStyle : filterButtonStyle}
           onClick={() => {
             props.setPrice(filter);
-            props.toggleModal(false);
           }}
         >
           {filter}
@@ -38,7 +37,8 @@ const filterButtonStyle = {
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
-  alignItems: "center"
+  alignItems: "center",
+  boxShadow: "none"
 };
 
 var activeButtonStyle = _.extend({}, filterButtonStyle, {

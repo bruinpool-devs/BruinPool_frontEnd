@@ -12,5 +12,6 @@
   .filter-row {
     width: 98%;
     height: 43px;
+    margin-top: 2px;
   }
 }
