@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+
+.post-drive-modal-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 50px;
+  font-family: "Source Sans Pro", sans-serif;
+  justify-content: center;
+}
+
+.post-drive-title {
+  color: #1d96ef;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-size: 25px;
+}
+
+.post-drive-options {
+  display: flex;
+  flex-direction: column;
+}
+
+.post-drive-location {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-drive-etc {
+  display: flex;
+  flex-direction: row;
+}
+
+.post-drive-button {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
