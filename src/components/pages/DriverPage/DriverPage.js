@@ -26,7 +26,7 @@ const DriverPage = () => {
               size="lg"
             >
               <ModalBody>
-                <PostDriveModal />
+                <PostDriveModal modal={modal} toggleModal={toggleModal} />
               </ModalBody>
             </Modal>
             <div className="title-row">
