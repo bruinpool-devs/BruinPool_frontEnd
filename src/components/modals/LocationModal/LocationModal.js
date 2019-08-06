@@ -15,10 +15,32 @@ const soCal = [
 ];
 
 const LocationModal = props => {
+  const locationButtonStyle = {
+    backgroundColor: props.buttonColor,
+    color: props.textColor,
+    borderRadius: "15px",
+    borderWidth: "1.5px",
+    width: props.buttonWidth,
+    minWidth: "135px",
+    marginTop: "12px",
+    height: "30px",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    boxShadow: "none",
+    borderColor: props.borderColor
+  };
+
+  var activeButtonStyle = _.extend({}, locationButtonStyle, {
+    backgroundColor: "#1D96EF",
+    color: "white"
+  });
+
   return (
     <div className="location-modal-wrapper">
       <div className="location-section">
-        <p>NORTHERN CALIFORNIA</p>
+        <p style={{ color: props.titleColor }}>NORTHERN CALIFORNIA</p>
         {norCal.map(location => (
           <Button
             style={
@@ -35,7 +57,7 @@ const LocationModal = props => {
         ))}
       </div>
       <div className="location-section">
-        <p>SOUTHERN CALIFORNIA</p>
+        <p style={{ color: props.titleColor }}>SOUTHERN CALIFORNIA</p>
         {soCal.map(location => (
           <Button
             style={
@@ -54,26 +76,5 @@ const LocationModal = props => {
     </div>
   );
 };
-
-const locationButtonStyle = {
-  backgroundColor: "white",
-  color: "#5C5C5C",
-  borderRadius: "15px",
-  borderWidth: "1.5px",
-  width: "58%",
-  minWidth: "135px",
-  marginTop: "12px",
-  height: "30px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  boxShadow: "none"
-};
-
-var activeButtonStyle = _.extend({}, locationButtonStyle, {
-  backgroundColor: "#1D96EF",
-  color: "white"
-});
 
 export default LocationModal;

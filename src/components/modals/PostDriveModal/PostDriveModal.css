@@ -10,6 +10,12 @@
   justify-content: center;
 }
 
+@media screen and (max-width: 950px) {
+  .post-drive-modal-wrapper {
+    padding: 0px;
+  }
+}
+
 .post-drive-title {
   color: #1d96ef;
   font-weight: bold;

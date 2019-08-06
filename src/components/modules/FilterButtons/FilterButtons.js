@@ -101,6 +101,11 @@ const FilterButtons = () => {
               location={from}
               setLocation={setFrom}
               toggleModal={toggleModal}
+              buttonColor="white"
+              buttonWidth="58%"
+              textColor="#5C5C5C"
+              borderColor="#5C5C5C"
+              titleColor="black"
             />
           )}
           {modalType === "To" && (
@@ -108,6 +113,11 @@ const FilterButtons = () => {
               location={to}
               setLocation={setTo}
               toggleModal={toggleModal}
+              buttonColor="white"
+              buttonWidth="58%"
+              textColor="#5C5C5C"
+              borderColor="#5C5C5C"
+              titleColor="black"
             />
           )}
           {modalType === "Price" && (
