@@ -12,6 +12,7 @@ const PriceModal = props => {
     <div className="price-modal-wrapper">
       {filters.map(filter => (
         <Button
+          key={filter}
           style={props.price === filter ? activeButtonStyle : filterButtonStyle}
           onClick={() => {
             props.setPrice(filter);

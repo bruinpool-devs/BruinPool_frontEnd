@@ -5,6 +5,7 @@ import DatePicker from "react-datepicker";
 import LocationModal from "../../modals/LocationModal/LocationModal";
 import PriceModal from "../../modals/PriceModal/PriceModal";
 import SeatsModal from "../../modals/SeatsModal/SeatsModal";
+import TimeModal from "../../modals/TimeModal/TimeModal";
 
 import "./FilterButtons.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,7 +16,7 @@ class CustomInput extends Component {
   render() {
     return (
       <Button style={chooseStyle()} onClick={this.props.onClick}>
-        Date/Time
+        Date
       </Button>
     );
   }
@@ -24,12 +25,29 @@ class CustomInput extends Component {
 const FilterButtons = () => {
   const [, updateWindow] = useState();
   const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("");
+  const [timePeriod, setTimePeriod] = useState("AM");
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [price, setPrice] = useState("");
   const [seats, setSeats] = useState("");
   const [modal, toggleModal] = useState(false);
   const [modalType, setModalType] = useState("");
+
+  var modalSize = "";
+
+  switch (modalType) {
+    case "From":
+    case "To":
+      modalSize = "lg";
+      break;
+    case "Time":
+      modalSize = "md";
+      break;
+    default:
+      modalSize = "sm";
+      break;
+  }
 
   useEffect(() => {
     window.onresize = () => {
@@ -43,12 +61,16 @@ const FilterButtons = () => {
         customInput={<CustomInput />}
         selected={date}
         onChange={date => setDate(date)}
-        showTimeSelect
-        timeFormat="HH:mm"
-        timeIntervals={15}
-        dateFormat="MMMM d, yyyy h:mm aa"
-        timeCaption="Time"
       />
+      <Button
+        style={chooseStyle()}
+        onClick={() => {
+          setModalType("Time");
+          toggleModal(!modal);
+        }}
+      >
+        Time
+      </Button>
       <Button
         style={chooseStyle()}
         onClick={() => {
@@ -90,12 +112,25 @@ const FilterButtons = () => {
         toggle={() => toggleModal(!modal)}
         modalTransition={{ timeout: 100 }}
         backdropTransition={{ timeout: 100 }}
-        size={modalType === "From" || modalType === "To" ? "lg" : "sm"}
+        size={modalSize}
       >
         <ModalHeader toggle={() => toggleModal(!modal)}>
           {modalType}
         </ModalHeader>
         <ModalBody>
+          {modalType === "Time" && (
+            <TimeModal
+              time={time}
+              setTime={setTime}
+              timePeriod={timePeriod}
+              setTimePeriod={setTimePeriod}
+              toggleModal={toggleModal}
+              buttonColor="white"
+              textColor="#5C5C5C"
+              borderColor="#5C5C5C"
+              iconColor="#5C5C5C"
+            />
+          )}
           {modalType === "From" && (
             <LocationModal
               location={from}
@@ -132,6 +167,9 @@ const FilterButtons = () => {
               setSeats={setSeats}
               seats={seats}
               toggleModal={toggleModal}
+              buttonColor="white"
+              textColor="#5C5C5C"
+              borderColor="#5C5C5C"
             />
           )}
         </ModalBody>
@@ -150,7 +188,7 @@ var filterButtonStyle = {
   alignItems: "center",
   marginRight: "19px",
   height: "36px",
-  width: "98px",
+  width: "90px",
   borderRadius: "10px",
   borderColor: "#5C5C5C",
   boxShadow: "none"
@@ -158,7 +196,7 @@ var filterButtonStyle = {
 
 var mobileButtonStyle = _.extend({}, filterButtonStyle, {
   fontSize: "13px",
-  width: "67px",
+  width: "50px",
   height: "30px",
   marginRight: "6px"
 });

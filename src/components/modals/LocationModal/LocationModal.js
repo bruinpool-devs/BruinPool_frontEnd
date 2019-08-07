@@ -43,6 +43,7 @@ const LocationModal = props => {
         <p style={{ color: props.titleColor }}>NORTHERN CALIFORNIA</p>
         {norCal.map(location => (
           <Button
+            key={location}
             style={
               props.location === location
                 ? activeButtonStyle
@@ -60,6 +61,7 @@ const LocationModal = props => {
         <p style={{ color: props.titleColor }}>SOUTHERN CALIFORNIA</p>
         {soCal.map(location => (
           <Button
+            key={location}
             style={
               props.location === location
                 ? activeButtonStyle

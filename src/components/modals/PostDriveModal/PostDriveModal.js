@@ -1,6 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import { Button, Input, UncontrolledPopover, PopoverBody } from "reactstrap";
 import DatePicker from "react-datepicker";
+import NumericInput from "react-numeric-input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMapMarkerAlt,
@@ -13,6 +14,8 @@ import {
 } from "@fortawesome/free-regular-svg-icons";
 
 import LocationModal from "../LocationModal/LocationModal";
+import SeatsModal from "../SeatsModal/SeatsModal";
+import TimeModal from "../TimeModal/TimeModal";
 
 import "./PostDriveModal.css";
 
@@ -51,9 +54,10 @@ const PostDriveModal = ({ modal, toggleModal }) => {
   const [from, setFrom] = useState("From");
   const [to, setTo] = useState("To");
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState(new Date());
+  const [time, setTime] = useState("Time");
+  const [timePeriod, setTimePeriod] = useState("AM");
   const [price, setPrice] = useState(0);
-  const [seats, setSeats] = useState(0);
+  const [seats, setSeats] = useState("Seats");
   const [desc, setDesc] = useState("Test Description");
 
   useEffect(() => {
@@ -86,8 +90,19 @@ const PostDriveModal = ({ modal, toggleModal }) => {
     color: to === "To" ? "#D3D3D3" : "#5C5C5C"
   });
 
-  const etcStyle = _.extend({}, locationStyle, {
-    width: "92%"
+  const timeStyle = _.extend({}, locationStyle, {
+    width: "92%",
+    color: time === "Time" ? "#D3D3D3" : "#5C5C5C"
+  });
+
+  const priceStyle = _.extend({}, locationStyle, {
+    width: "92%",
+    color: price === 0 ? "#D3D3D3" : "#5C5C5C"
+  });
+
+  const seatStyle = _.extend({}, locationStyle, {
+    width: "92%",
+    color: seats === "Seats" ? "#D3D3D3" : "#5C5C5C"
   });
 
   const descStyle = _.extend({}, locationStyle, {
@@ -112,6 +127,7 @@ const PostDriveModal = ({ modal, toggleModal }) => {
               <div style={{ marginLeft: "7px" }}>{from}</div>
             </Button>
             <UncontrolledPopover
+              hideArrow={true}
               trigger="legacy"
               placement="bottom"
               target="FromButton"
@@ -143,6 +159,7 @@ const PostDriveModal = ({ modal, toggleModal }) => {
               <div style={{ marginLeft: "7px" }}>{to}</div>
             </Button>
             <UncontrolledPopover
+              hideArrow={true}
               trigger="legacy"
               placement="bottom"
               target="ToButton"
@@ -178,27 +195,101 @@ const PostDriveModal = ({ modal, toggleModal }) => {
               />
             </div>
             <div className="etc-input">
-              <Button style={etcStyle}>
+              <Button style={timeStyle} id="TimeButton">
                 <FontAwesomeIcon icon={faClock} style={{ color: "#FF9393" }} />
-                <div style={{ marginLeft: "7px" }}>Time</div>
+                <div style={{ marginLeft: "7px" }}>
+                  {time === "Time" ? time : `${time} ${timePeriod}`}
+                </div>
               </Button>
+              <UncontrolledPopover
+                hideArrow={true}
+                trigger="legacy"
+                placement="bottom"
+                target="TimeButton"
+                style={{
+                  borderRadius: "4px",
+                  backgroundColor: "#5C5C5C",
+                  width: window.innerWidth > 950 ? "190%" : "150%"
+                }}
+              >
+                <PopoverBody>
+                  <TimeModal
+                    time={time}
+                    setTime={setTime}
+                    timePeriod={timePeriod}
+                    setTimePeriod={setTimePeriod}
+                    buttonColor="#5C5C5C"
+                    textColor="white"
+                    borderColor="white"
+                    iconColor="white"
+                  />
+                </PopoverBody>
+              </UncontrolledPopover>
             </div>
           </div>
           <div className="half-inputs">
             <div className="etc-input">
-              <Button style={etcStyle}>
+              <Button style={priceStyle} id="PriceButton">
                 <FontAwesomeIcon
                   icon={faDollarSign}
                   style={{ color: "#7CDDA6" }}
                 />
-                <div style={{ marginLeft: "7px" }}>Price</div>
+                <div style={{ marginLeft: "7px" }}>
+                  {price === 0 ? "Price" : price}
+                </div>
               </Button>
+              <UncontrolledPopover
+                hideArrow={true}
+                trigger="legacy"
+                placement="bottom"
+                target="PriceButton"
+                style={{
+                  borderRadius: "4px",
+                  backgroundColor: "#5C5C5C"
+                }}
+              >
+                <PopoverBody>
+                  <NumericInput
+                    min={0}
+                    max={100}
+                    value={price}
+                    onChange={price => setPrice(price)}
+                    style={{
+                      input: {
+                        height: "30px"
+                      }
+                    }}
+                  />
+                </PopoverBody>
+              </UncontrolledPopover>
             </div>
             <div className="etc-input">
-              <Button style={etcStyle}>
+              <Button style={seatStyle} id="SeatButton">
                 <FontAwesomeIcon icon={faUser} style={{ color: "#A2DAEF" }} />
-                <div style={{ marginLeft: "7px" }}>Seats</div>
+                <div style={{ marginLeft: "7px" }}>{seats}</div>
               </Button>
+              <UncontrolledPopover
+                hideArrow={true}
+                trigger="legacy"
+                placement="bottom"
+                target="SeatButton"
+                style={{
+                  borderRadius: "4px",
+                  backgroundColor: "#5C5C5C",
+                  width: window.innerWidth > 950 ? "150%" : "230px",
+                  marginLeft: window.innerWidth > 950 ? "-43px" : "-80px"
+                }}
+              >
+                <PopoverBody>
+                  <SeatsModal
+                    seats={seats}
+                    setSeats={setSeats}
+                    buttonColor="#5C5C5C"
+                    textColor="white"
+                    borderColor="white"
+                  />
+                </PopoverBody>
+              </UncontrolledPopover>
             </div>
           </div>
         </div>
