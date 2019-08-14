@@ -1,10 +1,103 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import {
+  Button,
+  Form,
+  FormGroup,
+  FormFeedback,
+  Label,
+  Input
+} from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+
+import MainContext from "../../../context/mainContext";
 
 import "./SignupForm.css";
 
-const SignupForm = ({ history }) => {
+const SignupForm = ({ history, renderLoginForm }) => {
+  const [username, setUsername] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [checked, setChecked] = useState(false);
+
+  const [usernameValid, setUsernameValid] = useState("");
+  const [usernameFeedback, setUsernameFeedback] = useState("");
+  const [nameValid, setNameValid] = useState("");
+  const [passwordValid, setPasswordValid] = useState("");
+  const [passwordConfirmValid, setPasswordConfirmValid] = useState("");
+  const [checkedValid, setCheckedValid] = useState("");
+
+  const mainContext = useContext(MainContext);
+
+  const validateUsername = async () => {
+    if (username === "") {
+      setUsernameValid("false");
+      setUsernameFeedback("Email should not be empty.");
+      return;
+    }
+
+    const response = await mainContext.validateUsername(username);
+
+    if (response === "true") {
+      setUsernameValid("true");
+    } else {
+      setUsernameValid("false");
+      setUsernameFeedback("Email is already taken.");
+    }
+  };
+
+  const validateName = () => {
+    if (name === "") {
+      setNameValid("false");
+    } else {
+      setNameValid("true");
+    }
+  };
+
+  const validatePassword = () => {
+    if (password === "") {
+      setPasswordValid("false");
+    } else {
+      setPasswordValid("true");
+    }
+  };
+
+  const validatePasswordConfirm = () => {
+    if (password === passwordConfirm && passwordConfirm !== "") {
+      setPasswordConfirmValid("true");
+    } else {
+      setPasswordConfirmValid("false");
+    }
+  };
+
+  const validateChecked = () => {
+    if (checked === true) {
+      setCheckedValid("true");
+    } else {
+      setCheckedValid("false");
+    }
+  };
+
+  const handleSignup = () => {
+    validateChecked();
+    if (checked === false) {
+      return;
+    }
+
+    if (
+      usernameValid === "true" &&
+      nameValid === "true" &&
+      passwordValid === "true" &&
+      passwordConfirmValid === "true"
+    ) {
+      mainContext.signup(password, username, name);
+    } else {
+      alert("Please check that all fields are filled and valid!");
+    }
+  };
+
   return (
     <div className="signup-wrapper">
       <div className="signup-form">
@@ -13,52 +106,131 @@ const SignupForm = ({ history }) => {
             src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
             alt="bear"
           />
-          <h3>Sign in to start riding</h3>
+          <h3>Sign up to start riding</h3>
           <p>
             Use your <span className="blue-text">university email</span> to
-            create your account and start riding!
+            create your account!
           </p>
         </div>
         <div className="form">
           <Form>
-            <FormGroup style={{ marginTop: "20px", width: "317px" }}>
+            <FormGroup
+              style={{
+                marginTop: "15px",
+                width: "317px"
+              }}
+            >
               <Input
+                valid={usernameValid === "true"}
+                invalid={usernameValid === "false"}
+                style={{ width: "205px", display: "inline" }}
                 type="email"
                 name="email"
                 id="email"
-                placeholder="youruniversityemail@address.com"
+                placeholder="youruniversityemail"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                onBlur={validateUsername}
               />
+              <div
+                style={{
+                  fontSize: "20px",
+                  marginLeft: "5px",
+                  display: "inline"
+                }}
+              >
+                @g.ucla.edu
+              </div>
+              <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
+                {usernameFeedback}
+              </FormFeedback>
             </FormGroup>
-            <FormGroup style={{ marginTop: "25px", width: "317px" }}>
+            <FormGroup style={{ width: "317px" }}>
               <Input
+                valid={nameValid === "true"}
+                invalid={nameValid === "false"}
+                type="name"
+                name="name"
+                id="name"
+                placeholder="Name (i.e. Joe, Josephine)"
+                value={name}
+                onChange={e => setName(e.target.value)}
+                onBlur={validateName}
+              />
+              <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
+                Name should not be empty.
+              </FormFeedback>
+            </FormGroup>
+            <FormGroup style={{ width: "317px" }}>
+              <Input
+                valid={passwordValid === "true"}
+                invalid={passwordValid === "false"}
                 type="password"
                 name="password"
                 id="password"
                 placeholder="Password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                onBlur={validatePassword}
               />
+              <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
+                Password should not be empty.
+              </FormFeedback>
             </FormGroup>
-            <FormGroup style={{ marginTop: "25px", width: "317px" }}>
+            <FormGroup style={{ width: "317px" }}>
               <Input
+                valid={passwordConfirmValid === "true"}
+                invalid={passwordConfirmValid === "false"}
                 type="password"
                 name="password-confirm"
                 id="password-confirm"
                 placeholder="Password Confirmation"
+                value={passwordConfirm}
+                onChange={e => setPasswordConfirm(e.target.value)}
+                onBlur={validatePasswordConfirm}
               />
+              <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
+                Passwords are not matching.
+              </FormFeedback>
             </FormGroup>
-            <FormGroup style={{ marginLeft: "21px", marginTop: "25px" }}>
+            <FormGroup style={{ marginLeft: "21px" }}>
               <Label check style={{ color: "#B2B2B2", fontSize: "15px" }}>
-                <Input type="checkbox" />
+                <Input
+                  invalid={checkedValid === "false"}
+                  type="checkbox"
+                  checked={checked}
+                  onChange={e => setChecked(e.target.checked)}
+                />
                 <div>
                   Agree to{" "}
                   <span className="terms-and-conditions">
                     Terms and Conditions
                   </span>
                 </div>
+                <FormFeedback invalid="true">
+                  <FontAwesomeIcon
+                    icon={faExclamationTriangle}
+                    style={{
+                      display: "inline",
+                      marginLeft: "-19px",
+                      width: "14px",
+                      height: "14px"
+                    }}
+                  />
+                  <div
+                    style={{
+                      display: "inline",
+                      marginLeft: "5px"
+                    }}
+                  >
+                    Please agree to terms and conditions.
+                  </div>
+                </FormFeedback>
               </Label>
             </FormGroup>
             <div className="form-buttons">
               <Button
-                onClick={() => history.push("/rider")}
+                onClick={handleSignup}
                 style={{
                   fontSize: "18px",
                   fontWeight: "bold",
@@ -79,7 +251,7 @@ const SignupForm = ({ history }) => {
                 <div style={{ marginTop: "-3px" }}>Sign Up</div>
               </Button>
               <Button
-                onClick={() => history.push("/rider")}
+                onClick={() => renderLoginForm(true)}
                 style={{
                   fontSize: "18px",
                   fontWeight: "bold",

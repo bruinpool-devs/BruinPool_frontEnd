@@ -1,14 +1,13 @@
-import React, { useContext } from "react";
+import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
 
 import SignupForm from "../../modules/SignupForm/SignupForm";
-import MainContext from "../../../context/mainContext";
+import LoginForm from "../../modules/LoginForm/LoginForm";
 
 import "./LandingPage.css";
 
 const LandingPage = () => {
-  const mainContext = useContext(MainContext);
-  console.log(mainContext.userInfo);
+  const [loginForm, renderLoginForm] = useState(false);
 
   return (
     <div className="landing-container">
@@ -19,7 +18,11 @@ const LandingPage = () => {
         </div>
       </div>
       <div className="login-section">
-        <SignupForm />
+        {!loginForm ? (
+          <SignupForm renderLoginForm={renderLoginForm} />
+        ) : (
+          <LoginForm renderLoginForm={renderLoginForm} />
+        )}
       </div>
     </div>
   );

@@ -41,18 +41,58 @@ const MainState = ({ children }) => {
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
 
+  // SIGNUP
+  const signup = (password, username, name) => {
+    const signupInfo = {
+      password,
+      username,
+      name
+    };
+
+    axios
+      .post("/users/signup", signupInfo)
+      .then(() => {
+        alert("User signed up!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // VALIDATE USERNAME
+  const validateUsername = async username => {
+    var validity = "";
+
+    await axios
+      .get("/users/usernameValidation", {
+        params: {
+          username
+        }
+      })
+      .then(res => {
+        if (res.data.length === 0) {
+          validity = "true";
+        } else {
+          validity = "false";
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+
+    return validity;
+  };
+
   // LOGIN
   const login = (email, password) => {
     const cookies = new Cookies();
+    const loginInfo = {
+      email,
+      password
+    };
 
     axios
-      .get("/login", {
-        params: {
-          email,
-          password,
-          type: "login"
-        }
-      })
+      .get("/users/login", loginInfo)
       .then(res => {
         if (res.data.length === 0) {
           alert("Email or password is incorrect.");
@@ -61,7 +101,7 @@ const MainState = ({ children }) => {
             email: res.data.email,
             authToken: res.data.authToken
           };
-          cookies.set("authToken", authToken, { path: "/" });
+          cookies.set("authToken", authToken);
           dispatch({
             type: LOGIN,
             payload: res.data
@@ -476,6 +516,8 @@ const MainState = ({ children }) => {
         infoModal: state.infoModal,
         newNoti: state.newNoti,
         oldNoti: state.oldNoti,
+        signup,
+        validateUsername,
         login,
         cookieAuth,
         logout,
