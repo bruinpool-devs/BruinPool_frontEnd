@@ -47,19 +47,24 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
     |   |   |   ├── EditModal
     |   |   |   ├── InfoModal
     |   |   |   ├── LocationModal
+    |   |   |   ├── PostDriveModal
     |   |   |   ├── PriceModal
-    |   |   |   └── SeatsModal
+    |   |   |   ├── SeatsModal
+    |   |   |   └── TimeModal
     |   |   ├── modules
+    |   |   |   ├── DriveHistory
     |   |   |   ├── FilterButtons
     |   |   |   ├── LoginForm
     |   |   |   ├── RideFeed
     |   |   |   ├── SignupForm
+    |   |   |   ├── UpcomingDrives
     |   |   |   └── UpcomingFeed
     |   |   ├── navbar
     |   |   └── pages
     |   |   |   ├── DriverPage
     |   |   |   ├── HelpPage
     |   |   |   ├── LandingPage
+    |   |   |   ├── LoginPage
     |   |   |   ├── MyAccountPage
     |   |   |   ├── NotificationPage
     |   |   |   ├── RideHistoryPage
@@ -92,6 +97,7 @@ decided to incorporate [React Hooks](https://reactjs.org/docs/hooks-intro.html) 
 | Component        | Route          |
 | ---------------- | -------------- |
 | LandingPage      | /              |
+| LoginPage        | /login         |
 | RiderPage        | /rider         |
 | DriverPage       | /driver        |
 | RideHistoryPage  | /history       |
