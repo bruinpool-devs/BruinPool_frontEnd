@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-import SignupForm from "../../modules/SignupForm/SignupForm";
+import LoginForm from "../../modules/LoginForm/LoginForm";
 
-import "./LandingPage.css";
+import "../LandingPage/LandingPage.css";
 
-const LandingPage = ({ history }) => {
+const LoginPage = ({ history }) => {
   useEffect(() => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
@@ -25,7 +25,7 @@ const LandingPage = ({ history }) => {
         </div>
       </div>
       <div className="login-section">
-        <SignupForm />
+        <LoginForm />
       </div>
     </div>
   );
@@ -38,4 +38,4 @@ const imageStyle = {
   backgroundRepeat: "no-repeat"
 };
 
-export default withRouter(LandingPage);
+export default withRouter(LoginPage);

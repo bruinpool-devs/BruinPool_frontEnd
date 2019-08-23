@@ -1,19 +1,29 @@
 import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Form, FormGroup, Input } from "reactstrap";
+import { Button, Form, FormGroup, FormFeedback, Input } from "reactstrap";
 
 import MainContext from "../../../context/mainContext";
 
 import "./LoginForm.css";
 
-const LoginForm = ({ history, renderLoginForm }) => {
+const LoginForm = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loginValid, setLoginValid] = useState("");
 
   const mainContext = useContext(MainContext);
 
-  const handleLogin = () => {
-    mainContext.login(email, password);
+  const handleLogin = async () => {
+    const fullEmail = email.concat("@g.ucla.edu");
+
+    const response = await mainContext.login(fullEmail, password);
+
+    if (!response) {
+      setLoginValid("false");
+    } else {
+      setLoginValid("true");
+      history.push("/rider");
+    }
   };
 
   return (
@@ -35,33 +45,55 @@ const LoginForm = ({ history, renderLoginForm }) => {
             <FormGroup
               style={{
                 marginTop: "15px",
-                width: "310px",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center"
+                width: "317px"
               }}
             >
               <Input
+                invalid={loginValid === "false"}
                 type="email"
                 name="email"
                 id="email"
                 placeholder="youruniversityemail"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
+                style={{ width: "205px", display: "inline" }}
+                onKeyDown={e => {
+                  if (e.key === "Enter") {
+                    handleLogin();
+                  }
+                }}
               />
-              <div style={{ fontSize: "20px", marginLeft: "5px" }}>
+              <div
+                style={{
+                  fontSize: "20px",
+                  marginLeft: "5px",
+                  display: "inline"
+                }}
+              >
                 @g.ucla.edu
               </div>
+              <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
+                Email or password may be incorrect.
+              </FormFeedback>
             </FormGroup>
             <FormGroup style={{ marginTop: "20px", width: "317px" }}>
               <Input
+                invalid={loginValid === "false"}
                 type="password"
                 name="password"
                 id="password"
                 placeholder="Password"
                 value={password}
                 onChange={e => setPassword(e.target.value)}
+                onKeyDown={e => {
+                  if (e.key === "Enter") {
+                    handleLogin();
+                  }
+                }}
               />
+              <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
+                Email or password may be incorrect.
+              </FormFeedback>
             </FormGroup>
             <div className="form-buttons">
               <Button
@@ -86,7 +118,7 @@ const LoginForm = ({ history, renderLoginForm }) => {
                 <div style={{ marginTop: "-3px" }}>Sign In</div>
               </Button>
               <Button
-                onClick={() => renderLoginForm(false)}
+                onClick={() => history.push("/")}
                 style={{
                   fontSize: "18px",
                   fontWeight: "bold",

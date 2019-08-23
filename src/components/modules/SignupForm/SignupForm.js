@@ -15,7 +15,7 @@ import MainContext from "../../../context/mainContext";
 
 import "./SignupForm.css";
 
-const SignupForm = ({ history, renderLoginForm }) => {
+const SignupForm = ({ history }) => {
   const [username, setUsername] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
@@ -82,6 +82,11 @@ const SignupForm = ({ history, renderLoginForm }) => {
 
   const handleSignup = () => {
     validateChecked();
+    validatePasswordConfirm();
+    validatePassword();
+    validateName();
+    validateUsername();
+
     if (checked === false) {
       return;
     }
@@ -93,8 +98,6 @@ const SignupForm = ({ history, renderLoginForm }) => {
       passwordConfirmValid === "true"
     ) {
       mainContext.signup(password, username, name);
-    } else {
-      alert("Please check that all fields are filled and valid!");
     }
   };
 
@@ -251,7 +254,7 @@ const SignupForm = ({ history, renderLoginForm }) => {
                 <div style={{ marginTop: "-3px" }}>Sign Up</div>
               </Button>
               <Button
-                onClick={() => renderLoginForm(true)}
+                onClick={() => history.push("/login")}
                 style={{
                   fontSize: "18px",
                   fontWeight: "bold",

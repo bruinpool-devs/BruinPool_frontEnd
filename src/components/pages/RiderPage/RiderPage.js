@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
+
 import { Button } from "reactstrap";
 import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,7 +13,16 @@ import FilterButtons from "../../modules/FilterButtons/FilterButtons";
 
 import "./RiderPage.css";
 
-const RiderPage = () => {
+const RiderPage = ({ history }) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (!authToken) {
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div>
       <Navbar>
@@ -67,4 +79,4 @@ const RiderPage = () => {
   );
 };
 
-export default RiderPage;
+export default withRouter(RiderPage);

@@ -84,33 +84,35 @@ const MainState = ({ children }) => {
   };
 
   // LOGIN
-  const login = (email, password) => {
+  const login = async (email, password) => {
     const cookies = new Cookies();
     const loginInfo = {
       email,
       password
     };
 
-    axios
-      .get("/users/login", loginInfo)
+    var validity = false;
+
+    await axios
+      .post("/users/login", loginInfo)
       .then(res => {
-        if (res.data.length === 0) {
-          alert("Email or password is incorrect.");
-        } else {
-          const authToken = {
-            email: res.data.email,
-            authToken: res.data.authToken
-          };
-          cookies.set("authToken", authToken);
+        if (res.status === 200) {
+          cookies.set("authToken", res.data.authToken, { path: "/" });
           dispatch({
             type: LOGIN,
             payload: res.data
           });
+
+          console.log(res.data.authToken);
+
+          validity = true;
         }
       })
       .catch(error => {
         console.error(error);
       });
+
+    return validity;
   };
 
   // AUTHENTICATE COOKIE

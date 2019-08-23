@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
+
 import { Button, Modal, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faBell } from "@fortawesome/free-regular-svg-icons";
@@ -10,8 +13,17 @@ import PostDriveModal from "../../modals/PostDriveModal/PostDriveModal";
 
 import "./DriverPage.css";
 
-const DriverPage = () => {
+const DriverPage = ({ history }) => {
   const [modal, toggleModal] = useState(false);
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (!authToken) {
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div>
@@ -99,4 +111,4 @@ const DriverPage = () => {
   );
 };
 
-export default DriverPage;
+export default withRouter(DriverPage);

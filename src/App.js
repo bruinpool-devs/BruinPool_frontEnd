@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 
 import LandingPage from "./components/pages/LandingPage/LandingPage";
+import LoginPage from "./components/pages/LoginPage/LoginPage";
 import RiderPage from "./components/pages/RiderPage/RiderPage";
 import DriverPage from "./components/pages/DriverPage/DriverPage";
 import RideHistoryPage from "./components/pages/RideHistoryPage/RideHistoryPage";
@@ -25,6 +26,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/login" component={LoginPage} />
           <Route exact path="/rider" component={RiderPage} />
           <Route exact path="/driver" component={DriverPage} />
           <Route exact path="/history" component={RideHistoryPage} />
