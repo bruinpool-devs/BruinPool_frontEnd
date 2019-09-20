@@ -1,19 +1,19 @@
-# BruinPool Frontend
+# PoolUp Frontend
 
-This is the frontend code repository for BruinPool: made with ReactJS.<br>
+This is the frontend code repository for PoolUp: made with ReactJS.<br>
 For additional guidance/help, email justinhan1997@gmail.com or your current Engineering Manager.
 
 ## Local Environment Setup
 
 1. Install nodeJS by following installation guides from https://nodejs.org/en/download/.
-2. Clone the repository to your local environment using `git clone https://github.com/bruinpool-devs/bruinpool_frontend.git`.
+2. Clone the repository to your local environment using `git clone https://github.com/poolup-devs/poolup_frontend.git`.
 3. `cd` into the clone repository, and install all used packages & dependencies using: `npm install`.
 
 ## Local Development Setup
 
 1. Within the root directory, run `npm start` to get the React app running on your local environment.
 2. `npm start` should automatically direct your browser to `localhost:3006`, where you can view the app.
-3. Make sure to also have the [backend repository](https://github.com/bruinpool-devs/BruinPool_backEnd) running locally.
+3. Make sure to also have the [backend repository](https://github.com/poolup-devs/poolup_backend) running locally.
 4. Open the codebase with an IDE (i.e. VS Code, Sublime Text), and then get coding! :)
 
 ## How To Use Git Command Line
@@ -30,7 +30,7 @@ For additional guidance/help, email justinhan1997@gmail.com or your current Engi
 
 ## Deploy Instructions
 
-1. Frontend is deployed using [Netlify](https://www.netlify.com/). Create Netlify account and request to be added to BruinPool group.
+1. Frontend is deployed using [Netlify](https://www.netlify.com/). Create Netlify account and request to be added to PoolUp group.
 2. Netlify is connected to GitHub, so it automatically keeps track of any new changes that are pushed to the branch.
 3. Run `npm install netlify-cli -g` to enable Netlify command line operations. May need to add `sudo` for Mac/Linux.
 4. When you are ready to deploy new changes, run `npm run build` to create static package that can be deployed.
