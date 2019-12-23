@@ -106,7 +106,7 @@ const LoginForm = ({ history }) => {
                   height: "34px",
                   display: "flex",
                   borderRadius: "17px",
-                  backgroundColor: "#1D96EF",
+                  backgroundColor: "#3D77FF",
                   borderWidth: "0px",
                   flexDirection: "row",
                   justifyContent: "center",

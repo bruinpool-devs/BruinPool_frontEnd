@@ -1,27 +1,16 @@
-import React, { useEffect } from "react";
-import { withRouter } from "react-router-dom";
-import Cookies from "universal-cookie";
+import React from "react";
 
 import LoginForm from "../../modules/LoginForm/LoginForm";
 
 import "../LandingPage/LandingPage.css";
 
-const LoginPage = ({ history }) => {
-  useEffect(() => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
-    if (authToken) {
-      history.push("/rider");
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+const LoginPage = () => {
   return (
     <div className="landing-container">
       <div className="landing-image" style={imageStyle}>
         <div className="text">
-          <h1>BRUINPOOL</h1>
-          <p>Save money, Make friends</p>
+          <h1>PoolUp</h1>
+          <p>Enter new slogan here</p>
         </div>
       </div>
       <div className="login-section">
@@ -38,4 +27,4 @@ const imageStyle = {
   backgroundRepeat: "no-repeat"
 };
 
-export default withRouter(LoginPage);
+export default LoginPage;

@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.sub-title {
+  font-size: 25px;
+  padding-left: 10px;
+  font-weight: bold;
+  border-left: 5px solid #3d77ff;
+  font-weight: 600;
+  letter-spacing: 1px;
+  font-family: "Montserrat";
+  color: #000000;
+  white-space: nowrap;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}

@@ -1,178 +1,195 @@
 const feed = [
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser1",
     ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Irvine",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "6/15/19",
     time: "2:00PM",
     price: 20,
     seats: 0,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "Driving from Los Angeles to UC Santa Barbara! Have 3 spots and flexible with time and drop off locations! Preferably looking for non-smokers and respectful riders!",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser2",
     ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Pasadena",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/12/19",
     time: "9:40PM",
     price: 20,
     seats: 3,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser3",
     ownerPhoneNumber: "9999999999",
-    from: "Irvine",
-    to: "San Francisco",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/11/19",
     time: "6:30AM",
     price: 20,
     seats: 4,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser4",
     ownerPhoneNumber: "9999999999",
-    from: "Bay Area",
-    to: "UCLA",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/06/19",
     time: "4:00PM",
     price: 20,
     seats: 4,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser5",
     ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Orange County",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/05/19",
     time: "6:15PM",
     price: 20,
     seats: 4,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Yoon Park",
     ownerUsername: "testuser6",
     ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Orange County",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/04/19",
     time: "5:00AM",
     price: 20,
     seats: 4,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser7",
     ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Orange County",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/04/19",
     time: "5:00AM",
     price: 20,
     seats: 4,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser8",
     ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Orange County",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/04/19",
     time: "5:00AM",
     price: 20,
     seats: 4,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   },
   {
     ownerEmail: "testemail@test.com",
+    ownerFullName: "Sarah Smith",
     ownerUsername: "testuser9",
     ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Orange County",
+    from: {
+      name: "UCLA",
+      location: "Los Angeles"
+    },
+    to: {
+      name: "UCSB",
+      location: "Santa Barbara"
+    },
     date: "5/04/19",
     time: "5:00AM",
     price: 20,
     seats: 4,
     detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
-    passengers: []
-  }
-];
-
-const upcoming = [
-  {
-    ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser1",
-    ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Pasadena",
-    date: "5/04/19",
-    time: "5:00AM",
-    price: 20,
-    seats: 4,
-    detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
-    passengers: []
-  },
-  {
-    ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser2",
-    ownerPhoneNumber: "9999999999",
-    from: "UCLA",
-    to: "Orange County",
-    date: "5/04/19",
-    time: "5:00AM",
-    price: 20,
-    seats: 3,
-    detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
-    passengers: []
-  },
-  {
-    ownerEmail: "testemail@test.com",
-    ownerUsername: "testuser3",
-    ownerPhoneNumber: "9999999999",
-    from: "San Francisco",
-    to: "San Diego",
-    date: "5/04/19",
-    time: "5:00AM",
-    price: 20,
-    seats: 4,
-    detail:
-      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock 시발",
+      "some fake details about fake datas for mock testing with mock users and mock mock mock mock mock",
     passengers: []
   }
 ];
 
 module.exports = {
-  feed,
-  upcoming
+  feed
 };

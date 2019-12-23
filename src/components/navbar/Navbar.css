@@ -1,84 +1,69 @@
-@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
-
-.bars-container {
-  width: 100%;
-  background-color: #f7f9fc;
-}
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 .navbar-container {
-  height: 100%;
+  width: 100vw;
+  height: 70px;
+  padding-left: 40px;
+  padding-right: 10px;
+  background-color: #ffffff;
   display: flex;
-  flex-flow: column;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #c4c4c4;
+  font-family: "Montserrat";
 }
 
-.navbar-container .routes {
-  height: 50%;
+.navbar-logo {
   display: flex;
-  flex-flow: column;
-}
-
-.navbar-container .bear-image {
-  height: 50%;
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-end;
-}
-
-.bear-image img {
-  width: 120px;
-  height: 120px;
-  margin-left: 15%;
-}
-
-@media screen and (max-height: 600px) {
-  .bear-image img {
-    display: none;
-  }
-}
-
-.navbar-item {
-  color: white;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 22px;
-  margin-left: 20px;
-  margin-top: 17px;
-  letter-spacing: 1px;
-}
-
-.navbar-item-active {
-  color: white;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 22px;
+  justify-content: center;
+  align-items: center;
+  color: #3d77ff;
+  font-size: 20px;
   font-weight: bold;
-  margin-left: 20px;
-  margin-top: 17px;
-  letter-spacing: 1px;
-}
-
-.navbar-item-active p {
-  text-decoration: underline;
-}
-
-.navbar-container p {
-  margin-left: 40px;
-}
-
-.navbar-container p:hover {
-  cursor: pointer;
-  text-decoration: underline;
-}
-
-.navbar-container h2 {
-  color: white;
-  font-family: "Source Sans Pro", sans-serif;
-  font-size: 35px;
-  margin-top: 37px;
-  margin-left: 22px;
-  margin-bottom: 74px;
   letter-spacing: 2px;
-  font-weight: bold;
 }
 
-.navbar-container h2:hover {
+.navbar-items {
+  display: flex;
+  flex-direction: row;
+  width: 47vw;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #383838;
+  font-weight: 600;
+}
+
+.non-active-item {
   cursor: pointer;
+}
+
+.active-item {
+  cursor: pointer;
+  border-bottom: 5px solid #3d77ff;
+}
+
+.non-active-photo {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active-photo {
+  cursor: pointer;
+  border: 2px solid #3d77ff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+img {
+  width: 37px;
+  height: 37px;
 }

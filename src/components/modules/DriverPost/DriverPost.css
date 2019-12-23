@@ -1,0 +1,23 @@
+.post-form {
+  width: 980px;
+  display: flex;
+  flex-direction: column;
+  font-family: "Nunito";
+  padding: 30px;
+}
+
+.post-from-to {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.post-options {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 13px;
+}

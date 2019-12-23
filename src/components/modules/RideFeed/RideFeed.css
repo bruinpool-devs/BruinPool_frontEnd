@@ -1,9 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
 .ride-feed-container {
   display: flex;
   flex-flow: column;
-  width: 70%;
+  width: 97%;
   height: 100%;
   overflow-y: auto;
+  overflow-x: hidden;
+  font-family: "Nunito";
 }
 
 .table-header {
@@ -12,15 +16,26 @@
   min-height: 30px;
   min-width: 200px;
   width: 100%;
-  color: #5c5c5c;
+  color: #3d77ff;
+  align-items: center;
+  font-weight: 550;
+  margin-left: 40px;
+  font-size: 20px;
+}
+
+.from-to-title {
+  width: 23%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
   align-items: center;
 }
 
-.table-entry {
-  font-size: 20px;
-  width: 16.66%;
-  text-align: left;
-  margin-left: 4%;
+.remaining-titles {
+  width: 12.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .rideCard {
@@ -28,53 +43,74 @@
   flex-flow: row;
   background-color: #ffffff;
   color: #5c5c5c;
-  min-height: 100px;
-  min-width: 200px;
-  width: 98%;
-  margin-top: 11px;
-  margin-left: 1%;
+  height: 110px;
+  width: 100%;
+  margin-top: 15px;
+  padding-left: 40px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
   align-items: center;
+  border: 1px solid #c4c4c4;
 }
 
 .rideCard:hover {
   cursor: pointer;
-  box-shadow: 0 0 17px #1d96ef;
-  -webkit-box-shadow: 0 0 17px #1d96ef;
 }
 
-.card-value {
-  font-size: 130%;
-  width: 16.66%;
-  text-align: left;
-  margin-left: 4%;
-}
-
-.circular-border {
+.first-card-value {
+  width: 12%;
   display: flex;
-  flex-flow: row;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.second-card-value {
+  width: 24.5%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.remaining-card-values {
+  width: 12.5%;
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  border-style: solid;
-  border-width: 3px;
-  border-color: #119cf1;
+  font-weight: 500;
+  font-size: 25px;
+  color: black;
 }
 
-.circular-border-full {
+.ride-detail-card {
   display: flex;
-  flex-flow: row;
+  flex-direction: row;
+  width: 100%;
+}
+
+.ride-detail-photo {
+  display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  border-style: solid;
-  border-width: 3px;
-  border-color: red;
+  width: 20%;
+}
+
+.ride-detail-photo img {
+  width: 120px;
+  height: 120px;
+}
+
+.ride-detail-info {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.ride-detail-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20%;
 }
 
 @media screen and (max-width: 950px) {
@@ -88,16 +124,6 @@
 
   .table-entry {
     font-size: 13px;
-  }
-
-  .circular-border {
-    width: 45px;
-    height: 45px;
-  }
-
-  .circular-border-full {
-    width: 45px;
-    height: 45px;
   }
 
   .rideCard {

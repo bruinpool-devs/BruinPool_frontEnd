@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.faq-wrapper {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  font-family: "Montserrat";
+  width: 720px;
+}
+
+.faq-title {
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.faq-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.faq-half {
+  display: flex;
+  flex-direction: column;
+}
+
+.faq-section-title {
+  color: #3d77ff;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.faq-section-link {
+  margin-bottom: 25px;
+  color: #383838;
+  font-weight: bold;
+}
+
+.faq-section-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.contact-wrapper {
+  display: flex;
+  flex-direction: column;
+  font-family: "Montserrat";
+  padding: 30px;
+  margin-top: -20px;
+}
+
+.contact-title {
+  color: black;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.contact-desc {
+  color: #808080;
+  font-weight: bold;
+}
+
+.about-us {
+  color: #3d77ff;
+  width: 75px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.about-us:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.email-link {
+  font-weight: bold;
+}
+
+.social-media-links {
+  display: flex;
+  flex-direction: row;
+  margin-top: 17px;
+  justify-content: space-between;
+  width: 120px;
+}

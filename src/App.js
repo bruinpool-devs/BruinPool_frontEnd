@@ -9,12 +9,11 @@ import {
 import LandingPage from "./components/pages/LandingPage/LandingPage";
 import LoginPage from "./components/pages/LoginPage/LoginPage";
 import RiderPage from "./components/pages/RiderPage/RiderPage";
+import MyRidesPage from "./components/pages/MyRidesPage/MyRidesPage";
 import DriverPage from "./components/pages/DriverPage/DriverPage";
-import RideHistoryPage from "./components/pages/RideHistoryPage/RideHistoryPage";
+import MyDrivesPage from "./components/pages/MyDrivesPage/MyDrivesPage";
 import HelpPage from "./components/pages/HelpPage/HelpPage";
-import SettingsPage from "./components/pages/SettingsPage/SettingsPage";
-import NotificationPage from "./components/pages/NotificationPage/NotificationPage";
-import MyAccountPage from "./components/pages/MyAccountPage/MyAccountPage";
+import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
 
 import MainState from "./context/MainState";
 
@@ -28,12 +27,13 @@ const App = () => {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/rider" component={RiderPage} />
+          <Route exact path="/rider/my-rides" component={MyRidesPage} />
+          <Route exact path="/rider/help" component={HelpPage} />
+          <Route exact path="/rider/profile" component={ProfilePage} />
           <Route exact path="/driver" component={DriverPage} />
-          <Route exact path="/history" component={RideHistoryPage} />
-          <Route exact path="/help" component={HelpPage} />
-          <Route exact path="/settings" component={SettingsPage} />
-          <Route exact path="/notifications" component={NotificationPage} />
-          <Route exact path="/myaccount" component={MyAccountPage} />
+          <Route exact path="/driver/my-drives" component={MyDrivesPage} />
+          <Route exact path="/driver/help" component={HelpPage} />
+          <Route exact path="/driver/profile" component={ProfilePage} />
           <Redirect to="/" />
         </Switch>
       </Router>

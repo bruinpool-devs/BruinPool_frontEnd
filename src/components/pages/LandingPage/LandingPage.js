@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import Cookies from "universal-cookie";
 
 import SignupForm from "../../modules/SignupForm/SignupForm";
 
@@ -8,11 +7,7 @@ import "./LandingPage.css";
 
 const LandingPage = ({ history }) => {
   useEffect(() => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
-    if (authToken) {
-      history.push("/rider");
-    }
+    history.push("/rider");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -20,8 +15,8 @@ const LandingPage = ({ history }) => {
     <div className="landing-container">
       <div className="landing-image" style={imageStyle}>
         <div className="text">
-          <h1>BRUINPOOL</h1>
-          <p>Save money, Make friends</p>
+          <h1>PoolUp</h1>
+          <p>Enter new slogan here</p>
         </div>
       </div>
       <div className="login-section">
