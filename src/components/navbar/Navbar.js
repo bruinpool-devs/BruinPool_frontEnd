@@ -83,9 +83,9 @@ const Navbar = ({ history, location }) => {
           </div>
           <div
             className={
-              path === "/rider/profile" ? "active-photo" : "non-active-photo"
+              path === "/driver/profile" ? "active-photo" : "non-active-photo"
             }
-            onClick={() => history.push("/rider/profile")}
+            onClick={() => history.push("/driver/profile")}
           >
             <img
               src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
