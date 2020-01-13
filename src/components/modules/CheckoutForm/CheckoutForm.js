@@ -29,10 +29,11 @@ class CheckoutForm extends Component {
     api.getRideDetails({
         ride_id: rideID
       }).then(rideDetails => {
-      this.setState({
-        amount: rideDetails.price / spotsRequested,
-        currency: "usd"
-      });
+        console.log(rideDetails);
+        this.setState({
+          amount: rideDetails.price / spotsRequested,
+          currency: "usd"
+        });
     });
   }
 
@@ -115,7 +116,6 @@ class CheckoutForm extends Component {
             minimumFractionDigits: 2
           })}{" "}
         </h1>
-        <h4>Pre-order the Pasha package</h4>
 
         <div className="sr-combo-inputs">
           <div className="sr-combo-inputs-row">
