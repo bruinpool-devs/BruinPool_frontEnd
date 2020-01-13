@@ -1,16 +1,16 @@
 import React from "react";
 import { feed } from "../../modules/RideFeed/mockData";
+import { requests } from "../../modules/RequestFeed/mockData";
 
 import Navbar from "../../navbar/Navbar";
 import RideFeed from "../../modules/RideFeed/RideFeed";
-import PendingFeed from "../../modules/PendingFeed/PendingFeed";
+import RequestFeed from "../../modules/RequestFeed/RequestFeed";
 
 import "../RiderPage/RiderPage.css";
 
 const MyDrivesPage = () => {
   const upcomingFeed = feed.slice(0, 1);
   const historyFeed = feed.slice(1, 4);
-  const requestFeed = feed.slice(4, 6);
 
   return (
     <div>
@@ -20,9 +20,12 @@ const MyDrivesPage = () => {
           <div className="title-row">
             <div className="title">My Drives</div>
           </div>
-          <div className="sub-title">Pending Trip Requests</div>
+          <div className="sub-title">Trip Requests</div>
           <div className="feed-container">
-            <PendingFeed feed={requestFeed} />
+            <RequestFeed
+              requestFeed={requests}
+              userType={"rider"}
+            />
           </div>
           <div className="sub-title">Posted Drives</div>
           <div className="feed-container">

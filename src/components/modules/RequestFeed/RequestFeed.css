@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito");
 
-.pending-container {
+.request-container {
   display: flex;
   flex-direction: row;
   width: 97%;
@@ -11,7 +11,7 @@
   margin-bottom: 20px;
 }
 
-.pending-card {
+.request-card {
   width: 380px;
   height: 110px;
   display: flex;
