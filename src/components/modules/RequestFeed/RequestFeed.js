@@ -48,7 +48,7 @@ const RequestFeed = ({ requestFeed, userType }) => {
         }
 
         return (
-          <div className="request-card">
+          <div className="request-card" onClick={(e) => popUpRequestModal({request:request})}>
             <div className="row request-card-header" style={{padding: "10px" }}>
               <div className="col-sm-6" style={{ fontSize: "13px" }}>2 hrs ago</div>
               <div className="col-sm-6 approved-request-status">{requestStatusText}</div>
@@ -82,5 +82,26 @@ const RequestFeed = ({ requestFeed, userType }) => {
     </div>
   );
 };
+
+const popUpRequestModal = ({ request }) => {
+  
+  switch(request.meta.status) {
+    case "pending":
+        // Have the Pending Request Modal Open etc...
+      break;
+    case 'declined':
+          
+      break;      
+    case 'cancelled':
+      
+      break;
+    case `approved`:
+      
+      break;
+    default:
+      
+      break;
+  }
+}
 
 export default RequestFeed;
