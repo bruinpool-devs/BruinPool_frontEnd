@@ -1,7 +1,7 @@
 const requests = [
     {
-        request: {
-            status: "pending",
+        meta: {
+            status: "approved",
             _id: "5e1b9af184aa8b25435f859c",
             rideID: "1234",
             senderID: "admin",
@@ -33,7 +33,7 @@ const requests = [
         }
     },
     {
-        request: {
+        meta: {
             status: "pending",
             _id: "5e1b9af184aa8b25435f859c",
             rideID: "1234",
@@ -66,8 +66,8 @@ const requests = [
         }
     },
     {
-        request: {
-            status: "pending",
+        meta: {
+            status: "declined",
             _id: "5e1b9af184aa8b25435f859c",
             rideID: "1234",
             senderID: "admin",
