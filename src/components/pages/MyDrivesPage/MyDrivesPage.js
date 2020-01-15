@@ -22,7 +22,10 @@ const MyDrivesPage = () => {
           </div>
           <div className="sub-title">Trip Requests</div>
           <div className="feed-container">
-            <RequestFeed requestFeed={requests} userType={"rider"} />
+            <RequestFeed
+              requestFeed={requests}
+              userType={"rider"}
+            />
           </div>
           <div className="sub-title">Posted Drives</div>
           <div className="feed-container">

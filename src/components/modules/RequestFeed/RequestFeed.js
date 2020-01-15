@@ -26,53 +26,34 @@ const RequestFeed = ({ requestFeed, userType }) => {
   return (
     <div className="request-container">
       {requestFeed.map(request => {
+
         let requestStatusText;
 
-        switch (request.meta.status) {
+        switch(request.meta.status) {
           case "pending":
-            requestStatusText = (
-              <span className="orange-highlight">{request.meta.status}</span>
-            );
+            requestStatusText = <span className="orange-highlight">{request.meta.status}</span>;
             break;
-          case "declined":
-            requestStatusText = (
-              <span className="red-highlight">{request.meta.status}</span>
-            );
-            break;
-          case "cancelled":
-            requestStatusText = (
-              <span className="red-highlight">{request.meta.status}</span>
-            );
+          case 'declined':
+            requestStatusText = <span className="red-highlight">{request.meta.status}</span>;     
+            break;      
+          case 'cancelled':
+            requestStatusText = <span className="red-highlight">{request.meta.status}</span>;
             break;
           case `approved`:
-            requestStatusText = (
-              <span className="green-highlight">{request.meta.status}</span>
-            );
+            requestStatusText = <span className="green-highlight">{request.meta.status}</span>;
             break;
           default:
-            requestStatusText = (
-              <span className="red-highlight">Invalid Status</span>
-            );
+            requestStatusText = <span className="red-highlight">Invalid Status</span>;
             break;
         }
 
         return (
-          <div
-            className="request-card"
-            onClick={e => popUpRequestModal({ request: request })}
-          >
-            <div
-              className="row request-card-header"
-              style={{ padding: "10px" }}
-            >
-              <div className="col-sm-6" style={{ fontSize: "13px" }}>
-                2 hrs ago
-              </div>
-              <div className="col-sm-6 approved-request-status">
-                {requestStatusText}
-              </div>
+          <div className="request-card" onClick={(e) => popUpRequestModal({request:request})}>
+            <div className="row request-card-header" style={{padding: "10px" }}>
+              <div className="col-sm-6" style={{ fontSize: "13px" }}>2 hrs ago</div>
+              <div className="col-sm-6 approved-request-status">{requestStatusText}</div>
             </div>
-
+            
             <div className="row card-body">
               <div className="card-image col-sm-4">
                 <img
@@ -80,9 +61,7 @@ const RequestFeed = ({ requestFeed, userType }) => {
                   alt="bear"
                 />
                 <br />
-                <span className="caption card-name">
-                  {request.ride.ownerFullName}
-                </span>
+                <span className="caption card-name">{request.ride.ownerFullName}</span>
               </div>
 
               <div className="card-info">
@@ -94,9 +73,7 @@ const RequestFeed = ({ requestFeed, userType }) => {
                   />
                   <div className="itinerary-to">{request.ride.to.name}</div>
                 </div>
-                <pre>
-                  {request.ride.date} {request.ride.time}
-                </pre>
+                <pre>{request.ride.date}   {request.ride.time}</pre>
               </div>
             </div>
           </div>
@@ -107,19 +84,24 @@ const RequestFeed = ({ requestFeed, userType }) => {
 };
 
 const popUpRequestModal = ({ request }) => {
-  switch (request.meta.status) {
+  
+  switch(request.meta.status) {
     case "pending":
-      // Have the Pending Request Modal Open etc...
+        // Have the Pending Request Modal Open etc...
       break;
-    case "declined":
-      break;
-    case "cancelled":
+    case 'declined':
+          
+      break;      
+    case 'cancelled':
+      
       break;
     case `approved`:
+      
       break;
     default:
+      
       break;
   }
-};
+}
 
 export default RequestFeed;
