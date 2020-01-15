@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Popup from "../PopupModal/PopupModal";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
