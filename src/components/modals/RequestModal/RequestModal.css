@@ -24,6 +24,14 @@
   border-radius: 5px;
 }
 
+.request-card-ride-details {
+  border: 1px solid #c4c4c4;
+}
+
+.request-card-body {
+  padding: 15px;
+}
+
 .card-image {
   justify-content: center;
   align-items: center;
@@ -99,4 +107,16 @@
 .itinerary-from,
 .itinerary-to {
   font-size: 24px;
+}
+
+.default-btn {
+  background-color: #3d77ff;
+  border-width: 0px;
+  width: flex;
+  height: flex;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
 }

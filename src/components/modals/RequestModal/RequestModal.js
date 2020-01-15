@@ -16,11 +16,17 @@ export default class RequestModal extends React.Component {
     this.setState({ open: true });
   }
   closeModal() {
-    this.setState({ open: false });
+    console.log("HELLO");
+    this.setState({ open: false }, function() {
+      console.log("STATE SET TO: ", this.state.open);
+    });
   }
 
   render() {
     let requestStatusText;
+    let proceedToCheckout;
+    let tripSubTotal =
+      this.props.request.meta.seats * this.props.request.meta.price;
 
     switch (this.props.request.meta.status) {
       case "pending":
@@ -49,6 +55,9 @@ export default class RequestModal extends React.Component {
           <span className="green-highlight">
             {this.props.request.meta.status}
           </span>
+        );
+        proceedToCheckout = (
+          <span className="default-btn">Proceed To Checkout</span>
         );
         break;
       default:
@@ -101,31 +110,56 @@ export default class RequestModal extends React.Component {
         </div>
 
         <Popup open={this.state.open} onClose={this.closeModal}>
-          <a className="close" onClick={this.closeModal}>
-            &times;
-          </a>
+          <div className="row request-card-header">
+            <div className="col-sm-4 col-md-3 card-itinerary">
+              <div className="itinerary-from">
+                {this.props.request.ride.from.name}
+              </div>
+              <FontAwesomeIcon
+                icon={faLongArrowAltRight}
+                style={{ width: "50px", height: "30px" }}
+              />
+              <div className="itinerary-to">
+                {this.props.request.ride.to.name}
+              </div>
+            </div>
+            <div className="col-md-1"></div>
+            <div className="col-sm-2 col-md-2">{requestStatusText}</div>
+            <div className="col-sm-6 col-md-6"></div>
+          </div>
 
-          <div className="content">
-            <div
-              className="row request-card-header"
-              style={{ padding: "10px" }}
-            >
-              <div className="col-sm-6 col-md-4 card-itinerary">
-                <div className="itinerary-from">
-                  {this.props.request.ride.from.name}
-                </div>
-                <FontAwesomeIcon
-                  icon={faLongArrowAltRight}
-                  style={{ width: "50px", height: "30px" }}
+          <div className="row request-card-body">
+            <div className="request-card-ride-details col-md-4">
+              Date: {this.props.request.ride.date}
+              Time: {this.props.request.ride.time}
+              PickUp: {this.props.request.ride.from.location}
+              DropOff: {this.props.request.ride.to.location}
+              Seats: {this.props.request.meta.seats}
+              Luggage: {this.props.request.meta.luggage}
+              Trip SubTotal: {tripSubTotal}
+            </div>
+
+            <div className="request-card-driver-details col-md-4">
+              Driver:
+              <div className="card-image col-sm-4">
+                <img
+                  src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+                  alt="bear"
                 />
-                <div className="itinerary-to">
-                  {this.props.request.ride.to.name}
-                </div>
+                <br />
+                <span className="caption card-name">
+                  {this.props.request.ride.ownerFullName}
+                </span>
               </div>
-              <div className="col-md-2"></div>
-              <div className="col0-sm-6 col-md-6 approved-request-status">
-                {requestStatusText}
+              Driver's Note:
+              {this.props.request.ride.detail}
+            </div>
+
+            <div className="request-card-request-msg col-md-4">
+              <div className="row">
+                Your Message to Driver:{this.props.request.meta.msg}
               </div>
+              <div className="row">{proceedToCheckout}</div>
             </div>
           </div>
         </Popup>

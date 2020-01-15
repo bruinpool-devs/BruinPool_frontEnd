@@ -8,6 +8,8 @@ const requests = [
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",
       data: "2020-01-12T22:17:21.367Z",
+      seats: 1,
+      luggage: 1,
       __v: 0
     },
     ride: {
@@ -41,6 +43,8 @@ const requests = [
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",
       data: "2020-01-12T22:17:21.367Z",
+      seats: 2,
+      luggage: 1,
       __v: 0
     },
     ride: {
@@ -74,6 +78,8 @@ const requests = [
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",
       data: "2020-01-12T22:17:21.367Z",
+      seats: 2,
+      luggage: 1,
       __v: 0
     },
     ride: {
