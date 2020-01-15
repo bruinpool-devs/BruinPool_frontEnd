@@ -94,9 +94,9 @@ export default class RequestModal extends React.Component {
                 {this.props.request.ride.to.name}
               </div>
             </div>
-            <pre>
+            <div>
               {this.props.request.ride.date} {this.props.request.ride.time}
-            </pre>
+            </div>
           </div>
         </div>
 
