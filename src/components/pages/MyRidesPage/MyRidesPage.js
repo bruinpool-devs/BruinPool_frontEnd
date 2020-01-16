@@ -1,8 +1,10 @@
 import React from "react";
 import { feed } from "../../modules/RideFeed/mockData";
+import { requests } from "../../modules/RequestFeed/mockData";
 
 import Navbar from "../../navbar/Navbar";
 import RideFeed from "../../modules/RideFeed/RideFeed";
+import RequestFeed from "../../modules/RequestFeed/RequestFeed";
 
 import "../RiderPage/RiderPage.css";
 import "./MyRidesPage.css";
@@ -19,6 +21,12 @@ const MyRidesPage = () => {
           <div className="title-row">
             <div className="title">My Rides</div>
           </div>
+
+          <div className="sub-title">Trip Requests</div>
+          <div className="feed-container">
+            <RequestFeed requestFeed={requests} userType={"rider"} />
+          </div>
+
           <div className="sub-title">Upcoming Rides</div>
           <div className="feed-container">
             <RideFeed
@@ -27,6 +35,7 @@ const MyRidesPage = () => {
               buttonText={"Cancel Ride"}
             />
           </div>
+
           <div className="sub-title">Ride History</div>
           <div className="feed-container">
             <RideFeed
