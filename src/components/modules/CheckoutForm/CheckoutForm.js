@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import "./CheckoutForm.css";
-import api from "../../pages/RideCheckoutPage/api.js"
+import api from "../../pages/RideCheckoutPage/api.js";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -22,19 +22,24 @@ class CheckoutForm extends Component {
   }
 
   componentDidMount() {
+    // Step 0: Grab Request Id from query param
+    console.log(this.props);
+
     // Step 1: Fetch ride details such as amount and currency from API to make sure it can't be tampered with in the client.
     var rideID = "5e0fa833668a27552c82552f";
     var spotsRequested = 1;
 
-    api.getRideDetails({
+    api
+      .getRideDetails({
         ride_id: rideID
-      }).then(rideDetails => {
+      })
+      .then(rideDetails => {
         console.log(rideDetails);
         this.setState({
           amount: rideDetails.price / spotsRequested,
           currency: "usd"
         });
-    });
+      });
   }
 
   async handleSubmit(ev) {
@@ -44,7 +49,7 @@ class CheckoutForm extends Component {
     api
       .createPaymentIntent({
         ride_id: "5e0fa833668a27552c82552f",
-        spots_to_be_purchased: "1",
+        spots_to_be_purchased: "1"
       })
       .then(clientSecret => {
         this.setState({

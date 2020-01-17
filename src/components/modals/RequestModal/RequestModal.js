@@ -57,7 +57,13 @@ const RequestModal = props => {
           Cancel
         </Button>
       );
-      proceedToCheckout = <Button color="primary">Proceed To Checkout</Button>;
+
+      var hrefText = "/ride/checkout?request-id=" + props.request.meta._id;
+      proceedToCheckout = (
+        <Button href={hrefText} color="primary">
+          Proceed To Checkout
+        </Button>
+      );
       break;
     default:
       requestStatusText = <span className="red-highlight">Invalid Status</span>;
