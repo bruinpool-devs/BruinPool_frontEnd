@@ -22,8 +22,10 @@ class CheckoutForm extends Component {
   }
 
   componentDidMount() {
-    // Step 0: Grab Request Id from query param
+    // Step 0a: Grab Request Id from query param
     console.log(this.props);
+
+    // Step 0b: Verify that the request was indeed approved
 
     // Step 1: Fetch ride details such as amount and currency from API to make sure it can't be tampered with in the client.
     var rideID = "5e0fa833668a27552c82552f";
