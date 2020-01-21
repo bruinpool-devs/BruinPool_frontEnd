@@ -27,8 +27,8 @@ const RequestModal = props => {
   const toggle = () => setModal(!modal);
 
   let requestStatusText;
-  let proceedToCheckout;
-  let popUpBtn;
+  let primaryBtn;
+  let secondaryBtn;
   const tripSubTotal = request.meta.seats * request.ride.price;
 
   switch (request.meta.status) {
@@ -36,18 +36,24 @@ const RequestModal = props => {
       requestStatusText = (
         <span className="orange-highlight">{request.meta.status}</span>
       );
-      popUpBtn = (
-        <Button color="danger" onClick={toggle}>
-          Cancel
+      primaryBtn = (
+        <Button color="primary" onClick={toggle}>
+          Remind Driver
         </Button>
       );
+      secondaryBtn = (
+        <Button color="danger" onClick={toggle}>
+          Withdraw Request
+        </Button>
+      );
+
       break;
     case "declined":
       requestStatusText = (
         <span className="red-highlight">{request.meta.status}</span>
       );
-      popUpBtn = (
-        <Button color="secondary" onClick={toggle}>
+      primaryBtn = (
+        <Button color="outline-primary" onClick={toggle}>
           Remove
         </Button>
       );
@@ -56,7 +62,8 @@ const RequestModal = props => {
       requestStatusText = (
         <span className="red-highlight">{request.meta.status}</span>
       );
-      popUpBtn = (
+
+      primaryBtn = (
         <Button color="secondary" onClick={toggle}>
           Remove
         </Button>
@@ -66,16 +73,17 @@ const RequestModal = props => {
       requestStatusText = (
         <span className="green-highlight">{request.meta.status}</span>
       );
-      popUpBtn = (
-        <Button color="danger" onClick={toggle}>
-          Cancel
+
+      var hrefText = "/ride/checkout?request-id=" + request.meta._id;
+      primaryBtn = (
+        <Button href={hrefText} color="primary">
+          Proceed To Payment
         </Button>
       );
 
-      var hrefText = "/ride/checkout?request-id=" + request.meta._id;
-      proceedToCheckout = (
-        <Button href={hrefText} color="primary">
-          Proceed To Checkout
+      secondaryBtn = (
+        <Button color="danger" onClick={toggle}>
+          Withdraw Request
         </Button>
       );
       break;
@@ -215,8 +223,8 @@ const RequestModal = props => {
           </Row>
         </ModalBody>
         <ModalFooter>
-          {proceedToCheckout}
-          {popUpBtn}
+          {primaryBtn}
+          {secondaryBtn}
         </ModalFooter>
       </Modal>
     </div>
