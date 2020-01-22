@@ -20,7 +20,7 @@ import {
 import "./RequestModal.css";
 
 const RequestModal = props => {
-  const { request } = props;
+  const { request, userType } = props;
 
   const [modal, setModal] = useState(false);
 
@@ -29,67 +29,77 @@ const RequestModal = props => {
   let requestStatusText;
   let primaryBtn;
   let secondaryBtn;
+  let userTypeHeader;
   const tripSubTotal = request.meta.seats * request.ride.price;
 
-  switch (request.meta.status) {
-    case "pending":
-      requestStatusText = (
-        <span className="orange-highlight">{request.meta.status}</span>
-      );
-      primaryBtn = (
-        <Button color="primary" onClick={toggle}>
-          Remind Driver
-        </Button>
-      );
-      secondaryBtn = (
-        <Button color="danger" onClick={toggle}>
-          Withdraw Request
-        </Button>
-      );
+  if (userType == "rider") {
+    userTypeHeader = "Driver";
 
-      break;
-    case "declined":
-      requestStatusText = (
-        <span className="red-highlight">{request.meta.status}</span>
-      );
-      primaryBtn = (
-        <Button color="outline-primary" onClick={toggle}>
-          Remove
-        </Button>
-      );
-      break;
-    case "cancelled":
-      requestStatusText = (
-        <span className="red-highlight">{request.meta.status}</span>
-      );
+    switch (request.meta.status) {
+      case "pending":
+        requestStatusText = (
+          <span className="orange-highlight">{request.meta.status}</span>
+        );
+        primaryBtn = (
+          <Button color="primary" onClick={toggle}>
+            Remind Driver
+          </Button>
+        );
+        secondaryBtn = (
+          <Button color="danger" onClick={toggle}>
+            Withdraw Request
+          </Button>
+        );
 
-      primaryBtn = (
-        <Button color="secondary" onClick={toggle}>
-          Remove
-        </Button>
-      );
-      break;
-    case `approved`:
-      requestStatusText = (
-        <span className="green-highlight">{request.meta.status}</span>
-      );
+        break;
+      case "declined":
+        requestStatusText = (
+          <span className="red-highlight">{request.meta.status}</span>
+        );
+        primaryBtn = (
+          <Button color="outline-primary" onClick={toggle}>
+            Remove
+          </Button>
+        );
+        break;
+      case `approved`:
+        requestStatusText = (
+          <span className="green-highlight">{request.meta.status}</span>
+        );
 
-      var hrefText = "/ride/checkout?request-id=" + request.meta._id;
-      primaryBtn = (
-        <Button href={hrefText} color="primary">
-          Proceed To Payment
-        </Button>
-      );
+        var hrefText = "/ride/checkout?request-id=" + request.meta._id;
+        primaryBtn = (
+          <Button href={hrefText} color="primary">
+            Proceed To Payment
+          </Button>
+        );
 
-      secondaryBtn = (
-        <Button color="danger" onClick={toggle}>
-          Withdraw Request
-        </Button>
-      );
-      break;
-    default:
-      requestStatusText = <span className="red-highlight">Invalid Status</span>;
-      break;
+        secondaryBtn = (
+          <Button color="danger" onClick={toggle}>
+            Withdraw Request
+          </Button>
+        );
+        break;
+      default:
+        requestStatusText = (
+          <span className="red-highlight">Invalid Status</span>
+        );
+        break;
+    }
+  } else {
+    userTypeHeader = "Rider";
+
+    primaryBtn = (
+      <Button href={hrefText} color="primary">
+        Accept
+      </Button>
+    );
+
+    secondaryBtn = (
+      <Button color="danger" onClick={toggle}>
+        Decline
+      </Button>
+    );
   }
 
   return (
@@ -198,9 +208,9 @@ const RequestModal = props => {
             </Col>
 
             <Col xs={3} className="request-card-driver-details">
-              <h4>Driver:</h4>
+              <h4>{userTypeHeader}:</h4>
               <Row>
-                <Col className="popup-card-image">
+                <Col xs={4} className="popup-card-image">
                   <img
                     src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
                     alt="bear"
@@ -212,11 +222,12 @@ const RequestModal = props => {
                   </span>
                 </Col>
               </Row>
+              <span className="view-profile-text">view profile ></span>
             </Col>
 
             <Col xs={5} className="request-card-request-msg">
               <Row>
-                <h4>Driver's Note:</h4>
+                <h4>{userTypeHeader}'s Note:</h4>
                 {request.ride.detail}
               </Row>
             </Col>
