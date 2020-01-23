@@ -24,6 +24,14 @@
   border-radius: 5px;
 }
 
+.request-time-elapsed {
+  font-size: 13px;
+}
+
+.request-card-header {
+  padding: 10px;
+}
+
 .request-card-ride-details {
   border-right: 1px solid #c4c4c4;
   margin-right: 15px;
@@ -35,7 +43,7 @@
 }
 
 .request-card-body {
-  padding: 15px 15px 15px 0px;
+  padding: 15px;
 }
 
 .icon-text {

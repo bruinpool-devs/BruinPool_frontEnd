@@ -130,7 +130,7 @@ class CheckoutForm extends Component {
         )}
 
         {!this.state.succeeded && (
-          <button className="btn" disabled={this.state.disabled}>
+          <button className="pay-btn" disabled={this.state.disabled}>
             {this.state.processing ? "Processing…" : "Pay"}
           </button>
         )}

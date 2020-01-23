@@ -3,8 +3,7 @@ import {
   faLongArrowAltRight,
   faCalendarAlt,
   faClock,
-  faMapMarker,
-  faMap
+  faMapMarker
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -33,21 +32,24 @@ const RequestModal = props => {
   let userTypeHeader;
   const tripSubTotal = request.meta.seats * request.ride.price;
 
+  // Set Custom UI elements based on Request Status and User Type
   if (userType == "rider") {
     userTypeHeader = "Driver";
 
     switch (request.meta.status) {
       case "pending":
         requestStatusText = (
-          <span className="orange-highlight">{request.meta.status}</span>
+          <span className="request-status orange-highlight">
+            {request.meta.status}
+          </span>
         );
         primaryBtn = (
-          <Button color="primary" onClick={toggle}>
+          <Button className="remind-driver" color="primary" onClick={toggle}>
             Remind Driver
           </Button>
         );
         secondaryBtn = (
-          <Button color="danger" onClick={toggle}>
+          <Button className="withdraw-request" color="danger" onClick={toggle}>
             Withdraw Request
           </Button>
         );
@@ -55,21 +57,30 @@ const RequestModal = props => {
         break;
       case "declined":
         requestStatusText = (
-          <span className="red-highlight">{request.meta.status}</span>
+          <span className="request-status red-highlight">
+            {request.meta.status}
+          </span>
         );
         primaryBtn = (
-          <Button color="outline-primary" onClick={toggle}>
+          <Button
+            className="remove-request"
+            color="outline-primary"
+            onClick={toggle}
+          >
             Remove
           </Button>
         );
         break;
       case `approved`:
         requestStatusText = (
-          <span className="green-highlight">{request.meta.status}</span>
+          <span className="request-status green-highlight">
+            {request.meta.status}
+          </span>
         );
 
         primaryBtn = (
           <Button
+            className="proceed-to-payment"
             onClick={() =>
               history.push({
                 pathname: "/ride/checkout",
@@ -83,33 +94,38 @@ const RequestModal = props => {
         );
 
         secondaryBtn = (
-          <Button color="danger" onClick={toggle}>
+          <Button className="withdraw-request" color="danger" onClick={toggle}>
             Withdraw Request
           </Button>
         );
         break;
       default:
         requestStatusText = (
-          <span className="red-highlight">Invalid Status</span>
+          <span className="request-status red-highlight">Invalid Status</span>
         );
         break;
     }
   } else {
     userTypeHeader = "Rider";
 
-    primaryBtn = <Button color="primary">Accept</Button>;
+    primaryBtn = (
+      <Button className="accept-request" color="primary">
+        Accept
+      </Button>
+    );
 
     secondaryBtn = (
-      <Button color="danger" onClick={toggle}>
+      <Button className="decline-request" color="danger" onClick={toggle}>
         Decline
       </Button>
     );
   }
 
+  // Create page elements
   return (
     <div className="request-card" onClick={toggle}>
-      <Row className="request-card-header" style={{ padding: "10px" }}>
-        <Col style={{ fontSize: "13px" }}>2 hrs ago</Col>
+      <Row className="request-card-header">
+        <Col className="request-time-elapsed">2 hrs ago</Col>
         <Col className="approved-request-status">{requestStatusText}</Col>
       </Row>
 
@@ -120,9 +136,7 @@ const RequestModal = props => {
             alt="bear"
           />
           <br />
-          <span className="caption card-name">
-            {request.ride.ownerFullName}
-          </span>
+          <span className="card-name">{request.ride.ownerFullName}</span>
         </Col>
 
         <Col xs={8} className="card-info">
