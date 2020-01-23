@@ -8,7 +8,7 @@ class CheckoutForm extends Component {
     super(props);
 
     this.state = {
-      amount: 0,
+      amount: props.request.ride.price / props.request.meta.seats,
       currency: "",
       clientSecret: null,
       error: null,
@@ -22,39 +22,24 @@ class CheckoutForm extends Component {
   }
 
   componentDidMount() {
-    // Step 0a: Grab Request Id from query param
-    console.log(this.props);
-
+    // Step 0a: Grab Request
     // Step 0b: Verify that the request was indeed approved
-
-    // Step 1: Fetch ride details such as amount and currency from API to make sure it can't be tampered with in the client.
-    var rideID = "5e0fa833668a27552c82552f";
-    var spotsRequested = 1;
-
-    api
-      .getRideDetails({
-        ride_id: rideID
-      })
-      .then(rideDetails => {
-        console.log(rideDetails);
-        this.setState({
-          amount: rideDetails.price / spotsRequested,
-          currency: "usd"
-        });
-      });
+    // Step 1: Fetch ride details
   }
 
   async handleSubmit(ev) {
     ev.preventDefault();
+    var request = this.props.request;
 
     // Step 1: Create PaymentIntent over Stripe API
     api
       .createPaymentIntent({
-        ride_id: "5e0fa833668a27552c82552f",
-        spots_to_be_purchased: "1"
+        ride_id: request.meta.ride_id,
+        spots_to_be_purchased: request.meta.spots
       })
       .then(clientSecret => {
         this.setState({
+          amount: request.ride.price / request.meta.spots,
           clientSecret: clientSecret,
           disabled: true,
           processing: true

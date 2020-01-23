@@ -16,11 +16,12 @@ import {
   Row,
   Col
 } from "reactstrap";
+import { withRouter } from "react-router-dom";
 
 import "./RequestModal.css";
 
 const RequestModal = props => {
-  const { request, userType } = props;
+  const { request, userType, history } = props;
 
   const [modal, setModal] = useState(false);
 
@@ -67,9 +68,16 @@ const RequestModal = props => {
           <span className="green-highlight">{request.meta.status}</span>
         );
 
-        var hrefText = "/ride/checkout?request-id=" + request.meta._id;
         primaryBtn = (
-          <Button href={hrefText} color="primary">
+          <Button
+            onClick={() =>
+              history.push({
+                pathname: "/ride/checkout",
+                state: { request: request }
+              })
+            }
+            color="primary"
+          >
             Proceed To Payment
           </Button>
         );
@@ -89,11 +97,7 @@ const RequestModal = props => {
   } else {
     userTypeHeader = "Rider";
 
-    primaryBtn = (
-      <Button href={hrefText} color="primary">
-        Accept
-      </Button>
-    );
+    primaryBtn = <Button color="primary">Accept</Button>;
 
     secondaryBtn = (
       <Button color="danger" onClick={toggle}>
@@ -242,4 +246,4 @@ const RequestModal = props => {
   );
 };
 
-export default RequestModal;
+export default withRouter(RequestModal);
