@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   faLongArrowAltRight,
   faCalendarAlt,
@@ -13,24 +13,73 @@ import {
   ModalBody,
   ModalFooter,
   Row,
-  Col
+  Col,
+  Alert
 } from "reactstrap";
 import { withRouter } from "react-router-dom";
+import MainContext from "../../../context/mainContext";
 
 import "./RequestModal.css";
 
 const RequestModal = props => {
+  // Get Passed in Paramaters
   const { request, userType, history } = props;
 
+  // Set Modal Initial States
   const [modal, setModal] = useState(false);
 
+  // Set Toggles
   const toggle = () => setModal(!modal);
+
+  // API Request Context
+  const mainContext = useContext(MainContext);
 
   let requestStatusText;
   let primaryBtn;
   let secondaryBtn;
   let userTypeHeader;
+
   const tripSubTotal = request.meta.seats * request.ride.price;
+
+  // Rider Actions
+  const handleRemindDriver = async () => {
+    // Check if user has available reminds to make this call
+    if (request.numReminds <= 0) {
+      console.log("No Reminds left");
+    } else {
+      // Send Reminder
+      // const response = await mainContext.remindDriver(request.meta.recepientID);
+
+      // Update Num Reminders in request
+
+      // Display Alert
+      console.log("Reminder Sent");
+    }
+  };
+
+  const handleWithdrawRequest = async () => {
+    const response = await mainContext.withdrawRequest(request.meta._id);
+    console.log(response);
+    if (!response) {
+    } else {
+    }
+  };
+
+  const handleRemoveRequest = async () => {
+    const response = await mainContext.archiveRequest(request.meta._id);
+    console.log(response);
+  };
+
+  // Driver Actions
+  const handleAcceptRequest = async () => {
+    const response = await mainContext.approveRequest(request.meta._id);
+    console.log(response);
+  };
+
+  const handleDeclineRequest = async () => {
+    const response = await mainContext.declineRequest(request.meta._id);
+    console.log(response);
+  };
 
   // Set Custom UI elements based on Request Status and User Type
   if (userType == "rider") {
@@ -44,12 +93,12 @@ const RequestModal = props => {
           </span>
         );
         primaryBtn = (
-          <Button className="remind-driver" color="primary" onClick={toggle}>
+          <Button color="primary" onClick={handleRemindDriver}>
             Remind Driver
           </Button>
         );
         secondaryBtn = (
-          <Button className="withdraw-request" color="danger" onClick={toggle}>
+          <Button color="danger" onClick={handleWithdrawRequest}>
             Withdraw Request
           </Button>
         );
@@ -57,16 +106,10 @@ const RequestModal = props => {
         break;
       case "declined":
         requestStatusText = (
-          <span className="request-status red-highlight">
-            {request.meta.status}
-          </span>
+          <span className="red-highlight">{request.meta.status}</span>
         );
         primaryBtn = (
-          <Button
-            className="remove-request"
-            color="outline-primary"
-            onClick={toggle}
-          >
+          <Button color="outline-primary" onClick={handleRemoveRequest}>
             Remove
           </Button>
         );
@@ -94,7 +137,7 @@ const RequestModal = props => {
         );
 
         secondaryBtn = (
-          <Button className="withdraw-request" color="danger" onClick={toggle}>
+          <Button color="danger" onClick={handleWithdrawRequest}>
             Withdraw Request
           </Button>
         );
@@ -109,13 +152,13 @@ const RequestModal = props => {
     userTypeHeader = "Rider";
 
     primaryBtn = (
-      <Button className="accept-request" color="primary">
+      <Button color="primary" onClick={handleAcceptRequest}>
         Accept
       </Button>
     );
 
     secondaryBtn = (
-      <Button className="decline-request" color="danger" onClick={toggle}>
+      <Button color="danger" onClick={handleDeclineRequest}>
         Decline
       </Button>
     );

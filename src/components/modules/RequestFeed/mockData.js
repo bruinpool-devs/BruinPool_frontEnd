@@ -1,12 +1,13 @@
 const requests = [
   {
     meta: {
-      status: "approved",
-      _id: "5e1b9af184aa8b25435f859c",
+      status: "pending",
+      _id: "5e2c7189ad0f17552027741f",
       rideID: "1234",
       senderID: "admin",
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",
+      numReminds: 1,
       data: "2020-01-12T22:17:21.367Z",
       seats: 1,
       luggage: 1,
@@ -37,10 +38,11 @@ const requests = [
   {
     meta: {
       status: "pending",
-      _id: "5e1b9af184aa8b25435f859c",
+      _id: "5e2c71b0ad0f175520277420",
       rideID: "1234",
       senderID: "admin",
       recepientID: "test_recepient",
+      numReminds: 1,
       msg: "Hi can I get a ride",
       data: "2020-01-12T22:17:21.367Z",
       seats: 2,
@@ -71,12 +73,13 @@ const requests = [
   },
   {
     meta: {
-      status: "declined",
-      _id: "5e1b9af184aa8b25435f859c",
+      status: "pending",
+      _id: "5e2c71c2ad0f175520277421",
       rideID: "1234",
       senderID: "admin",
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",
+      numReminds: 1,
       data: "2020-01-12T22:17:21.367Z",
       seats: 2,
       luggage: 1,

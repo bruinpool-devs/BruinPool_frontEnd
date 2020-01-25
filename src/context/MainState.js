@@ -187,6 +187,74 @@ const MainState = ({ children }) => {
       });
   };
 
+  // WITHDRAW REQUEST
+  const withdrawRequest = requestID => {
+    const { authToken } = state;
+
+    axios
+      .put("/request/cancel", {
+        requestID
+      })
+      .then(() => {
+        alert("Cancelled!");
+        cookieAuth(authToken);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // ARCHIVE REQUEST
+  const archiveRequest = requestID => {
+    const { authToken } = state;
+
+    axios
+      .put("/request/archive", {
+        requestID
+      })
+      .then(() => {
+        alert("Archived!");
+        cookieAuth(authToken);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // ACCEPT REQUEST
+  const approveRequest = requestID => {
+    const { authToken } = state;
+
+    axios
+      .put("/request/approve", {
+        requestID
+      })
+      .then(() => {
+        alert("Approved!");
+        cookieAuth(authToken);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // DECLINE REQUEST
+  const declineRequest = requestID => {
+    const { authToken } = state;
+
+    axios
+      .put("/request/decline", {
+        requestID
+      })
+      .then(() => {
+        alert("Declined!");
+        cookieAuth(authToken);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   // JOIN RIDE
   const joinRide = entry => {
     const { userInfo, authToken } = state;
@@ -524,6 +592,10 @@ const MainState = ({ children }) => {
         cookieAuth,
         logout,
         postRide,
+        withdrawRequest,
+        archiveRequest,
+        approveRequest,
+        declineRequest,
         joinRide,
         cancelRide,
         editRide,
