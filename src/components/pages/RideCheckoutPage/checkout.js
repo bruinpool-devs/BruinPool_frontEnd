@@ -1,18 +1,24 @@
 import React, { Component, useContext, useEffect, useState } from "react";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../../modules/CheckoutForm/CheckoutForm.js";
-import api from "./api";
+import MainContext from "../../../context/mainContext";
 
 const Checkout = props => {
   const { request } = props;
 
   const [key, setApiKey] = useState("");
+  const mainContext = useContext(MainContext);
 
   useEffect(() => {
-    api.getPublicStripeKey().then(apiKey => {
-      setApiKey(apiKey);
-    });
-    console.log(key);
+    mainContext
+      .getPublicStripeKey()
+      .then(res => {
+        setApiKey(res.publicKey);
+      })
+      .catch(err => {
+        // TODO: Better Error Handling
+        console.log(err);
+      });
   });
 
   if (key != "") {
@@ -20,7 +26,7 @@ const Checkout = props => {
       <div className="checkout">
         <StripeProvider apiKey={key ? key : null}>
           <Elements>
-            <CheckoutForm request={request} />
+            <CheckoutForm request={request} mainContext={mainContext} />
           </Elements>
         </StripeProvider>
       </div>

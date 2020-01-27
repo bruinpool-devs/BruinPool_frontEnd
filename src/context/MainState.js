@@ -145,6 +145,31 @@ const MainState = ({ children }) => {
     window.location.reload();
   };
 
+  // GET RIDE Details
+  const rideDetails = rideID => {
+    return axios
+      .get("/rides/ride-details", {
+        params: {
+          rideID: rideID
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          return res;
+        } else {
+          return null;
+        }
+      })
+      .then(data => {
+        if (!data || data.error) {
+          console.log("API error:", { data });
+          throw Error("Ride Details Error");
+        } else {
+          return data;
+        }
+      });
+  };
+
   // POST RIDE
   const postRide = info => {
     const { userInfo } = state;
@@ -570,6 +595,34 @@ const MainState = ({ children }) => {
       });
   };
 
+  // GET PUBLIC STRIPE KEY
+  const getPublicStripeKey = () => {
+    return axios
+      .get("/stripe/public-key")
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  };
+
+  // CREAT PAYMENT INTENT
+  const createPaymentIntent = options => {
+    return axios
+      .post("/stripe/create-payment-intent", options)
+      .then(res => {
+        if (res.status === 200) {
+          return res.data.clientSecret;
+        } else {
+          return null;
+        }
+      })
+      .catch(err => {
+        throw err;
+      });
+  };
+
   return (
     <MainContext.Provider
       value={{
@@ -591,6 +644,7 @@ const MainState = ({ children }) => {
         login,
         cookieAuth,
         logout,
+        rideDetails,
         postRide,
         withdrawRequest,
         archiveRequest,
@@ -610,7 +664,9 @@ const MainState = ({ children }) => {
         toggleInfoModal,
         fetchNotification,
         clearNotification,
-        fetchProfilePic
+        fetchProfilePic,
+        getPublicStripeKey,
+        createPaymentIntent
       }}
     >
       {children}

@@ -1,9 +1,9 @@
 const requests = [
   {
     meta: {
-      status: "pending",
+      status: "approved",
       _id: "5e2c7189ad0f17552027741f",
-      rideID: "1234",
+      rideID: "5e2e5f9d1d7edd0d2242e9e0",
       senderID: "admin",
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",
@@ -16,7 +16,7 @@ const requests = [
     ride: {
       ownerEmail: "testemail@test.com",
       ownerFullName: "Sarah Smith",
-      ownerUsername: "testuser1",
+      ownerUsername: "jo",
       ownerPhoneNumber: "9999999999",
       from: {
         name: "UCLA",
@@ -39,7 +39,7 @@ const requests = [
     meta: {
       status: "pending",
       _id: "5e2c71b0ad0f175520277420",
-      rideID: "1234",
+      rideID: "5e2e5f9d1d7edd0d2242e9e0",
       senderID: "admin",
       recepientID: "test_recepient",
       numReminds: 1,
@@ -75,7 +75,7 @@ const requests = [
     meta: {
       status: "pending",
       _id: "5e2c71c2ad0f175520277421",
-      rideID: "1234",
+      rideID: "5e2e5f9d1d7edd0d2242e9e0",
       senderID: "admin",
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",

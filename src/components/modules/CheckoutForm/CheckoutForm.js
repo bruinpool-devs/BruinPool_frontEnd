@@ -1,7 +1,6 @@
-import React, { Component } from "react";
+import React, { Component, useContext } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import "./CheckoutForm.css";
-import api from "../../pages/RideCheckoutPage/api.js";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -9,7 +8,7 @@ class CheckoutForm extends Component {
 
     this.state = {
       amount: props.request.ride.price / props.request.meta.seats,
-      currency: "",
+      currency: "usd",
       clientSecret: null,
       error: null,
       metadata: null,
@@ -22,20 +21,34 @@ class CheckoutForm extends Component {
   }
 
   componentDidMount() {
-    // Step 0a: Grab Request
-    // Step 0b: Verify that the request was indeed approved
-    // Step 1: Fetch ride details
+    // Payment Intent should technically be created here, but we can't do this until
+    // we complete the session task.
   }
 
   async handleSubmit(ev) {
     ev.preventDefault();
     var request = this.props.request;
+    var mainContext = this.props.mainContext;
+
+    // Step 0: Check Prerequisites
+    mainContext
+      .rideDetails(request.meta.rideID)
+      .then(ride => {
+        if (ride.passengers >= ride.seats) {
+          this.setState({ error: "All seats full" });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: err.message });
+      });
 
     // Step 1: Create PaymentIntent over Stripe API
-    api
+    mainContext
       .createPaymentIntent({
-        ride_id: request.meta.ride_id,
-        spots_to_be_purchased: request.meta.spots
+        rideID: request.meta.rideID,
+        spotsToBePurchased: request.meta.seats,
+        username: "jo" //TODO: get current logged in user
       })
       .then(clientSecret => {
         this.setState({
