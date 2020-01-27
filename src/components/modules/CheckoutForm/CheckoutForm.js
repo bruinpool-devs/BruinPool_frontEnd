@@ -41,7 +41,7 @@ class CheckoutForm extends Component {
     mainContext
       .rideDetails(request.meta.rideID, authToken)
       .then(ride => {
-        if (ride.passengers.length + request.meta.seats >= ride.seats) {
+        if (request.meta.seats > ride.seats) {
           this.setState({ error: "Error: Not Enough Seats" });
           return;
         }
