@@ -4,14 +4,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser1",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "6/15/19",
     time: "2:00PM",
     price: 20,
@@ -25,14 +19,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser2",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/12/19",
     time: "9:40PM",
     price: 20,
@@ -46,14 +34,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser3",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/11/19",
     time: "6:30AM",
     price: 20,
@@ -67,14 +49,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser4",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/06/19",
     time: "4:00PM",
     price: 20,
@@ -88,14 +64,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser5",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/05/19",
     time: "6:15PM",
     price: 20,
@@ -109,14 +79,8 @@ const feed = [
     ownerFullName: "Yoon Park",
     ownerUsername: "testuser6",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/04/19",
     time: "5:00AM",
     price: 20,
@@ -130,14 +94,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser7",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/04/19",
     time: "5:00AM",
     price: 20,
@@ -151,14 +109,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser8",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/04/19",
     time: "5:00AM",
     price: 20,
@@ -172,14 +124,8 @@ const feed = [
     ownerFullName: "Sarah Smith",
     ownerUsername: "testuser9",
     ownerPhoneNumber: "9999999999",
-    from: {
-      name: "UCLA",
-      location: "Los Angeles"
-    },
-    to: {
-      name: "UCSB",
-      location: "Santa Barbara"
-    },
+    from: "Los Angeles",
+    to: "Irvine",
     date: "5/04/19",
     time: "5:00AM",
     price: 20,

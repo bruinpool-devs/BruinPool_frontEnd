@@ -30,8 +30,8 @@ const MainState = ({ children }) => {
     driveHistory: [],
     upcomingRide: [],
     upcomingDrive: [],
-    riderPageNum: 1,
-    driverPageNum: 1,
+    riderPageNum: 0,
+    driverPageNum: 0,
     filter: null,
     editModal: false,
     infoModal: false,
@@ -146,41 +146,20 @@ const MainState = ({ children }) => {
   };
 
   // POST RIDE
-  const postRide = info => {
-    const { userInfo } = state;
-
-    if (!info.seats || info.seats === 0) {
-      alert("Please enter valid number of seats!");
-      return;
-    }
-
-    if (!info.from || !info.to) {
-      alert("Please enter valid destination info!");
-      return;
-    }
-
-    const rideInfo = {
-      ownerEmail: userInfo.email,
-      ownerUsername: userInfo.username,
-      ownerPhoneNumber: userInfo.phoneNumber,
-      from: info.from,
-      to: info.to,
-      date: info.date,
-      seats: info.seats,
-      price: info.price,
-      detail: info.detail,
-      passengers: []
+  const postRide = (info, token) => {
+    const rideObject = {
+      rideInfo: info
     };
 
     axios
-      .post("/rideList", {
-        rideInfo
+      .post("/rides/post-ride", rideObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       .then(() => {
         alert("Posted!");
-        fetchUpcomingDrive();
-        fetchDriveHistory();
-        fetchRideFeed();
+        fetchRideFeed({}, token);
       })
       .catch(error => {
         console.error(error);
@@ -252,7 +231,7 @@ const MainState = ({ children }) => {
   };
 
   // FETCH RIDE FEED
-  const fetchRideFeed = filter => {
+  const fetchRideFeed = (filter, token) => {
     const { riderPageNum } = state;
     dispatch({
       type: SET_FILTER,
@@ -260,11 +239,13 @@ const MainState = ({ children }) => {
     });
 
     axios
-      .get("/rideList", {
+      .get("/rides/matching-rides", {
         params: {
           filter,
-          pageNum: riderPageNum,
-          type: "rideFeed"
+          pageNum: riderPageNum
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
