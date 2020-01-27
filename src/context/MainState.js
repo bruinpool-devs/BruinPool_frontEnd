@@ -155,7 +155,7 @@ const MainState = ({ children }) => {
       })
       .then(res => {
         if (res.status === 200) {
-          return res;
+          return res.data;
         } else {
           return null;
         }
@@ -214,15 +214,17 @@ const MainState = ({ children }) => {
 
   // WITHDRAW REQUEST
   const withdrawRequest = requestID => {
-    const { authToken } = state;
-
-    axios
+    return axios
       .put("/request/cancel", {
-        requestID
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .then(() => {
-        alert("Cancelled!");
-        cookieAuth(authToken);
+      .then(res => {
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -231,15 +233,17 @@ const MainState = ({ children }) => {
 
   // ARCHIVE REQUEST
   const archiveRequest = requestID => {
-    const { authToken } = state;
-
-    axios
+    return axios
       .put("/request/archive", {
-        requestID
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .then(() => {
-        alert("Archived!");
-        cookieAuth(authToken);
+      .then(res => {
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -248,15 +252,17 @@ const MainState = ({ children }) => {
 
   // ACCEPT REQUEST
   const approveRequest = requestID => {
-    const { authToken } = state;
-
-    axios
+    return axios
       .put("/request/approve", {
-        requestID
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .then(() => {
-        alert("Approved!");
-        cookieAuth(authToken);
+      .then(res => {
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -265,15 +271,17 @@ const MainState = ({ children }) => {
 
   // DECLINE REQUEST
   const declineRequest = requestID => {
-    const { authToken } = state;
-
-    axios
+    return axios
       .put("/request/decline", {
-        requestID
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
-      .then(() => {
-        alert("Declined!");
-        cookieAuth(authToken);
+      .then(res => {
+        return res.data;
       })
       .catch(error => {
         console.error(error);

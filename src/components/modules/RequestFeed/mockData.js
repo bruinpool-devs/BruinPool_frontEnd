@@ -3,7 +3,7 @@ const requests = [
     meta: {
       status: "approved",
       _id: "5e2c7189ad0f17552027741f",
-      rideID: "5e2e5f9d1d7edd0d2242e9e0",
+      rideID: "5e2f26d541b70b0f800da434",
       senderID: "admin",
       recepientID: "test_recepient",
       msg: "Hi can I get a ride",
@@ -32,7 +32,7 @@ const requests = [
       seats: 0,
       detail:
         "Driving from Los Angeles to UC Santa Barbara! Have 3 spots and flexible with time and drop off locations! Preferably looking for non-smokers and respectful riders!",
-      passengers: []
+      passengers: ["esuarez", "jo"]
     }
   },
   {

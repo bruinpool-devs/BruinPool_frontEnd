@@ -27,61 +27,65 @@ class CheckoutForm extends Component {
 
   async handleSubmit(ev) {
     ev.preventDefault();
-    var request = this.props.request;
-    var mainContext = this.props.mainContext;
+    const request = this.props.request;
+    const mainContext = this.props.mainContext;
+    const currentUser = "esuarez"; //TODO: get current logged in user
 
     // Step 0: Check Prerequisites
     mainContext
       .rideDetails(request.meta.rideID)
       .then(ride => {
-        if (ride.passengers >= ride.seats) {
-          this.setState({ error: "All seats full" });
+        if (ride.passengers.length + request.meta.seats >= ride.seats) {
+          this.setState({ error: "Error: Not Enough Seats" });
+          return;
         }
+
+        // Step 1: Create PaymentIntent over Stripe API
+        mainContext
+          .createPaymentIntent({
+            rideID: request.meta.rideID,
+            spotsToBePurchased: request.meta.seats,
+            username: currentUser
+          })
+          .then(clientSecret => {
+            this.setState({
+              amount: request.ride.price / request.meta.spots,
+              clientSecret: clientSecret,
+              disabled: true,
+              processing: true
+            });
+
+            // Step 2: Use clientSecret from PaymentIntent to handle payment in stripe.handleCardPayment() call
+            this.props.stripe
+              .handleCardPayment(this.state.clientSecret)
+              .then(payload => {
+                if (payload.error) {
+                  this.setState({
+                    error: `Payment failed: ${payload.error.message}`,
+                    disabled: false,
+                    processing: false
+                  });
+                  console.log("[error]", payload.error);
+                } else {
+                  this.setState({
+                    processing: false,
+                    succeeded: true,
+                    error: "",
+                    metadata: payload.paymentIntent
+                  });
+                  console.log("[PaymentIntent]", payload.paymentIntent);
+                }
+              });
+          })
+          .catch(err => {
+            this.setState({ error: err.error });
+            return;
+          });
       })
       .catch(err => {
         console.log(err);
         this.setState({ error: err.message });
-      });
-
-    // Step 1: Create PaymentIntent over Stripe API
-    mainContext
-      .createPaymentIntent({
-        rideID: request.meta.rideID,
-        spotsToBePurchased: request.meta.seats,
-        username: "jo" //TODO: get current logged in user
-      })
-      .then(clientSecret => {
-        this.setState({
-          amount: request.ride.price / request.meta.spots,
-          clientSecret: clientSecret,
-          disabled: true,
-          processing: true
-        });
-
-        // Step 2: Use clientSecret from PaymentIntent to handle payment in stripe.handleCardPayment() call
-        this.props.stripe
-          .handleCardPayment(this.state.clientSecret)
-          .then(payload => {
-            if (payload.error) {
-              this.setState({
-                error: `Payment failed: ${payload.error.message}`,
-                disabled: false,
-                processing: false
-              });
-              console.log("[error]", payload.error);
-            } else {
-              this.setState({
-                processing: false,
-                succeeded: true,
-                error: "",
-                metadata: payload.paymentIntent
-              });
-              console.log("[PaymentIntent]", payload.paymentIntent);
-            }
-          });
-      })
-      .catch(err => {
-        this.setState({ error: err.message });
+        return;
       });
   }
 
