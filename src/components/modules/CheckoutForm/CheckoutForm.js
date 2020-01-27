@@ -1,6 +1,7 @@
 import React, { Component, useContext } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import "./CheckoutForm.css";
+import Cookies from "universal-cookie";
 
 class CheckoutForm extends Component {
   constructor(props) {
@@ -29,11 +30,16 @@ class CheckoutForm extends Component {
     ev.preventDefault();
     const request = this.props.request;
     const mainContext = this.props.mainContext;
-    const currentUser = "esuarez"; //TODO: get current logged in user
 
     // Step 0: Check Prerequisites
+    // Get Cookie
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const currentUser = "esuarez"; //TODO: get current logged in user
+
+    // Get Ride details
     mainContext
-      .rideDetails(request.meta.rideID)
+      .rideDetails(request.meta.rideID, authToken)
       .then(ride => {
         if (ride.passengers.length + request.meta.seats >= ride.seats) {
           this.setState({ error: "Error: Not Enough Seats" });
@@ -42,11 +48,14 @@ class CheckoutForm extends Component {
 
         // Step 1: Create PaymentIntent over Stripe API
         mainContext
-          .createPaymentIntent({
-            rideID: request.meta.rideID,
-            spotsToBePurchased: request.meta.seats,
-            username: currentUser
-          })
+          .createPaymentIntent(
+            {
+              rideID: request.meta.rideID,
+              spotsToBePurchased: request.meta.seats,
+              username: currentUser
+            },
+            authToken
+          )
           .then(clientSecret => {
             this.setState({
               amount: request.ride.price / request.meta.spots,

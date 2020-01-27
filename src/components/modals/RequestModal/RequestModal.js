@@ -18,6 +18,7 @@ import {
 } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import MainContext from "../../../context/mainContext";
+import Cookies from "universal-cookie";
 
 import "./RequestModal.css";
 
@@ -33,6 +34,10 @@ const RequestModal = props => {
 
   // API Request Context
   const mainContext = useContext(MainContext);
+
+  // Get Cookie
+  const cookies = new Cookies();
+  const authToken = cookies.get("authToken");
 
   let requestStatusText;
   let primaryBtn;
@@ -58,7 +63,10 @@ const RequestModal = props => {
   };
 
   const handleWithdrawRequest = async () => {
-    const response = await mainContext.withdrawRequest(request.meta._id);
+    const response = await mainContext.withdrawRequest(
+      request.meta._id,
+      authToken
+    );
     console.log(response);
     if (!response) {
     } else {
@@ -66,18 +74,27 @@ const RequestModal = props => {
   };
 
   const handleRemoveRequest = async () => {
-    const response = await mainContext.archiveRequest(request.meta._id);
+    const response = await mainContext.archiveRequest(
+      request.meta._id,
+      authToken
+    );
     console.log(response);
   };
 
   // Driver Actions
   const handleAcceptRequest = async () => {
-    const response = await mainContext.approveRequest(request.meta._id);
+    const response = await mainContext.approveRequest(
+      request.meta._id,
+      authToken
+    );
     console.log(response);
   };
 
   const handleDeclineRequest = async () => {
-    const response = await mainContext.declineRequest(request.meta._id);
+    const response = await mainContext.declineRequest(
+      request.meta._id,
+      authToken
+    );
     console.log(response);
   };
 

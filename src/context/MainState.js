@@ -146,11 +146,14 @@ const MainState = ({ children }) => {
   };
 
   // GET RIDE Details
-  const rideDetails = rideID => {
+  const rideDetails = (rideID, token) => {
     return axios
       .get("/rides/ride-details", {
         params: {
           rideID: rideID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
@@ -192,7 +195,7 @@ const MainState = ({ children }) => {
   };
 
   // WITHDRAW REQUEST
-  const withdrawRequest = requestID => {
+  const withdrawRequest = (requestID, token) => {
     return axios
       .put("/request/cancel", {
         params: {
@@ -211,7 +214,7 @@ const MainState = ({ children }) => {
   };
 
   // ARCHIVE REQUEST
-  const archiveRequest = requestID => {
+  const archiveRequest = (requestID, token) => {
     return axios
       .put("/request/archive", {
         params: {
@@ -230,7 +233,7 @@ const MainState = ({ children }) => {
   };
 
   // ACCEPT REQUEST
-  const approveRequest = requestID => {
+  const approveRequest = (requestID, token) => {
     return axios
       .put("/request/approve", {
         params: {
@@ -249,7 +252,7 @@ const MainState = ({ children }) => {
   };
 
   // DECLINE REQUEST
-  const declineRequest = requestID => {
+  const declineRequest = (requestID, token) => {
     return axios
       .put("/request/decline", {
         params: {
@@ -585,9 +588,13 @@ const MainState = ({ children }) => {
   };
 
   // GET PUBLIC STRIPE KEY
-  const getPublicStripeKey = () => {
+  const getPublicStripeKey = token => {
     return axios
-      .get("/stripe/public-key")
+      .get("/stripe/public-key", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then(res => {
         return res.data;
       })
@@ -597,9 +604,14 @@ const MainState = ({ children }) => {
   };
 
   // CREAT PAYMENT INTENT
-  const createPaymentIntent = options => {
+  const createPaymentIntent = (options, token) => {
     return axios
-      .post("/stripe/create-payment-intent", options)
+      .post("/stripe/create-payment-intent", {
+        options,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then(res => {
         if (res.status === 200) {
           return res.data.clientSecret;
