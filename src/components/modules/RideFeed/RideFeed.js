@@ -35,10 +35,10 @@ const RideFeed = ({ feed, buttonColor, buttonText }) => {
                     color: "black"
                   }}
                 >
-                  {ride.from.name}
+                  {ride.from}
                 </div>
                 <div style={{ fontSize: "15px", marginTop: "-7px" }}>
-                  {ride.from.location}
+                  {ride.from}
                 </div>
               </div>
               <div className="first-card-value">
@@ -55,14 +55,14 @@ const RideFeed = ({ feed, buttonColor, buttonText }) => {
                     color: "black"
                   }}
                 >
-                  {ride.to.name}
+                  {ride.to}
                 </div>
                 <div style={{ fontSize: "15px", marginTop: "-7px" }}>
-                  {ride.to.location}
+                  {ride.to}
                 </div>
               </div>
-              <div className="remaining-card-values">{ride.date}</div>
-              <div className="remaining-card-values">{ride.time}</div>
+              <div className="remaining-card-values">6/15/19</div>
+              <div className="remaining-card-values">2:00PM</div>
               <div className="remaining-card-values">${ride.price}</div>
               <div className="remaining-card-values">{ride.seats}</div>
             </div>
@@ -78,7 +78,7 @@ const RideFeed = ({ feed, buttonColor, buttonText }) => {
                     </div>
                     <div className="ride-detail-info">
                       <div style={{ fontWeight: "bold", fontSize: "25px" }}>
-                        {ride.ownerFullName}
+                        {ride.ownerUsername}
                       </div>
                       <div>{ride.detail}</div>
                     </div>

@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 import SignupForm from "../../modules/SignupForm/SignupForm";
 
@@ -7,7 +8,11 @@ import "./LandingPage.css";
 
 const LandingPage = ({ history }) => {
   useEffect(() => {
-    history.push("/rider");
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (authToken) {
+      history.push("/rider");
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
