@@ -180,7 +180,8 @@ const MainState = ({ children }) => {
     axios
       .get("/request/sender", {
         params: {
-          status: "visible"
+          status: "visible",
+          senderID: "admin-noreply"
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -192,6 +193,7 @@ const MainState = ({ children }) => {
           type: FETCH_SENDER_REQUEST_FEED,
           payload: res.data
         });
+        console.log(state.requestSenderFeed);
       })
       .catch(error => {
         console.error(error);
@@ -655,6 +657,7 @@ const MainState = ({ children }) => {
         authToken: state.authToken,
         userInfo: state.userInfo,
         rideFeed: state.rideFeed,
+        requestSenderFeed: state.requestSenderFeed,
         driveHistory: state.driveHistory,
         upcomingRide: state.upcomingRide,
         upcomingDrive: state.upcomingDrive,
