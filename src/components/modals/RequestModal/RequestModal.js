@@ -63,13 +63,26 @@ const RequestModal = props => {
   };
 
   const handleWithdrawRequest = async () => {
-    const response = await mainContext.withdrawRequest(
+    const withdrawRes = await mainContext.withdrawRequest(
       request.meta._id,
       authToken
     );
-    console.log(response);
-    if (!response) {
-    } else {
+
+    if (!withdrawRes) {
+      // TODO: Add better UI to display failure
+      console.log("Withdraw Request Failed");
+      return;
+    }
+
+    const archiveRes = await mainContext.archiveRequest(
+      request.meta._id,
+      authToken
+    );
+
+    if (!archiveRes) {
+      // TODO: Add better UI to display failure
+      console.log("Archive Request Failed");
+      return;
     }
   };
 
@@ -78,7 +91,14 @@ const RequestModal = props => {
       request.meta._id,
       authToken
     );
-    console.log(response);
+
+    if (!response) {
+      // TODO: Add better UI to display failure
+      console.log("Remove Request Failed");
+      return;
+    }
+
+    // Make card disappear
   };
 
   // Driver Actions
@@ -87,15 +107,26 @@ const RequestModal = props => {
       request.meta._id,
       authToken
     );
-    console.log(response);
+
+    if (!response) {
+      // TODO: Add better UI to display failure
+      console.log("Accept Request Failed");
+      return;
+    }
+
+    // Make card disappear
   };
 
-  const handleDeclineRequest = async () => {
-    const response = await mainContext.declineRequest(
-      request.meta._id,
-      authToken
-    );
-    console.log(response);
+  const handleDenyRequest = async () => {
+    const response = await mainContext.denyRequest(request.meta._id, authToken);
+
+    if (!response) {
+      // TODO: Add better UI to display failure
+      console.log("Deny Request Failed");
+      return;
+    }
+
+    // Make card disappear
   };
 
   // Set Custom UI elements based on Request Status and User Type
@@ -175,7 +206,7 @@ const RequestModal = props => {
     );
 
     secondaryBtn = (
-      <Button color="danger" onClick={handleDeclineRequest}>
+      <Button color="danger" onClick={handleDenyRequest}>
         Decline
       </Button>
     );

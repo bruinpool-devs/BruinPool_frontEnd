@@ -17,7 +17,8 @@ import {
   INCREMENT_DRIVER_NUM,
   TOGGLE_EDIT_MODAL,
   TOGGLE_INFO_MODAL,
-  FETCH_NOTIFICATION
+  FETCH_NOTIFICATION,
+  FETCH_SENDER_REQUEST_FEED
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -27,6 +28,7 @@ const MainState = ({ children }) => {
     authToken: "",
     userInfo: false,
     rideFeed: [],
+    requestSenderFeed: [],
     driveHistory: [],
     upcomingRide: [],
     upcomingDrive: [],
@@ -173,6 +175,29 @@ const MainState = ({ children }) => {
       });
   };
 
+  // FETCH REQUEST FEED
+  const fetchSenderRequestFeed = token => {
+    axios
+      .get("/request/sender", {
+        params: {
+          status: "visible"
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        dispatch({
+          type: FETCH_SENDER_REQUEST_FEED,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   // POST RIDE
   const postRide = (info, token) => {
     const rideObject = {
@@ -252,9 +277,9 @@ const MainState = ({ children }) => {
   };
 
   // DECLINE REQUEST
-  const declineRequest = (requestID, token) => {
+  const denyRequest = (requestID, token) => {
     return axios
-      .put("/request/decline", {
+      .put("/request/deny", {
         params: {
           requestID
         },
@@ -646,11 +671,12 @@ const MainState = ({ children }) => {
         cookieAuth,
         logout,
         rideDetails,
+        fetchSenderRequestFeed,
         postRide,
         withdrawRequest,
         archiveRequest,
         approveRequest,
-        declineRequest,
+        denyRequest,
         joinRide,
         cancelRide,
         editRide,
