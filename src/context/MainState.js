@@ -17,7 +17,8 @@ import {
   INCREMENT_DRIVER_NUM,
   TOGGLE_EDIT_MODAL,
   TOGGLE_INFO_MODAL,
-  FETCH_NOTIFICATION
+  FETCH_NOTIFICATION,
+  FETCH_SENDER_REQUEST_FEED
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -27,6 +28,7 @@ const MainState = ({ children }) => {
     authToken: "",
     userInfo: false,
     rideFeed: [],
+    requestSenderFeed: [],
     driveHistory: [],
     upcomingRide: [],
     upcomingDrive: [],
@@ -145,6 +147,57 @@ const MainState = ({ children }) => {
     window.location.reload();
   };
 
+  // GET RIDE Details
+  const rideDetails = (rideID, token) => {
+    return axios
+      .get("/rides/ride-details", {
+        params: {
+          rideID: rideID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          return res.data;
+        } else {
+          return null;
+        }
+      })
+      .then(data => {
+        if (!data || data.error) {
+          console.log("API error:", { data });
+          throw Error("Ride Details Error");
+        } else {
+          return data;
+        }
+      });
+  };
+
+  // FETCH REQUEST FEED
+  const fetchSenderRequestFeed = token => {
+    axios
+      .get("/request/sender", {
+        params: {
+          status: "visible"
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        dispatch({
+          type: FETCH_SENDER_REQUEST_FEED,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   // POST RIDE
   const postRide = (info, token) => {
     const rideObject = {
@@ -160,6 +213,82 @@ const MainState = ({ children }) => {
       .then(() => {
         alert("Posted!");
         fetchRideFeed({}, token);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // WITHDRAW REQUEST
+  const withdrawRequest = (requestID, token) => {
+    return axios
+      .put("/request/cancel", {
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // ARCHIVE REQUEST
+  const archiveRequest = (requestID, token) => {
+    return axios
+      .put("/request/archive", {
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // ACCEPT REQUEST
+  const approveRequest = (requestID, token) => {
+    return axios
+      .put("/request/approve", {
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // DECLINE REQUEST
+  const denyRequest = (requestID, token) => {
+    return axios
+      .put("/request/deny", {
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -483,6 +612,43 @@ const MainState = ({ children }) => {
       });
   };
 
+  // GET PUBLIC STRIPE KEY
+  const getPublicStripeKey = token => {
+    return axios
+      .get("/stripe/public-key", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  };
+
+  // CREAT PAYMENT INTENT
+  const createPaymentIntent = (options, token) => {
+    return axios
+      .post("/stripe/create-payment-intent", {
+        options,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          return res.data.clientSecret;
+        } else {
+          return null;
+        }
+      })
+      .catch(err => {
+        throw err;
+      });
+  };
+
   return (
     <MainContext.Provider
       value={{
@@ -504,7 +670,13 @@ const MainState = ({ children }) => {
         login,
         cookieAuth,
         logout,
+        rideDetails,
+        fetchSenderRequestFeed,
         postRide,
+        withdrawRequest,
+        archiveRequest,
+        approveRequest,
+        denyRequest,
         joinRide,
         cancelRide,
         editRide,
@@ -519,7 +691,9 @@ const MainState = ({ children }) => {
         toggleInfoModal,
         fetchNotification,
         clearNotification,
-        fetchProfilePic
+        fetchProfilePic,
+        getPublicStripeKey,
+        createPaymentIntent
       }}
     >
       {children}

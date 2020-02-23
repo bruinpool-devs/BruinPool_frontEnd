@@ -9,7 +9,7 @@ const RequestFeed = ({ requestFeed, userType }) => {
   return (
     <div className="request-container">
       {requestFeed.map(curr_request => {
-        return <RequestModal request={curr_request} />;
+        return <RequestModal request={curr_request} userType={userType} />;
       })}
     </div>
   );

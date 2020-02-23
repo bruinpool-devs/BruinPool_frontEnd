@@ -12,7 +12,8 @@ import {
   INCREMENT_DRIVER_NUM,
   TOGGLE_EDIT_MODAL,
   TOGGLE_INFO_MODAL,
-  FETCH_NOTIFICATION
+  FETCH_NOTIFICATION,
+  FETCH_SENDER_REQUEST_FEED
 } from "./types";
 
 export default (state, action) => {
@@ -87,6 +88,11 @@ export default (state, action) => {
         ...state,
         newNoti: action.payload[0],
         oldNoti: action.payload[1]
+      };
+    case FETCH_SENDER_REQUEST_FEED:
+      return {
+        ...state,
+        requestSenderFeed: action.payload
       };
     default:
       return state;
