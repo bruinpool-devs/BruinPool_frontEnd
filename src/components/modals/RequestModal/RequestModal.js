@@ -24,7 +24,7 @@ import "./RequestModal.css";
 
 const RequestModal = props => {
   // Get Passed in Paramaters
-  const { request, userType, history } = props;
+  const { request, userType, history, index } = props;
 
   // Set Modal Initial States
   const [modal, setModal] = useState(false);
@@ -214,7 +214,7 @@ const RequestModal = props => {
 
   // Create page elements
   return (
-    <div className="request-card" onClick={toggle}>
+    <div className="request-card" onClick={toggle} key={index}>
       <Row className="request-card-header">
         <Col className="request-time-elapsed">2 hrs ago</Col>
         <Col className="approved-request-status">{requestStatusText}</Col>

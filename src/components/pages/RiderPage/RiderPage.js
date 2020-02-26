@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 import { Button } from "reactstrap";
-import { feed } from "../../modules/RideFeed/mockData";
 import MainContext from "../../../context/mainContext";
 
 import Navbar from "../../navbar/Navbar";
@@ -30,19 +29,35 @@ const RiderPage = ({ history }) => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
 
-    // const rideObject = {
-    //   ownerEmail: "jhan25@g.ucla.edu",
-    //   ownerUsername: "jhan25",
-    //   from: "Irvine",
-    //   to: "Los Angeles",
-    //   date: "2020-02-05",
-    //   price: "20",
-    //   seats: 4,
-    //   detail: "Third test for post",
-    //   passengers: []
-    // };
-
     await mainContext.fetchRideFeed({}, authToken);
+  };
+
+  const populateRides = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    const rideObject = {
+      ownerEmail: "jhan25@g.ucla.edu",
+      ownerUsername: "jhan25",
+      from: "UCSB",
+      to: "Pasadena",
+      date: "2020-06-01",
+      price: "20",
+      seats: 4,
+      detail: "Third test for post",
+      passengers: []
+    };
+
+    await mainContext.postRide(rideObject, authToken);
+    await mainContext.postRide(rideObject, authToken);
+    await mainContext.postRide(rideObject, authToken);
+  };
+
+  const joinFirstRide = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.joinRide(mainContext.rideFeed[0], authToken);
   };
 
   return (
@@ -61,17 +76,28 @@ const RiderPage = ({ history }) => {
                 color: "#383838",
                 fontSize: "20px",
                 boxShadow: "none",
-                borderRadius: "20px"
+                borderRadius: "20px",
+                marginRight: "20px"
               }}
             >
               More Filters
+            </Button>
+            <Button
+              style={{ marginRight: "20px" }}
+              onClick={() => populateRides()}
+              color="success"
+            >
+              Populate Data
+            </Button>
+            <Button onClick={() => joinFirstRide()} color="success">
+              Join First Ride
             </Button>
           </div>
           <div className="feed-container">
             <RideFeed
               feed={mainContext.rideFeed}
               buttonColor={"#3d77ff"}
-              buttonText={"Book Ride"}
+              buttonText={"Request Ride"}
             />
           </div>
         </div>

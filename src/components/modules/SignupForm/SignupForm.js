@@ -97,7 +97,7 @@ const SignupForm = ({ history }) => {
       passwordValid === "true" &&
       passwordConfirmValid === "true"
     ) {
-      mainContext.signup(password, username, name);
+      mainContext.signup(password, username);
     }
   };
 

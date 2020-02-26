@@ -16,7 +16,7 @@ const LoginForm = ({ history }) => {
   const handleLogin = async () => {
     const fullEmail = email.concat("@g.ucla.edu");
 
-    const response = await mainContext.login(fullEmail, password);
+    const response = await mainContext.login(email, fullEmail, password);
 
     if (!response) {
       setLoginValid("false");
