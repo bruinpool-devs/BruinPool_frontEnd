@@ -21,6 +21,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./DriverPost.css";
 import "../DriverRegister/DriverRegister.css";
+import PostRideModal from "../../modals/PostRideModal/PostRideModal";
+import PostRideSummary from "../../pages/DriverPage/PostRideSummary";
 
 const mockData = [
   "UCLA",
@@ -36,8 +38,14 @@ const _ = require("underscore");
 const DriverPost = ({ toggleRegistered }) => {
   const [fromDropdown, setFromDropdown] = useState(false);
   const [toDropdown, setToDropdown] = useState(false);
-  const [fromLocation, setFromLocation] = useState("From");
-  const [toLocation, setToLocation] = useState("To");
+  const [fromLocation, setFromLocation] = useState("");
+  const [toLocation, setToLocation] = useState("");
+  const [specificPickup, setSpecificPickup] = useState("");
+  const [specificDropoff, setSpecificDropoff] = useState(""); // 필요한 값들 state에 저장 -> props로 넘긴다
+  const [modal, setModal] = useState(false); // onChange로 text값들 변화 tracking해주기
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("");
+  const [driverNote, setDriverNote] = useState("");
 
   const dropdownButtonStyle = {
     display: "flex",
@@ -62,7 +70,17 @@ const DriverPost = ({ toggleRegistered }) => {
   });
 
   const optionStyle = {
-    width: "200px",
+    width: "150px",
+    height: "45px",
+    marginTop: "20px",
+    borderWidth: "0px 0px 2px 0px",
+    borderRadius: "0px",
+    marginLeft: "10px",
+    boxShadow: "none"
+  };
+
+  const optionStyle2 = {
+    width: "350px",
     height: "45px",
     marginTop: "20px",
     borderWidth: "0px 0px 2px 0px",
@@ -155,13 +173,33 @@ const DriverPost = ({ toggleRegistered }) => {
               </DropdownMenu>
             </ButtonDropdown>
           </div>
-          <div className="post-options">
-            <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
-            <Input placeholder="Specific Pickup Location" style={optionStyle} />
+          <div className="post-from-to">
+            <div className="post-options">
+              <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
+              <Input
+                placeholder="Specific Pickup Location... e.g. Westwood In n Out"
+                style={optionStyle2}
+                value={specificPickup}
+                onChange={e => setSpecificPickup(e.target.value)}
+              />
+            </div>
+            <div className="post-specific-location">
+              <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
+              <Input
+                placeholder="Specific Dropoff Location... e.g. Cupertino"
+                style={optionStyle2}
+                value={specificDropoff}
+                onChange={e => setSpecificDropoff(e.target.value)}
+              />
+            </div>
           </div>
           <div className="post-options">
             <FontAwesomeIcon icon={faCalendarAlt} style={iconStyle} />
-            <Input type="date" style={optionStyle} />
+            <Input
+              type="date"
+              style={optionStyle}
+              onChange={e => setDate(e.target.value)}
+            />
           </div>
           <div className="post-options">
             <FontAwesomeIcon icon={faDollarSign} style={iconStyle} />
@@ -177,17 +215,45 @@ const DriverPost = ({ toggleRegistered }) => {
           </div>
           <div className="post-options">
             <FontAwesomeIcon icon={faClock} style={iconStyle} />
-            <Input type="time" placeholder="Pickup Time" style={optionStyle} />
+            <Input
+              type="time"
+              placeholder="Pickup Time"
+              style={optionStyle}
+              onChange={e => setTime(e.target.value)}
+            />
           </div>
           <div className="post-options">
             <Input
               type="textarea"
-              placeholder="Write about your ride! I am traveling to..."
+              placeholder="Write about your ride! I am traveling to... I am flexible with location and time..."
               style={textAreaStyle}
+              onChange={e => setDriverNote(e.target.value)}
+              value={driverNote}
             />
           </div>
           <div className="post-options">
-            <Button style={buttonStyle}>Post Ride</Button>
+            {modal && (
+              <PostRideModal
+                isOpen={modal}
+                toggleModal={setModal}
+                from={fromLocation}
+                to={toLocation}
+                specificPickup={specificPickup}
+                specificDropoff={specificDropoff}
+                date={date}
+                time={time}
+                driverNote={driverNote}
+              />
+            )}
+
+            <Button
+              style={buttonStyle}
+              onClick={() => {
+                setModal(!modal);
+              }}
+            >
+              Post Ride
+            </Button>
           </div>
         </div>
       </div>
