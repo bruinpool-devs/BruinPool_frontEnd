@@ -1,4 +1,5 @@
-import React, { Component, useState } from "react";
+import React, { Component, useState, useContext } from "react";
+import Cookies from "universal-cookie";
 
 import DatePicker from "react-datepicker";
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +12,8 @@ import {
   DropdownItem,
   Button
 } from "reactstrap";
+
+import MainContext from "../../../context/mainContext";
 
 import "./Filters.css";
 import "react-datepicker/dist/react-datepicker.css";
@@ -62,6 +65,21 @@ const Filters = () => {
   const [toLocation, setToLocation] = useState("To");
   const [date, setDate] = useState(new Date());
 
+  const mainContext = useContext(MainContext);
+
+  const filterResults = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    const filter = {
+      from: fromLocation,
+      to: toLocation,
+      date_from: date
+    };
+
+    await mainContext.fetchRideFeed(filter, authToken);
+  };
+
   const dropdownButtonStyle = {
     display: "flex",
     flexDirection: "row",
@@ -109,7 +127,7 @@ const Filters = () => {
         </DropdownToggle>
         <DropdownMenu>
           {mockData.map((location, index) => (
-            <div style={{ width: "367px" }}>
+            <div key={index} style={{ width: "367px" }}>
               <DropdownItem onClick={() => setFromLocation(location)}>
                 {location}
               </DropdownItem>
@@ -132,7 +150,7 @@ const Filters = () => {
         </DropdownToggle>
         <DropdownMenu>
           {mockData.map((location, index) => (
-            <div style={{ width: "367px" }}>
+            <div key={index} style={{ width: "367px" }}>
               <DropdownItem onClick={() => setToLocation(location)}>
                 {location}
               </DropdownItem>
@@ -145,9 +163,11 @@ const Filters = () => {
         customInput={<CustomInput />}
         selected={date}
         onChange={date => setDate(date)}
-        dateFormat="MM/dd/yyyy"
+        dateFormat="MM/dd/yy"
       />
-      <Button style={searchButtonStyle}>Search</Button>
+      <Button onClick={() => filterResults()} style={searchButtonStyle}>
+        Search
+      </Button>
     </div>
   );
 };

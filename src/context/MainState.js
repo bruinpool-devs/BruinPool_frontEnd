@@ -10,6 +10,7 @@ import {
   FETCH_RIDE_FEED,
   FETCH_MORE_RIDE_FEED,
   FETCH_UPCOMING_RIDE,
+  FETCH_RIDE_HISTORY,
   INCREMENT_RIDER_NUM,
   FETCH_DRIVE_HISTORY,
   FETCH_MORE_DRIVE_HISTORY,
@@ -29,6 +30,7 @@ const MainState = ({ children }) => {
     userInfo: false,
     rideFeed: [],
     requestSenderFeed: [],
+    rideHistory: [],
     driveHistory: [],
     upcomingRide: [],
     upcomingDrive: [],
@@ -44,11 +46,10 @@ const MainState = ({ children }) => {
   const [state, dispatch] = useReducer(MainReducer, initialState);
 
   // SIGNUP
-  const signup = (password, username, name) => {
+  const signup = (password, username) => {
     const signupInfo = {
       password,
-      username,
-      name
+      username
     };
 
     axios
@@ -86,7 +87,7 @@ const MainState = ({ children }) => {
   };
 
   // LOGIN
-  const login = async (email, password) => {
+  const login = async (username, email, password) => {
     const cookies = new Cookies();
     const loginInfo = {
       email,
@@ -100,12 +101,11 @@ const MainState = ({ children }) => {
       .then(res => {
         if (res.status === 200) {
           cookies.set("authToken", res.data.authToken, { path: "/" });
+          cookies.set("userName", username, { path: "/" });
           dispatch({
             type: LOGIN,
             payload: res.data
           });
-
-          console.log(res.data.authToken);
 
           validity = true;
         }
@@ -188,33 +188,10 @@ const MainState = ({ children }) => {
         }
       })
       .then(res => {
-        console.log(res.data);
         dispatch({
           type: FETCH_SENDER_REQUEST_FEED,
           payload: res.data
         });
-        console.log(state.requestSenderFeed);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  // POST RIDE
-  const postRide = (info, token) => {
-    const rideObject = {
-      rideInfo: info
-    };
-
-    axios
-      .post("/rides/post-ride", rideObject, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      })
-      .then(() => {
-        alert("Posted!");
-        fetchRideFeed({}, token);
       })
       .catch(error => {
         console.error(error);
@@ -297,22 +274,41 @@ const MainState = ({ children }) => {
       });
   };
 
-  // JOIN RIDE
-  const joinRide = entry => {
-    const { userInfo, authToken } = state;
-    entry.passengers.push(userInfo.username);
+  // POST RIDE
+  const postRide = (info, token) => {
+    const rideObject = {
+      rideInfo: info
+    };
 
     axios
-      .put("/rideList", {
-        entry,
-        userInfo,
-        status: "join"
+      .post("/rides/post-ride", rideObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       .then(() => {
-        alert("Joined!");
-        cookieAuth(authToken);
-        fetchRideFeed();
-        fetchUpcomingRide();
+        fetchRideFeed({}, token);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // JOIN RIDE
+  const joinRide = (entry, token) => {
+    const rideObject = {
+      ride: entry
+    };
+
+    axios
+      .put("/rides/join-ride", rideObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(() => {
+        fetchRideFeed({}, token);
+        fetchUpcomingRide(token);
       })
       .catch(error => {
         console.error(error);
@@ -419,14 +415,16 @@ const MainState = ({ children }) => {
   };
 
   // FETCH UPCOMING RIDE
-  const fetchUpcomingRide = () => {
-    const { userInfo } = state;
+  const fetchUpcomingRide = token => {
+    const { riderPageNum } = state;
 
     axios
-      .get("/rideList", {
+      .get("/rides/my-rides-upcoming", {
         params: {
-          userInfo,
-          type: "rideUpcoming"
+          pageNum: riderPageNum
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
@@ -440,15 +438,42 @@ const MainState = ({ children }) => {
       });
   };
 
-  // FETCH DRIVE HISTORY
-  const fetchDriveHistory = () => {
-    const { userInfo, driverPageNum } = state;
+  // FETCH RIDE HISTORY
+  const fetchRideHistory = token => {
+    const { riderPageNum } = state;
+
     axios
-      .get("/rideList", {
+      .get("/rides/my-rides-history", {
         params: {
-          userInfo,
+          pageNum: riderPageNum
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: FETCH_RIDE_HISTORY,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH DRIVE HISTORY
+  const fetchDriveHistory = (username, token) => {
+    const { driverPageNum } = state;
+
+    axios
+      .get("/rides/drives-history", {
+        params: {
           pageNum: driverPageNum,
-          type: "driveHistory"
+          username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
@@ -491,13 +516,17 @@ const MainState = ({ children }) => {
   };
 
   // FETCH UPCOMING DRIVE
-  const fetchUpcomingDrive = () => {
-    const { userInfo } = state;
+  const fetchUpcomingDrive = (username, token) => {
+    const { driverPageNum } = state;
+
     axios
-      .get("/rideList", {
+      .get("/rides/drives-upcoming", {
         params: {
-          userInfo,
-          type: "driveUpcoming"
+          pageNum: driverPageNum,
+          username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
@@ -658,6 +687,7 @@ const MainState = ({ children }) => {
         userInfo: state.userInfo,
         rideFeed: state.rideFeed,
         requestSenderFeed: state.requestSenderFeed,
+        rideHistory: state.rideHistory,
         driveHistory: state.driveHistory,
         upcomingRide: state.upcomingRide,
         upcomingDrive: state.upcomingDrive,
@@ -686,6 +716,7 @@ const MainState = ({ children }) => {
         fetchRideFeed,
         fetchMoreRideFeed,
         fetchUpcomingRide,
+        fetchRideHistory,
         fetchDriveHistory,
         fetchMoreDriveHistory,
         fetchUpcomingDrive,

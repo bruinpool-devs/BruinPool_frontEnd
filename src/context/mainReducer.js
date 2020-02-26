@@ -5,6 +5,7 @@ import {
   FETCH_RIDE_FEED,
   FETCH_MORE_RIDE_FEED,
   FETCH_UPCOMING_RIDE,
+  FETCH_RIDE_HISTORY,
   INCREMENT_RIDER_NUM,
   FETCH_DRIVE_HISTORY,
   FETCH_MORE_DRIVE_HISTORY,
@@ -47,6 +48,11 @@ export default (state, action) => {
       return {
         ...state,
         upcomingRide: action.payload
+      };
+    case FETCH_RIDE_HISTORY:
+      return {
+        ...state,
+        rideHistory: action.payload
       };
     case INCREMENT_RIDER_NUM:
       return {

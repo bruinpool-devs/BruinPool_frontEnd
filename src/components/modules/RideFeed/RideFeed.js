@@ -17,16 +17,12 @@ const RideFeed = ({ feed, buttonColor, buttonText }) => {
         <div className="remaining-titles">Price</div>
         <div className="remaining-titles">Seats Left</div>
       </div>
-      {feed.map(ride => {
-        const domID = "#" + ride.ownerUsername;
+      {feed.map((ride, index) => {
+        const domID = "#w" + ride._id;
 
         return (
-          <div>
-            <div
-              key={ride.ownerUsername}
-              id={ride.ownerUsername}
-              className="rideCard"
-            >
+          <div key={index}>
+            <div id={"w" + ride._id} className="rideCard">
               <div className="first-card-value">
                 <div
                   style={{
