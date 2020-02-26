@@ -56,6 +56,7 @@ const MyRidesPage = ({ history }) => {
               feed={upcomingFeed}
               buttonColor={"#FF3D3D"}
               buttonText={"Cancel Ride"}
+              renderCancelModal={true}
             />
           </div>
 

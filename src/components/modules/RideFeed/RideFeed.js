@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+
+import CancelRideModal from "../../modals/CancelRideModal/CancelRideModal";
 
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,7 +8,15 @@ import { Button, UncontrolledCollapse, Card, CardBody } from "reactstrap";
 
 import "./RideFeed.css";
 
-const RideFeed = ({ feed, buttonColor, buttonText }) => {
+const RideFeed = ({ feed, buttonColor, buttonText, renderCancelModal }) => {
+  const [modal, setModal] = useState(false);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState("");
+  const [seats, setSeats] = useState("");
+  const [luggages, setLuggage] = useState("");
+
   return (
     <div className="ride-feed-container">
       <div className="table-header">
@@ -83,6 +93,19 @@ const RideFeed = ({ feed, buttonColor, buttonText }) => {
                       <div>{ride.detail}</div>
                     </div>
                     <div className="ride-detail-button">
+                      {renderCancelModal && (
+                        <CancelRideModal
+                          isOpen={modal}
+                          toggleModal={setModal}
+                          from={from}
+                          to={to}
+                          date={date}
+                          time={time}
+                          seats={seats}
+                          luggages={luggages}
+                        />
+                      )}
+
                       <Button
                         style={{
                           backgroundColor: buttonColor,
@@ -92,6 +115,15 @@ const RideFeed = ({ feed, buttonColor, buttonText }) => {
                           width: "145px",
                           height: "45px",
                           fontSize: "20px"
+                        }}
+                        onClick={() => {
+                          setFrom(ride.from);
+                          setTo(ride.to);
+                          setDate(ride.date);
+                          setTime(ride.time);
+                          setSeats(ride.seats);
+                          setLuggage(ride.luggages);
+                          setModal(!modal);
                         }}
                       >
                         {buttonText}

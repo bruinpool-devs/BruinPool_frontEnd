@@ -15,6 +15,7 @@ import MyDrivesPage from "./components/pages/MyDrivesPage/MyDrivesPage";
 import HelpPage from "./components/pages/HelpPage/HelpPage";
 import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
 import RideCheckoutPage from "./components/pages/RideCheckoutPage/RideCheckoutPage";
+import PostRideSummary from "./components/pages/DriverPage/PostRideSummary";
 
 import MainState from "./context/MainState";
 
@@ -36,6 +37,12 @@ const App = () => {
           <Route exact path="/driver/help" component={HelpPage} />
           <Route exact path="/driver/profile" component={ProfilePage} />
           <Route exact path="/ride/checkout" component={RideCheckoutPage} />
+          <Route
+            exact
+            path="/driver/post-summary"
+            component={PostRideSummary}
+          />
+
           <Redirect to="/" />
         </Switch>
       </Router>

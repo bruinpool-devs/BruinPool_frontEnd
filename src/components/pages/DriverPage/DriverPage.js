@@ -13,7 +13,10 @@ const DriverPage = () => {
     <div>
       <Navbar />
       {registered ? (
-        <DriverPost toggleRegistered={toggleRegistered} />
+        <DriverPost
+          toggleRegistered={toggleRegistered}
+          renderPostRideModal={true}
+        />
       ) : (
         <DriverRegister toggleRegistered={toggleRegistered} />
       )}
