@@ -64,18 +64,12 @@ const MyRidesPage = ({ history }) => {
           <div className="feed-container">
             <RideFeed
               feed={mainContext.upcomingRide}
-              buttonColor={"#FF3D3D"}
-              buttonText={"Cancel Ride"}
-              renderCancelModal={true}
+              upcomingRidesBool={true}
             />
           </div>
           <div className="sub-title">Ride History</div>
           <div className="feed-container">
-            <RideFeed
-              feed={mainContext.rideHistory}
-              buttonColor={"#5C5C5C"}
-              buttonText={"Completed"}
-            />
+            <RideFeed feed={mainContext.rideHistory} rideHistoryBool={true} />
           </div>
         </div>
       </div>

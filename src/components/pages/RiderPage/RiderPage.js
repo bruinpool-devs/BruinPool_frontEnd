@@ -106,11 +106,7 @@ const RiderPage = ({ history }) => {
             </Button>
           </div>
           <div className="feed-container">
-            <RideFeed
-              feed={mainContext.rideFeed}
-              buttonColor={"#3d77ff"}
-              buttonText={"Request Ride"}
-            />
+            <RideFeed feed={mainContext.rideFeed} mainRidesBool={true} />
           </div>
         </div>
       </div>

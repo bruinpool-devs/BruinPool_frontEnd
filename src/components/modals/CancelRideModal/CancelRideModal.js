@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Button, Modal, ModalBody } from "reactstrap";
+import { withRouter } from "react-router-dom";
 import moment from "moment";
 import Cookies from "universal-cookie";
 
@@ -21,7 +22,8 @@ const CancelRideModal = ({
   from,
   to,
   date,
-  seats
+  seats,
+  location
 }) => {
   const [message, setMessage] = useState("");
 
@@ -30,7 +32,14 @@ const CancelRideModal = ({
   const handleCancelRide = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
-    await mainContext.cancelRide(ride, authToken);
+    const path = location.pathname;
+
+    if (path.substr(1, 5) === "rider") {
+      await mainContext.cancelRide(ride, authToken);
+    } else {
+      await mainContext.deleteRide(ride, authToken);
+    }
+
     toggleModal(!isOpen);
   };
 
@@ -67,7 +76,9 @@ const CancelRideModal = ({
                   marginRight: "10px"
                 }}
               />
-              {moment(date).format("MM/DD/YY")}
+              {moment(date)
+                .utc()
+                .format("MM/DD/YY")}
               <FontAwesomeIcon
                 icon={faClock}
                 style={{
@@ -76,7 +87,9 @@ const CancelRideModal = ({
                   marginRight: "10px"
                 }}
               />
-              {moment(date).format("h A")}
+              {moment(date)
+                .utc()
+                .format("h A")}
               <div className="cardLineTwo-text">Seats: {seats}</div>
               <div className="cardLineTwo-text">Luggages: 0</div>
             </div>
@@ -137,4 +150,4 @@ const CancelRideModal = ({
   );
 };
 
-export default CancelRideModal;
+export default withRouter(CancelRideModal);

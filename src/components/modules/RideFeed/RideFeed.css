@@ -100,17 +100,65 @@
   height: 120px;
 }
 
+.driver-text {
+  font-size: 20px;
+  margin-bottom: 14px;
+}
+
+.ride-history-detail-photo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 20px;
+  width: 20%;
+}
+
+.ride-history-detail-photo img {
+  width: 70px;
+  height: 70px;
+}
+
 .ride-detail-info {
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 33%;
+}
+
+.ride-detail-pickup {
+  display: flex;
+  flex-direction: column;
+  width: 25%;
+}
+
+.license-phone-number {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.pickup-location-text {
+  font-size: 30px;
+  margin-bottom: 5px;
 }
 
 .ride-detail-button {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 20%;
+}
+
+.ride-history-driver-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.ride-history-driver-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 30px;
 }
 
 @media screen and (max-width: 950px) {

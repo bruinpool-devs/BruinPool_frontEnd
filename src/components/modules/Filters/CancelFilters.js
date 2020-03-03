@@ -1,19 +1,13 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  Button
+  DropdownItem
 } from "reactstrap";
 
-
-const mockData = [
-  "Change of travel plans",
-  "No longer traveling",
-  "Other"
-];
+const mockData = ["Change of travel plans", "No longer traveling", "Other"];
 
 const _ = require("underscore");
 

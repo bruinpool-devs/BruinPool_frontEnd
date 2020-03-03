@@ -57,17 +57,12 @@ const MyDrivesPage = ({ history }) => {
           <div className="feed-container">
             <RideFeed
               feed={mainContext.upcomingDrive}
-              buttonColor={"#FF3D3D"}
-              buttonText={"Cancel Drive"}
+              postedDrivesBool={true}
             />
           </div>
           <div className="sub-title">Drive History</div>
           <div className="feed-container">
-            <RideFeed
-              feed={mainContext.driveHistory}
-              buttonColor={"#5C5C5C"}
-              buttonText={"Completed"}
-            />
+            <RideFeed feed={mainContext.driveHistory} />
           </div>
         </div>
       </div>
