@@ -1,8 +1,11 @@
-import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import React, { useState, useContext } from "react";
+import { Button, Modal, ModalBody } from "reactstrap";
+import moment from "moment";
+import Cookies from "universal-cookie";
 
 import "./CancelRideModal.css";
 import CancelFilters from "../../modules/Filters/CancelFilters";
+import MainContext from "../../../context/mainContext";
 
 import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
@@ -14,13 +17,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const CancelRideModal = ({
   isOpen,
   toggleModal,
+  ride,
   from,
   to,
   date,
-  time,
-  seats,
-  luggages
+  seats
 }) => {
+  const [message, setMessage] = useState("");
+
+  const mainContext = useContext(MainContext);
+
+  const handleCancelRide = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    await mainContext.cancelRide(ride, authToken);
+    toggleModal(!isOpen);
+  };
+
   return (
     <div>
       <Modal
@@ -28,7 +41,6 @@ const CancelRideModal = ({
         isOpen={isOpen}
         toggle={() => toggleModal(!isOpen)}
       >
-        {/* <ModalHeader toggle={() => toggleModal(!isOpen)}>Are you sure you want to cancel this ride?</ModalHeader> */}
         <ModalBody className="bodyFrame">
           <div className="bodyTitle">
             Are you sure you want to cancel this ride?
@@ -55,7 +67,7 @@ const CancelRideModal = ({
                   marginRight: "10px"
                 }}
               />
-              {date}
+              {moment(date).format("MM/DD/YY")}
               <FontAwesomeIcon
                 icon={faClock}
                 style={{
@@ -64,22 +76,25 @@ const CancelRideModal = ({
                   marginRight: "10px"
                 }}
               />
-              {time}
+              {moment(date).format("h A")}
               <div className="cardLineTwo-text">Seats: {seats}</div>
-              <div className="cardLineTwo-text">Luggages: {luggages}</div>
+              <div className="cardLineTwo-text">Luggages: 0</div>
             </div>
           </div>
           <div>Reason for canceling</div>
-          <CancelFilters></CancelFilters>
+          <CancelFilters />
           <div>Leave a message to your driver:</div>
-          <input
-            className="inputTextfield1"
-            type="text"
-            // value={this.state.value}
-            // onChange={this.handleChange}
+          <textarea
+            value={message}
+            onChange={e => setMessage(e.target.value)}
+            style={{
+              width: "450px",
+              height: "150px",
+              marginTop: "10px",
+              padding: "10px"
+            }}
           />
         </ModalBody>
-
         <ModalBody className="footerCss">
           <Button
             className="go-back-button"
@@ -108,11 +123,11 @@ const CancelRideModal = ({
               color: "white",
               boxShadow: "none",
               fontSize: "1vw",
-              width: "120px",
+              width: "150px",
               padding: "10px",
               fontWeight: "bold"
             }}
-            onClick={() => toggleModal(!isOpen)}
+            onClick={() => handleCancelRide()}
           >
             Cancel Ride
           </Button>

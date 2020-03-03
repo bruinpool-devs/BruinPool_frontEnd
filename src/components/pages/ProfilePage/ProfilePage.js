@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
@@ -8,7 +10,16 @@ import Navbar from "../../navbar/Navbar";
 import "../RiderPage/RiderPage.css";
 import "./ProfilePage.css";
 
-const ProfilePage = () => {
+const ProfilePage = ({ history }) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (!authToken) {
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const fullStarStyle = {
     color: "#FFF61B",
     height: "18px",
@@ -101,4 +112,4 @@ const ProfilePage = () => {
   );
 };
 
-export default ProfilePage;
+export default withRouter(ProfilePage);

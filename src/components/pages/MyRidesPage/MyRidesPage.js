@@ -60,7 +60,6 @@ const MyRidesPage = ({ history }) => {
           <div className="feed-container">
             <RequestFeed requestFeed={requests} userType={"rider"} />
           </div>
-
           <div className="sub-title">Upcoming Rides</div>
           <div className="feed-container">
             <RideFeed
@@ -70,7 +69,6 @@ const MyRidesPage = ({ history }) => {
               renderCancelModal={true}
             />
           </div>
-
           <div className="sub-title">Ride History</div>
           <div className="feed-container">
             <RideFeed

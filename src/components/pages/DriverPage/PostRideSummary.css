@@ -8,13 +8,12 @@
   display: flex;
   flex-direction: row;
 }
-.post-ride-summary-verticle {
-}
+
 .ride-posted {
   font-size: 35px;
   font-weight: bold;
-  margin-top: 20px;
-  margin-left: 20px;
+  margin-top: 40px;
+  margin-left: 40px;
   margin-bottom: 30px;
 }
 
@@ -61,10 +60,34 @@
 }
 
 .cardLine-info-driverNote {
-  margin-top: 80px;
+  margin-top: 20px;
   margin-bottom: 10px;
 }
 
 .cardLine-info-note {
   font-size: 12px;
+}
+
+.summary-driver-info {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.summary-driver-info img {
+  width: 50px;
+  height: 50px;
+}
+
+.summary-driver-info-img {
+  margin-right: 30px;
+}
+
+.summary-driver-info-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.summary-driver-info-school {
+  font-size: 13px;
 }

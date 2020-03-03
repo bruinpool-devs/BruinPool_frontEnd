@@ -22,7 +22,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import "./DriverPost.css";
 import "../DriverRegister/DriverRegister.css";
 import PostRideModal from "../../modals/PostRideModal/PostRideModal";
-import PostRideSummary from "../../pages/DriverPage/PostRideSummary";
 
 const mockData = [
   "UCLA",
@@ -41,10 +40,12 @@ const DriverPost = ({ toggleRegistered }) => {
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
   const [specificPickup, setSpecificPickup] = useState("");
-  const [specificDropoff, setSpecificDropoff] = useState(""); // 필요한 값들 state에 저장 -> props로 넘긴다
-  const [modal, setModal] = useState(false); // onChange로 text값들 변화 tracking해주기
+  const [specificDropoff, setSpecificDropoff] = useState("");
+  const [modal, setModal] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState("");
+  const [price, setPrice] = useState(0);
+  const [seats, setSeats] = useState(0);
   const [driverNote, setDriverNote] = useState("");
 
   const dropdownButtonStyle = {
@@ -203,7 +204,12 @@ const DriverPost = ({ toggleRegistered }) => {
           </div>
           <div className="post-options">
             <FontAwesomeIcon icon={faDollarSign} style={iconStyle} />
-            <Input type="number" placeholder="Price" style={optionStyle} />
+            <Input
+              type="number"
+              placeholder="Price"
+              style={optionStyle}
+              onChange={e => setPrice(e.target.value)}
+            />
           </div>
           <div className="post-options">
             <FontAwesomeIcon icon={faUser} style={iconStyle} />
@@ -211,6 +217,7 @@ const DriverPost = ({ toggleRegistered }) => {
               type="number"
               placeholder="Available Seats"
               style={optionStyle}
+              onChange={e => setSeats(e.target.value)}
             />
           </div>
           <div className="post-options">
@@ -242,6 +249,8 @@ const DriverPost = ({ toggleRegistered }) => {
                 specificDropoff={specificDropoff}
                 date={date}
                 time={time}
+                price={price}
+                seats={seats}
                 driverNote={driverNote}
               />
             )}

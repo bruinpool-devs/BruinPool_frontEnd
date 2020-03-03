@@ -1,16 +1,19 @@
-import React from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import React, { useContext } from "react";
+import { withRouter } from "react-router-dom";
+import { Button, Modal, ModalBody } from "reactstrap";
+
+import MainContext from "../../../context/mainContext";
+import Cookies from "universal-cookie";
 
 import "./PostRideModal.css";
 
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
-
-import { withRouter } from "react-router-dom";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faMapMarkerAlt,
+  faLongArrowAltRight,
+  faCalendarAlt,
+  faClock
+} from "@fortawesome/free-solid-svg-icons";
 
 const PostRideModal = ({
   isOpen,
@@ -19,15 +22,48 @@ const PostRideModal = ({
   to,
   date,
   time,
+  price,
+  seats,
   specificPickup,
   specificDropoff,
   driverNote,
-  history,
-  location
-  // seats,
-  // luggages
+  history
 }) => {
-  // const path = location.pathname;
+  const mainContext = useContext(MainContext);
+
+  const handlePostRide = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const userName = cookies.get("userName");
+    const dateString = `${date}T${time}:00.000Z`;
+
+    const rideObject = {
+      ownerEmail: userName + "@g.ucla.edu",
+      ownerUsername: userName,
+      from: from,
+      to: to,
+      date: dateString,
+      price: `${price}`,
+      seats: seats,
+      detail: driverNote,
+      passengers: []
+    };
+
+    await mainContext.postRide(rideObject, authToken);
+
+    history.push({
+      pathname: "/driver/post-summary",
+      state: {
+        from: from,
+        to: to,
+        date: date,
+        time: time,
+        specificDropoff: specificDropoff,
+        specificPickup: specificPickup,
+        driverNote: driverNote
+      }
+    });
+  };
 
   return (
     <div>
@@ -36,7 +72,6 @@ const PostRideModal = ({
         isOpen={isOpen}
         toggle={() => toggleModal(!isOpen)}
       >
-        {/* <ModalHeader toggle={() => toggleModal(!isOpen)}>Are you sure you want to cancel this ride?</ModalHeader> */}
         <ModalBody className="bodyFrame">
           <div className="bodyTitle">Is the ride information correct?</div>
           <div className="rideInfoCard">
@@ -111,26 +146,7 @@ const PostRideModal = ({
               padding: "10px",
               fontWeight: "bold"
             }}
-            // className={
-            //   path === "/driver/post-summary"
-            //     ? "active-item"
-            //     : "non-active-item"
-            // }
-            // onClick={() => history.push("/driver/post-summary")}
-            onClick={() =>
-              history.push({
-                pathname: "/driver/post-summary",
-                state: {
-                  from: from,
-                  to: to,
-                  date: date,
-                  time: time,
-                  specificDropoff: specificDropoff,
-                  specificPickup: specificPickup,
-                  driverNote: driverNote
-                }
-              })
-            }
+            onClick={() => handlePostRide()}
           >
             Confirm
           </Button>

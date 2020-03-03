@@ -1,20 +1,35 @@
 import React from "react";
+import Cookies from "universal-cookie";
 
 import Navbar from "../../navbar/Navbar";
 import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { withRouter } from "react-router-dom";
 
-import { faCheckSquare } from "@fortawesome/free-regular-svg-icons";
-import { faBell } from "@fortawesome/free-regular-svg-icons";
-import { faLongArrowAltRight } from "@fortawesome/free-solid-svg-icons";
-import { faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faCheckSquare, faBell } from "@fortawesome/free-regular-svg-icons";
+import {
+  faLongArrowAltRight,
+  faMapMarkerAlt,
+  faCalendarAlt,
+  faClock,
+  faGraduationCap
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./PostRideSummary.css";
 
-const PostRideSummary = ({ location }) => {
+const PostRideSummary = ({ location, history }) => {
+  const iconStyle = {
+    marginLeft: "30px",
+    marginRight: "32px",
+    marginBottom: "-7px",
+    color: "#3D77FF",
+    width: "35px",
+    height: "35px"
+  };
+
+  const cookies = new Cookies();
+  const userName = cookies.get("userName");
+
   return (
     <div className="post-ride-summary">
       <div>
@@ -25,25 +40,16 @@ const PostRideSummary = ({ location }) => {
         <div className="post-ride-summary-left-div">
           <div className="ride-posted"> Ride Posted!</div>
           <div className="ride-summary">
-            <FontAwesomeIcon
-              icon={faCheckSquare}
-              style={{ marginLeft: "30px", marginRight: "10px" }}
-            />
+            <FontAwesomeIcon icon={faCheckSquare} style={iconStyle} />
             Your ride has been posted to the dashboard!
           </div>
           <div className="ride-summary">
-            <FontAwesomeIcon
-              icon={faBell}
-              style={{ marginLeft: "30px", marginRight: "10px" }}
-            />
+            <FontAwesomeIcon icon={faBell} style={iconStyle} />
             Once a rider requests your ride, you will recieve a web notification
             and an email.
           </div>
           <div className="ride-summary">
-            <FontAwesomeIcon
-              icon={faLongArrowAltRight}
-              style={{ marginLeft: "30px", marginRight: "10px" }}
-            />
+            <FontAwesomeIcon icon={faLongArrowAltRight} style={iconStyle} />
             Please check your Drive Section to view your posted drive.
           </div>
           <div>
@@ -54,8 +60,9 @@ const PostRideSummary = ({ location }) => {
                 color: "white",
                 boxShadow: "none",
                 padding: "7px 15px 7px 15px",
-                marginLeft: "100px"
+                marginLeft: "137px"
               }}
+              onClick={() => history.push("/driver/my-drives")}
             >
               Go to My Drives
             </Button>
@@ -100,6 +107,24 @@ const PostRideSummary = ({ location }) => {
           </div>
           <div className="line" />
           <div className="cardLine-info">Driver:</div>
+          <div className="summary-driver-info">
+            <div className="summary-driver-info-img">
+              <img
+                src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+                alt="bear"
+              />
+            </div>
+            <div>
+              <div className="summary-driver-info-name">{userName}</div>
+              <div className="summary-driver-info-school">
+                <FontAwesomeIcon
+                  icon={faGraduationCap}
+                  style={{ marginRight: "5px" }}
+                />
+                UCLA
+              </div>
+            </div>
+          </div>
           <div className="cardLine-info">
             <div className="cardLine-info-driverNote"> Driver's Note </div>
             <div className="cardLine-info-note">

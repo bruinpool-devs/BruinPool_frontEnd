@@ -41,15 +41,13 @@ const RiderPage = ({ history }) => {
       ownerUsername: "jhan25",
       from: "UCSB",
       to: "Pasadena",
-      date: "2020-06-01",
+      date: "2020-06-05T07:00:00.000Z",
       price: "20",
       seats: 4,
-      detail: "Third test for post",
+      detail: "Testing for time difference",
       passengers: []
     };
 
-    await mainContext.postRide(rideObject, authToken);
-    await mainContext.postRide(rideObject, authToken);
     await mainContext.postRide(rideObject, authToken);
   };
 
@@ -58,6 +56,13 @@ const RiderPage = ({ history }) => {
     const authToken = cookies.get("authToken");
 
     await mainContext.joinRide(mainContext.rideFeed[0], authToken);
+  };
+
+  const deleteFirstRide = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.deleteRide(mainContext.rideFeed[0], authToken);
   };
 
   return (
@@ -89,8 +94,15 @@ const RiderPage = ({ history }) => {
             >
               Populate Data
             </Button>
-            <Button onClick={() => joinFirstRide()} color="success">
+            <Button
+              style={{ marginRight: "20px" }}
+              onClick={() => joinFirstRide()}
+              color="success"
+            >
               Join First Ride
+            </Button>
+            <Button onClick={() => deleteFirstRide()} color="success">
+              Delete First Ride
             </Button>
           </div>
           <div className="feed-container">

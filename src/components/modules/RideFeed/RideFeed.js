@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import moment from "moment";
 
 import CancelRideModal from "../../modals/CancelRideModal/CancelRideModal";
 
@@ -13,9 +14,7 @@ const RideFeed = ({ feed, buttonColor, buttonText, renderCancelModal }) => {
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
-  const [time, setTime] = useState("");
   const [seats, setSeats] = useState("");
-  const [luggages, setLuggage] = useState("");
 
   return (
     <div className="ride-feed-container">
@@ -67,8 +66,16 @@ const RideFeed = ({ feed, buttonColor, buttonText, renderCancelModal }) => {
                   {ride.to}
                 </div>
               </div>
-              <div className="remaining-card-values">6/15/19</div>
-              <div className="remaining-card-values">2:00PM</div>
+              <div className="remaining-card-values">
+                {moment(ride.date)
+                  .utc()
+                  .format("M/DD/YY")}
+              </div>
+              <div className="remaining-card-values">
+                {moment(ride.date)
+                  .utc()
+                  .format("h A")}
+              </div>
               <div className="remaining-card-values">${ride.price}</div>
               <div className="remaining-card-values">{ride.seats}</div>
             </div>
@@ -93,12 +100,11 @@ const RideFeed = ({ feed, buttonColor, buttonText, renderCancelModal }) => {
                         <CancelRideModal
                           isOpen={modal}
                           toggleModal={setModal}
+                          ride={ride}
                           from={from}
                           to={to}
                           date={date}
-                          time={time}
                           seats={seats}
-                          luggages={luggages}
                         />
                       )}
 
@@ -116,9 +122,7 @@ const RideFeed = ({ feed, buttonColor, buttonText, renderCancelModal }) => {
                           setFrom(ride.from);
                           setTo(ride.to);
                           setDate(ride.date);
-                          setTime(ride.time);
                           setSeats(ride.seats);
-                          setLuggage(ride.luggages);
                           setModal(!modal);
                         }}
                       >
