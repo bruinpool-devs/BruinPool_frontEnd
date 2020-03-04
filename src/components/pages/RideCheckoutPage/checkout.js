@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../../modules/CheckoutForm/CheckoutForm.js";
 import MainContext from "../../../context/mainContext";
@@ -21,7 +21,7 @@ const Checkout = props => {
       });
   });
 
-  if (key != "") {
+  if (key !== "") {
     return (
       <div className="checkout">
         <StripeProvider apiKey={key ? key : null}>

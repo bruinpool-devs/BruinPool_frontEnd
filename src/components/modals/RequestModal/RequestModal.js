@@ -13,8 +13,7 @@ import {
   ModalBody,
   ModalFooter,
   Row,
-  Col,
-  Alert
+  Col
 } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import MainContext from "../../../context/mainContext";
@@ -130,7 +129,7 @@ const RequestModal = props => {
   };
 
   // Set Custom UI elements based on Request Status and User Type
-  if (userType == "rider") {
+  if (userType === "rider") {
     userTypeHeader = "Driver";
 
     switch (request.meta.status) {

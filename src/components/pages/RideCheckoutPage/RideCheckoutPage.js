@@ -1,7 +1,7 @@
 import React from "react";
 import "./RideCheckoutPage.css";
 import Checkout from "./checkout.js";
-import { Button, Row, Col, Container } from "reactstrap";
+import { Row, Col, Container } from "reactstrap";
 import {
   faLongArrowAltRight,
   faCalendarAlt,

@@ -9,6 +9,8 @@ import {
   FETCH_UPCOMING_DRIVE,
   INCREMENT_DRIVER_NUM,
   FETCH_NOTIFICATION,
+  FETCH_REVIEWS,
+  FETCH_PROFILE_PIC,
   FETCH_SENDER_REQUEST_FEED
 } from "./types";
 
@@ -63,6 +65,16 @@ export default (state, action) => {
       return {
         ...state,
         noti: action.payload
+      };
+    case FETCH_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload
+      };
+    case FETCH_PROFILE_PIC:
+      return {
+        ...state,
+        profilePic: action.payload
       };
     case FETCH_SENDER_REQUEST_FEED:
       return {
