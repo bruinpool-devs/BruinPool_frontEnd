@@ -80,8 +80,8 @@ const Navbar = ({ history, location }) => {
               >
                 <PopoverHeader>Messages</PopoverHeader>
                 <PopoverBody>
-                  {mainContext.noti.map(msg => (
-                    <div className="single-message">
+                  {mainContext.noti.map((msg, index) => (
+                    <div key={index} className="single-message">
                       <div className="message-and-time">
                         <div className="bold-text">{msg.username}</div>
                         <div className="gray-text">
@@ -111,8 +111,8 @@ const Navbar = ({ history, location }) => {
               >
                 <PopoverHeader>Notifications</PopoverHeader>
                 <PopoverBody>
-                  {mainContext.noti.map(noti => (
-                    <div className="single-noti">
+                  {mainContext.noti.map((noti, index) => (
+                    <div key={index} className="single-noti">
                       <div>{noti.msg}</div>
                       <div className="gray-text">
                         {moment(noti.date).fromNow()}
@@ -215,8 +215,8 @@ const Navbar = ({ history, location }) => {
               >
                 <PopoverHeader>Messages</PopoverHeader>
                 <PopoverBody>
-                  {mainContext.noti.map(msg => (
-                    <div className="single-message">
+                  {mainContext.noti.map((msg, index) => (
+                    <div key={index} className="single-message">
                       <div className="message-and-time">
                         <div className="bold-text">{msg.username}</div>
                         <div className="gray-text">
@@ -246,8 +246,8 @@ const Navbar = ({ history, location }) => {
               >
                 <PopoverHeader>Notifications</PopoverHeader>
                 <PopoverBody>
-                  {mainContext.noti.map(noti => (
-                    <div className="single-noti">
+                  {mainContext.noti.map((noti, index) => (
+                    <div key={index} className="single-noti">
                       {noti.msg} {moment(noti.date).fromNow()}
                     </div>
                   ))}

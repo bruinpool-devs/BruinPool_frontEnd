@@ -32,25 +32,6 @@ const RiderPage = ({ history }) => {
     await mainContext.fetchRideFeed({}, authToken);
   };
 
-  const populateRides = async () => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
-
-    const rideObject = {
-      ownerEmail: "jhan25@g.ucla.edu",
-      ownerUsername: "jhan25",
-      from: "UCSB",
-      to: "Pasadena",
-      date: "2020-06-05T07:00:00.000Z",
-      price: "20",
-      seats: 4,
-      detail: "Testing for time difference",
-      passengers: []
-    };
-
-    await mainContext.postRide(rideObject, authToken);
-  };
-
   const joinFirstRide = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
@@ -58,11 +39,19 @@ const RiderPage = ({ history }) => {
     await mainContext.joinRide(mainContext.rideFeed[0], authToken);
   };
 
-  const deleteFirstRide = async () => {
+  const handleAddReview = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
+    const userName = cookies.get("userName");
 
-    await mainContext.deleteRide(mainContext.rideFeed[0], authToken);
+    const reviewObject = {
+      revieweeUsername: userName,
+      rideId: mainContext.rideFeed[0]._id,
+      rating: 3,
+      comment: "Driver arrived really late and was super rude!"
+    };
+
+    await mainContext.addReview(reviewObject, authToken);
   };
 
   return (
@@ -89,20 +78,13 @@ const RiderPage = ({ history }) => {
             </Button>
             <Button
               style={{ marginRight: "20px" }}
-              onClick={() => populateRides()}
-              color="success"
-            >
-              Populate Data
-            </Button>
-            <Button
-              style={{ marginRight: "20px" }}
               onClick={() => joinFirstRide()}
               color="success"
             >
               Join First Ride
             </Button>
-            <Button onClick={() => deleteFirstRide()} color="success">
-              Delete First Ride
+            <Button onClick={() => handleAddReview()} color="success">
+              Add Review
             </Button>
           </div>
           <div className="feed-container">

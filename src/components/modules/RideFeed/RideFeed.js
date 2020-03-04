@@ -405,8 +405,9 @@ const RideFeed = ({
                             gridRowGap: "30px"
                           }}
                         >
-                          {mockPassengers.map(person => (
+                          {mockPassengers.map((person, index) => (
                             <div
+                              key={index}
                               style={{
                                 display: "flex",
                                 flexDirection: "row",

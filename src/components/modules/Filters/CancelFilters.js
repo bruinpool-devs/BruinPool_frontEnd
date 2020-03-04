@@ -51,7 +51,7 @@ const CancelFilters = ({ isCancelModal }) => {
         </DropdownToggle>
         <DropdownMenu>
           {mockData.map((reason, index) => (
-            <div style={{ width: "450px" }}>
+            <div key={index} style={{ width: "450px" }}>
               <DropdownItem onClick={() => setReason(reason)}>
                 {reason}
               </DropdownItem>

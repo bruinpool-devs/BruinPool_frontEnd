@@ -33,13 +33,13 @@ const MyDrivesPage = ({ history }) => {
     await mainContext.fetchUpcomingDrive(username, authToken);
   };
 
-  const fetchDriveHistoryFeed = async () => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
-    const username = cookies.get("userName");
+  // const fetchDriveHistoryFeed = async () => {
+  //   const cookies = new Cookies();
+  //   const authToken = cookies.get("authToken");
+  //   const username = cookies.get("userName");
 
-    await mainContext.fetchDriveHistory(username, authToken);
-  };
+  //   await mainContext.fetchDriveHistory(username, authToken);
+  // };
 
   return (
     <div>

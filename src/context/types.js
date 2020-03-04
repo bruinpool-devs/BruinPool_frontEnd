@@ -16,3 +16,9 @@ export const INCREMENT_DRIVER_NUM = "INCREMENT_DRIVER_NUM";
 
 // Handle Notifications
 export const FETCH_NOTIFICATION = "FETCH_NOTIFICATION";
+
+// Handle Reviews
+export const FETCH_REVIEWS = "FETCH_REVIEWS";
+
+// Handle Profile Picture
+export const FETCH_PROFILE_PIC = "FETCH_PROFILE_PIC";

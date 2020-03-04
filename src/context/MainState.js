@@ -11,8 +11,10 @@ import {
   FETCH_RIDE_HISTORY,
   FETCH_DRIVE_HISTORY,
   FETCH_UPCOMING_DRIVE,
-  FETCH_SENDER_REQUEST_FEED,
-  FETCH_NOTIFICATION
+  FETCH_NOTIFICATION,
+  FETCH_REVIEWS,
+  FETCH_PROFILE_PIC,
+  FETCH_SENDER_REQUEST_FEED
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -28,7 +30,9 @@ const MainState = ({ children }) => {
     riderPageNum: 0,
     driverPageNum: 0,
     filter: null,
-    noti: []
+    noti: [],
+    reviews: [],
+    profilePic: ""
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -310,10 +314,11 @@ const MainState = ({ children }) => {
     };
 
     axios
-      .delete("/rides/delete-ride", rideObject, {
+      .delete("/rides/delete-ride", {
         headers: {
           Authorization: `Bearer ${token}`
-        }
+        },
+        data: rideObject
       })
       .then(() => {
         alert("Ride deleted!");
@@ -544,7 +549,7 @@ const MainState = ({ children }) => {
       });
   };
 
-  // CREAT PAYMENT INTENT
+  // CREATE PAYMENT INTENT
   const createPaymentIntent = (options, token) => {
     return axios
       .post("/stripe/create-payment-intent", {
@@ -565,6 +570,87 @@ const MainState = ({ children }) => {
       });
   };
 
+  // ADD REVIEW
+  const addReview = (entry, token) => {
+    axios
+      .post("/reviews", entry, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        alert("Review added!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH REVIEWS
+  const fetchReviews = (username, token) => {
+    axios
+      .get("/reviews", {
+        params: {
+          username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: FETCH_REVIEWS,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH PROFILE PICTURE
+  const fetchProfilePic = (username, token) => {
+    axios
+      .get("/users/usersPic", {
+        params: {
+          username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: FETCH_PROFILE_PIC,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // UPLOAD PROFILE PICTURE
+  const uploadProfilePic = (picture, token) => {
+    const fileObject = {
+      file: picture
+    };
+
+    axios
+      .patch("/users/upload-profile-pic", fileObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        alert("Picture uploaded!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   return (
     <MainContext.Provider
       value={{
@@ -578,6 +664,8 @@ const MainState = ({ children }) => {
         driverPageNum: state.driverPageNum,
         filter: state.filter,
         noti: state.noti,
+        reviews: state.reviews,
+        profilePic: state.profilePic,
         signup,
         validateUsername,
         login,
@@ -601,6 +689,10 @@ const MainState = ({ children }) => {
         fetchNotification,
         createNotification,
         viewNotification,
+        addReview,
+        fetchReviews,
+        fetchProfilePic,
+        uploadProfilePic,
         getPublicStripeKey,
         createPaymentIntent
       }}

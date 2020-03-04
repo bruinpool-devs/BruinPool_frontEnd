@@ -138,7 +138,7 @@ const RequestModal = props => {
   };
 
   // Set Custom UI elements based on Request Status and User Type
-  if (userType == "rider") {
+  if (userType === "rider") {
     userTypeHeader = "Driver";
 
     switch (request.meta.status) {
