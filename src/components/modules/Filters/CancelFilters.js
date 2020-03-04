@@ -7,13 +7,20 @@ import {
   DropdownItem
 } from "reactstrap";
 
-const mockData = ["Change of travel plans", "No longer traveling", "Other"];
+const cancelMockData = [
+  "Change of travel plans",
+  "No longer traveling",
+  "Other"
+];
+const declineMockData = ["Ride is full", "Location conflict", "Time conflict"];
 
 const _ = require("underscore");
 
-const CancelFilters = () => {
+const CancelFilters = ({ isCancelModal }) => {
   const [reasonDropdown, setReasonDropdown] = useState(false);
   const [reason, setReason] = useState("Reason");
+
+  const mockData = isCancelModal ? cancelMockData : declineMockData;
 
   const dropdownButtonStyle = {
     display: "flex",

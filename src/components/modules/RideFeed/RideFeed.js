@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import moment from "moment";
+import { withRouter } from "react-router-dom";
 
 import CancelRideModal from "../../modals/CancelRideModal/CancelRideModal";
 
@@ -17,7 +18,8 @@ const RideFeed = ({
   mainRidesBool,
   upcomingRidesBool,
   rideHistoryBool,
-  postedDrivesBool
+  postedDrivesBool,
+  history
 }) => {
   const [modal, setModal] = useState(false);
   const [from, setFrom] = useState("");
@@ -43,6 +45,23 @@ const RideFeed = ({
       last: "Han"
     }
   ];
+
+  const handleRequestRide = ride => {
+    history.push({
+      pathname: "/rider/request-ride",
+      state: {
+        from: ride.from,
+        to: ride.to,
+        date: ride.date,
+        time: ride.time,
+        price: ride.price,
+        specificDropoff: ride.specificDropoff,
+        specificPickup: ride.specificPickup,
+        driverNote: ride.detail,
+        ownerUsername: ride.ownerUsername
+      }
+    });
+  };
 
   return (
     <div className="ride-feed-container">
@@ -148,6 +167,7 @@ const RideFeed = ({
                             height: "45px",
                             fontSize: "20px"
                           }}
+                          onClick={() => handleRequestRide(ride)}
                         >
                           Request Ride
                         </Button>
@@ -484,4 +504,4 @@ const RideFeed = ({
   );
 };
 
-export default RideFeed;
+export default withRouter(RideFeed);
