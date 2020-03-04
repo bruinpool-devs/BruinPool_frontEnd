@@ -95,7 +95,7 @@ const CancelRideModal = ({
             </div>
           </div>
           <div>Reason for canceling</div>
-          <CancelFilters />
+          <CancelFilters isCancelModal={true} />
           <div>Leave a message to your driver:</div>
           <textarea
             value={message}
