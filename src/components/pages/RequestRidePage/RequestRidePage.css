@@ -41,6 +41,8 @@
 
 .request-ride-options {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
 }
 
 .request-ride-right-div {

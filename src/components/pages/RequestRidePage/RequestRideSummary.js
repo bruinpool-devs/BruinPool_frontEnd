@@ -69,7 +69,7 @@ const RequestRideSummary = ({ history }) => {
                 marginTop: "20px",
                 marginLeft: "137px"
               }}
-              onClick={() => history.push("/driver/my-rides")}
+              onClick={() => history.push("/rider/my-rides")}
             >
               Go to My Rides
             </Button>

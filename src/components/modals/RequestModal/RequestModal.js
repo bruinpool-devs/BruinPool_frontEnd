@@ -111,15 +111,15 @@ const RequestModal = props => {
 
   // Driver Actions
   const handleAcceptRequest = async () => {
-    const response = await mainContext.approveRequest(
-      request.meta._id,
-      authToken
-    );
+    // const response = await mainContext.approveRequest(
+    //   request.meta._id,
+    //   authToken
+    // );
 
-    if (!response) {
-      // TODO: Add better UI to display failure
-      console.log("Accept Request Failed");
-    }
+    // if (!response) {
+    //   // TODO: Add better UI to display failure
+    //   console.log("Accept Request Failed");
+    // }
 
     // Make card disappear
     toggle();

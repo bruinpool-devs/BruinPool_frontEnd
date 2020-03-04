@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import moment from "moment";
 
 import { Button, Input } from "reactstrap";
-import { faDollarSign } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -66,6 +65,24 @@ const RequestRidePage = ({ location, history }) => {
     height: "40px"
   };
 
+  const minusIconStyle = {
+    marginLeft: "15px",
+    marginRight: "15px",
+    cursor: "pointer",
+    width: "20px",
+    height: "20px",
+    color: "#9AA6C2"
+  };
+
+  const plusIconStyle = {
+    marginLeft: "15px",
+    marginRight: "15px",
+    cursor: "pointer",
+    width: "20px",
+    height: "20px",
+    color: "#3D77FF"
+  };
+
   return (
     <div className="request-ride">
       <div>
@@ -83,32 +100,39 @@ const RequestRidePage = ({ location, history }) => {
           <div className="request-ride-left-content">
             <div className="request-ride-options">Carry-on bags:</div>
             <div className="request-ride-options">
-              <FontAwesomeIcon
-                icon={faMinusSquare}
-                style={{ marginLeft: "15px", marginRight: "15px" }}
-                onClick={decrementCarryOn}
-              />
-
-              {carryOn}
-              <FontAwesomeIcon
-                icon={faPlusSquare}
-                style={{ marginLeft: "15px", marginRight: "15px" }}
-                onClick={incrementCarryOn}
-              />
+              <div>
+                <FontAwesomeIcon
+                  icon={faMinusSquare}
+                  style={minusIconStyle}
+                  onClick={decrementCarryOn}
+                />
+              </div>
+              <div style={{ fontWeight: "bold" }}>{carryOn}</div>
+              <div>
+                <FontAwesomeIcon
+                  icon={faPlusSquare}
+                  style={plusIconStyle}
+                  onClick={incrementCarryOn}
+                />
+              </div>
             </div>
             <div className="request-ride-options">Luggage:</div>
             <div className="request-ride-options">
-              <FontAwesomeIcon
-                icon={faMinusSquare}
-                style={{ marginLeft: "15px", marginRight: "15px" }}
-                onClick={decrementLuggage}
-              />
-              {luggage}
-              <FontAwesomeIcon
-                icon={faPlusSquare}
-                style={{ marginLeft: "15px", marginRight: "15px" }}
-                onClick={incrementLuggage}
-              />
+              <div>
+                <FontAwesomeIcon
+                  icon={faMinusSquare}
+                  style={minusIconStyle}
+                  onClick={decrementLuggage}
+                />
+              </div>
+              <div style={{ fontWeight: "bold" }}>{luggage}</div>
+              <div>
+                <FontAwesomeIcon
+                  icon={faPlusSquare}
+                  style={plusIconStyle}
+                  onClick={incrementLuggage}
+                />
+              </div>
             </div>
             <div className="request-ride-options">Trip Total:</div>
             <div className="request-ride-options">${location.state.price}</div>
