@@ -614,6 +614,18 @@ const MainState = ({ children }) => {
       });
   };
 
+  // REDICTS DRIVER TO STRIPE AUTHENTICATION SETUP
+  const redirectStripeAuth = () => {
+    return axios
+      .get("/stripe/driver/auth", {})
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        throw err;
+      });
+  };
+
   // GET PUBLIC STRIPE KEY
   const getPublicStripeKey = token => {
     return axios
