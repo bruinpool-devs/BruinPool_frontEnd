@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Button, Form, FormGroup, Input, FormText } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,11 +9,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Cookies from "universal-cookie";
 import "./DriverRegister.css";
-import mainContext from "../../../context/mainContext";
+import MainContext from "../../../context/mainContext";
 
 const cookies = new Cookies();
 const authToken = cookies.get("authToken");
-//var toggleRegistered;
 
 const iconStyle = {
   color: "#3d77ff",
@@ -24,11 +23,14 @@ const iconStyle = {
 };
 
 class DriverRegister extends React.Component {
+  static contextType = MainContext;
+
   constructor(props) {
     super(props);
     this.state = {
       phoneNumberValue: "",
-      vehicleModelValue: ""
+      vehicleModelValue: "",
+      licensePlateNumber: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,9 +38,13 @@ class DriverRegister extends React.Component {
   }
 
   handleChange(event) {
-    if (event.target.getAttribute("name") == "phone-number") {
+    const targetName = event.target.getAttribute("name");
+
+    if (targetName == "phone-number") {
       this.setState({ phoneNumberValue: event.target.value });
-    } else if (event.target.getAttribute("name") == "vehicle-model") {
+    } else if (targetName == "vehicle-model") {
+      this.setState({ vehicleModelValue: event.target.value });
+    } else if (targetName == "license-plate-number") {
       this.setState({ vehicleModelValue: event.target.value });
     } else {
       //MAKE SURE TO HANDLE THIS ALERT BETTER
@@ -47,14 +53,17 @@ class DriverRegister extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault();
+    const mainContext = this.context;
     // alert(
     //   "Phone Number: " +
     //     this.state.phoneNumberValue +
     //     "\nVehicle Model: " +
     //     this.state.vehicleModelValue
     // );
-    mainContext.redirectStripeAuth();
-    event.preventDefault();
+    mainContext.redirectStripeAuth().then(res => {
+      alert(res.startedFromTheBottom);
+    });
   }
 
   render() {
@@ -85,6 +94,15 @@ class DriverRegister extends React.Component {
                 </FormGroup>
                 <FormGroup>
                   <Input
+                    name="license-plate-number"
+                    placeholder="License Plate Number"
+                    style={{ marginBottom: "20px" }}
+                    value={this.state.licensePlateNumber}
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
                     name="vehicle-model"
                     placeholder="Vehicle Model"
                     style={{ marginBottom: "30px" }}
@@ -93,7 +111,7 @@ class DriverRegister extends React.Component {
                   />
                   <FormText
                     color="black"
-                    style={{ fontSize: "10px", marginBottom: "40px" }}
+                    style={{ fontSize: "10px", marginBottom: "10px" }}
                   >
                     By proceeding, I agree to PoolUp's Terms of Use and
                     acknowledge that I have read the Privacy Policy.

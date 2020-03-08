@@ -15,7 +15,7 @@ const DriverPage = ({ history }) => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
     if (!authToken) {
-      history.push("/");
+      //history.push("/");
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
