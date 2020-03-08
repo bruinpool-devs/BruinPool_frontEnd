@@ -25,7 +25,7 @@ import "./RequestModal.css";
 const RequestModal = props => {
   // Get Passed in Paramaters
   const { request, userType, history, index } = props;
-
+  
   // Set Modal Initial States
   const [modal, setModal] = useState(false);
 
@@ -38,24 +38,34 @@ const RequestModal = props => {
   // Get Cookie
   const cookies = new Cookies();
   const authToken = cookies.get("authToken");
+  
+  // Get Ride details
+  const ride = await mainContext.rideDetails(request.rideID, authToken)
+  if (!ride) {
+    // TODO: Add better UI to display failure
+    console.log("Could not get ride Details");
+    return;
+  }
 
   let requestStatusText;
   let primaryBtn;
   let secondaryBtn;
   let userTypeHeader;
 
-  const tripSubTotal = request.meta.seats * request.ride.price;
+  const tripSubTotal = ride.price;
 
   // Rider Actions
   const handleRemindDriver = async () => {
     // Check if user has available reminds to make this call
-    if (request.numReminds <= 0) {
+    if (request.reminders <= 0) {
       console.log("No Reminds left");
     } else {
       // Send Reminder
-      // const response = await mainContext.remindDriver(request.meta.recepientID);
-
-      // Update Num Reminders in request
+      const reminderRes = await mainContext.remind(request.recepientID);
+      if(!reminderRes) {
+        console.log("Could not remind recepient");
+        return;
+      }
 
       // Display Alert
       console.log("Reminder Sent");
@@ -64,7 +74,7 @@ const RequestModal = props => {
 
   const handleWithdrawRequest = async () => {
     const withdrawRes = await mainContext.withdrawRequest(
-      request.meta._id,
+      request._id,
       authToken
     );
 
@@ -75,7 +85,7 @@ const RequestModal = props => {
     }
 
     const archiveRes = await mainContext.archiveRequest(
-      request.meta._id,
+      request._id,
       authToken
     );
 
@@ -88,7 +98,7 @@ const RequestModal = props => {
 
   const handleRemoveRequest = async () => {
     const response = await mainContext.archiveRequest(
-      request.meta._id,
+      request._id,
       authToken
     );
 
@@ -104,7 +114,7 @@ const RequestModal = props => {
   // Driver Actions
   const handleAcceptRequest = async () => {
     const response = await mainContext.approveRequest(
-      request.meta._id,
+      request._id,
       authToken
     );
 
@@ -118,7 +128,7 @@ const RequestModal = props => {
   };
 
   const handleDenyRequest = async () => {
-    const response = await mainContext.denyRequest(request.meta._id, authToken);
+    const response = await mainContext.denyRequest(request._id, authToken);
 
     if (!response) {
       // TODO: Add better UI to display failure
@@ -133,11 +143,11 @@ const RequestModal = props => {
   if (userType == "rider") {
     userTypeHeader = "Driver";
 
-    switch (request.meta.status) {
+    switch (request.status) {
       case "pending":
         requestStatusText = (
           <span className="request-status orange-highlight">
-            {request.meta.status}
+            {request.status}
           </span>
         );
         primaryBtn = (
@@ -154,7 +164,7 @@ const RequestModal = props => {
         break;
       case "declined":
         requestStatusText = (
-          <span className="red-highlight">{request.meta.status}</span>
+          <span className="red-highlight">{request.status}</span>
         );
         primaryBtn = (
           <Button color="outline-primary" onClick={handleRemoveRequest}>
@@ -165,7 +175,7 @@ const RequestModal = props => {
       case `approved`:
         requestStatusText = (
           <span className="request-status green-highlight">
-            {request.meta.status}
+            {request.status}
           </span>
         );
 
@@ -227,13 +237,13 @@ const RequestModal = props => {
             alt="bear"
           />
           <br />
-          <span className="card-name">{request.ride.ownerFullName}</span>
+          <span className="card-name">{ride.ownerFullName}</span>
         </Col>
 
         <Col xs={8} className="card-info">
           <Row className="card-itinerary">
             <Col xs={4} className="itinerary-from">
-              {request.ride.from.name}
+              {ride.from.name}
             </Col>
             <Col xs={3}>
               <FontAwesomeIcon
@@ -242,13 +252,13 @@ const RequestModal = props => {
               />
             </Col>
             <Col xs={4} className="itinerary-to">
-              {request.ride.to.name}
+              {ride.to.name}
             </Col>
           </Row>
           <Row>
             <Col xs={1}></Col>
-            <Col>{request.ride.date}</Col>
-            <Col>{request.ride.time}</Col>
+            <Col>{ride.date}</Col>
+            <Col>{ride.time}</Col>
           </Row>
         </Col>
       </Row>
@@ -257,14 +267,14 @@ const RequestModal = props => {
         <ModalHeader toggle={toggle}>Trip Request</ModalHeader>
         <ModalBody>
           <Row className="itinerary-head">
-            <Col className="itinerary-from">{request.ride.from.name}</Col>
+            <Col className="itinerary-from">{ride.from.name}</Col>
             <Col>
               <FontAwesomeIcon
                 icon={faLongArrowAltRight}
                 style={{ width: "50px", height: "30px" }}
               />
             </Col>
-            <Col className="itinerary-to">{request.ride.to.name}</Col>
+            <Col className="itinerary-to">{ride.to.name}</Col>
             <Col className="popup-status-txt">{requestStatusText}</Col>
             <Col md={7}></Col>
           </Row>
@@ -277,14 +287,14 @@ const RequestModal = props => {
                     icon={faCalendarAlt}
                     style={{ width: "20px", height: "20px" }}
                   />{" "}
-                  <span className="icon-text">{request.ride.date}</span>
+                  <span className="icon-text">{ride.date}</span>
                 </Col>
                 <Col>
                   <FontAwesomeIcon
                     icon={faClock}
                     style={{ width: "20px", height: "20px" }}
                   />
-                  <span className="icon-text">{request.ride.time}</span>
+                  <span className="icon-text">{ride.time}</span>
                 </Col>
               </Row>
               <Row>
@@ -295,13 +305,13 @@ const RequestModal = props => {
                   />
                 </Col>
                 <Col>
-                  <Row>Pickup: {request.ride.from.location}</Row>
-                  <Row>Dropoff: {request.ride.to.location}</Row>
+                  <Row>Pickup: {ride.from.location}</Row>
+                  <Row>Dropoff: {ride.to.location}</Row>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  Seats: <span className="bold-text">{request.meta.seats}</span>
+                  Seats: <span className="bold-text">1</span>
                 </Col>
                 <Col>
                   Luggage:{" "}
@@ -327,7 +337,7 @@ const RequestModal = props => {
                 </Col>
                 <Col>
                   <span className="caption card-name">
-                    {request.ride.ownerFullName}
+                    {ride.ownerFullName}
                   </span>
                 </Col>
               </Row>
@@ -337,7 +347,7 @@ const RequestModal = props => {
             <Col xs={5} className="request-card-request-msg">
               <Row>
                 <h4>{userTypeHeader}'s Note:</h4>
-                {request.ride.detail}
+                {ride.detail}
               </Row>
             </Col>
           </Row>

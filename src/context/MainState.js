@@ -274,6 +274,25 @@ const MainState = ({ children }) => {
       });
   };
 
+  // Remind the recepient of the request
+  const remindRequestRecepient = (requestID, token) => {
+    return axios
+      .get("/request/remind", {
+        params: {
+          requestID
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   // POST RIDE
   const postRide = (info, token) => {
     const rideObject = {
@@ -710,6 +729,7 @@ const MainState = ({ children }) => {
         archiveRequest,
         approveRequest,
         denyRequest,
+        remindRequestRecepient,
         joinRide,
         cancelRide,
         editRide,

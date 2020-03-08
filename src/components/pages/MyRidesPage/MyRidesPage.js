@@ -58,7 +58,10 @@ const MyRidesPage = ({ history }) => {
 
           <div className="sub-title">Trip Requests</div>
           <div className="feed-container">
-            <RequestFeed requestFeed={requests} userType={"rider"} />
+            <RequestFeed
+              requestFeed={mainContext.requestSenderFeed}
+              userType={"rider"}
+            />
           </div>
 
           <div className="sub-title">Upcoming Rides</div>

@@ -6,19 +6,20 @@ import "./RequestFeed.css";
 const _ = require("underscore");
 
 const RequestFeed = ({ requestFeed, userType }) => {
-  return (
-    <div className="request-container">
-      {requestFeed.map((curr_request, index) => {
-        return (
-          <RequestModal
-            request={curr_request}
-            userType={userType}
-            index={index}
-          />
-        );
-      })}
-    </div>
-  );
+  var content = <div></div>;
+
+  if (requestFeed.length > 0) {
+    content = requestFeed.map((curr_request, index) => {
+      return (
+        <RequestModal
+          request={curr_request}
+          userType={userType}
+          index={index}
+        />
+      );
+    });
+  }
+  return <div className="request-container">{content}</div>;
 };
 
 export default RequestFeed;
