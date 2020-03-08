@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from "react";
-import { feed } from "../../modules/RideFeed/mockData";
 import { requests } from "../../modules/RequestFeed/mockData";
 import Cookies from "universal-cookie";
 
@@ -12,9 +11,6 @@ import "../RiderPage/RiderPage.css";
 import "./MyRidesPage.css";
 
 const MyRidesPage = ({ history }) => {
-  const upcomingFeed = feed.slice(0, 1);
-  const historyFeed = feed.slice(1, 4);
-
   useEffect(() => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
@@ -22,8 +18,9 @@ const MyRidesPage = ({ history }) => {
       history.push("/");
     } else {
       fetchSenderRequests();
+      fetchRideHistoryFeed();
+      fetchUpcomingRideFeed();
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -34,6 +31,20 @@ const MyRidesPage = ({ history }) => {
     const authToken = cookies.get("authToken");
 
     await mainContext.fetchSenderRequestFeed(authToken);
+  };
+
+  const fetchRideHistoryFeed = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchRideHistory(authToken);
+  };
+
+  const fetchUpcomingRideFeed = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchUpcomingRide(authToken);
   };
 
   return (
@@ -49,23 +60,16 @@ const MyRidesPage = ({ history }) => {
           <div className="feed-container">
             <RequestFeed requestFeed={requests} userType={"rider"} />
           </div>
-
           <div className="sub-title">Upcoming Rides</div>
           <div className="feed-container">
             <RideFeed
-              feed={upcomingFeed}
-              buttonColor={"#FF3D3D"}
-              buttonText={"Cancel Ride"}
+              feed={mainContext.upcomingRide}
+              upcomingRidesBool={true}
             />
           </div>
-
           <div className="sub-title">Ride History</div>
           <div className="feed-container">
-            <RideFeed
-              feed={historyFeed}
-              buttonColor={"#5C5C5C"}
-              buttonText={"Completed"}
-            />
+            <RideFeed feed={mainContext.rideHistory} rideHistoryBool={true} />
           </div>
         </div>
       </div>

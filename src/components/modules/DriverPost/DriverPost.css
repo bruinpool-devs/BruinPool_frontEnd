@@ -21,3 +21,11 @@
   align-items: center;
   margin-left: 13px;
 }
+
+.post-specific-location {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  padding-left: 60px;
+}

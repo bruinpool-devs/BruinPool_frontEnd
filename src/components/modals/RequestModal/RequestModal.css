@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 .request-container {
   display: flex;
@@ -6,7 +6,7 @@
   width: 97%;
   height: 100%;
   overflow-x: hidden;
-  font-family: "Nunito";
+  font-family: "Montserrat";
   margin-top: 10px;
   margin-bottom: 20px;
 }
@@ -22,6 +22,10 @@
   border: 1px solid #c4c4c4;
   padding: 5px;
   border-radius: 5px;
+}
+
+.request-card:hover {
+  cursor: pointer;
 }
 
 .request-time-elapsed {
@@ -126,4 +130,52 @@
   border-radius: 15px;
   border: 1px solid rgb(240, 188, 121);
   padding: 0px 8px 0px 8px;
+}
+
+.confirm-withdraw-col {
+  display: flex;
+  flex-direction: column;
+  width: 66%;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
+.confirm-withdraw-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.confirm-withdraw-text {
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 30px;
+}
+
+.withdraw-buttons {
+  margin-top: 30px;
+}
+
+.modal {
+  display: flex !important;
+  align-items: center;
+}
+
+.confirm-modal-row {
+  display: flex;
+  flex-direction: row;
+  padding-right: 30px;
+  padding-bottom: 20px;
+}
+
+.confirm-modal-text {
+  width: 500px;
+}
+
+.confirm-modal-exit {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  margin-top: -10px;
+  padding-bottom: 3px;
 }

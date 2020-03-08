@@ -3,7 +3,6 @@ import { withRouter } from "react-router-dom";
 import Cookies from "universal-cookie";
 
 import { Button } from "reactstrap";
-import { feed } from "../../modules/RideFeed/mockData";
 import MainContext from "../../../context/mainContext";
 
 import Navbar from "../../navbar/Navbar";
@@ -30,19 +29,29 @@ const RiderPage = ({ history }) => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
 
-    // const rideObject = {
-    //   ownerEmail: "jhan25@g.ucla.edu",
-    //   ownerUsername: "jhan25",
-    //   from: "Irvine",
-    //   to: "Los Angeles",
-    //   date: "2020-02-05",
-    //   price: "20",
-    //   seats: 4,
-    //   detail: "Third test for post",
-    //   passengers: []
-    // };
-
     await mainContext.fetchRideFeed({}, authToken);
+  };
+
+  const joinFirstRide = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.joinRide(mainContext.rideFeed[0], authToken);
+  };
+
+  const handleAddReview = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const userName = cookies.get("userName");
+
+    const reviewObject = {
+      revieweeUsername: userName,
+      rideId: mainContext.rideFeed[0]._id,
+      rating: 3,
+      comment: "Driver arrived really late and was super rude!"
+    };
+
+    await mainContext.addReview(reviewObject, authToken);
   };
 
   return (
@@ -61,18 +70,25 @@ const RiderPage = ({ history }) => {
                 color: "#383838",
                 fontSize: "20px",
                 boxShadow: "none",
-                borderRadius: "20px"
+                borderRadius: "20px",
+                marginRight: "20px"
               }}
             >
               More Filters
             </Button>
+            <Button
+              style={{ marginRight: "20px" }}
+              onClick={() => joinFirstRide()}
+              color="success"
+            >
+              Join First Ride
+            </Button>
+            <Button onClick={() => handleAddReview()} color="success">
+              Add Review
+            </Button>
           </div>
           <div className="feed-container">
-            <RideFeed
-              feed={mainContext.rideFeed}
-              buttonColor={"#3d77ff"}
-              buttonText={"Book Ride"}
-            />
+            <RideFeed feed={mainContext.rideFeed} mainRidesBool={true} />
           </div>
         </div>
       </div>

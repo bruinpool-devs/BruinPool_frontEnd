@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.request-ride {
+  font-family: "Montserrat";
+}
+
+.request-ride-content {
+  display: flex;
+  flex-direction: row;
+}
+
+.request-ride-left-div {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
+.request-ride-title {
+  font-size: 35px;
+  font-weight: 600;
+  margin-top: 30px;
+  margin-left: 40px;
+  margin-right: 300px;
+}
+
+.request-ride-path1 {
+  margin-top: 50px;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.request-ride-path2 {
+  margin-top: 50px;
+}
+
+.request-ride-left-content {
+  margin-top: 40px;
+  margin-left: 80px;
+  font-size: 15px;
+}
+
+.request-ride-options {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+}
+
+.request-ride-right-div {
+  display: flex;
+  flex-flow: column;
+  background-color: #ffffff;
+  color: #5c5c5c;
+  height: 500px;
+  width: 25%;
+  padding-top: 20px;
+  padding-left: 30px;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  margin-left: 100px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #c4c4c4;
+}
+
+.cardLine-title {
+  font-size: 25px;
+}
+
+.cardLine-location {
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.cardLine-info {
+  margin-top: 13px;
+  font-size: 15px;
+}
+
+.line {
+  margin-top: 20px;
+  width: 325px;
+  border-bottom: 1px solid #b9b9b9;
+}
+
+.cardLine-info-driverNote {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.cardLine-info-note {
+  font-size: 12px;
+}
+
+.summary-driver-info {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+
+.summary-driver-info img {
+  width: 50px;
+  height: 50px;
+}
+
+.summary-driver-info-img {
+  margin-right: 30px;
+}
+
+.summary-driver-info-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.summary-driver-info-school {
+  font-size: 13px;
+}

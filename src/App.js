@@ -15,7 +15,9 @@ import MyDrivesPage from "./components/pages/MyDrivesPage/MyDrivesPage";
 import HelpPage from "./components/pages/HelpPage/HelpPage";
 import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
 import RideCheckoutPage from "./components/pages/RideCheckoutPage/RideCheckoutPage";
-
+import PostRideSummary from "./components/pages/DriverPage/PostRideSummary";
+import RequestRidePage from "./components/pages/RequestRidePage/RequestRidePage";
+import RequestRideSummary from "./components/pages/RequestRidePage/RequestRideSummary";
 import MainState from "./context/MainState";
 
 import "./App.css";
@@ -36,6 +38,18 @@ const App = () => {
           <Route exact path="/driver/help" component={HelpPage} />
           <Route exact path="/driver/profile" component={ProfilePage} />
           <Route exact path="/ride/checkout" component={RideCheckoutPage} />
+          <Route exact path="/rider/request-ride" component={RequestRidePage} />
+          <Route
+            exact
+            path="/rider/request-ride-summary"
+            component={RequestRideSummary}
+          />
+          <Route
+            exact
+            path="/driver/post-summary"
+            component={PostRideSummary}
+          />
+
           <Redirect to="/" />
         </Switch>
       </Router>

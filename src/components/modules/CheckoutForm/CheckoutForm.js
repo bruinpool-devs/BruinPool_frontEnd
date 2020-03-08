@@ -1,4 +1,4 @@
-import React, { Component, useContext } from "react";
+import React, { Component } from "react";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import "./CheckoutForm.css";
 import Cookies from "universal-cookie";
