@@ -538,25 +538,6 @@ const RequestModal = props => {
                     alt="bear"
                     style={{ width: "50px", height: "50px" }}
                   />
-<<<<<<< HEAD
-                </Col>
-                <Col>
-                  <span className="caption card-name">
-                    {ride.ownerFullName}
-                  </span>
-                </Col>
-              </Row>
-              <span className="view-profile-text">view profile ></span>
-            </Col>
-
-            <Col xs={5} className="request-card-request-msg">
-              <Row>
-                <h4>{userTypeHeader}'s Note:</h4>
-                {ride.detail}
-              </Row>
-            </Col>
-          </Row>
-=======
                 </div>
                 <div
                   style={{
@@ -576,7 +557,6 @@ const RequestModal = props => {
               </div>
             </div>
           </div>
->>>>>>> 8e5b1e3ec723cc21d108a248e287821dab7730be
         </ModalBody>
       </Modal>
 
