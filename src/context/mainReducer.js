@@ -11,7 +11,8 @@ import {
   FETCH_NOTIFICATION,
   FETCH_REVIEWS,
   FETCH_PROFILE_PIC,
-  FETCH_SENDER_REQUEST_FEED
+  FETCH_RIDER_REQUEST_FEED,
+  FETCH_DRIVER_REQUEST_FEED
 } from "./types";
 
 export default (state, action) => {
@@ -76,10 +77,15 @@ export default (state, action) => {
         ...state,
         profilePic: action.payload
       };
-    case FETCH_SENDER_REQUEST_FEED:
+    case FETCH_RIDER_REQUEST_FEED:
       return {
         ...state,
-        requestSenderFeed: action.payload
+        requestRiderFeed: action.payload
+      };
+    case FETCH_DRIVER_REQUEST_FEED:
+      return {
+        ...state,
+        requestRiderFeed: action.payload
       };
     default:
       return state;

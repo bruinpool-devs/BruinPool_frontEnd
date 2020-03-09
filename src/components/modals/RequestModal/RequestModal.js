@@ -20,7 +20,7 @@ import "./RequestModal.css";
 const RequestModal = props => {
   // Get Passed in Paramaters
   const { request, userType, history, index } = props;
-  
+
   // Set Modal Initial States
   const [modal, setModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
@@ -49,9 +49,9 @@ const RequestModal = props => {
   // Get Cookie
   const cookies = new Cookies();
   const authToken = cookies.get("authToken");
-  
+
   // Get Ride details
-  const ride = await mainContext.rideDetails(request.rideID, authToken)
+  const ride = mainContext.rideDetails(request.rideID, authToken);
   if (!ride) {
     // TODO: Add better UI to display failure
     console.log("Could not get ride Details");
@@ -73,7 +73,7 @@ const RequestModal = props => {
     } else {
       // Send Reminder
       const reminderRes = await mainContext.remind(request.recepientID);
-      if(!reminderRes) {
+      if (!reminderRes) {
         console.log("Could not remind recepient");
         return;
       }
@@ -95,10 +95,7 @@ const RequestModal = props => {
       return;
     }
 
-    const archiveRes = await mainContext.archiveRequest(
-      request._id,
-      authToken
-    );
+    const archiveRes = await mainContext.archiveRequest(request._id, authToken);
 
     if (!archiveRes) {
       // TODO: Add better UI to display failure
@@ -108,10 +105,7 @@ const RequestModal = props => {
   };
 
   const handleRemoveRequest = async () => {
-    const response = await mainContext.archiveRequest(
-      request._id,
-      authToken
-    );
+    const response = await mainContext.archiveRequest(request._id, authToken);
 
     if (!response) {
       // TODO: Add better UI to display failure
@@ -124,10 +118,10 @@ const RequestModal = props => {
 
   // Driver Actions
   const handleAcceptRequest = async () => {
-    const response = await mainContext.approveRequest(
-      request._id,
-      authToken
-    );
+    // const response = await mainContext.approveRequest(
+    //   request._id,
+    //   authToken
+    // );
 
     // if (!response) {
     //   // TODO: Add better UI to display failure

@@ -17,6 +17,7 @@ const MyDrivesPage = ({ history }) => {
     if (!authToken) {
       history.push("/");
     } else {
+      fetchDriverRequests();
       fetchUpcomingDriveFeed();
       // fetchDriveHistoryFeed();
     }
@@ -24,6 +25,13 @@ const MyDrivesPage = ({ history }) => {
   }, []);
 
   const mainContext = useContext(MainContext);
+
+  const fetchDriverRequests = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchDriverRequestFeed(authToken);
+  };
 
   const fetchUpcomingDriveFeed = async () => {
     const cookies = new Cookies();
@@ -51,7 +59,10 @@ const MyDrivesPage = ({ history }) => {
           </div>
           <div className="sub-title">Trip Requests</div>
           <div className="feed-container">
-            <RequestFeed requestFeed={requests} userType={"driver"} />
+            <RequestFeed
+              requestFeed={mainContext.requestDriverFeed}
+              userType={"driver"}
+            />
           </div>
           <div className="sub-title">Posted Drives</div>
           <div className="feed-container">

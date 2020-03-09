@@ -14,7 +14,8 @@ import {
   FETCH_NOTIFICATION,
   FETCH_REVIEWS,
   FETCH_PROFILE_PIC,
-  FETCH_SENDER_REQUEST_FEED
+  FETCH_RIDER_REQUEST_FEED,
+  FETCH_DRIVER_REQUEST_FEED
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -22,7 +23,8 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 const MainState = ({ children }) => {
   const initialState = {
     rideFeed: [],
-    requestSenderFeed: [],
+    requestRiderFeed: [],
+    requestDriverFeed: [],
     rideHistory: [],
     driveHistory: [],
     upcomingRide: [],
@@ -118,9 +120,10 @@ const MainState = ({ children }) => {
 
   // GET RIDE DETAILS
   const rideDetails = (rideID, token) => {
+    console.log(rideID);
     return axios
       .get("/rides/ride-details", {
-        params: {
+        query: {
           rideID: rideID
         },
         headers: {
@@ -144,8 +147,8 @@ const MainState = ({ children }) => {
       });
   };
 
-  // FETCH REQUEST FEED
-  const fetchSenderRequestFeed = token => {
+  // FETCH RIDER REQUEST FEED
+  const fetchRiderRequestFeed = token => {
     axios
       .get("/request/sender", {
         params: {
@@ -158,7 +161,30 @@ const MainState = ({ children }) => {
       })
       .then(res => {
         dispatch({
-          type: FETCH_SENDER_REQUEST_FEED,
+          type: FETCH_RIDER_REQUEST_FEED,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH DRIVER REQUEST FEED
+  const fetchDriverRequestFeed = token => {
+    axios
+      .get("/request/recepient", {
+        params: {
+          status: "visible",
+          senderID: "admin-noreply"
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: FETCH_DRIVER_REQUEST_FEED,
           payload: res.data
         });
       })
@@ -674,7 +700,8 @@ const MainState = ({ children }) => {
     <MainContext.Provider
       value={{
         rideFeed: state.rideFeed,
-        requestSenderFeed: state.requestSenderFeed,
+        requestRiderFeed: state.requestRiderFeed,
+        requestDriverFeed: state.requestDriverFeed,
         rideHistory: state.rideHistory,
         driveHistory: state.driveHistory,
         upcomingRide: state.upcomingRide,
@@ -690,7 +717,8 @@ const MainState = ({ children }) => {
         login,
         logout,
         rideDetails,
-        fetchSenderRequestFeed,
+        fetchRiderRequestFeed,
+        fetchDriverRequestFeed,
         postRide,
         withdrawRequest,
         archiveRequest,

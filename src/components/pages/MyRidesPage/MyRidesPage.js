@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from "react";
-import { requests } from "../../modules/RequestFeed/mockData";
 import Cookies from "universal-cookie";
 
 import Navbar from "../../navbar/Navbar";
@@ -30,7 +29,7 @@ const MyRidesPage = ({ history }) => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
 
-    await mainContext.fetchSenderRequestFeed(authToken);
+    await mainContext.fetchRiderRequestFeed(authToken);
   };
 
   const fetchRideHistoryFeed = async () => {
@@ -59,7 +58,7 @@ const MyRidesPage = ({ history }) => {
           <div className="sub-title">Trip Requests</div>
           <div className="feed-container">
             <RequestFeed
-              requestFeed={mainContext.requestSenderFeed}
+              requestFeed={mainContext.requestRiderFeed}
               userType={"rider"}
             />
           </div>
