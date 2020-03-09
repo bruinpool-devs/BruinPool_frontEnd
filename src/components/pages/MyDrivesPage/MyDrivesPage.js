@@ -29,8 +29,9 @@ const MyDrivesPage = ({ history }) => {
   const fetchDriverRequests = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
+    const username = cookies.get("userName");
 
-    await mainContext.fetchDriverRequestFeed(authToken);
+    await mainContext.fetchDriverRequestFeed(username, authToken);
   };
 
   const fetchUpcomingDriveFeed = async () => {

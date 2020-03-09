@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import moment from "moment";
 
 import { Button, Input } from "reactstrap";
+import Cookies from "universal-cookie";
+import MainContext from "../../../context/mainContext";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -25,7 +27,30 @@ const RequestRidePage = ({ location, history }) => {
   const [luggage, setLuggage] = useState(0);
   const [carryOn, setCarryOn] = useState(0);
 
-  const handleRequestRide1 = () => {
+  let ride = location.state;
+  const mainContext = useContext(MainContext);
+
+  const handleRequestRide = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const username = cookies.get("userName");
+
+    let requestInfo = {
+      senderID: username,
+      rideID: ride.id,
+      recepientID: ride.ownerUsername,
+      luggage: luggage,
+      carryon: carryOn,
+      msg: ride.driverNote
+    };
+
+    let res = await mainContext.createRequest(requestInfo, authToken);
+    if (!res) {
+      // TODO: Add better UI to display failure
+      console.log("Create Request Failed");
+      return;
+    }
+
     history.push("/rider/request-ride-summary");
   };
 
@@ -135,7 +160,7 @@ const RequestRidePage = ({ location, history }) => {
               </div>
             </div>
             <div className="request-ride-options">Trip Total:</div>
-            <div className="request-ride-options">${location.state.price}</div>
+            <div className="request-ride-options">${ride.price}</div>
             <div className="request-ride-options">Message to the Driver:</div>
             <div className="request-ride-options">
               <Input
@@ -147,7 +172,7 @@ const RequestRidePage = ({ location, history }) => {
               />
             </div>
             <div className="request-ride-options">
-              <Button style={buttonStyle} onClick={handleRequestRide1}>
+              <Button style={buttonStyle} onClick={handleRequestRide}>
                 Request Ride
               </Button>
             </div>
@@ -157,26 +182,26 @@ const RequestRidePage = ({ location, history }) => {
         <div className="request-ride-right-div">
           <div className="cardLine-title">Ride Summary</div>
           <div className="cardLine-location">
-            {location.state.from}
+            {ride.from}
             <FontAwesomeIcon
               icon={faLongArrowAltRight}
               style={{ marginLeft: "15px", marginRight: "15px" }}
             />
-            {location.state.to}
+            {ride.to}
           </div>
           <div className="cardLine-info">
             <FontAwesomeIcon
               icon={faCalendarAlt}
               style={{ marginLeft: "0px", marginRight: "10px" }}
             />
-            {moment(location.state.date)
+            {moment(ride.date)
               .utc()
               .format("M/DD/YY")}{" "}
             <FontAwesomeIcon
               icon={faClock}
               style={{ marginLeft: "70px", marginRight: "10px" }}
             />
-            {moment(location.state.date)
+            {moment(ride.date)
               .utc()
               .format("h A")}{" "}
           </div>
@@ -185,7 +210,7 @@ const RequestRidePage = ({ location, history }) => {
               icon={faMapMarkerAlt}
               style={{ marginLeft: "0px", marginRight: "10px" }}
             />
-            {/* Pickup: {location.state.specificPickup} */}
+            {/* Pickup: {ride.specificPickup} */}
             Pickup: Westwood In N Out
           </div>
           <div className="cardLine-info">
@@ -193,7 +218,7 @@ const RequestRidePage = ({ location, history }) => {
               icon={faMapMarkerAlt}
               style={{ marginLeft: "0px", marginRight: "10px" }}
             />
-            {/* Dropoff: {location.state.specificDropoff} */}
+            {/* Dropoff: {ride.specificDropoff} */}
             Dropoff: Bay Area near Cupertino
           </div>
           <div className="line" />
@@ -207,7 +232,7 @@ const RequestRidePage = ({ location, history }) => {
             </div>
             <div>
               <div className="summary-driver-info-name">
-                {location.state.ownerUsername}
+                {ride.ownerUsername}
               </div>
               <div className="summary-driver-info-school">
                 <FontAwesomeIcon
@@ -220,9 +245,7 @@ const RequestRidePage = ({ location, history }) => {
           </div>
           <div className="cardLine-info">
             <div className="cardLine-info-driverNote"> Driver's Note </div>
-            <div className="cardLine-info-note">
-              {location.state.driverNote}{" "}
-            </div>
+            <div className="cardLine-info-note">{ride.driverNote} </div>
           </div>
         </div>
       </div>

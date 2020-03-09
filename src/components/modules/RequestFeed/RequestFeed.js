@@ -5,7 +5,7 @@ import "./RequestFeed.css";
 
 const RequestFeed = ({ requestFeed, userType }) => {
   var content = <div></div>;
-
+  console.log(requestFeed);
   if (requestFeed.length > 0) {
     content = requestFeed.map((curr_request, index) => {
       return (

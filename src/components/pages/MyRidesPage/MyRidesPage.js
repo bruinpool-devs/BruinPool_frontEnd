@@ -28,8 +28,9 @@ const MyRidesPage = ({ history }) => {
   const fetchSenderRequests = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
+    const username = cookies.get("userName");
 
-    await mainContext.fetchRiderRequestFeed(authToken);
+    await mainContext.fetchRiderRequestFeed(username, authToken);
   };
 
   const fetchRideHistoryFeed = async () => {

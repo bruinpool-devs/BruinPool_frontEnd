@@ -50,6 +50,7 @@ const RideFeed = ({
     history.push({
       pathname: "/rider/request-ride",
       state: {
+        id: ride._id,
         from: ride.from,
         to: ride.to,
         date: ride.date,

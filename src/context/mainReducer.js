@@ -85,7 +85,7 @@ export default (state, action) => {
     case FETCH_DRIVER_REQUEST_FEED:
       return {
         ...state,
-        requestRiderFeed: action.payload
+        requestDriverFeed: action.payload
       };
     default:
       return state;

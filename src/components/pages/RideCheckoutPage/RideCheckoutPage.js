@@ -24,14 +24,14 @@ const RideCheckoutPage = props => {
             <h3>Ride Details</h3>
 
             <Row className="itinerary-head">
-              <Col className="itinerary-from">{request.ride.from.name}</Col>
+              <Col className="itinerary-from">{request.ride.from}</Col>
               <Col>
                 <FontAwesomeIcon
                   icon={faLongArrowAltRight}
                   style={{ width: "50px", height: "30px" }}
                 />
               </Col>
-              <Col className="itinerary-to">{request.ride.to.name}</Col>
+              <Col className="itinerary-to">{request.ride.to}</Col>
             </Row>
 
             <Row className="itinerary-body">
@@ -65,11 +65,10 @@ const RideCheckoutPage = props => {
               </Row>
               <Row>
                 <Col>
-                  Seats: <span className="bold-text">{request.meta.seats}</span>
+                  Seats: <span className="bold-text">1</span>
                 </Col>
                 <Col>
-                  Luggage:{" "}
-                  <span className="bold-text">{request.meta.luggage}</span>
+                  Luggage: <span className="bold-text">{request.luggage}</span>
                 </Col>
               </Row>
             </Row>

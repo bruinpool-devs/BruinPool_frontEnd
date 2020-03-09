@@ -120,7 +120,6 @@ const MainState = ({ children }) => {
 
   // GET RIDE DETAILS
   const rideDetails = (rideID, token) => {
-    console.log(rideID);
     return axios
       .get("/rides/ride-details", {
         query: {
@@ -144,25 +143,29 @@ const MainState = ({ children }) => {
         } else {
           return data;
         }
+      })
+      .catch(error => {
+        console.error(error);
       });
   };
 
   // FETCH RIDER REQUEST FEED
-  const fetchRiderRequestFeed = token => {
+  const fetchRiderRequestFeed = (username, token) => {
     axios
       .get("/request/sender", {
         params: {
           status: "visible",
-          senderID: "admin-noreply"
+          senderID: username
         },
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
+        console.log(res.data);
         dispatch({
           type: FETCH_RIDER_REQUEST_FEED,
-          payload: res.data
+          payload: res.data.requests
         });
       })
       .catch(error => {
@@ -171,12 +174,12 @@ const MainState = ({ children }) => {
   };
 
   // FETCH DRIVER REQUEST FEED
-  const fetchDriverRequestFeed = token => {
+  const fetchDriverRequestFeed = (username, token) => {
     axios
       .get("/request/recepient", {
         params: {
           status: "visible",
-          senderID: "admin-noreply"
+          senderID: username
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -185,8 +188,25 @@ const MainState = ({ children }) => {
       .then(res => {
         dispatch({
           type: FETCH_DRIVER_REQUEST_FEED,
-          payload: res.data
+          payload: res.data.requests
         });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // CREATE NEW REQUEST
+  const createRequest = (requestInfo, token) => {
+    return axios
+      .post("/request/new", {
+        requestInfo,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -720,6 +740,7 @@ const MainState = ({ children }) => {
         fetchRiderRequestFeed,
         fetchDriverRequestFeed,
         postRide,
+        createRequest,
         withdrawRequest,
         archiveRequest,
         approveRequest,

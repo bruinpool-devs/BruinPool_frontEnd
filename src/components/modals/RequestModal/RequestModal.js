@@ -306,7 +306,7 @@ const RequestModal = props => {
         <Col xs={8} className="card-info">
           <Row className="card-itinerary">
             <Col xs={4} className="itinerary-from">
-              {ride.from.name}
+              {ride.from}
             </Col>
             <Col xs={3}>
               <FontAwesomeIcon
@@ -315,7 +315,7 @@ const RequestModal = props => {
               />
             </Col>
             <Col xs={4} className="itinerary-to">
-              {ride.to.name}
+              {ride.to}
             </Col>
           </Row>
           <Row>
@@ -330,14 +330,14 @@ const RequestModal = props => {
         <ModalHeader toggle={toggle}>Trip Request</ModalHeader>
         <ModalBody>
           <Row className="itinerary-head">
-            <Col className="itinerary-from">{ride.from.name}</Col>
+            <Col className="itinerary-from">{ride.from}</Col>
             <Col>
               <FontAwesomeIcon
                 icon={faLongArrowAltRight}
                 style={{ width: "50px", height: "30px" }}
               />
             </Col>
-            <Col className="itinerary-to">{ride.to.name}</Col>
+            <Col className="itinerary-to">{ride.to}</Col>
             <Col className="popup-status-txt">{requestStatusText}</Col>
             <Col md={7}></Col>
           </Row>
@@ -368,8 +368,8 @@ const RequestModal = props => {
                   />
                 </Col>
                 <Col>
-                  <Row>Pickup: {ride.from.location}</Row>
-                  <Row>Dropoff: {ride.to.location}</Row>
+                  <Row>Pickup: {ride.from}</Row>
+                  <Row>Dropoff: {ride.to}</Row>
                 </Col>
               </Row>
               <Row>
@@ -377,8 +377,7 @@ const RequestModal = props => {
                   Seats: <span className="bold-text">1</span>
                 </Col>
                 <Col>
-                  Luggage:{" "}
-                  <span className="bold-text">{request.meta.luggage}</span>
+                  Luggage: <span className="bold-text">{request.luggage}</span>
                 </Col>
               </Row>
               <Row>
@@ -403,7 +402,7 @@ const RequestModal = props => {
                       </Col>
                       <Col>
                         <span style={{ fontSize: "25px" }}>
-                          {request.ride.ownerFullName}
+                          {ride.ownerFullName}
                         </span>
                         <div style={{}}>
                           <FontAwesomeIcon
@@ -417,7 +416,7 @@ const RequestModal = props => {
                     <Row>
                       <h4>{userTypeHeader}'s Note:</h4>
                       <span style={{ fontSize: "14px", width: "95%" }}>
-                        {request.ride.detail}
+                        {ride.detail}
                       </span>
                     </Row>
                   </Col>
@@ -543,7 +542,7 @@ const RequestModal = props => {
                     width: "400px"
                   }}
                 >
-                  <div>{request.ride.ownerFullName}</div>
+                  <div>{ride.ownerFullName}</div>
                   <div style={{ fontWeight: "bold" }}>
                     Phone #: 310-xxx-xxxx
                   </div>
