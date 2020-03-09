@@ -37,8 +37,8 @@ const _ = require("underscore");
 const DriverPost = ({ toggleRegistered }) => {
   const [fromDropdown, setFromDropdown] = useState(false);
   const [toDropdown, setToDropdown] = useState(false);
-  const [fromLocation, setFromLocation] = useState("");
-  const [toLocation, setToLocation] = useState("");
+  const [fromLocation, setFromLocation] = useState("From");
+  const [toLocation, setToLocation] = useState("To");
   const [specificPickup, setSpecificPickup] = useState("");
   const [specificDropoff, setSpecificDropoff] = useState("");
   const [modal, setModal] = useState(false);
