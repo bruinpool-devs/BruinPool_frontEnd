@@ -3,23 +3,18 @@ import {
   faLongArrowAltRight,
   faCalendarAlt,
   faClock,
-  faMapMarker
+  faMapMarker,
+  faTimes
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
-  Row,
-  Col,
-  Alert
-} from "reactstrap";
+import { faCheckSquare } from "@fortawesome/free-regular-svg-icons";
+import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+
+import { Button, Modal, ModalHeader, ModalBody, Row, Col } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import MainContext from "../../../context/mainContext";
 import Cookies from "universal-cookie";
-
+import DeclineModal from "../DeclineModal/DeclineModal";
 import "./RequestModal.css";
 
 const RequestModal = props => {
@@ -28,9 +23,25 @@ const RequestModal = props => {
   
   // Set Modal Initial States
   const [modal, setModal] = useState(false);
+  const [confirmModal, setConfirmModal] = useState(false);
+  const [confirmWithdraw, setConfirmWithdraw] = useState(false);
+  const [declineModal, setDeclineModal] = useState(false);
+  const [driverContactModal, setDriverContactModal] = useState(false);
+
+  const iconStyle = {
+    marginLeft: "30px",
+    marginRight: "32px",
+    marginBottom: "-7px",
+    color: "#3D77FF",
+    width: "35px",
+    height: "35px"
+  };
 
   // Set Toggles
   const toggle = () => setModal(!modal);
+  const confirmToggle = () => setConfirmModal(!confirmModal);
+  const declineToggle = () => setDeclineModal(!declineModal);
+  const contactToggle = () => setDriverContactModal(!driverContactModal);
 
   // API Request Context
   const mainContext = useContext(MainContext);
@@ -118,13 +129,14 @@ const RequestModal = props => {
       authToken
     );
 
-    if (!response) {
-      // TODO: Add better UI to display failure
-      console.log("Accept Request Failed");
-      return;
-    }
+    // if (!response) {
+    //   // TODO: Add better UI to display failure
+    //   console.log("Accept Request Failed");
+    // }
 
     // Make card disappear
+    toggle();
+    confirmToggle();
   };
 
   const handleDenyRequest = async () => {
@@ -133,14 +145,13 @@ const RequestModal = props => {
     if (!response) {
       // TODO: Add better UI to display failure
       console.log("Deny Request Failed");
-      return;
     }
 
     // Make card disappear
   };
 
   // Set Custom UI elements based on Request Status and User Type
-  if (userType == "rider") {
+  if (userType === "rider") {
     userTypeHeader = "Driver";
 
     switch (request.status) {
@@ -151,12 +162,28 @@ const RequestModal = props => {
           </span>
         );
         primaryBtn = (
-          <Button color="primary" onClick={handleRemindDriver}>
+          <Button
+            style={{
+              borderColor: "#3D77FF",
+              backgroundColor: "#3D77FF",
+              marginTop: "30px",
+              marginRight: "10px"
+            }}
+            onClick={handleRemindDriver}
+          >
             Remind Driver
           </Button>
         );
         secondaryBtn = (
-          <Button color="danger" onClick={handleWithdrawRequest}>
+          <Button
+            style={{
+              borderColor: "#FF3D3D",
+              backgroundColor: "#FF3D3D",
+              marginTop: "30px",
+              marginLeft: "10px"
+            }}
+            onClick={() => setConfirmWithdraw(!confirmWithdraw)}
+          >
             Withdraw Request
           </Button>
         );
@@ -167,12 +194,20 @@ const RequestModal = props => {
           <span className="red-highlight">{request.status}</span>
         );
         primaryBtn = (
-          <Button color="outline-primary" onClick={handleRemoveRequest}>
+          <Button
+            style={{
+              borderColor: "#3D77FF",
+              backgroundColor: "#3D77FF",
+              marginTop: "30px",
+              marginRight: "10px"
+            }}
+            onClick={handleRemoveRequest}
+          >
             Remove
           </Button>
         );
         break;
-      case `approved`:
+      case `accepted`:
         requestStatusText = (
           <span className="request-status green-highlight">
             {request.status}
@@ -182,20 +217,35 @@ const RequestModal = props => {
         primaryBtn = (
           <Button
             className="proceed-to-payment"
-            onClick={() =>
-              history.push({
-                pathname: "/ride/checkout",
-                state: { request: request }
-              })
-            }
-            color="primary"
+            onClick={() => {
+              // history.push({
+              //   pathname: "/ride/checkout",
+              //   state: { request: request }
+              // })
+              toggle();
+              contactToggle();
+            }}
+            style={{
+              borderColor: "#3D77FF",
+              backgroundColor: "#3D77FF",
+              marginTop: "30px",
+              marginRight: "10px"
+            }}
           >
-            Proceed To Payment
+            Confirm
           </Button>
         );
 
         secondaryBtn = (
-          <Button color="danger" onClick={handleWithdrawRequest}>
+          <Button
+            style={{
+              borderColor: "#FF3D3D",
+              backgroundColor: "#FF3D3D",
+              marginTop: "30px",
+              marginLeft: "10px"
+            }}
+            onClick={() => setConfirmWithdraw(!confirmWithdraw)}
+          >
             Withdraw Request
           </Button>
         );
@@ -210,13 +260,32 @@ const RequestModal = props => {
     userTypeHeader = "Rider";
 
     primaryBtn = (
-      <Button color="primary" onClick={handleAcceptRequest}>
+      <Button
+        style={{
+          borderColor: "#3D77FF",
+          backgroundColor: "#3D77FF",
+          marginTop: "30px",
+          marginRight: "10px"
+        }}
+        onClick={handleAcceptRequest}
+      >
         Accept
       </Button>
     );
 
     secondaryBtn = (
-      <Button color="danger" onClick={handleDenyRequest}>
+      <Button
+        style={{
+          borderColor: "#FF3D3D",
+          backgroundColor: "#FF3D3D",
+          marginTop: "30px",
+          marginLeft: "10px"
+        }}
+        onClick={() => {
+          toggle();
+          declineToggle();
+        }}
+      >
         Decline
       </Button>
     );
@@ -320,20 +389,156 @@ const RequestModal = props => {
               </Row>
               <Row>
                 <Col>
-                  Trip SubTotal:{" "}
-                  <span className="bold-text">{tripSubTotal}</span>
+                  Trip Total: <span className="bold-text">${tripSubTotal}</span>
                 </Col>
               </Row>
             </Col>
 
-            <Col xs={3} className="request-card-driver-details">
-              <h4>{userTypeHeader}:</h4>
-              <Row>
-                <Col xs={4} className="popup-card-image">
+            {!confirmWithdraw ? (
+              <Col xs={8}>
+                <Row>
+                  <Col xs={5} className="request-card-driver-details">
+                    <h4>{userTypeHeader}:</h4>
+                    <Row>
+                      <Col xs={4} className="popup-card-image">
+                        <img
+                          src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+                          alt="bear"
+                          style={{ width: "60px", height: "60px" }}
+                        />
+                      </Col>
+                      <Col>
+                        <span style={{ fontSize: "25px" }}>
+                          {request.ride.ownerFullName}
+                        </span>
+                        <div style={{}}>
+                          <FontAwesomeIcon
+                            icon={faGraduationCap}
+                            style={{ marginRight: "5px" }}
+                          />
+                          UCLA
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <h4>{userTypeHeader}'s Note:</h4>
+                      <span style={{ fontSize: "14px", width: "95%" }}>
+                        {request.ride.detail}
+                      </span>
+                    </Row>
+                  </Col>
+
+                  <Col xs={7} className="request-card-request-msg">
+                    <Row>
+                      <h4>Your Message to {userTypeHeader}:</h4>
+                      Hi Sarah! I am traveling to SB to meet up with friend and
+                      family. I am leaving from UCLA and I can adjust to any
+                      location pickups whichever is the easiest for you!
+                    </Row>
+                    <Row className="withdraw-buttons">
+                      {primaryBtn}
+                      {secondaryBtn}
+                    </Row>
+                  </Col>
+                </Row>
+              </Col>
+            ) : (
+              <div className="confirm-withdraw-col">
+                <div className="confirm-withdraw-text">
+                  Are you sure you want to withdraw this ride request?
+                </div>
+                <div className="confirm-withdraw-row">
+                  <Button
+                    style={{
+                      width: "120px",
+                      color: "#3D77FF",
+                      borderColor: "#3D77FF",
+                      backgroundColor: "#FFFFFF",
+                      marginTop: "30px",
+                      marginRight: "10px"
+                    }}
+                    onClick={() => setConfirmWithdraw(!confirmWithdraw)}
+                  >
+                    Go Back
+                  </Button>
+                  <Button
+                    style={{
+                      width: "120px",
+                      borderColor: "#FF3D3D",
+                      backgroundColor: "#FF3D3D",
+                      marginTop: "30px",
+                      marginLeft: "10px"
+                    }}
+                    onClick={() => handleWithdrawRequest()}
+                  >
+                    Yes
+                  </Button>
+                </div>
+              </div>
+            )}
+          </Row>
+        </ModalBody>
+      </Modal>
+
+      <Modal isOpen={confirmModal} size="lg">
+        <ModalBody>
+          <div className="confirm-modal-exit">
+            <div>
+              <FontAwesomeIcon
+                icon={faTimes}
+                onClick={() => setConfirmModal(!confirmModal)}
+                style={{ cursor: "pointer" }}
+              />
+            </div>
+          </div>
+          <div className="confirm-modal-row">
+            <FontAwesomeIcon icon={faCheckSquare} style={iconStyle} />
+
+            <div className="confirm-modal-text">
+              Once the rider confirms, you will recieve an email notification
+              and the rider’s information will be show under your{" "}
+              <b>Upcoming Trips</b>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
+
+      <Modal isOpen={driverContactModal} toggle={contactToggle} size="lg">
+        <ModalHeader toggle={contactToggle}>Contact your driver</ModalHeader>
+        <ModalBody>
+          <div style={{ padding: "10px 20px 20px 20px" }}>
+            <div style={{ fontWeight: "bold" }}>
+              You may contact your driver through their phone number or via
+              messages on our website.
+            </div>
+            <div
+              style={{
+                border: "1px solid #c4c4c4",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "20px",
+                backgroundColor: "white",
+                color: "#5c5c5c",
+                padding: "20px",
+                boxShadow:
+                  "0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1)"
+              }}
+            >
+              <div>Driver</div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginTop: "10px"
+                }}
+              >
+                <div>
                   <img
                     src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
                     alt="bear"
+                    style={{ width: "50px", height: "50px" }}
                   />
+<<<<<<< HEAD
                 </Col>
                 <Col>
                   <span className="caption card-name">
@@ -351,12 +556,35 @@ const RequestModal = props => {
               </Row>
             </Col>
           </Row>
+=======
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginLeft: "20px",
+                    justifyContent: "space-between",
+                    width: "400px"
+                  }}
+                >
+                  <div>{request.ride.ownerFullName}</div>
+                  <div style={{ fontWeight: "bold" }}>
+                    Phone #: 310-xxx-xxxx
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+>>>>>>> 8e5b1e3ec723cc21d108a248e287821dab7730be
         </ModalBody>
-        <ModalFooter>
-          {primaryBtn}
-          {secondaryBtn}
-        </ModalFooter>
       </Modal>
+
+      <DeclineModal
+        isOpen={declineModal}
+        toggleModal={declineToggle}
+        handleDenyRequest={handleDenyRequest}
+      />
     </div>
   );
 };

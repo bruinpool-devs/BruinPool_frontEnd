@@ -5,20 +5,15 @@ import MainContext from "./mainContext";
 import MainReducer from "./mainReducer";
 import {
   LOGIN,
-  COOKIE_AUTH,
   SET_FILTER,
   FETCH_RIDE_FEED,
-  FETCH_MORE_RIDE_FEED,
   FETCH_UPCOMING_RIDE,
   FETCH_RIDE_HISTORY,
-  INCREMENT_RIDER_NUM,
   FETCH_DRIVE_HISTORY,
-  FETCH_MORE_DRIVE_HISTORY,
   FETCH_UPCOMING_DRIVE,
-  INCREMENT_DRIVER_NUM,
-  TOGGLE_EDIT_MODAL,
-  TOGGLE_INFO_MODAL,
   FETCH_NOTIFICATION,
+  FETCH_REVIEWS,
+  FETCH_PROFILE_PIC,
   FETCH_SENDER_REQUEST_FEED
 } from "./types";
 
@@ -26,8 +21,6 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const MainState = ({ children }) => {
   const initialState = {
-    authToken: "",
-    userInfo: false,
     rideFeed: [],
     requestSenderFeed: [],
     rideHistory: [],
@@ -37,10 +30,9 @@ const MainState = ({ children }) => {
     riderPageNum: 0,
     driverPageNum: 0,
     filter: null,
-    editModal: false,
-    infoModal: false,
-    newNoti: [],
-    oldNoti: []
+    noti: [],
+    reviews: [],
+    profilePic: ""
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -117,29 +109,6 @@ const MainState = ({ children }) => {
     return validity;
   };
 
-  // AUTHENTICATE COOKIE
-  const cookieAuth = authToken => {
-    authToken = authToken || state.authToken;
-    axios
-      .get("/login", {
-        params: {
-          authToken,
-          type: "cookie"
-        }
-      })
-      .then(res => {
-        if (res.data.length !== 0) {
-          dispatch({
-            type: COOKIE_AUTH,
-            payload: res.data[0]
-          });
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
   // LOGOUT
   const logout = () => {
     const cookies = new Cookies();
@@ -147,7 +116,7 @@ const MainState = ({ children }) => {
     window.location.reload();
   };
 
-  // GET RIDE Details
+  // GET RIDE DETAILS
   const rideDetails = (rideID, token) => {
     return axios
       .get("/rides/ride-details", {
@@ -306,6 +275,7 @@ const MainState = ({ children }) => {
         }
       })
       .then(() => {
+        alert("Ride posted!");
         fetchRideFeed({}, token);
       })
       .catch(error => {
@@ -335,22 +305,44 @@ const MainState = ({ children }) => {
   };
 
   // CANCEL RIDE
-  const cancelRide = entry => {
-    const { userInfo, authToken } = state;
-    const ind = entry.passengers.indexOf(userInfo.username);
-    entry.passengers.splice(ind, 1);
+  const cancelRide = (entry, token) => {
+    const rideObject = {
+      ride: entry
+    };
 
     axios
-      .put("/rideList", {
-        entry,
-        userInfo,
-        status: "cancel"
+      .put("/rides/cancel-ride", rideObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       .then(() => {
-        alert("Canceled!");
-        cookieAuth(authToken);
-        fetchRideFeed();
-        fetchUpcomingRide();
+        alert("Ride cancelled!");
+        fetchRideFeed({}, token);
+        fetchUpcomingRide(token);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // DELETE RIDE
+  const deleteRide = (entry, token) => {
+    const rideObject = {
+      ride: entry
+    };
+
+    axios
+      .delete("/rides/delete-ride", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        data: rideObject
+      })
+      .then(() => {
+        alert("Ride deleted!");
+        fetchRideFeed({}, token);
+        fetchUpcomingRide(token);
       })
       .catch(error => {
         console.error(error);
@@ -359,14 +351,12 @@ const MainState = ({ children }) => {
 
   // EDIT RIDE
   const editRide = entry => {
-    const { authToken } = state;
     axios
       .put("/rideList", {
         entry
       })
       .then(() => {
         alert("Edited!");
-        cookieAuth(authToken);
         fetchUpcomingDrive();
         fetchDriveHistory();
         fetchRideFeed();
@@ -403,34 +393,6 @@ const MainState = ({ children }) => {
       .catch(error => {
         console.error(error);
       });
-  };
-
-  // FETCH MORE RIDE FEED
-  const fetchMoreRideFeed = () => {
-    const { filter, riderPageNum, rideFeed } = state;
-
-    axios
-      .get("/rideList", {
-        params: {
-          filter,
-          pageNum: riderPageNum,
-          type: "rideFeedMore"
-        }
-      })
-      .then(res => {
-        dispatch({
-          type: FETCH_MORE_RIDE_FEED,
-          payload: rideFeed.concat(res.data)
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
-
-    dispatch({
-      type: INCREMENT_RIDER_NUM,
-      payload: riderPageNum + 1
-    });
   };
 
   // FETCH UPCOMING RIDE
@@ -506,34 +468,6 @@ const MainState = ({ children }) => {
       });
   };
 
-  // FETCH MORE DRIVE HISTORY
-  const fetchMoreDriveHistory = () => {
-    const { userInfo, driveHistory, driverPageNum } = state;
-
-    axios
-      .get("/rideList", {
-        params: {
-          userInfo,
-          pageNum: driverPageNum,
-          type: "driveHistoryMore"
-        }
-      })
-      .then(res => {
-        dispatch({
-          type: FETCH_MORE_DRIVE_HISTORY,
-          payload: driveHistory.concat(res.data)
-        });
-      })
-      .catch(error => {
-        console.error(error);
-      });
-
-    dispatch({
-      type: INCREMENT_DRIVER_NUM,
-      payload: driverPageNum + 1
-    });
-  };
-
   // FETCH UPCOMING DRIVE
   const fetchUpcomingDrive = (username, token) => {
     const { driverPageNum } = state;
@@ -559,70 +493,18 @@ const MainState = ({ children }) => {
       });
   };
 
-  // CANCEL DRIVE
-  const cancelDrive = ride => {
-    const { authToken } = state;
-    axios
-      .delete("/rideList", {
-        params: {
-          ride
-        }
-      })
-      .then(() => {
-        alert("Deleted!");
-        cookieAuth(authToken);
-        fetchDriveHistory();
-        fetchUpcomingDrive();
-        fetchRideFeed();
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  };
-
-  // TOGGLE EDIT MODAL
-  const toggleEditModal = entry => {
-    dispatch({
-      type: TOGGLE_EDIT_MODAL,
-      payload: entry
-    });
-  };
-
-  // TOGGLE INFO MODAL
-  const toggleInfoModal = entry => {
-    dispatch({
-      type: TOGGLE_INFO_MODAL,
-      payload: entry
-    });
-  };
-
   // FETCH NOTIFICATIONS
-  const fetchNotification = authToken => {
-    const notiDivider = noti => {
-      const newNoti = [];
-      const oldNoti = [];
-
-      noti.forEach(item => {
-        if (item.viewed) {
-          oldNoti.push(item);
-        } else {
-          newNoti.push(item);
-        }
-      });
-
-      return [newNoti, oldNoti];
-    };
-
+  const fetchNotification = token => {
     axios
-      .get("/notification", {
-        params: {
-          authToken
+      .get("/notis/get-driverNotis", {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
         dispatch({
           type: FETCH_NOTIFICATION,
-          payload: notiDivider(res.data)
+          payload: res.data
         });
       })
       .catch(error => {
@@ -630,35 +512,43 @@ const MainState = ({ children }) => {
       });
   };
 
-  // CLEAR NOTIFICATIONS
-  const clearNotification = () => {
-    const { userInfo } = state;
+  // CREATE NOTIFICATION
+  const createNotification = token => {
+    const notiObject = {
+      msg: "Sarah has accepted your ride request!",
+      passengerPhoneNumber: "2132470148",
+      passengerEmail: "jhan25@g.ucla.edu"
+    };
 
     axios
-      .put("/notification", {
-        email: userInfo.email
+      .post("/notis/create-driverNoti", notiObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
       })
       .then(() => {
-        return;
+        alert("Noti created!");
+        fetchNotification(token);
       })
       .catch(error => {
         console.error(error);
       });
   };
 
-  // FETCH PROFILE PICTURE
-  const fetchProfilePic = (username, cb) => {
+  // VIEW NOTIFICATION
+  const viewNotification = token => {
     axios
-      .get("/usersPic", {
-        params: {
-          username
+      .put("/notis/view-driverNoti", {
+        headers: {
+          Authorization: `Bearer ${token}`
         }
       })
-      .then(res => {
-        cb(res.data);
+      .then(() => {
+        alert("Notis viewed!");
+        fetchNotification(token);
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   };
 
@@ -678,7 +568,7 @@ const MainState = ({ children }) => {
       });
   };
 
-  // CREAT PAYMENT INTENT
+  // CREATE PAYMENT INTENT
   const createPaymentIntent = (options, token) => {
     return axios
       .post("/stripe/create-payment-intent", {
@@ -699,11 +589,90 @@ const MainState = ({ children }) => {
       });
   };
 
+  // ADD REVIEW
+  const addReview = (entry, token) => {
+    axios
+      .post("/reviews", entry, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        alert("Review added!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH REVIEWS
+  const fetchReviews = (username, token) => {
+    axios
+      .get("/reviews", {
+        params: {
+          username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: FETCH_REVIEWS,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH PROFILE PICTURE
+  const fetchProfilePic = (username, token) => {
+    axios
+      .get("/users/usersPic", {
+        params: {
+          username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: FETCH_PROFILE_PIC,
+          payload: res.data
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // UPLOAD PROFILE PICTURE
+  const uploadProfilePic = (picture, token) => {
+    const fileObject = {
+      file: picture
+    };
+
+    axios
+      .patch("/users/upload-profile-pic", fileObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        console.log(res.data);
+        alert("Picture uploaded!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   return (
     <MainContext.Provider
       value={{
-        authToken: state.authToken,
-        userInfo: state.userInfo,
         rideFeed: state.rideFeed,
         requestSenderFeed: state.requestSenderFeed,
         rideHistory: state.rideHistory,
@@ -713,14 +682,12 @@ const MainState = ({ children }) => {
         riderPageNum: state.riderPageNum,
         driverPageNum: state.driverPageNum,
         filter: state.filter,
-        editModal: state.editModal,
-        infoModal: state.infoModal,
-        newNoti: state.newNoti,
-        oldNoti: state.oldNoti,
+        noti: state.noti,
+        reviews: state.reviews,
+        profilePic: state.profilePic,
         signup,
         validateUsername,
         login,
-        cookieAuth,
         logout,
         rideDetails,
         fetchSenderRequestFeed,
@@ -732,20 +699,20 @@ const MainState = ({ children }) => {
         remindRequestRecepient,
         joinRide,
         cancelRide,
+        deleteRide,
         editRide,
         fetchRideFeed,
-        fetchMoreRideFeed,
         fetchUpcomingRide,
         fetchRideHistory,
         fetchDriveHistory,
-        fetchMoreDriveHistory,
         fetchUpcomingDrive,
-        cancelDrive,
-        toggleEditModal,
-        toggleInfoModal,
         fetchNotification,
-        clearNotification,
+        createNotification,
+        viewNotification,
+        addReview,
+        fetchReviews,
         fetchProfilePic,
+        uploadProfilePic,
         getPublicStripeKey,
         createPaymentIntent
       }}

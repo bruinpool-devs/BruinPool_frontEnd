@@ -33,13 +33,13 @@ const MyDrivesPage = ({ history }) => {
     await mainContext.fetchUpcomingDrive(username, authToken);
   };
 
-  const fetchDriveHistoryFeed = async () => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
-    const username = cookies.get("userName");
+  // const fetchDriveHistoryFeed = async () => {
+  //   const cookies = new Cookies();
+  //   const authToken = cookies.get("authToken");
+  //   const username = cookies.get("userName");
 
-    await mainContext.fetchDriveHistory(username, authToken);
-  };
+  //   await mainContext.fetchDriveHistory(username, authToken);
+  // };
 
   return (
     <div>
@@ -57,17 +57,12 @@ const MyDrivesPage = ({ history }) => {
           <div className="feed-container">
             <RideFeed
               feed={mainContext.upcomingDrive}
-              buttonColor={"#FF3D3D"}
-              buttonText={"Cancel Drive"}
+              postedDrivesBool={true}
             />
           </div>
           <div className="sub-title">Drive History</div>
           <div className="feed-container">
-            <RideFeed
-              feed={mainContext.driveHistory}
-              buttonColor={"#5C5C5C"}
-              buttonText={"Completed"}
-            />
+            <RideFeed feed={mainContext.driveHistory} />
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 const requests = [
   {
     meta: {
-      status: "approved",
+      status: "accepted",
       _id: "5e4dd3c0bdf4ad4982f0e609",
       rideID: "5e2f26d541b70b0f800da434",
       senderID: "admin",

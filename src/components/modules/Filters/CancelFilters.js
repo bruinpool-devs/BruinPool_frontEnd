@@ -1,25 +1,26 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 
 import {
   ButtonDropdown,
   DropdownToggle,
   DropdownMenu,
-  DropdownItem,
-  Button
+  DropdownItem
 } from "reactstrap";
 
-
-const mockData = [
+const cancelMockData = [
   "Change of travel plans",
   "No longer traveling",
   "Other"
 ];
+const declineMockData = ["Ride is full", "Location conflict", "Time conflict"];
 
 const _ = require("underscore");
 
-const CancelFilters = () => {
+const CancelFilters = ({ isCancelModal }) => {
   const [reasonDropdown, setReasonDropdown] = useState(false);
   const [reason, setReason] = useState("Reason");
+
+  const mockData = isCancelModal ? cancelMockData : declineMockData;
 
   const dropdownButtonStyle = {
     display: "flex",
@@ -50,7 +51,7 @@ const CancelFilters = () => {
         </DropdownToggle>
         <DropdownMenu>
           {mockData.map((reason, index) => (
-            <div style={{ width: "450px" }}>
+            <div key={index} style={{ width: "450px" }}>
               <DropdownItem onClick={() => setReason(reason)}>
                 {reason}
               </DropdownItem>

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 
-.navbar-container {
+.navbar-container-rider {
   width: 100vw;
   height: 70px;
   padding-left: 40px;
@@ -14,7 +14,20 @@
   font-family: "Montserrat";
 }
 
-.navbar-logo {
+.navbar-container-driver {
+  width: 100vw;
+  height: 70px;
+  padding-left: 40px;
+  padding-right: 10px;
+  background-color: #3d77ff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-family: "Montserrat";
+}
+
+.navbar-logo-rider {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -24,7 +37,17 @@
   letter-spacing: 2px;
 }
 
-.navbar-items {
+.navbar-logo-driver {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.navbar-items-rider {
   display: flex;
   flex-direction: row;
   width: 47vw;
@@ -34,13 +57,58 @@
   font-weight: 600;
 }
 
+.navbar-items-driver {
+  display: flex;
+  flex-direction: row;
+  width: 47vw;
+  align-items: center;
+  justify-content: space-evenly;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.message-icon-rider {
+  cursor: pointer;
+  border-left: 2px solid #c4c4c4;
+  padding-left: 30px;
+}
+
+.notification-icon-rider {
+  cursor: pointer;
+  border-right: 2px solid #c4c4c4;
+  padding-right: 30px;
+}
+
+.message-icon-driver {
+  cursor: pointer;
+  border-left: 2px solid #ffffff;
+  padding-left: 30px;
+}
+
+.notification-icon-driver {
+  cursor: pointer;
+  border-right: 2px solid #ffffff;
+  padding-right: 30px;
+}
+
 .non-active-item {
   cursor: pointer;
 }
 
-.active-item {
+.non-active-item-bordered {
+  cursor: pointer;
+  border: 2px solid #ffffff;
+  padding: 5px 7px 5px 7px;
+}
+
+.active-item-rider {
   cursor: pointer;
   border-bottom: 5px solid #3d77ff;
+}
+
+.active-item-driver {
+  cursor: pointer;
+  border-bottom: 5px solid #ffffff;
 }
 
 .non-active-photo {
@@ -52,9 +120,20 @@
   align-items: center;
 }
 
-.active-photo {
+.active-photo-rider {
   cursor: pointer;
   border: 2px solid #3d77ff;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.active-photo-driver {
+  cursor: pointer;
+  border: 2px solid #ffffff;
   border-radius: 50%;
   width: 50px;
   height: 50px;
@@ -66,4 +145,81 @@
 img {
   width: 37px;
   height: 37px;
+}
+
+.single-option {
+  border-bottom: 2px solid #c4c4c4;
+  font-size: 14px;
+  height: 50px;
+  width: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.single-option-logout {
+  font-size: 14px;
+  height: 50px;
+  width: 110px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #3d77ff;
+}
+
+.single-noti {
+  border-bottom: 2px solid #c4c4c4;
+  font-size: 11px;
+  height: 50px;
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.single-message {
+  border-bottom: 2px solid #c4c4c4;
+  font-size: 11px;
+  height: 50px;
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.message-and-time {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.gray-text {
+  color: #c4c4c4;
+}
+
+.bold-text {
+  font-weight: bold;
+}
+
+.see-all-noti {
+  height: 30px;
+  width: 250px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.see-all-noti-text {
+  font-size: 11px;
+  color: #3d77ff;
+  cursor: pointer;
+  margin-bottom: -10px;
 }
