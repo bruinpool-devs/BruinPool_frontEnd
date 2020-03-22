@@ -122,11 +122,11 @@ const MainState = ({ children }) => {
   const rideDetails = (rideID, token) => {
     return axios
       .get("/rides/ride-details", {
-        query: {
-          rideID: rideID
-        },
         headers: {
           Authorization: `Bearer ${token}`
+        },
+        params: {
+          rideID: rideID
         }
       })
       .then(res => {

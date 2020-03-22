@@ -51,7 +51,8 @@ const RequestModal = props => {
   const authToken = cookies.get("authToken");
 
   // Get Ride details
-  const ride = mainContext.rideDetails(request.rideID, authToken);
+  const ride = await mainContext.rideDetails(request.rideID, authToken);
+  console.log(ride);
   if (!ride) {
     // TODO: Add better UI to display failure
     console.log("Could not get ride Details");
