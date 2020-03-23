@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-regular-svg-icons";
+import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
 import { Button, Modal, ModalHeader, ModalBody, Row, Col } from "reactstrap";
 import { withRouter } from "react-router-dom";
@@ -25,6 +26,7 @@ const RequestModal = props => {
   const [confirmModal, setConfirmModal] = useState(false);
   const [confirmWithdraw, setConfirmWithdraw] = useState(false);
   const [declineModal, setDeclineModal] = useState(false);
+  const [driverContactModal, setDriverContactModal] = useState(false);
 
   const iconStyle = {
     marginLeft: "30px",
@@ -39,6 +41,7 @@ const RequestModal = props => {
   const toggle = () => setModal(!modal);
   const confirmToggle = () => setConfirmModal(!confirmModal);
   const declineToggle = () => setDeclineModal(!declineModal);
+  const contactToggle = () => setDriverContactModal(!driverContactModal);
 
   // API Request Context
   const mainContext = useContext(MainContext);
@@ -194,7 +197,7 @@ const RequestModal = props => {
           </Button>
         );
         break;
-      case `approved`:
+      case `accepted`:
         requestStatusText = (
           <span className="request-status green-highlight">
             {request.meta.status}
@@ -204,12 +207,14 @@ const RequestModal = props => {
         primaryBtn = (
           <Button
             className="proceed-to-payment"
-            onClick={() =>
-              history.push({
-                pathname: "/ride/checkout",
-                state: { request: request }
-              })
-            }
+            onClick={() => {
+              // history.push({
+              //   pathname: "/ride/checkout",
+              //   state: { request: request }
+              // })
+              toggle();
+              contactToggle();
+            }}
             style={{
               borderColor: "#3D77FF",
               backgroundColor: "#3D77FF",
@@ -217,7 +222,7 @@ const RequestModal = props => {
               marginRight: "10px"
             }}
           >
-            Proceed To Payment
+            Confirm
           </Button>
         );
 
@@ -374,8 +379,7 @@ const RequestModal = props => {
               </Row>
               <Row>
                 <Col>
-                  Trip SubTotal:{" "}
-                  <span className="bold-text">{tripSubTotal}</span>
+                  Trip Total: <span className="bold-text">${tripSubTotal}</span>
                 </Col>
               </Row>
             </Col>
@@ -390,21 +394,36 @@ const RequestModal = props => {
                         <img
                           src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
                           alt="bear"
+                          style={{ width: "60px", height: "60px" }}
                         />
                       </Col>
                       <Col>
-                        <span className="caption card-name">
+                        <span style={{ fontSize: "25px" }}>
                           {request.ride.ownerFullName}
                         </span>
+                        <div style={{}}>
+                          <FontAwesomeIcon
+                            icon={faGraduationCap}
+                            style={{ marginRight: "5px" }}
+                          />
+                          UCLA
+                        </div>
                       </Col>
                     </Row>
-                    <span className="view-profile-text">view profile ></span>
+                    <Row>
+                      <h4>{userTypeHeader}'s Note:</h4>
+                      <span style={{ fontSize: "14px", width: "95%" }}>
+                        {request.ride.detail}
+                      </span>
+                    </Row>
                   </Col>
 
                   <Col xs={7} className="request-card-request-msg">
                     <Row>
-                      <h4>{userTypeHeader}'s Note:</h4>
-                      {request.ride.detail}
+                      <h4>Your Message to {userTypeHeader}:</h4>
+                      Hi Sarah! I am traveling to SB to meet up with friend and
+                      family. I am leaving from UCLA and I can adjust to any
+                      location pickups whichever is the easiest for you!
                     </Row>
                     <Row className="withdraw-buttons">
                       {primaryBtn}
@@ -469,6 +488,63 @@ const RequestModal = props => {
               Once the rider confirms, you will recieve an email notification
               and the rider’s information will be show under your{" "}
               <b>Upcoming Trips</b>
+            </div>
+          </div>
+        </ModalBody>
+      </Modal>
+
+      <Modal isOpen={driverContactModal} toggle={contactToggle} size="lg">
+        <ModalHeader toggle={contactToggle}>Contact your driver</ModalHeader>
+        <ModalBody>
+          <div style={{ padding: "10px 20px 20px 20px" }}>
+            <div style={{ fontWeight: "bold" }}>
+              You may contact your driver through their phone number or via
+              messages on our website.
+            </div>
+            <div
+              style={{
+                border: "1px solid #c4c4c4",
+                display: "flex",
+                flexDirection: "column",
+                marginTop: "20px",
+                backgroundColor: "white",
+                color: "#5c5c5c",
+                padding: "20px",
+                boxShadow:
+                  "0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1)"
+              }}
+            >
+              <div>Driver</div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  marginTop: "10px"
+                }}
+              >
+                <div>
+                  <img
+                    src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+                    alt="bear"
+                    style={{ width: "50px", height: "50px" }}
+                  />
+                </div>
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    alignItems: "center",
+                    marginLeft: "20px",
+                    justifyContent: "space-between",
+                    width: "400px"
+                  }}
+                >
+                  <div>{request.ride.ownerFullName}</div>
+                  <div style={{ fontWeight: "bold" }}>
+                    Phone #: 310-xxx-xxxx
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </ModalBody>
