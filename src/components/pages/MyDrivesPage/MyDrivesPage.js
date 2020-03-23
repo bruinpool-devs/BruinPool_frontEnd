@@ -19,6 +19,7 @@ const MyDrivesPage = ({ history }) => {
     } else {
       fetchDriverRequests();
       fetchUpcomingDriveFeed();
+      fetchRides();
       // fetchDriveHistoryFeed();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -42,6 +43,13 @@ const MyDrivesPage = ({ history }) => {
     await mainContext.fetchUpcomingDrive(username, authToken);
   };
 
+  const fetchRides = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchRideFeed({}, authToken);
+  };
+
   // const fetchDriveHistoryFeed = async () => {
   //   const cookies = new Cookies();
   //   const authToken = cookies.get("authToken");
@@ -49,7 +57,7 @@ const MyDrivesPage = ({ history }) => {
 
   //   await mainContext.fetchDriveHistory(username, authToken);
   // };
-
+  console.log(mainContext.requestDriverFeed);
   return (
     <div>
       <Navbar />
@@ -62,6 +70,7 @@ const MyDrivesPage = ({ history }) => {
           <div className="feed-container">
             <RequestFeed
               requestFeed={mainContext.requestDriverFeed}
+              rideFeed={mainContext.rideFeed}
               userType={"driver"}
             />
           </div>

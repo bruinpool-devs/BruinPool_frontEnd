@@ -162,7 +162,6 @@ const MainState = ({ children }) => {
         }
       })
       .then(res => {
-        console.log(res.data);
         dispatch({
           type: FETCH_RIDER_REQUEST_FEED,
           payload: res.data.requests
@@ -179,13 +178,14 @@ const MainState = ({ children }) => {
       .get("/request/recepient", {
         params: {
           status: "visible",
-          senderID: username
+          recepientID: username
         },
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
+        console.log(res.data.requests);
         dispatch({
           type: FETCH_DRIVER_REQUEST_FEED,
           payload: res.data.requests

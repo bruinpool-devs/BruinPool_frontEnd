@@ -16,7 +16,7 @@ const MyRidesPage = ({ history }) => {
     if (!authToken) {
       history.push("/");
     } else {
-      fetchSenderRequests();
+      fetchRiderRequests();
       fetchRideHistoryFeed();
       fetchUpcomingRideFeed();
       fetchRides();
@@ -26,7 +26,7 @@ const MyRidesPage = ({ history }) => {
 
   const mainContext = useContext(MainContext);
 
-  const fetchSenderRequests = async () => {
+  const fetchRiderRequests = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
     const username = cookies.get("userName");

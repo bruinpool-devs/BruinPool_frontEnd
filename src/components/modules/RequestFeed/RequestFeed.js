@@ -6,6 +6,7 @@ import "./RequestFeed.css";
 const RequestFeed = ({ requestFeed, rideFeed, userType }) => {
   var content = <div></div>;
   console.log(rideFeed);
+  console.log(requestFeed);
   // Get Ride details
   const getRideDetails = request =>
     rideFeed.reduce((result, current, i) => {
