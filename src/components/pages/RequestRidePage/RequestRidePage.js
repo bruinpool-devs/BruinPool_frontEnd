@@ -38,7 +38,7 @@ const RequestRidePage = ({ location, history }) => {
     let requestInfo = {
       senderID: username,
       rideID: ride.id,
-      recepientID: ride.ownerUsername,
+      recipientID: ride.ownerUsername,
       luggage: luggage,
       carryon: carryOn,
       msg: ride.driverNote

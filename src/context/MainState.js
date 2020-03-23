@@ -175,10 +175,10 @@ const MainState = ({ children }) => {
   // FETCH DRIVER REQUEST FEED
   const fetchDriverRequestFeed = (username, token) => {
     axios
-      .get("/request/recepient", {
+      .get("/request/recipient", {
         params: {
           status: "visible",
-          recepientID: username
+          recipientID: username
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -289,8 +289,8 @@ const MainState = ({ children }) => {
       });
   };
 
-  // Remind the recepient of the request
-  const remindRequestRecepient = (requestID, token) => {
+  // Remind the Recipient of the request
+  const remindRequestRecipient = (requestID, token) => {
     return axios
       .get("/request/remind", {
         params: {
@@ -745,7 +745,7 @@ const MainState = ({ children }) => {
         archiveRequest,
         approveRequest,
         denyRequest,
-        remindRequestRecepient,
+        remindRequestRecipient,
         joinRide,
         cancelRide,
         deleteRide,

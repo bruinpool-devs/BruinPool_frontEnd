@@ -64,9 +64,9 @@ const RequestModal = props => {
       console.log("No Reminds left");
     } else {
       // Send Reminder
-      const reminderRes = await mainContext.remind(request.recepientID);
+      const reminderRes = await mainContext.remind(request.recipientID);
       if (!reminderRes) {
-        console.log("Could not remind recepient");
+        console.log("Could not remind recipient");
         return;
       }
 
