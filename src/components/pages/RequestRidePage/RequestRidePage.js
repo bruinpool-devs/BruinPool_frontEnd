@@ -40,7 +40,7 @@ const RequestRidePage = ({ location, history }) => {
       rideID: ride.id,
       recipientID: ride.ownerUsername,
       luggage: luggage,
-      carryon: carryOn,
+      carryOn: carryOn,
       msg: ride.driverNote
     };
 
