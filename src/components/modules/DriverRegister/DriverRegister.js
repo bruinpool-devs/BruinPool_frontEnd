@@ -30,11 +30,25 @@ class DriverRegister extends React.Component {
     this.state = {
       phoneNumberValue: "",
       vehicleModelValue: "",
-      licensePlateNumber: ""
+      licensePlateNumber: "",
+      driversLicense: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  //Check to make sure all the forms values are populated
+  validateForm() {
+    if (
+      this.state.phoneNumber == "" ||
+      this.state.driversLicense == "" ||
+      this.state.licensePlateNumber == "" ||
+      this.state.vehicleModel == ""
+    ) {
+      return false;
+    }
+    return true;
   }
 
   handleChange(event) {
@@ -45,25 +59,39 @@ class DriverRegister extends React.Component {
     } else if (targetName == "vehicle-model") {
       this.setState({ vehicleModelValue: event.target.value });
     } else if (targetName == "license-plate-number") {
-      this.setState({ vehicleModelValue: event.target.value });
+      this.setState({ licensePlateNumber: event.target.value });
+    } else if (targetName == "drivers-license") {
+      this.setState({ driversLicense: event.target.value });
     } else {
-      //MAKE SURE TO HANDLE THIS ALERT BETTER
       alert("Invalid state change.");
     }
   }
 
   handleSubmit(event) {
     event.preventDefault();
+
+    if (!this.validateForm()) {
+      alert("Not all driver info fields are populated");
+      return;
+    }
+
     const mainContext = this.context;
-    // alert(
-    //   "Phone Number: " +
-    //     this.state.phoneNumberValue +
-    //     "\nVehicle Model: " +
-    //     this.state.vehicleModelValue
-    // );
-    mainContext.redirectStripeAuth().then(res => {
-      alert(res.startedFromTheBottom);
-    });
+
+    const driverInfo = {
+      phoneNumber: this.state.phoneNumberValue,
+      licensePlate: this.state.licensePlateNumber,
+      vehicleModel: this.state.vehicleModelValue,
+      driversLicense: this.state.driversLicense
+    };
+
+    mainContext
+      .redirectStripeAuth(driverInfo, authToken)
+      .then(res => {
+        window.location = res.redirectUrl;
+      })
+      .catch(err => {
+        alert(err);
+      });
   }
 
   render() {
@@ -87,8 +115,17 @@ class DriverRegister extends React.Component {
                   <Input
                     name="phone-number"
                     placeholder="Phone"
-                    style={{ marginBottom: "20px" }}
+                    style={{ marginBottom: "0px" }}
                     value={this.state.phoneNumberValue}
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    name="drivers-license"
+                    placeholder="Drivers License Number"
+                    style={{ marginBottom: "0px" }}
+                    value={this.state.driversLicense}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
@@ -96,7 +133,7 @@ class DriverRegister extends React.Component {
                   <Input
                     name="license-plate-number"
                     placeholder="License Plate Number"
-                    style={{ marginBottom: "20px" }}
+                    style={{ marginBottom: "0px" }}
                     value={this.state.licensePlateNumber}
                     onChange={this.handleChange}
                   />
@@ -105,18 +142,18 @@ class DriverRegister extends React.Component {
                   <Input
                     name="vehicle-model"
                     placeholder="Vehicle Model"
-                    style={{ marginBottom: "30px" }}
+                    style={{ marginBottom: "10px" }}
                     value={this.state.vehicleModelValue}
                     onChange={this.handleChange}
                   />
-                  <FormText
-                    color="black"
-                    style={{ fontSize: "10px", marginBottom: "10px" }}
-                  >
-                    By proceeding, I agree to PoolUp's Terms of Use and
-                    acknowledge that I have read the Privacy Policy.
-                  </FormText>
                 </FormGroup>
+                <FormText
+                  color="black"
+                  style={{ fontSize: "10px", marginBottom: "5px" }}
+                >
+                  By proceeding, I agree to PoolUp's Terms of Use and
+                  acknowledge that I have read the Privacy Policy.
+                </FormText>
                 <Button
                   style={{
                     backgroundColor: "#3d77ff",

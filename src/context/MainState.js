@@ -98,7 +98,6 @@ const MainState = ({ children }) => {
             type: LOGIN,
             payload: res.data
           });
-
           validity = true;
         }
       })
@@ -534,14 +533,20 @@ const MainState = ({ children }) => {
   };
 
   // REDICTS DRIVER TO STRIPE AUTHENTICATION SETUP
-  const redirectStripeAuth = () => {
+  const redirectStripeAuth = (driverInfo, token) => {
+    axios.defaults.withCredentials = true;
     return axios
-      .get("/stripe/driver/auth", {})
+      .post("/stripe/driver/auth", driverInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      })
       .then(res => {
         return res.data;
       })
       .catch(err => {
-        throw err;
+        throw err.response.data.error;
       });
   };
 
