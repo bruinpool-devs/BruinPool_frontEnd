@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   faLongArrowAltRight,
   faCalendarAlt,
@@ -19,7 +19,7 @@ import "./RequestModal.css";
 
 const RequestModal = props => {
   // Get Passed in Paramaters
-  const { request, userType, history, index } = props;
+  const { request, ride, userType, history, index } = props;
 
   // Set Modal Initial States
   const [modal, setModal] = useState(false);
@@ -49,15 +49,6 @@ const RequestModal = props => {
   // Get Cookie
   const cookies = new Cookies();
   const authToken = cookies.get("authToken");
-
-  // Get Ride details
-  const ride = await mainContext.rideDetails(request.rideID, authToken);
-  console.log(ride);
-  if (!ride) {
-    // TODO: Add better UI to display failure
-    console.log("Could not get ride Details");
-    return;
-  }
 
   let requestStatusText;
   let primaryBtn;

@@ -19,6 +19,7 @@ const MyRidesPage = ({ history }) => {
       fetchSenderRequests();
       fetchRideHistoryFeed();
       fetchUpcomingRideFeed();
+      fetchRides();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -47,6 +48,13 @@ const MyRidesPage = ({ history }) => {
     await mainContext.fetchUpcomingRide(authToken);
   };
 
+  const fetchRides = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchRideFeed({}, authToken);
+  };
+
   return (
     <div>
       <Navbar />
@@ -60,6 +68,7 @@ const MyRidesPage = ({ history }) => {
           <div className="feed-container">
             <RequestFeed
               requestFeed={mainContext.requestRiderFeed}
+              rideFeed={mainContext.rideFeed}
               userType={"rider"}
             />
           </div>
