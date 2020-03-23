@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 
+/* Request Card Frame */
 .request-container {
   display: flex;
   flex-direction: row;
@@ -178,4 +179,39 @@
   width: 100%;
   margin-top: -10px;
   padding-bottom: 3px;
+}
+
+/* Font Awesome Icon */
+.icon-styling {
+  margin-left: 30px;
+  margin-right: 32px;
+  margin-bottom: -7px;
+  color: #3d77ff;
+  width: 35px;
+  height: 35px;
+}
+
+.arrow-icon {
+  width: 50px;
+  height: 30px;
+}
+
+.small-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* Button Styling */
+.primary-btn {
+  border-color: #3d77ff !important;
+  background-color: #3d77ff !important;
+  margin-top: 30px !important;
+  margin-right: 10px !important;
+}
+
+.secondary-btn {
+  border-color: #ff3d3d !important;
+  background-color: #ff3d3d !important;
+  margin-top: 30px !important;
+  margin-left: 10px !important;
 }

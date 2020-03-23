@@ -271,11 +271,13 @@ const MainState = ({ children }) => {
   };
 
   // DECLINE REQUEST
-  const denyRequest = (requestID, token) => {
+  const denyRequest = (requestID, msg, token) => {
+    console.log(requestID);
     return axios
       .put("/request/deny", {
         params: {
-          requestID
+          requestID: requestID,
+          msg: msg
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -290,7 +292,7 @@ const MainState = ({ children }) => {
   };
 
   // Remind the Recipient of the request
-  const remindRequestRecipient = (requestID, token) => {
+  const remindDriver = (requestID, token) => {
     return axios
       .get("/request/remind", {
         params: {
@@ -745,7 +747,7 @@ const MainState = ({ children }) => {
         archiveRequest,
         approveRequest,
         denyRequest,
-        remindRequestRecipient,
+        remindDriver,
         joinRide,
         cancelRide,
         deleteRide,

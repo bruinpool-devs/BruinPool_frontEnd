@@ -1,18 +1,27 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
 import "../CancelRideModal/CancelRideModal.css";
 import CancelFilters from "../../modules/Filters/CancelFilters";
-// import MainContext from "../../../context/mainContext";
+import MainContext from "../../../context/mainContext";
 
-const DeclineModal = ({ isOpen, toggleModal, handleDenyRequest }) => {
+const DeclineModal = ({ requestID, authToken, isOpen, toggleModal }) => {
   const [message, setMessage] = useState("");
 
-  //   const mainContext = useContext(MainContext);
+  const mainContext = useContext(MainContext);
 
   const handleDeclineRide = async () => {
-    await handleDenyRequest();
+    const response = await mainContext.denyRequest(
+      requestID,
+      message,
+      authToken
+    );
+
+    if (!response) {
+      // TODO: Add better UI to display failure
+      console.log("Deny Request Failed");
+    }
   };
 
   return (
