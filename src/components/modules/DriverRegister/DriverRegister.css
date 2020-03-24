@@ -44,7 +44,7 @@
   display: flex;
   flex-direction: row;
   font-family: "Nunito";
-  height: 340px;
+  height: 380px;
   border: 1px solid #c4c4c4;
   margin-top: 20px;
 }
@@ -61,7 +61,7 @@
 
 .register-image img {
   width: 100%;
-  height: 340px;
+  height: 380px;
   display: flex;
 }
 

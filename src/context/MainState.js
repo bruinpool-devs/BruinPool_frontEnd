@@ -98,7 +98,6 @@ const MainState = ({ children }) => {
             type: LOGIN,
             payload: res.data
           });
-
           validity = true;
         }
       })
@@ -533,6 +532,24 @@ const MainState = ({ children }) => {
       });
   };
 
+  // REDICTS DRIVER TO STRIPE AUTHENTICATION SETUP
+  const redirectStripeAuth = (driverInfo, token) => {
+    axios.defaults.withCredentials = true;
+    return axios
+      .post("/stripe/driver/auth", driverInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        throw err.response.data.error;
+      });
+  };
+
   // GET PUBLIC STRIPE KEY
   const getPublicStripeKey = token => {
     return axios
@@ -694,7 +711,8 @@ const MainState = ({ children }) => {
         fetchProfilePic,
         uploadProfilePic,
         getPublicStripeKey,
-        createPaymentIntent
+        createPaymentIntent,
+        redirectStripeAuth
       }}
     >
       {children}
