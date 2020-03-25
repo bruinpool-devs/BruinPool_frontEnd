@@ -17,10 +17,7 @@ import Cookies from "universal-cookie";
 import DeclineModal from "../DeclineModal/DeclineModal";
 import "./RequestModal.css";
 
-const RequestModal = props => {
-  // Get Passed in Paramaters
-  const { request, userType, history, index } = props;
-
+const RequestModal = ({ request, userType, index }) => {
   // Set Modal Initial States
   const [modal, setModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);

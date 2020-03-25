@@ -14,7 +14,8 @@ import {
   FETCH_NOTIFICATION,
   FETCH_REVIEWS,
   FETCH_PROFILE_PIC,
-  FETCH_SENDER_REQUEST_FEED
+  FETCH_SENDER_REQUEST_FEED,
+  FETCH_PUBLIC_PROFILE
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -32,7 +33,8 @@ const MainState = ({ children }) => {
     filter: null,
     noti: [],
     reviews: [],
-    profilePic: ""
+    profilePic: "",
+    publicProfile: {}
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -649,19 +651,62 @@ const MainState = ({ children }) => {
 
   // UPLOAD PROFILE PICTURE
   const uploadProfilePic = (picture, token) => {
-    const fileObject = {
-      file: picture
-    };
+    var fileObject = new FormData();
+    fileObject.append("file", picture);
 
     axios
       .patch("/users/upload-profile-pic", fileObject, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(() => {
+        alert("Picture uploaded!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // UPDATE ABOUT ME
+  const updateAboutMe = (aboutMe, token) => {
+    const aboutMeObject = {
+      aboutMe: aboutMe
+    };
+
+    axios
+      .patch("/users/updateAboutMe", aboutMeObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(() => {
+        alert("Profile updated!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH PUBLIC PROFILE
+  const fetchPublicProfile = (username, token) => {
+    return axios
+      .get("/users/get-public-profile", {
+        params: {
+          username
+        },
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
         console.log(res.data);
-        alert("Picture uploaded!");
+        dispatch({
+          type: FETCH_PUBLIC_PROFILE,
+          payload: res.data
+        });
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -683,6 +728,7 @@ const MainState = ({ children }) => {
         noti: state.noti,
         reviews: state.reviews,
         profilePic: state.profilePic,
+        publicProfile: state.publicProfile,
         signup,
         validateUsername,
         login,
@@ -710,6 +756,8 @@ const MainState = ({ children }) => {
         fetchReviews,
         fetchProfilePic,
         uploadProfilePic,
+        updateAboutMe,
+        fetchPublicProfile,
         getPublicStripeKey,
         createPaymentIntent,
         redirectStripeAuth
