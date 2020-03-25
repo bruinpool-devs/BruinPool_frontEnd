@@ -24,20 +24,22 @@ const iconStyle = {
 };
 
 const DriverRegister = ({ toggleRegistered }) => {
-  const [phoneNumberValue, setPhoneNumberValue] = useState("");
-  const [vehicleModelValue, setVehicleModelValue] = useState("");
-  const [licensePlateNumber, setLicensePlateNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [vehicleMakeModel, setVehicleMakeModel] = useState("");
+  const [licensePlate, setLicensePlate] = useState("");
   const [driversLicense, setDriversLicense] = useState("");
+  const [vehicleColor, setVehicleColor] = useState("");
 
   const mainContext = useContext(MainContext);
 
   //Check to make sure all the forms values are populated
   const validateForm = () => {
     if (
-      phoneNumberValue === "" ||
-      driversLicense === "" ||
-      licensePlateNumber === "" ||
-      vehicleModelValue === ""
+      phoneNumber == "" ||
+      driversLicense == "" ||
+      licensePlate == "" ||
+      vehicleMakeModel == "" ||
+      vehicleColor == ""
     ) {
       return false;
     }
@@ -53,10 +55,11 @@ const DriverRegister = ({ toggleRegistered }) => {
     }
 
     const driverInfo = {
-      phoneNumber: phoneNumberValue,
-      licensePlate: licensePlateNumber,
-      vehicleModel: vehicleModelValue,
-      driversLicense: driversLicense
+      phoneNumber: phoneNumber,
+      licensePlate: licensePlate,
+      vehicleMakeModel: vehicleMakeModel,
+      driversLicense: driversLicense,
+      vehicleColor: vehicleColor
     };
 
     mainContext
@@ -89,16 +92,14 @@ const DriverRegister = ({ toggleRegistered }) => {
                 <Input
                   name="phone-number"
                   placeholder="Phone"
-                  style={{ marginBottom: "0px" }}
-                  value={phoneNumberValue}
-                  onChange={e => setPhoneNumberValue(e.target.value)}
+                  value={phoneNumber}
+                  onChange={e => setPhoneNumber(e.target.value)}
                 />
               </FormGroup>
               <FormGroup>
                 <Input
                   name="drivers-license"
-                  placeholder="Drivers License Number"
-                  style={{ marginBottom: "0px" }}
+                  placeholder="Drivers License #"
                   value={driversLicense}
                   onChange={e => setDriversLicense(e.target.value)}
                 />
@@ -106,19 +107,26 @@ const DriverRegister = ({ toggleRegistered }) => {
               <FormGroup>
                 <Input
                   name="license-plate-number"
-                  placeholder="License Plate Number"
-                  style={{ marginBottom: "0px" }}
-                  value={licensePlateNumber}
-                  onChange={e => setLicensePlateNumber(e.target.value)}
+                  placeholder="License Plate #"
+                  value={licensePlate}
+                  onChange={e => setLicensePlate(e.target.value)}
                 />
               </FormGroup>
               <FormGroup>
                 <Input
-                  name="vehicle-model"
+                  name="vehicle-make-model"
                   placeholder="Vehicle Model"
+                  value={vehicleMakeModel}
+                  onChange={e => setVehicleMakeModel(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  name="vehicle-color"
+                  placeholder="Vehicle Color"
                   style={{ marginBottom: "10px" }}
-                  value={vehicleModelValue}
-                  onChange={e => setVehicleModelValue(e.target.value)}
+                  value={vehicleColor}
+                  onChange={e => setVehicleColor(e.target.value)}
                 />
               </FormGroup>
               <FormText
