@@ -71,7 +71,7 @@ const DriverPost = ({ toggleRegistered }) => {
   });
 
   const optionStyle = {
-    width: "150px",
+    width: "170px",
     height: "45px",
     marginTop: "20px",
     borderWidth: "0px 0px 2px 0px",

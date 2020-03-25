@@ -143,8 +143,9 @@
 }
 
 img {
-  width: 37px;
-  height: 37px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
 }
 
 .single-option {

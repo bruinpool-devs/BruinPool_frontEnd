@@ -12,7 +12,12 @@ const cancelMockData = [
   "No longer traveling",
   "Other"
 ];
-const declineMockData = ["Ride is full", "Location conflict", "Time conflict"];
+const declineMockData = [
+  "Ride is full",
+  "Location conflict",
+  "Time conflict",
+  "Other"
+];
 
 const _ = require("underscore");
 

@@ -1,11 +1,22 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 
+.profile-edit {
+  color: #3d77ff;
+  text-decoration: underline;
+  margin-left: 35px;
+  font-size: 19px;
+}
+
+.profile-edit:hover {
+  cursor: pointer;
+}
+
 .profile-wrapper {
   display: flex;
   flex-direction: row;
   width: 95%;
-  margin-top: 20px;
+  margin-top: 40px;
   font-family: "Montserrat";
   color: black;
 }
@@ -38,8 +49,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -30px;
-  margin-left: 170px;
+  margin-top: -54px;
+  margin-left: 146px;
   position: absolute;
   cursor: pointer;
 }
@@ -99,7 +110,6 @@
 }
 
 .profile-about {
-  border: 1px solid #c4c4c4;
   padding: 10px;
   font-family: "Open Sans";
   margin-top: 15px;
