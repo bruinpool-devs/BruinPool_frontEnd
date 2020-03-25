@@ -28,10 +28,11 @@ class DriverRegister extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      phoneNumberValue: "",
-      vehicleModelValue: "",
-      licensePlateNumber: "",
-      driversLicense: ""
+      phoneNumber: "",
+      vehicleMakeModel: "",
+      licensePlate: "",
+      driversLicense: "",
+      vehicleColor: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -43,8 +44,9 @@ class DriverRegister extends React.Component {
     if (
       this.state.phoneNumber == "" ||
       this.state.driversLicense == "" ||
-      this.state.licensePlateNumber == "" ||
-      this.state.vehicleModel == ""
+      this.state.licensePlate == "" ||
+      this.state.vehicleMakeModel == "" ||
+      this.state.vehicleColor == ""
     ) {
       return false;
     }
@@ -55,13 +57,15 @@ class DriverRegister extends React.Component {
     const targetName = event.target.getAttribute("name");
 
     if (targetName == "phone-number") {
-      this.setState({ phoneNumberValue: event.target.value });
-    } else if (targetName == "vehicle-model") {
-      this.setState({ vehicleModelValue: event.target.value });
+      this.setState({ phoneNumber: event.target.value });
+    } else if (targetName == "vehicle-make-model") {
+      this.setState({ vehicleMakeModel: event.target.value });
     } else if (targetName == "license-plate-number") {
-      this.setState({ licensePlateNumber: event.target.value });
+      this.setState({ licensePlate: event.target.value });
     } else if (targetName == "drivers-license") {
       this.setState({ driversLicense: event.target.value });
+    } else if (targetName == "vehicle-color") {
+      this.setState({ vehicleColor: event.target.value });
     } else {
       alert("Invalid state change.");
     }
@@ -78,10 +82,11 @@ class DriverRegister extends React.Component {
     const mainContext = this.context;
 
     const driverInfo = {
-      phoneNumber: this.state.phoneNumberValue,
-      licensePlate: this.state.licensePlateNumber,
-      vehicleModel: this.state.vehicleModelValue,
-      driversLicense: this.state.driversLicense
+      phoneNumber: this.state.phoneNumber,
+      licensePlate: this.state.licensePlate,
+      vehicleMakeModel: this.state.vehicleMakeModel,
+      driversLicense: this.state.driversLicense,
+      vehicleColor: this.state.vehicleColor
     };
 
     mainContext
@@ -115,16 +120,14 @@ class DriverRegister extends React.Component {
                   <Input
                     name="phone-number"
                     placeholder="Phone"
-                    style={{ marginBottom: "0px" }}
-                    value={this.state.phoneNumberValue}
+                    value={this.state.phoneNumber}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
                 <FormGroup>
                   <Input
                     name="drivers-license"
-                    placeholder="Drivers License Number"
-                    style={{ marginBottom: "0px" }}
+                    placeholder="Drivers License #"
                     value={this.state.driversLicense}
                     onChange={this.handleChange}
                   />
@@ -132,18 +135,24 @@ class DriverRegister extends React.Component {
                 <FormGroup>
                   <Input
                     name="license-plate-number"
-                    placeholder="License Plate Number"
-                    style={{ marginBottom: "0px" }}
-                    value={this.state.licensePlateNumber}
+                    placeholder="Vehicle License Plate #"
+                    value={this.state.licensePlate}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
                 <FormGroup>
                   <Input
-                    name="vehicle-model"
-                    placeholder="Vehicle Model"
-                    style={{ marginBottom: "10px" }}
-                    value={this.state.vehicleModelValue}
+                    name="vehicle-make-model"
+                    placeholder="Vehicle Make and Model"
+                    value={this.state.vehicleMakeModel}
+                    onChange={this.handleChange}
+                  />
+                </FormGroup>
+                <FormGroup>
+                  <Input
+                    name="vehicle-color"
+                    placeholder="Vehicle Color"
+                    value={this.state.vehicleColor}
                     onChange={this.handleChange}
                   />
                 </FormGroup>
