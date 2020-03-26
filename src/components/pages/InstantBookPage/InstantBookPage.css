@@ -1,0 +1,127 @@
+.instant-book-info-card {
+  margin-top: 120px;
+  padding: 30px 30px 30px 30px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #c4c4c4;
+  width: 78%;
+  height: 300px;
+  margin-left: 150px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.instant-book-one-third {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  padding-left: 80px;
+  padding-right: 80px;
+}
+
+.instant-book-location {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 20px;
+  align-items: center;
+}
+
+.instant-book-date {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 17px;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.instant-book-pickup {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  align-items: center;
+  margin-top: 25px;
+}
+
+.instant-book-dropoff {
+  display: flex;
+  flex-direction: row;
+  font-size: 16px;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.instant-book-carryon {
+  display: flex;
+  flex-direction: row;
+  font-size: 17px;
+  align-items: center;
+  margin-top: 25px;
+  margin-left: 22px;
+}
+
+.instant-book-driver-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.instant-book-driver-info {
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+}
+
+.instant-book-driver-personal {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  margin-top: 2px;
+}
+
+.instant-book-driver-name {
+  font-size: 24px;
+}
+
+.instant-book-driver-school {
+  font-size: 13px;
+}
+
+.instant-book-driver-note {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+.instant-book-driver-text {
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+.instant-book-cancel-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.instant-book-cancel-text {
+  margin-top: 15px;
+  color: #3d77ff;
+  font-size: 12px;
+}
+
+.instant-book-price-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 25px;
+}
+
+.instant-book-price-value {
+  font-weight: bold;
+  font-size: 18px;
+  margin-top: 5px;
+}
+
+.instant-book-summary-buttons {
+  margin-top: 80px;
+  margin-left: 150px;
+}

@@ -35,11 +35,11 @@ const DriverRegister = ({ toggleRegistered }) => {
   //Check to make sure all the forms values are populated
   const validateForm = () => {
     if (
-      phoneNumber == "" ||
-      driversLicense == "" ||
-      licensePlate == "" ||
-      vehicleMakeModel == "" ||
-      vehicleColor == ""
+      phoneNumber === "" ||
+      driversLicense === "" ||
+      licensePlate === "" ||
+      vehicleMakeModel === "" ||
+      vehicleColor === ""
     ) {
       return false;
     }

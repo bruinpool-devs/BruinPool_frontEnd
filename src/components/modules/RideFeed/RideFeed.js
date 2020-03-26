@@ -1,15 +1,24 @@
 import React, { useState } from "react";
 import moment from "moment";
-import { withRouter } from "react-router-dom";
 
 import CancelRideModal from "../../modals/CancelRideModal/CancelRideModal";
+import InstantBookModal from "../../modals/InstantBookModal/InstantBookModal";
 
 import {
   faLongArrowAltRight,
-  faGraduationCap
+  faGraduationCap,
+  faCheckCircle,
+  faQuestionCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button, UncontrolledCollapse, Card, CardBody } from "reactstrap";
+import {
+  Button,
+  UncontrolledCollapse,
+  Card,
+  CardBody,
+  UncontrolledPopover,
+  PopoverBody
+} from "reactstrap";
 
 import "./RideFeed.css";
 
@@ -18,10 +27,10 @@ const RideFeed = ({
   mainRidesBool,
   upcomingRidesBool,
   rideHistoryBool,
-  postedDrivesBool,
-  history
+  postedDrivesBool
 }) => {
   const [modal, setModal] = useState(false);
+  const [instantBookModal, setInstantBookModal] = useState(false);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
@@ -46,28 +55,42 @@ const RideFeed = ({
     }
   ];
 
-  const handleRequestRide = ride => {
-    history.push({
-      pathname: "/rider/request-ride",
-      state: {
-        from: ride.from,
-        to: ride.to,
-        date: ride.date,
-        time: ride.time,
-        price: ride.price,
-        specificDropoff: ride.specificDropoff,
-        specificPickup: ride.specificPickup,
-        driverNote: ride.detail,
-        ownerUsername: ride.ownerUsername
-      }
-    });
-  };
-
   return (
     <div className="ride-feed-container">
       <div className="table-header">
         <div className="from-to-title">From</div>
         <div className="from-to-title">To</div>
+        {mainRidesBool && (
+          <div className="remaining-titles">
+            <div>Instant Book</div>
+            <div>
+              <FontAwesomeIcon
+                id="QuestionIcon"
+                icon={faQuestionCircle}
+                style={{
+                  width: "20px",
+                  height: "20px",
+                  marginLeft: "8px",
+                  cursor: "pointer"
+                }}
+              />
+              <UncontrolledPopover
+                trigger="legacy"
+                placement="right"
+                target="QuestionIcon"
+              >
+                <PopoverBody>
+                  <div className="question-popover">
+                    You can filter your search to only view listings that are
+                    available through Instant Book. Instant Book listings don't
+                    require approval from the driver before a ride can be
+                    booked.
+                  </div>
+                </PopoverBody>
+              </UncontrolledPopover>
+            </div>
+          </div>
+        )}
         <div className="remaining-titles">Date</div>
         <div className="remaining-titles">Time</div>
         <div className="remaining-titles">Price</div>
@@ -113,6 +136,14 @@ const RideFeed = ({
                   {ride.to}
                 </div>
               </div>
+              {mainRidesBool && (
+                <div className="remaining-card-values">
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    style={{ height: "30px", width: "50px", color: "#3d77ff" }}
+                  />
+                </div>
+              )}
               <div className="remaining-card-values">
                 {moment(ride.date)
                   .utc()
@@ -157,6 +188,11 @@ const RideFeed = ({
                         <div>Westwood In N Out</div>
                       </div>
                       <div className="ride-detail-button">
+                        <InstantBookModal
+                          isOpen={instantBookModal}
+                          toggleModal={setInstantBookModal}
+                          ride={ride}
+                        />
                         <Button
                           style={{
                             backgroundColor: "#3d77ff",
@@ -167,9 +203,9 @@ const RideFeed = ({
                             height: "45px",
                             fontSize: "20px"
                           }}
-                          onClick={() => handleRequestRide(ride)}
+                          onClick={() => setInstantBookModal(!instantBookModal)}
                         >
-                          Request Ride
+                          Book Ride
                         </Button>
                       </div>
                     </div>
@@ -505,4 +541,4 @@ const RideFeed = ({
   );
 };
 
-export default withRouter(RideFeed);
+export default RideFeed;

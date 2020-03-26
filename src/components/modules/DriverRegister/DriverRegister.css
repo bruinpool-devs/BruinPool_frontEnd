@@ -63,6 +63,7 @@
   width: 100%;
   height: 380px;
   display: flex;
+  border-radius: 0%;
 }
 
 .benefits-section {

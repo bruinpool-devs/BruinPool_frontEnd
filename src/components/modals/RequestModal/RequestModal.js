@@ -17,7 +17,7 @@ import Cookies from "universal-cookie";
 import DeclineModal from "../DeclineModal/DeclineModal";
 import "./RequestModal.css";
 
-const RequestModal = ({ request, userType, index }) => {
+const RequestModal = ({ request, userType, index, history }) => {
   // Set Modal Initial States
   const [modal, setModal] = useState(false);
   const [confirmModal, setConfirmModal] = useState(false);
@@ -205,12 +205,12 @@ const RequestModal = ({ request, userType, index }) => {
           <Button
             className="proceed-to-payment"
             onClick={() => {
-              // history.push({
-              //   pathname: "/ride/checkout",
-              //   state: { request: request }
-              // })
-              toggle();
-              contactToggle();
+              history.push({
+                pathname: "/ride/checkout",
+                state: { request: request }
+              });
+              // toggle();
+              // contactToggle();
             }}
             style={{
               borderColor: "#3D77FF",

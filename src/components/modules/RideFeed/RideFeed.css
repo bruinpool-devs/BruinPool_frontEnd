@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Nunito");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 .ride-feed-container {
   display: flex;
@@ -36,6 +37,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.question-popover {
+  font-family: "Montserrat";
+  font-size: 10px;
 }
 
 .rideCard {

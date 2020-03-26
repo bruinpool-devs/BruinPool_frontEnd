@@ -51,7 +51,14 @@ const Navbar = ({ history, location }) => {
             </div>
             <div
               className={
-                path === "/rider" ? "active-item-rider" : "non-active-item"
+                path === "/rider" ||
+                path === "/ride/checkout" ||
+                path === "/rider/request-ride" ||
+                path === "/rider/instant-book" ||
+                path === "/rider/instant-book/confirm" ||
+                path === "/rider/request-ride-summary"
+                  ? "active-item-rider"
+                  : "non-active-item"
               }
               onClick={() => history.push("/rider")}
             >

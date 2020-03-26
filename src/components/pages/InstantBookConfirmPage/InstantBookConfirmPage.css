@@ -1,0 +1,188 @@
+.instant-book-confirm-title {
+  font-size: 35px;
+  font-weight: 600;
+  margin-left: 100px;
+  margin-right: 300px;
+  margin-top: 40px;
+}
+
+.instant-book-confirm-subtitle {
+  margin-left: 105px;
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.instant-book-confirm-code {
+  margin-left: 105px;
+  font-size: 16px;
+  margin-top: 70px;
+}
+
+.instant-book-confirm-card {
+  margin-top: 20px;
+  padding: 20px 0px 20px 0px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #c4c4c4;
+  width: 40%;
+  height: 650px;
+  margin-left: 100px;
+  display: flex;
+  flex-direction: column;
+}
+
+.instant-book-confirm-one-third {
+  display: flex;
+  flex-direction: column;
+  height: 45%;
+  padding-left: 35px;
+  padding-right: 80px;
+}
+
+.instant-book-confirm-three-third {
+  display: flex;
+  flex-direction: column;
+  height: 30%;
+  padding-left: 35px;
+  padding-right: 80px;
+}
+
+.instant-book-confirm-card-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.instant-book-confirm-location {
+  margin-left: 30px;
+  margin-top: 20px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.instant-book-confirm-date {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 50%;
+  margin-top: 20px;
+}
+
+.instant-book-confirm-specific {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  margin-left: 30px;
+  justify-content: space-between;
+  width: 90%;
+}
+
+.instant-book-confirm-carryon {
+  margin-left: 52px;
+  margin-top: 15px;
+}
+
+.instant-book-confirm-divider {
+  border-bottom: 1px solid #c4c4c4;
+  margin-top: 30px;
+}
+
+.instant-book-confirm-visa {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 30%;
+  margin-top: 25px;
+  margin-left: 30px;
+}
+
+.instant-book-confirm-amount-paid {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 37%;
+  margin-left: 30px;
+  margin-top: 20px;
+}
+
+.instant-book-confirm-right {
+  font-weight: bold;
+}
+
+.instant-book-confirm-cancel-text {
+  margin-left: 30px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.instant-book-confirm-buttons {
+  margin-left: 100px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.instant-book-card-halves {
+  display: flex;
+  flex-direction: row;
+}
+
+.instant-book-confirm-card-right {
+  margin-top: 20px;
+  padding: 20px 0px 20px 38px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #c4c4c4;
+  width: 27%;
+  height: 350px;
+  margin-left: 50px;
+  display: flex;
+  flex-direction: column;
+}
+
+.instant-book-card-one-half {
+  height: 50%;
+}
+
+.instant-book-card-two-half {
+  height: 50%;
+}
+
+.instant-book-confirm-driver-halves {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  align-items: center;
+  width: 94%;
+}
+
+.instant-book-confirm-driver {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.instant-book-confirm-driver-info {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+.instant-book-confirm-driver-name {
+  font-size: 23px;
+}
+
+.instant-book-confirm-driver-school {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 13px;
+}
+
+.instant-book-confirm-driver-note {
+  margin-top: 10px;
+  font-size: 14px;
+}
