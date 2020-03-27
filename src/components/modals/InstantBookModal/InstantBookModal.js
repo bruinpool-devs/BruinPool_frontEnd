@@ -35,6 +35,7 @@ const InstantBookModal = ({ history, isOpen, toggleModal, ride }) => {
     history.push({
       pathname: "/rider/instant-book",
       state: {
+        id: ride._id,
         from: ride.from,
         to: ride.to,
         date: ride.date,

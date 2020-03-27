@@ -8,7 +8,7 @@ class CheckoutForm extends Component {
     super(props);
 
     this.state = {
-      amount: props.request.ride.price / props.request.meta.seats,
+      amount: props.request.price,
       currency: "usd",
       clientSecret: null,
       error: null,
@@ -35,13 +35,14 @@ class CheckoutForm extends Component {
     // Get Cookie
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
-    const currentUser = "esuarez"; //TODO: get current logged in user
+    const currentUser = cookies.get("userName");
 
     // Get Ride details
+    console.log(request);
     mainContext
-      .rideDetails(request.meta.rideID, authToken)
+      .rideDetails(request.id, authToken)
       .then(ride => {
-        if (request.meta.seats > ride.seats) {
+        if (1 > ride.seats) {
           this.setState({ error: "Error: Not Enough Seats" });
           return;
         }
@@ -50,15 +51,14 @@ class CheckoutForm extends Component {
         mainContext
           .createPaymentIntent(
             {
-              rideID: request.meta.rideID,
-              spotsToBePurchased: request.meta.seats,
+              rideID: request.id,
               username: currentUser
             },
             authToken
           )
           .then(clientSecret => {
             this.setState({
-              amount: request.ride.price / request.meta.spots,
+              amount: request.price,
               clientSecret: clientSecret,
               disabled: true,
               processing: true

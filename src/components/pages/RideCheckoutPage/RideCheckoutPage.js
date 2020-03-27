@@ -12,8 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "../../navbar/Navbar";
 
 const RideCheckoutPage = props => {
-  const request = props.history.location.state.request;
-  const tripSubTotal = request.meta.seats * request.ride.price;
+  const request = props.history.location.state;
+  const tripSubTotal = request.price;
 
   return (
     <div>
@@ -24,14 +24,14 @@ const RideCheckoutPage = props => {
             <h3>Ride Details</h3>
 
             <Row className="itinerary-head">
-              <Col className="itinerary-from">{request.ride.from}</Col>
+              <Col className="itinerary-from">{request.from}</Col>
               <Col>
                 <FontAwesomeIcon
                   icon={faLongArrowAltRight}
                   style={{ width: "50px", height: "30px" }}
                 />
               </Col>
-              <Col className="itinerary-to">{request.ride.to}</Col>
+              <Col className="itinerary-to">{request.to}</Col>
             </Row>
 
             <Row className="itinerary-body">
@@ -41,14 +41,14 @@ const RideCheckoutPage = props => {
                     icon={faCalendarAlt}
                     style={{ width: "20px", height: "20px" }}
                   />{" "}
-                  <span className="icon-text">{request.ride.date}</span>
+                  <span className="icon-text">{request.date}</span>
                 </Col>
                 <Col>
                   <FontAwesomeIcon
                     icon={faClock}
                     style={{ width: "20px", height: "20px" }}
                   />
-                  <span className="icon-text">{request.ride.time}</span>
+                  <span className="icon-text">{request.time}</span>
                 </Col>
               </Row>
               <Row>
@@ -59,8 +59,8 @@ const RideCheckoutPage = props => {
                   />
                 </Col>
                 <Col>
-                  <Row>Pickup: {request.ride.from.location}</Row>
-                  <Row>Dropoff: {request.ride.to.location}</Row>
+                  <Row>Pickup: {request.specificPickup}</Row>
+                  <Row>Dropoff: {request.specificDropoff}</Row>
                 </Col>
               </Row>
               <Row>
@@ -79,13 +79,13 @@ const RideCheckoutPage = props => {
                   src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
                   alt="bear"
                 />
-                <span className="caption">{request.ride.ownerFullName}</span>
+                <span className="caption">{request.ownerUsername}</span>
               </Col>
             </Row>
 
             <Row xs={5} className="driver-note">
               <h4>Driver's Note:</h4>
-              {request.ride.detail}
+              {request.driverNote}
             </Row>
           </Col>
 

@@ -20,9 +20,25 @@ import {
 
 const InstantBookPage = ({ location, history }) => {
   const handlePayment = () => {
+    // history.push({
+    //   pathname: "/rider/instant-book/confirm",
+    //   state: {
+    //     from: location.state.from,
+    //     to: location.state.to,
+    //     date: location.state.date,
+    //     time: location.state.time,
+    //     price: location.state.price,
+    //     specificDropoff: location.state.specificDropoff,
+    //     specificPickup: location.state.specificPickup,
+    //     driverNote: location.state.driverNote,
+    //     ownerUsername: location.state.ownerUsername
+    //   }
+    // });
+
     history.push({
-      pathname: "/rider/instant-book/confirm",
+      pathname: "/ride/checkout",
       state: {
+        id: location.state.id,
         from: location.state.from,
         to: location.state.to,
         date: location.state.date,
@@ -31,7 +47,8 @@ const InstantBookPage = ({ location, history }) => {
         specificDropoff: location.state.specificDropoff,
         specificPickup: location.state.specificPickup,
         driverNote: location.state.driverNote,
-        ownerUsername: location.state.ownerUsername
+        ownerUsername: location.state.ownerUsername,
+        luggage: 0
       }
     });
   };
