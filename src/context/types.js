@@ -18,8 +18,7 @@ export const FETCH_DRIVER_REQUEST_FEED = "FETCH_DRIVER_REQUEST_FEED";
 // Handle Notifications
 export const FETCH_NOTIFICATION = "FETCH_NOTIFICATION";
 
-// Handle Reviews
-export const FETCH_REVIEWS = "FETCH_REVIEWS";
-
-// Handle Profile Picture
+// Handle Profile Actions
 export const FETCH_PROFILE_PIC = "FETCH_PROFILE_PIC";
+export const FETCH_REVIEWS = "FETCH_REVIEWS";
+export const FETCH_PUBLIC_PROFILE = "FETCH_PUBLIC_PROFILE";

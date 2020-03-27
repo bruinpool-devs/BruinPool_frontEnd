@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 
 import { Button, Form, FormGroup, Input, FormText } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,16 +7,69 @@ import {
   faGlobeAmericas,
   faUsers
 } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "universal-cookie";
+import MainContext from "../../../context/mainContext";
 
 import "./DriverRegister.css";
 
+const cookies = new Cookies();
+const authToken = cookies.get("authToken");
+
+const iconStyle = {
+  color: "#3d77ff",
+  width: "63px",
+  height: "40px",
+  marginLeft: "-5px",
+  marginBottom: "10px"
+};
+
 const DriverRegister = ({ toggleRegistered }) => {
-  const iconStyle = {
-    color: "#3d77ff",
-    width: "63px",
-    height: "40px",
-    marginLeft: "-5px",
-    marginBottom: "10px"
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [vehicleMakeModel, setVehicleMakeModel] = useState("");
+  const [licensePlate, setLicensePlate] = useState("");
+  const [driversLicense, setDriversLicense] = useState("");
+  const [vehicleColor, setVehicleColor] = useState("");
+
+  const mainContext = useContext(MainContext);
+
+  //Check to make sure all the forms values are populated
+  const validateForm = () => {
+    if (
+      phoneNumber === "" ||
+      driversLicense === "" ||
+      licensePlate === "" ||
+      vehicleMakeModel === "" ||
+      vehicleColor === ""
+    ) {
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    if (!validateForm()) {
+      alert("Not all driver info fields are populated");
+      return;
+    }
+
+    const driverInfo = {
+      phoneNumber: phoneNumber,
+      licensePlate: licensePlate,
+      vehicleMakeModel: vehicleMakeModel,
+      driversLicense: driversLicense,
+      vehicleColor: vehicleColor
+    };
+
+    mainContext
+      .redirectStripeAuth(driverInfo, authToken)
+      .then(res => {
+        window.location = res.redirectUrl;
+      })
+      .catch(err => {
+        alert(err);
+      });
   };
 
   return (
@@ -34,33 +87,65 @@ const DriverRegister = ({ toggleRegistered }) => {
         </div>
         <div className="register-card">
           <div className="register-form">
-            <Form>
+            <Form onSubmit={handleSubmit}>
               <FormGroup>
-                <Input placeholder="Phone" style={{ marginBottom: "20px" }} />
+                <Input
+                  name="phone-number"
+                  placeholder="Phone"
+                  value={phoneNumber}
+                  onChange={e => setPhoneNumber(e.target.value)}
+                />
               </FormGroup>
               <FormGroup>
                 <Input
-                  placeholder="Vehicle Model"
-                  style={{ marginBottom: "30px" }}
+                  name="drivers-license"
+                  placeholder="Drivers License #"
+                  value={driversLicense}
+                  onChange={e => setDriversLicense(e.target.value)}
                 />
-                <FormText
-                  color="black"
-                  style={{ fontSize: "10px", marginBottom: "40px" }}
-                >
-                  By proceeding, I agree to PoolUp's Terms of Use and
-                  acknowledge that I have read the Privacy Policy.
-                </FormText>
               </FormGroup>
+              <FormGroup>
+                <Input
+                  name="license-plate-number"
+                  placeholder="License Plate #"
+                  value={licensePlate}
+                  onChange={e => setLicensePlate(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  name="vehicle-make-model"
+                  placeholder="Vehicle Model"
+                  value={vehicleMakeModel}
+                  onChange={e => setVehicleMakeModel(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Input
+                  name="vehicle-color"
+                  placeholder="Vehicle Color"
+                  style={{ marginBottom: "10px" }}
+                  value={vehicleColor}
+                  onChange={e => setVehicleColor(e.target.value)}
+                />
+              </FormGroup>
+              <FormText
+                color="black"
+                style={{ fontSize: "10px", marginBottom: "5px" }}
+              >
+                By proceeding, I agree to PoolUp's Terms of Use and acknowledge
+                that I have read the Privacy Policy.
+              </FormText>
               <Button
                 style={{
                   backgroundColor: "#3d77ff",
                   boxShadow: "none",
                   borderWidth: "0px",
-                  width: "145px",
+                  width: "300px",
                   height: "40px"
                 }}
               >
-                Start Driving
+                Connect payment method
               </Button>
             </Form>
           </div>

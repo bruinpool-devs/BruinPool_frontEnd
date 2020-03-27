@@ -14,8 +14,13 @@ import {
   FETCH_NOTIFICATION,
   FETCH_REVIEWS,
   FETCH_PROFILE_PIC,
+<<<<<<< HEAD
   FETCH_RIDER_REQUEST_FEED,
   FETCH_DRIVER_REQUEST_FEED
+=======
+  FETCH_SENDER_REQUEST_FEED,
+  FETCH_PUBLIC_PROFILE
+>>>>>>> 863ca6c4c50a5fd8f68b2020269e4457cba02180
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -34,7 +39,8 @@ const MainState = ({ children }) => {
     filter: null,
     noti: [],
     reviews: [],
-    profilePic: ""
+    profilePic: "",
+    publicProfile: {}
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -100,7 +106,6 @@ const MainState = ({ children }) => {
             type: LOGIN,
             payload: res.data
           });
-
           validity = true;
         }
       })
@@ -600,6 +605,24 @@ const MainState = ({ children }) => {
       });
   };
 
+  // REDICTS DRIVER TO STRIPE AUTHENTICATION SETUP
+  const redirectStripeAuth = (driverInfo, token) => {
+    axios.defaults.withCredentials = true;
+    return axios
+      .post("/stripe/driver/auth", driverInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        throw err.response.data.error;
+      });
+  };
+
   // GET PUBLIC STRIPE KEY
   const getPublicStripeKey = token => {
     return axios
@@ -699,19 +722,62 @@ const MainState = ({ children }) => {
 
   // UPLOAD PROFILE PICTURE
   const uploadProfilePic = (picture, token) => {
-    const fileObject = {
-      file: picture
-    };
+    var fileObject = new FormData();
+    fileObject.append("file", picture);
 
     axios
       .patch("/users/upload-profile-pic", fileObject, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data"
+        }
+      })
+      .then(() => {
+        alert("Picture uploaded!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // UPDATE ABOUT ME
+  const updateAboutMe = (aboutMe, token) => {
+    const aboutMeObject = {
+      aboutMe: aboutMe
+    };
+
+    axios
+      .patch("/users/updateAboutMe", aboutMeObject, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(() => {
+        alert("Profile updated!");
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH PUBLIC PROFILE
+  const fetchPublicProfile = (username, token) => {
+    return axios
+      .get("/users/get-public-profile", {
+        params: {
+          username
+        },
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
       .then(res => {
         console.log(res.data);
-        alert("Picture uploaded!");
+        dispatch({
+          type: FETCH_PUBLIC_PROFILE,
+          payload: res.data
+        });
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -734,6 +800,7 @@ const MainState = ({ children }) => {
         noti: state.noti,
         reviews: state.reviews,
         profilePic: state.profilePic,
+        publicProfile: state.publicProfile,
         signup,
         validateUsername,
         login,
@@ -764,8 +831,11 @@ const MainState = ({ children }) => {
         fetchReviews,
         fetchProfilePic,
         uploadProfilePic,
+        updateAboutMe,
+        fetchPublicProfile,
         getPublicStripeKey,
-        createPaymentIntent
+        createPaymentIntent,
+        redirectStripeAuth
       }}
     >
       {children}

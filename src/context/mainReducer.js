@@ -12,7 +12,8 @@ import {
   FETCH_REVIEWS,
   FETCH_PROFILE_PIC,
   FETCH_RIDER_REQUEST_FEED,
-  FETCH_DRIVER_REQUEST_FEED
+  FETCH_DRIVER_REQUEST_FEED,
+  FETCH_PUBLIC_PROFILE
 } from "./types";
 
 export default (state, action) => {
@@ -76,6 +77,11 @@ export default (state, action) => {
       return {
         ...state,
         profilePic: action.payload
+      };
+    case FETCH_PUBLIC_PROFILE:
+      return {
+        ...state,
+        publicProfile: action.payload
       };
     case FETCH_RIDER_REQUEST_FEED:
       return {

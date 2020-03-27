@@ -18,6 +18,8 @@ import RideCheckoutPage from "./components/pages/RideCheckoutPage/RideCheckoutPa
 import PostRideSummary from "./components/pages/DriverPage/PostRideSummary";
 import RequestRidePage from "./components/pages/RequestRidePage/RequestRidePage";
 import RequestRideSummary from "./components/pages/RequestRidePage/RequestRideSummary";
+import InstantBookPage from "./components/pages/InstantBookPage/InstantBookPage";
+import InstantBookConfirmPage from "./components/pages/InstantBookConfirmPage/InstantBookConfirmPage";
 import MainState from "./context/MainState";
 
 import "./App.css";
@@ -39,6 +41,12 @@ const App = () => {
           <Route exact path="/driver/profile" component={ProfilePage} />
           <Route exact path="/ride/checkout" component={RideCheckoutPage} />
           <Route exact path="/rider/request-ride" component={RequestRidePage} />
+          <Route exact path="/rider/instant-book" component={InstantBookPage} />
+          <Route
+            exact
+            path="/rider/instant-book/confirm"
+            component={InstantBookConfirmPage}
+          />
           <Route
             exact
             path="/rider/request-ride-summary"

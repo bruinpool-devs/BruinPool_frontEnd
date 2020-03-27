@@ -16,7 +16,7 @@ const RiderPage = ({ history }) => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
     if (!authToken) {
-      history.push("/");
+      //history.push("/");
     } else {
       fetchRides();
     }

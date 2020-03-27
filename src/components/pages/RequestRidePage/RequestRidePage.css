@@ -2,6 +2,8 @@
 
 .request-ride {
   font-family: "Montserrat";
+  display: flex;
+  flex-direction: column;
 }
 
 .request-ride-content {
@@ -31,6 +33,7 @@
 
 .request-ride-path2 {
   margin-top: 50px;
+  margin-right: 10px;
 }
 
 .request-ride-left-content {

@@ -14,6 +14,7 @@ import "./Navbar.css";
 const Navbar = ({ history, location }) => {
   useEffect(() => {
     handleFetchNotification();
+    handleFetchProfilePic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -24,6 +25,14 @@ const Navbar = ({ history, location }) => {
     const authToken = cookies.get("authToken");
 
     await mainContext.fetchNotification(authToken);
+  };
+
+  const handleFetchProfilePic = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const userName = cookies.get("userName");
+
+    await mainContext.fetchProfilePic(userName, authToken);
   };
 
   const path = location.pathname;
@@ -42,7 +51,14 @@ const Navbar = ({ history, location }) => {
             </div>
             <div
               className={
-                path === "/rider" ? "active-item-rider" : "non-active-item"
+                path === "/rider" ||
+                path === "/ride/checkout" ||
+                path === "/rider/request-ride" ||
+                path === "/rider/instant-book" ||
+                path === "/rider/instant-book/confirm" ||
+                path === "/rider/request-ride-summary"
+                  ? "active-item-rider"
+                  : "non-active-item"
               }
               onClick={() => history.push("/rider")}
             >
@@ -133,7 +149,7 @@ const Navbar = ({ history, location }) => {
               }
             >
               <img
-                src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+                src={mainContext.profilePic}
                 alt="bear"
                 id="RiderProfilePopover"
               />
@@ -265,7 +281,7 @@ const Navbar = ({ history, location }) => {
               }
             >
               <img
-                src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+                src={mainContext.profilePic}
                 alt="bear"
                 id="DriverProfilePopover"
               />
