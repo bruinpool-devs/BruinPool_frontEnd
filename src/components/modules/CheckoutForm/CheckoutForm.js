@@ -8,7 +8,7 @@ class CheckoutForm extends Component {
     super(props);
 
     this.state = {
-      amount: props.request.price,
+      amount: props.rideCheckoutDetails.ride.price,
       currency: "usd",
       clientSecret: null,
       error: null,
@@ -28,19 +28,17 @@ class CheckoutForm extends Component {
 
   async handleSubmit(ev) {
     ev.preventDefault();
-    const request = this.props.request;
+    const rideCheckoutDetails = this.props.rideCheckoutDetails;
     const mainContext = this.props.mainContext;
 
     // Step 0: Check Prerequisites
-    // Get Cookie
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
-    const currentUser = cookies.get("userName");
+    const currentUserName = cookies.get("userName");
 
-    // Get Ride details
-    console.log(request);
+    // Get Latest Ride details
     mainContext
-      .rideDetails(request.id, authToken)
+      .rideDetails(rideCheckoutDetails.rideID, authToken)
       .then(ride => {
         if (1 > ride.seats) {
           this.setState({ error: "Error: Not Enough Seats" });
@@ -51,14 +49,15 @@ class CheckoutForm extends Component {
         mainContext
           .createPaymentIntent(
             {
-              rideID: request.id,
-              username: currentUser
+              rideID: rideCheckoutDetails.ride._id,
+              requestID: rideCheckoutDetails.requestID,
+              riderUsername: currentUserName
             },
             authToken
           )
           .then(clientSecret => {
             this.setState({
-              amount: request.price,
+              amount: rideCheckoutDetails.price,
               clientSecret: clientSecret,
               disabled: true,
               processing: true

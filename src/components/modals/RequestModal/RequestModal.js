@@ -180,7 +180,12 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
             onClick={() => {
               history.push({
                 pathname: "/ride/checkout",
-                state: { request: request }
+                state: {
+                  ride,
+                  requestID: request._id,
+                  carryOn: request.carryOn,
+                  luggage: request.luggage
+                }
               });
               // toggle();
               // contactToggle();

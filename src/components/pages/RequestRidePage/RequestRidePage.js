@@ -27,7 +27,7 @@ const RequestRidePage = ({ location, history }) => {
   const [luggage, setLuggage] = useState(0);
   const [carryOn, setCarryOn] = useState(0);
 
-  let ride = location.state;
+  let ride = location.state.ride;
   const mainContext = useContext(MainContext);
 
   const handleRequestRide = async () => {
