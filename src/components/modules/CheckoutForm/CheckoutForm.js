@@ -30,15 +30,13 @@ class CheckoutForm extends Component {
     ev.preventDefault();
     const rideCheckoutDetails = this.props.rideCheckoutDetails;
     const mainContext = this.props.mainContext;
-
-    // Step 0: Check Prerequisites
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
     const currentUserName = cookies.get("userName");
 
     // Get Latest Ride details
     mainContext
-      .rideDetails(rideCheckoutDetails.rideID, authToken)
+      .rideDetails(rideCheckoutDetails.ride._id, authToken)
       .then(ride => {
         if (1 > ride.seats) {
           this.setState({ error: "Error: Not Enough Seats" });
@@ -57,7 +55,7 @@ class CheckoutForm extends Component {
           )
           .then(clientSecret => {
             this.setState({
-              amount: rideCheckoutDetails.price,
+              amount: rideCheckoutDetails.ride.price,
               clientSecret: clientSecret,
               disabled: true,
               processing: true
@@ -128,6 +126,7 @@ class CheckoutForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>
+          {"Total: "}
           {this.state.currency.toLocaleUpperCase()}{" "}
           {this.state.amount.toLocaleString(navigator.language, {
             minimumFractionDigits: 2
