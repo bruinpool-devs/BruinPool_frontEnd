@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "reactstrap";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import "./CheckoutForm.css";
 import Cookies from "universal-cookie";
@@ -15,7 +16,10 @@ class CheckoutForm extends Component {
       metadata: null,
       disabled: false,
       succeeded: false,
-      processing: false
+      processing: false,
+      rideID: "",
+      requestID: "",
+      riderUsername: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -58,7 +62,10 @@ class CheckoutForm extends Component {
               amount: rideCheckoutDetails.ride.price,
               clientSecret: clientSecret,
               disabled: true,
-              processing: true
+              processing: true,
+              rideID: rideCheckoutDetails.ride._id,
+              requestID: rideCheckoutDetails.requestID,
+              riderUsername: currentUserName
             });
 
             // Step 2: Use clientSecret from PaymentIntent to handle payment in stripe.handleCardPayment() call
@@ -96,6 +103,34 @@ class CheckoutForm extends Component {
   }
 
   renderSuccess() {
+    const triggerSuccessfulPaymentFlow = () => {
+      const mainContext = this.props.mainContext;
+      const cookies = new Cookies();
+      const authToken = cookies.get("authToken");
+
+      mainContext
+        .triggerPaymentIntentSucessful(
+          {
+            id: this.state.metadata.id,
+            metadata: {
+              rideID: this.state.rideID,
+              requestID: this.state.requestID,
+              riderUsername: this.state.riderUsername,
+              driverStripeAcct: this.state.driverStripeAcct
+            },
+            amount: this.state.metadata.amount
+          },
+          authToken
+        )
+        .then(successful => {
+          if (successful) {
+            console.log("Successfully Joined Ride");
+          } else {
+            console.log("Could not join Ride");
+          }
+        });
+    };
+
     return (
       <div className="sr-field-success message">
         <h1>Your test payment succeeded</h1>
@@ -103,6 +138,21 @@ class CheckoutForm extends Component {
         <pre className="sr-callout">
           <code>{JSON.stringify(this.state.metadata, null, 2)}</code>
         </pre>
+        <Button
+          style={{
+            backgroundColor: "#3d77ff",
+            borderWidth: "0px",
+            color: "white",
+            boxShadow: "none",
+            width: "265px",
+            height: "50px",
+            borderRadius: "10px",
+            marginTop: "25px"
+          }}
+          onClick={() => triggerSuccessfulPaymentFlow()}
+        >
+          Trigger Successful Flow Payment
+        </Button>
       </div>
     );
   }

@@ -656,6 +656,28 @@ const MainState = ({ children }) => {
       });
   };
 
+  // Trigger Payment Intent Success Flow (Development only)
+  const triggerPaymentIntentSucessful = (paymentIntent, token) => {
+    return axios
+      .post("/stripe/development/triggerPaymentIntentSucessful", {
+        paymentIntent,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
+  };
+
   // ADD REVIEW
   const addReview = (entry, token) => {
     axios
@@ -831,7 +853,8 @@ const MainState = ({ children }) => {
         fetchPublicProfile,
         getPublicStripeKey,
         createPaymentIntent,
-        redirectStripeAuth
+        redirectStripeAuth,
+        triggerPaymentIntentSucessful
       }}
     >
       {children}

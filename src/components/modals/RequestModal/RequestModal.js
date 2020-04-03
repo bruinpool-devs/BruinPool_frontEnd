@@ -178,15 +178,19 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
           <Button
             className="proceed-to-payment"
             onClick={() => {
-              history.push({
-                pathname: "/ride/checkout",
-                state: {
-                  ride,
-                  requestID: request._id,
-                  carryOn: request.carryOn,
-                  luggage: request.luggage
-                }
-              });
+              if (ride.seats < 1) {
+                alert("Ride is full, try again later");
+              } else {
+                history.push({
+                  pathname: "/ride/checkout",
+                  state: {
+                    ride,
+                    requestID: request._id,
+                    carryOn: request.carryOn,
+                    luggage: request.luggage
+                  }
+                });
+              }
               // toggle();
               // contactToggle();
             }}

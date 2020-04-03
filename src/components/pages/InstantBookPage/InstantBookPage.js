@@ -22,15 +22,19 @@ const InstantBookPage = ({ location, history }) => {
   let ride = location.state.ride;
 
   const handlePayment = () => {
-    history.push({
-      pathname: "/ride/checkout",
-      state: {
-        ride,
-        requestID: "", // Used to differentiate between instant and normal request process
-        carryOn: 0, // TODO: Get actual Value
-        luggage: 0 // TODO: Get actual value
-      }
-    });
+    if (ride.seats < 1) {
+      alert("Ride is Full");
+    } else {
+      history.push({
+        pathname: "/ride/checkout",
+        state: {
+          ride,
+          requestID: "", // Used to differentiate between instant and normal request process
+          carryOn: 0, // TODO: Get actual Value
+          luggage: 0 // TODO: Get actual value
+        }
+      });
+    }
   };
 
   return (
