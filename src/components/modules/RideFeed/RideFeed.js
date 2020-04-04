@@ -30,7 +30,6 @@ const RideFeed = ({
   postedDrivesBool
 }) => {
   const [modal, setModal] = useState(false);
-  const [instantBookModal, setInstantBookModal] = useState(false);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
@@ -188,25 +187,7 @@ const RideFeed = ({
                         <div>Westwood In N Out</div>
                       </div>
                       <div className="ride-detail-button">
-                        <InstantBookModal
-                          isOpen={instantBookModal}
-                          toggleModal={setInstantBookModal}
-                          ride={ride}
-                        />
-                        <Button
-                          style={{
-                            backgroundColor: "#3d77ff",
-                            color: "white",
-                            borderWidth: "0px",
-                            boxShadow: "none",
-                            width: "145px",
-                            height: "45px",
-                            fontSize: "20px"
-                          }}
-                          onClick={() => setInstantBookModal(!instantBookModal)}
-                        >
-                          Book Ride
-                        </Button>
+                        <InstantBookModal ride={ride} />
                       </div>
                     </div>
                   </CardBody>

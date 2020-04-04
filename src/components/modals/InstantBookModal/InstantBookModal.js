@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Modal, ModalBody, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
@@ -13,7 +13,10 @@ const mockOptions = [
   "One carry-on only"
 ];
 
-const InstantBookModal = ({ history, isOpen, toggleModal, ride }) => {
+const InstantBookModal = ({ history, ride }) => {
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
+
   const handleSendRequest = ride => {
     history.push({
       pathname: "/rider/request-ride",
@@ -34,12 +37,21 @@ const InstantBookModal = ({ history, isOpen, toggleModal, ride }) => {
 
   return (
     <div>
-      <Modal
-        isOpen={isOpen}
-        toggle={() => toggleModal(!isOpen)}
-        size="lg"
-        fade={false}
+      <Button
+        style={{
+          backgroundColor: "#3d77ff",
+          color: "white",
+          borderWidth: "0px",
+          boxShadow: "none",
+          width: "145px",
+          height: "45px",
+          fontSize: "20px"
+        }}
+        onClick={toggle}
       >
+        Book Ride
+      </Button>
+      <Modal isOpen={modal} toggle={toggle} size="lg" fade={false}>
         <ModalBody>
           <div className="instant-book-body">
             <div className="instant-book-exit">
@@ -53,7 +65,7 @@ const InstantBookModal = ({ history, isOpen, toggleModal, ride }) => {
                   color: "#c4c4c4",
                   cursor: "pointer"
                 }}
-                onClick={() => toggleModal(!isOpen)}
+                onClick={toggle}
               />
             </div>
             <div className="instant-book-header">
