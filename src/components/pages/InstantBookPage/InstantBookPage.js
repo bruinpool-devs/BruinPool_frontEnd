@@ -19,21 +19,22 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const InstantBookPage = ({ location, history }) => {
+  let ride = location.state.ride;
+
   const handlePayment = () => {
-    history.push({
-      pathname: "/rider/instant-book/confirm",
-      state: {
-        from: location.state.from,
-        to: location.state.to,
-        date: location.state.date,
-        time: location.state.time,
-        price: location.state.price,
-        specificDropoff: location.state.specificDropoff,
-        specificPickup: location.state.specificPickup,
-        driverNote: location.state.driverNote,
-        ownerUsername: location.state.ownerUsername
-      }
-    });
+    if (ride.seats < 1) {
+      alert("Ride is Full");
+    } else {
+      history.push({
+        pathname: "/ride/checkout",
+        state: {
+          ride,
+          requestID: "", // Used to differentiate between instant and normal request process
+          carryOn: 0, // TODO: Get actual Value
+          luggage: 0 // TODO: Get actual value
+        }
+      });
+    }
   };
 
   return (
@@ -54,12 +55,12 @@ const InstantBookPage = ({ location, history }) => {
       <div className="instant-book-info-card">
         <div className="instant-book-one-third">
           <div className="instant-book-location">
-            {location.state.from}
+            {ride.from}
             <FontAwesomeIcon
               icon={faLongArrowAltRight}
               style={{ width: "40px", height: "40px" }}
             />
-            {location.state.to}
+            {ride.to}
           </div>
           <div className="instant-book-date">
             <div>
@@ -67,7 +68,7 @@ const InstantBookPage = ({ location, history }) => {
                 icon={faCalendarAlt}
                 style={{ marginLeft: "0px", marginRight: "10px" }}
               />
-              {moment(location.state.date)
+              {moment(ride.date)
                 .utc()
                 .format("M/DD/YY")}{" "}
             </div>
@@ -76,7 +77,7 @@ const InstantBookPage = ({ location, history }) => {
                 icon={faClock}
                 style={{ marginLeft: "70px", marginRight: "10px" }}
               />
-              {moment(location.state.date)
+              {moment(ride.date)
                 .utc()
                 .format("h A")}{" "}
             </div>
@@ -86,7 +87,7 @@ const InstantBookPage = ({ location, history }) => {
               icon={faMapMarkerAlt}
               style={{ marginLeft: "0px", marginRight: "10px" }}
             />
-            {/* Pickup: {location.state.specificPickup} */}
+            {/* Pickup: {ride.specificPickup} */}
             <span style={{ fontWeight: "bold", marginRight: "16px" }}>
               Pickup:
             </span>
@@ -97,7 +98,7 @@ const InstantBookPage = ({ location, history }) => {
               icon={faMapMarkerAlt}
               style={{ marginLeft: "0px", marginRight: "10px" }}
             />
-            {/* Dropoff: {location.state.specificDropoff} */}
+            {/* Dropoff: {ride.specificDropoff} */}
             <span style={{ fontWeight: "bold", marginRight: "10px" }}>
               Dropoff:
             </span>{" "}
@@ -122,7 +123,7 @@ const InstantBookPage = ({ location, history }) => {
             </div>
             <div className="instant-book-driver-personal">
               <div className="instant-book-driver-name">
-                {location.state.ownerUsername}
+                {ride.ownerUsername}
               </div>
               <div className="instant-book-driver-school">
                 <FontAwesomeIcon
@@ -134,9 +135,7 @@ const InstantBookPage = ({ location, history }) => {
             </div>
           </div>
           <div className="instant-book-driver-note">Driver's Note:</div>
-          <div className="instant-book-driver-text">
-            {location.state.driverNote}
-          </div>
+          <div className="instant-book-driver-text">{ride.driverNote}</div>
         </div>
         <div className="instant-book-one-third">
           <div className="instant-book-cancel-title">
@@ -152,9 +151,7 @@ const InstantBookPage = ({ location, history }) => {
             Cutoff times are based on the listing's local time.
           </div>
           <div className="instant-book-price-title">Trip Total:</div>
-          <div className="instant-book-price-value">
-            ${location.state.price}
-          </div>
+          <div className="instant-book-price-value">${ride.price}</div>
         </div>
       </div>
       <div className="instant-book-summary-buttons">

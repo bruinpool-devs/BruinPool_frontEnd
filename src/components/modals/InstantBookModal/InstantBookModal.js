@@ -18,15 +18,7 @@ const InstantBookModal = ({ history, isOpen, toggleModal, ride }) => {
     history.push({
       pathname: "/rider/request-ride",
       state: {
-        from: ride.from,
-        to: ride.to,
-        date: ride.date,
-        time: ride.time,
-        price: ride.price,
-        specificDropoff: ride.specificDropoff,
-        specificPickup: ride.specificPickup,
-        driverNote: ride.detail,
-        ownerUsername: ride.ownerUsername
+        ride
       }
     });
   };
@@ -35,15 +27,7 @@ const InstantBookModal = ({ history, isOpen, toggleModal, ride }) => {
     history.push({
       pathname: "/rider/instant-book",
       state: {
-        from: ride.from,
-        to: ride.to,
-        date: ride.date,
-        time: ride.time,
-        price: ride.price,
-        specificDropoff: ride.specificDropoff,
-        specificPickup: ride.specificPickup,
-        driverNote: ride.detail,
-        ownerUsername: ride.ownerUsername
+        ride
       }
     });
   };

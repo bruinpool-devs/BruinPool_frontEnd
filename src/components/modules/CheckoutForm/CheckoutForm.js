@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "reactstrap";
 import { CardElement, injectStripe } from "react-stripe-elements";
 import "./CheckoutForm.css";
 import Cookies from "universal-cookie";
@@ -8,14 +9,17 @@ class CheckoutForm extends Component {
     super(props);
 
     this.state = {
-      amount: props.request.ride.price / props.request.meta.seats,
+      amount: props.rideCheckoutDetails.ride.price,
       currency: "usd",
       clientSecret: null,
       error: null,
       metadata: null,
       disabled: false,
       succeeded: false,
-      processing: false
+      processing: false,
+      rideID: "",
+      requestID: "",
+      riderUsername: ""
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,20 +32,17 @@ class CheckoutForm extends Component {
 
   async handleSubmit(ev) {
     ev.preventDefault();
-    const request = this.props.request;
+    const rideCheckoutDetails = this.props.rideCheckoutDetails;
     const mainContext = this.props.mainContext;
-
-    // Step 0: Check Prerequisites
-    // Get Cookie
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
-    const currentUser = "esuarez"; //TODO: get current logged in user
+    const currentUserName = cookies.get("userName");
 
-    // Get Ride details
+    // Get Latest Ride details
     mainContext
-      .rideDetails(request.meta.rideID, authToken)
+      .rideDetails(rideCheckoutDetails.ride._id, authToken)
       .then(ride => {
-        if (request.meta.seats > ride.seats) {
+        if (1 > ride.seats) {
           this.setState({ error: "Error: Not Enough Seats" });
           return;
         }
@@ -50,18 +51,21 @@ class CheckoutForm extends Component {
         mainContext
           .createPaymentIntent(
             {
-              rideID: request.meta.rideID,
-              spotsToBePurchased: request.meta.seats,
-              username: currentUser
+              rideID: rideCheckoutDetails.ride._id,
+              requestID: rideCheckoutDetails.requestID,
+              riderUsername: currentUserName
             },
             authToken
           )
           .then(clientSecret => {
             this.setState({
-              amount: request.ride.price / request.meta.spots,
+              amount: rideCheckoutDetails.ride.price,
               clientSecret: clientSecret,
               disabled: true,
-              processing: true
+              processing: true,
+              rideID: rideCheckoutDetails.ride._id,
+              requestID: rideCheckoutDetails.requestID,
+              riderUsername: currentUserName
             });
 
             // Step 2: Use clientSecret from PaymentIntent to handle payment in stripe.handleCardPayment() call
@@ -99,6 +103,34 @@ class CheckoutForm extends Component {
   }
 
   renderSuccess() {
+    const triggerSuccessfulPaymentFlow = () => {
+      const mainContext = this.props.mainContext;
+      const cookies = new Cookies();
+      const authToken = cookies.get("authToken");
+
+      mainContext
+        .triggerPaymentIntentSucessful(
+          {
+            id: this.state.metadata.id,
+            metadata: {
+              rideID: this.state.rideID,
+              requestID: this.state.requestID,
+              riderUsername: this.state.riderUsername,
+              driverStripeAcct: this.state.driverStripeAcct
+            },
+            amount: this.state.metadata.amount
+          },
+          authToken
+        )
+        .then(successful => {
+          if (successful) {
+            console.log("Successfully Joined Ride");
+          } else {
+            console.log("Could not join Ride");
+          }
+        });
+    };
+
     return (
       <div className="sr-field-success message">
         <h1>Your test payment succeeded</h1>
@@ -106,6 +138,21 @@ class CheckoutForm extends Component {
         <pre className="sr-callout">
           <code>{JSON.stringify(this.state.metadata, null, 2)}</code>
         </pre>
+        <Button
+          style={{
+            backgroundColor: "#3d77ff",
+            borderWidth: "0px",
+            color: "white",
+            boxShadow: "none",
+            width: "265px",
+            height: "50px",
+            borderRadius: "10px",
+            marginTop: "25px"
+          }}
+          onClick={() => triggerSuccessfulPaymentFlow()}
+        >
+          Trigger Successful Flow Payment
+        </Button>
       </div>
     );
   }
@@ -129,6 +176,7 @@ class CheckoutForm extends Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <h1>
+          {"Total: "}
           {this.state.currency.toLocaleUpperCase()}{" "}
           {this.state.amount.toLocaleString(navigator.language, {
             minimumFractionDigits: 2

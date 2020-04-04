@@ -14,7 +14,8 @@ import {
   FETCH_NOTIFICATION,
   FETCH_REVIEWS,
   FETCH_PROFILE_PIC,
-  FETCH_SENDER_REQUEST_FEED,
+  FETCH_RIDER_REQUEST_FEED,
+  FETCH_DRIVER_REQUEST_FEED,
   FETCH_PUBLIC_PROFILE
 } from "./types";
 
@@ -23,7 +24,8 @@ axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 const MainState = ({ children }) => {
   const initialState = {
     rideFeed: [],
-    requestSenderFeed: [],
+    requestRiderFeed: [],
+    requestDriverFeed: [],
     rideHistory: [],
     driveHistory: [],
     upcomingRide: [],
@@ -121,11 +123,11 @@ const MainState = ({ children }) => {
   const rideDetails = (rideID, token) => {
     return axios
       .get("/rides/ride-details", {
-        params: {
-          rideID: rideID
-        },
         headers: {
           Authorization: `Bearer ${token}`
+        },
+        params: {
+          rideID: rideID
         }
       })
       .then(res => {
@@ -142,16 +144,19 @@ const MainState = ({ children }) => {
         } else {
           return data;
         }
+      })
+      .catch(error => {
+        console.error(error);
       });
   };
 
-  // FETCH REQUEST FEED
-  const fetchSenderRequestFeed = token => {
+  // FETCH RIDER REQUEST FEED
+  const fetchRiderRequestFeed = (username, token) => {
     axios
       .get("/request/sender", {
         params: {
           status: "visible",
-          senderID: "admin-noreply"
+          senderID: username
         },
         headers: {
           Authorization: `Bearer ${token}`
@@ -159,9 +164,50 @@ const MainState = ({ children }) => {
       })
       .then(res => {
         dispatch({
-          type: FETCH_SENDER_REQUEST_FEED,
-          payload: res.data
+          type: FETCH_RIDER_REQUEST_FEED,
+          payload: res.data.requests
         });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH DRIVER REQUEST FEED
+  const fetchDriverRequestFeed = (username, token) => {
+    axios
+      .get("/request/recipient", {
+        params: {
+          status: "visible",
+          recipientID: username
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        console.log(res.data.requests);
+        dispatch({
+          type: FETCH_DRIVER_REQUEST_FEED,
+          payload: res.data.requests
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // CREATE NEW REQUEST
+  const createRequest = (requestInfo, token) => {
+    return axios
+      .post("/request/new", {
+        requestInfo,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
       })
       .catch(error => {
         console.error(error);
@@ -226,9 +272,30 @@ const MainState = ({ children }) => {
   };
 
   // DECLINE REQUEST
-  const denyRequest = (requestID, token) => {
+  const denyRequest = (requestID, msg, token) => {
+    console.log(requestID);
     return axios
       .put("/request/deny", {
+        params: {
+          requestID: requestID,
+          msg: msg
+        },
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        return res.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // Remind the Recipient of the request
+  const remindDriver = (requestID, token) => {
+    return axios
+      .get("/request/remind", {
         params: {
           requestID
         },
@@ -589,6 +656,28 @@ const MainState = ({ children }) => {
       });
   };
 
+  // Trigger Payment Intent Success Flow (Development only)
+  const triggerPaymentIntentSucessful = (paymentIntent, token) => {
+    return axios
+      .post("/stripe/development/triggerPaymentIntentSucessful", {
+        paymentIntent,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        return false;
+      });
+  };
+
   // ADD REVIEW
   const addReview = (entry, token) => {
     axios
@@ -717,7 +806,8 @@ const MainState = ({ children }) => {
     <MainContext.Provider
       value={{
         rideFeed: state.rideFeed,
-        requestSenderFeed: state.requestSenderFeed,
+        requestRiderFeed: state.requestRiderFeed,
+        requestDriverFeed: state.requestDriverFeed,
         rideHistory: state.rideHistory,
         driveHistory: state.driveHistory,
         upcomingRide: state.upcomingRide,
@@ -734,12 +824,15 @@ const MainState = ({ children }) => {
         login,
         logout,
         rideDetails,
-        fetchSenderRequestFeed,
+        fetchRiderRequestFeed,
+        fetchDriverRequestFeed,
         postRide,
+        createRequest,
         withdrawRequest,
         archiveRequest,
         approveRequest,
         denyRequest,
+        remindDriver,
         joinRide,
         cancelRide,
         deleteRide,
@@ -760,7 +853,8 @@ const MainState = ({ children }) => {
         fetchPublicProfile,
         getPublicStripeKey,
         createPaymentIntent,
-        redirectStripeAuth
+        redirectStripeAuth,
+        triggerPaymentIntentSucessful
       }}
     >
       {children}

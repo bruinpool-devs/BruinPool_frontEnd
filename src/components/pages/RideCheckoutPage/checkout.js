@@ -4,7 +4,7 @@ import CheckoutForm from "../../modules/CheckoutForm/CheckoutForm.js";
 import MainContext from "../../../context/mainContext";
 
 const Checkout = props => {
-  const { request } = props;
+  const { rideCheckoutDetails } = props;
 
   const [key, setApiKey] = useState("");
   const mainContext = useContext(MainContext);
@@ -26,7 +26,10 @@ const Checkout = props => {
       <div className="checkout">
         <StripeProvider apiKey={key ? key : null}>
           <Elements>
-            <CheckoutForm request={request} mainContext={mainContext} />
+            <CheckoutForm
+              rideCheckoutDetails={rideCheckoutDetails}
+              mainContext={mainContext}
+            />
           </Elements>
         </StripeProvider>
       </div>

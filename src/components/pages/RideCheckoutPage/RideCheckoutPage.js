@@ -12,8 +12,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "../../navbar/Navbar";
 
 const RideCheckoutPage = props => {
-  const request = props.history.location.state.request;
-  const tripSubTotal = request.meta.seats * request.ride.price;
+  const rideCheckoutDetails = props.history.location.state;
+  const tripSubTotal = rideCheckoutDetails.ride.price;
 
   return (
     <div>
@@ -24,14 +24,16 @@ const RideCheckoutPage = props => {
             <h3>Ride Details</h3>
 
             <Row className="itinerary-head">
-              <Col className="itinerary-from">{request.ride.from.name}</Col>
+              <Col className="itinerary-from">
+                {rideCheckoutDetails.ride.from}
+              </Col>
               <Col>
                 <FontAwesomeIcon
                   icon={faLongArrowAltRight}
                   style={{ width: "50px", height: "30px" }}
                 />
               </Col>
-              <Col className="itinerary-to">{request.ride.to.name}</Col>
+              <Col className="itinerary-to">{rideCheckoutDetails.ride.to}</Col>
             </Row>
 
             <Row className="itinerary-body">
@@ -41,14 +43,18 @@ const RideCheckoutPage = props => {
                     icon={faCalendarAlt}
                     style={{ width: "20px", height: "20px" }}
                   />{" "}
-                  <span className="icon-text">{request.ride.date}</span>
+                  <span className="icon-text">
+                    {rideCheckoutDetails.ride.date}
+                  </span>
                 </Col>
                 <Col>
                   <FontAwesomeIcon
                     icon={faClock}
                     style={{ width: "20px", height: "20px" }}
                   />
-                  <span className="icon-text">{request.ride.time}</span>
+                  <span className="icon-text">
+                    {rideCheckoutDetails.ride.time}
+                  </span>
                 </Col>
               </Row>
               <Row>
@@ -59,17 +65,19 @@ const RideCheckoutPage = props => {
                   />
                 </Col>
                 <Col>
-                  <Row>Pickup: {request.ride.from.location}</Row>
-                  <Row>Dropoff: {request.ride.to.location}</Row>
+                  <Row>Pickup: {rideCheckoutDetails.ride.specificPickup}</Row>
+                  <Row>Dropoff: {rideCheckoutDetails.ride.specificDropoff}</Row>
                 </Col>
               </Row>
               <Row>
                 <Col>
-                  Seats: <span className="bold-text">{request.meta.seats}</span>
+                  Seats: <span className="bold-text">1</span>
                 </Col>
                 <Col>
                   Luggage:{" "}
-                  <span className="bold-text">{request.meta.luggage}</span>
+                  <span className="bold-text">
+                    {rideCheckoutDetails.luggage}
+                  </span>
                 </Col>
               </Row>
             </Row>
@@ -80,13 +88,15 @@ const RideCheckoutPage = props => {
                   src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
                   alt="bear"
                 />
-                <span className="caption">{request.ride.ownerFullName}</span>
+                <span className="caption">
+                  {rideCheckoutDetails.ride.ownerUsername}
+                </span>
               </Col>
             </Row>
 
             <Row xs={5} className="driver-note">
               <h4>Driver's Note:</h4>
-              {request.ride.detail}
+              {rideCheckoutDetails.ride.driverNote}
             </Row>
           </Col>
 
@@ -94,8 +104,7 @@ const RideCheckoutPage = props => {
             <h3>Payment Summary</h3>
             <h4>Subtotal: {tripSubTotal}</h4>
             <h4>Pool Up Fee: 0</h4>
-            <h4>Total:</h4>
-            <Checkout request={request} />
+            <Checkout rideCheckoutDetails={rideCheckoutDetails} />
           </Col>
         </Row>
       </Container>

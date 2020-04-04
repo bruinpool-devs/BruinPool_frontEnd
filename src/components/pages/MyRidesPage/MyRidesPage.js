@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from "react";
-import { requests } from "../../modules/RequestFeed/mockData";
 import Cookies from "universal-cookie";
 
 import Navbar from "../../navbar/Navbar";
@@ -17,20 +16,22 @@ const MyRidesPage = ({ history }) => {
     if (!authToken) {
       history.push("/");
     } else {
-      fetchSenderRequests();
+      fetchRiderRequests();
       fetchRideHistoryFeed();
       fetchUpcomingRideFeed();
+      fetchRides();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const mainContext = useContext(MainContext);
 
-  const fetchSenderRequests = async () => {
+  const fetchRiderRequests = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
+    const username = cookies.get("userName");
 
-    await mainContext.fetchSenderRequestFeed(authToken);
+    await mainContext.fetchRiderRequestFeed(username, authToken);
   };
 
   const fetchRideHistoryFeed = async () => {
@@ -47,6 +48,13 @@ const MyRidesPage = ({ history }) => {
     await mainContext.fetchUpcomingRide(authToken);
   };
 
+  const fetchRides = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchRideFeed({}, authToken);
+  };
+
   return (
     <div>
       <Navbar />
@@ -58,7 +66,11 @@ const MyRidesPage = ({ history }) => {
 
           <div className="sub-title">Trip Requests</div>
           <div className="feed-container">
-            <RequestFeed requestFeed={requests} userType={"rider"} />
+            <RequestFeed
+              requestFeed={mainContext.requestRiderFeed}
+              rideFeed={mainContext.rideFeed}
+              userType={"rider"}
+            />
           </div>
           <div className="sub-title">Upcoming Rides</div>
           <div className="feed-container">
