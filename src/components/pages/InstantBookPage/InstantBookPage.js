@@ -22,6 +22,7 @@ const InstantBookPage = ({ location, history }) => {
   let ride = location.state.ride;
 
   const handlePayment = () => {
+    console.log(ride);
     if (ride.seats < 1) {
       alert("Ride is Full");
     } else {
