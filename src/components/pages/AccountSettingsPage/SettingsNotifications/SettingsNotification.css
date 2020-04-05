@@ -1,0 +1,58 @@
+.settings-noti-cols {
+  display: flex;
+  flex-direction: row;
+  width: 50vw;
+  margin-top: 30px;
+}
+
+.settings-noti-left {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  padding-top: 20px;
+}
+
+.settings-noti-left-item {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.settings-noti-left-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.settings-noti-left-desc {
+  font-size: 13px;
+}
+
+.settings-noti-middle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 80px;
+}
+
+.settings-noti-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 80px;
+}
+
+.settings-unsubscribe {
+  margin-top: 78px;
+  margin-left: 80px;
+  color: gray;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.settings-subscribe {
+  margin-top: 10px;
+  margin-left: 60px;
+  color: #3d77ff;
+  text-decoration: underline;
+  cursor: pointer;
+}

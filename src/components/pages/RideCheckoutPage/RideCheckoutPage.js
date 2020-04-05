@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 import "./RideCheckoutPage.css";
 import Checkout from "./checkout.js";
 import { Row, Col, Container } from "reactstrap";
@@ -44,7 +45,9 @@ const RideCheckoutPage = props => {
                     style={{ width: "20px", height: "20px" }}
                   />{" "}
                   <span className="icon-text">
-                    {rideCheckoutDetails.ride.date}
+                    {moment(rideCheckoutDetails.ride.date)
+                      .utc()
+                      .format("M/DD/YY")}
                   </span>
                 </Col>
                 <Col>
@@ -53,7 +56,9 @@ const RideCheckoutPage = props => {
                     style={{ width: "20px", height: "20px" }}
                   />
                   <span className="icon-text">
-                    {rideCheckoutDetails.ride.time}
+                    {moment(rideCheckoutDetails.ride.date)
+                      .utc()
+                      .format("h A")}
                   </span>
                 </Col>
               </Row>
@@ -65,8 +70,8 @@ const RideCheckoutPage = props => {
                   />
                 </Col>
                 <Col>
-                  <Row>Pickup: {rideCheckoutDetails.ride.specificPickup}</Row>
-                  <Row>Dropoff: {rideCheckoutDetails.ride.specificDropoff}</Row>
+                  <Row>Pickup: Westwood In N Out</Row>
+                  <Row>Dropoff: Bay Area near Cupertino</Row>
                 </Col>
               </Row>
               <Row>
@@ -96,7 +101,7 @@ const RideCheckoutPage = props => {
 
             <Row xs={5} className="driver-note">
               <h4>Driver's Note:</h4>
-              {rideCheckoutDetails.ride.driverNote}
+              {rideCheckoutDetails.ride.detail}
             </Row>
           </Col>
 

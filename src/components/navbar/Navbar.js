@@ -39,7 +39,7 @@ const Navbar = ({ history, location }) => {
 
   return (
     <div>
-      {path.substr(1, 5) === "rider" ? (
+      {path.substr(1, 4) === "ride" ? (
         <div className="navbar-container-rider">
           <div className="navbar-logo-rider">POOLUP</div>
           <div className="navbar-items-rider">
@@ -165,7 +165,12 @@ const Navbar = ({ history, location }) => {
                   >
                     View My Profile
                   </div>
-                  <div className="single-option">Account Setting</div>
+                  <div
+                    className="single-option"
+                    onClick={() => history.push("/rider/settings")}
+                  >
+                    Account Settings
+                  </div>
                   <div
                     className="single-option-logout"
                     onClick={() => mainContext.logout()}
@@ -297,7 +302,12 @@ const Navbar = ({ history, location }) => {
                   >
                     View My Profile
                   </div>
-                  <div className="single-option">Account Setting</div>
+                  <div
+                    className="single-option"
+                    onClick={() => history.push("/driver/settings")}
+                  >
+                    Account Settings
+                  </div>
                   <div
                     className="single-option-logout"
                     onClick={() => mainContext.logout()}

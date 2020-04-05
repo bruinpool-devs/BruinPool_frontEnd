@@ -136,7 +136,7 @@ const InstantBookPage = ({ location, history }) => {
             </div>
           </div>
           <div className="instant-book-driver-note">Driver's Note:</div>
-          <div className="instant-book-driver-text">{ride.driverNote}</div>
+          <div className="instant-book-driver-text">{ride.detail}</div>
         </div>
         <div className="instant-book-one-third">
           <div className="instant-book-cancel-title">

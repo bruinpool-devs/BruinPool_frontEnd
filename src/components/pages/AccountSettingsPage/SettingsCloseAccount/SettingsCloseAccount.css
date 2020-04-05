@@ -1,0 +1,60 @@
+.settings-close-big-text {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.settings-close-big-text2 {
+  margin-top: 30px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.settings-close-tips {
+  margin-top: 30px;
+}
+
+.blue-text {
+  color: #3d77ff;
+  text-decoration: underline;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 4px;
+}
+
+.settings-tip-item {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.settings-tip-third {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.settings-tip-last {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-left: 17px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #c4c4c4;
+}
+
+.settings-reason {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.settings-reason-text {
+  margin-right: 20px;
+}
+
+.settings-improve {
+  margin-top: 30px;
+}

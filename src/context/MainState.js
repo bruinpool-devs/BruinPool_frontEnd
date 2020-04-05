@@ -186,7 +186,6 @@ const MainState = ({ children }) => {
         }
       })
       .then(res => {
-        console.log(res.data.requests);
         dispatch({
           type: FETCH_DRIVER_REQUEST_FEED,
           payload: res.data.requests

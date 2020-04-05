@@ -176,7 +176,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
 
         primaryBtn = (
           <Button
-            className="proceed-to-payment"
+            className="primary-btn proceed-to-payment"
             onClick={() => {
               if (ride.seats < 1) {
                 alert("Ride is full, try again later");
@@ -194,7 +194,6 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
               // toggle();
               // contactToggle();
             }}
-            className="primary-btn"
           >
             Confirm
           </Button>

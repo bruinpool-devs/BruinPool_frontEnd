@@ -3,85 +3,54 @@ import { Modal, ModalBody, Button } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheckCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faCircle } from "@fortawesome/free-solid-svg-icons";
 
-import "./InstantBookModal.css";
+import "./CloseAccountModal.css";
+import "../InstantBookModal/InstantBookModal.css";
 
-const mockOptions = [
-  "Specific pick up and drop off only",
-  "No pets on ride",
-  "One carry-on only"
-];
-
-const InstantBookModal = ({ history, ride }) => {
+const CloseAccountModal = ({ history }) => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
-  const handleSendRequest = ride => {
-    history.push({
-      pathname: "/rider/request-ride",
-      state: {
-        ride
-      }
-    });
-  };
-
-  const handleInstantBook = ride => {
-    history.push({
-      pathname: "/rider/instant-book",
-      state: {
-        ride
-      }
-    });
-  };
+  const mockOptions = [
+    "All your ride requests and upcoming rides will be removed.",
+    "Your account will be deactivated for 14 days prior to deletion."
+  ];
 
   return (
     <div>
       <Button
         style={{
-          backgroundColor: "#3d77ff",
-          color: "white",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          width: "220px",
+          height: "43px",
+          backgroundColor: "red",
           borderWidth: "0px",
           boxShadow: "none",
-          width: "145px",
-          height: "45px",
-          fontSize: "20px"
+          borderRadius: "10px"
         }}
         onClick={toggle}
       >
-        Book Ride
+        Delete account
       </Button>
       <Modal isOpen={modal} toggle={toggle} size="lg">
         <ModalBody>
           <div className="instant-book-body">
-            <div className="instant-book-exit">
-              <FontAwesomeIcon
-                icon={faTimes}
-                style={{
-                  width: "30px",
-                  height: "30px",
-                  marginTop: "-30px",
-                  marginRight: "-25px",
-                  color: "#c4c4c4",
-                  cursor: "pointer"
-                }}
-                onClick={toggle}
-              />
-            </div>
             <div className="instant-book-header">
-              Do you meet all of the instant book requirements?
+              Are you sure you want to close your account?
             </div>
             <div className="instant-book-options">
+              <div style={{ fontWeight: "bold" }}>Before you go:</div>
               {mockOptions.map((option, index) => (
                 <div key={index} className="each-option">
                   <FontAwesomeIcon
-                    icon={faCheckCircle}
+                    icon={faCircle}
                     style={{
-                      width: "20px",
-                      height: "20px",
-                      color: "#3d77ff",
-                      marginRight: "10px",
-                      marginTop: "-3px"
+                      width: "7px",
+                      height: "7px",
+                      marginRight: "10px"
                     }}
                   />
                   <div>{option}</div>
@@ -100,9 +69,9 @@ const InstantBookModal = ({ history, ride }) => {
                   height: "50px",
                   borderRadius: "10px"
                 }}
-                onClick={() => handleSendRequest(ride)}
+                onClick={toggle}
               >
-                No, send request
+                Go Back
               </Button>
               <Button
                 style={{
@@ -114,9 +83,9 @@ const InstantBookModal = ({ history, ride }) => {
                   height: "50px",
                   borderRadius: "10px"
                 }}
-                onClick={() => handleInstantBook(ride)}
+                onClick={() => history.push("/close-account")}
               >
-                Yes, book now
+                Yes
               </Button>
             </div>
           </div>
@@ -126,4 +95,4 @@ const InstantBookModal = ({ history, ride }) => {
   );
 };
 
-export default withRouter(InstantBookModal);
+export default withRouter(CloseAccountModal);

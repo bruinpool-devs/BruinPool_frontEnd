@@ -14,6 +14,7 @@ import DriverPage from "./components/pages/DriverPage/DriverPage";
 import MyDrivesPage from "./components/pages/MyDrivesPage/MyDrivesPage";
 import HelpPage from "./components/pages/HelpPage/HelpPage";
 import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
+import AccountSettingsPage from "./components/pages/AccountSettingsPage/AccountSettingsPage";
 import RideCheckoutPage from "./components/pages/RideCheckoutPage/RideCheckoutPage";
 import PostRideSummary from "./components/pages/DriverPage/PostRideSummary";
 import RequestRidePage from "./components/pages/RequestRidePage/RequestRidePage";
@@ -35,10 +36,16 @@ const App = () => {
           <Route exact path="/rider/my-rides" component={MyRidesPage} />
           <Route exact path="/rider/help" component={HelpPage} />
           <Route exact path="/rider/profile" component={ProfilePage} />
+          <Route exact path="/rider/settings" component={AccountSettingsPage} />
           <Route exact path="/driver" component={DriverPage} />
           <Route exact path="/driver/my-drives" component={MyDrivesPage} />
           <Route exact path="/driver/help" component={HelpPage} />
           <Route exact path="/driver/profile" component={ProfilePage} />
+          <Route
+            exact
+            path="/driver/settings"
+            component={AccountSettingsPage}
+          />
           <Route exact path="/ride/checkout" component={RideCheckoutPage} />
           <Route exact path="/rider/request-ride" component={RequestRidePage} />
           <Route exact path="/rider/instant-book" component={InstantBookPage} />

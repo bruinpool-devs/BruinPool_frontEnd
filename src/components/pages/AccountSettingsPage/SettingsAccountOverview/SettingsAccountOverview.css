@@ -1,0 +1,52 @@
+.settings-overview {
+  margin-top: 30px;
+  margin-left: 50px;
+}
+
+.settings-overview-toprow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50vw;
+}
+
+.settings-overview-title {
+  font-size: 30px;
+}
+
+.settings-overview-edit {
+  cursor: pointer;
+  color: #3d77ff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.settings-overview-info {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+}
+
+.settings-overview-info-left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 60px;
+}
+
+.settings-overview-info-right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.settings-overview-left-text {
+  color: #616161;
+  font-weight: bold;
+}
+
+.settings-overview-right-text {
+  color: #b1b1b1;
+}

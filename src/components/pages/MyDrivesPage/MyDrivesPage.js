@@ -1,5 +1,4 @@
 import React, { useEffect, useContext } from "react";
-import { requests } from "../../modules/RequestFeed/mockData";
 import Cookies from "universal-cookie";
 
 import Navbar from "../../navbar/Navbar";
