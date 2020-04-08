@@ -2,6 +2,7 @@ import React from "react";
 
 import RequestModal from "../../modals/RequestModal/RequestModal.js";
 import "./RequestFeed.css";
+//import WithdrawRequestModal from "../../modals/WithdrawRequestModal/WithdrawRequestModal.js";
 
 const RequestFeed = ({ requestFeed, rideFeed, userType }) => {
   var content = <div></div>;

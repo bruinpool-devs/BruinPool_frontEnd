@@ -12,7 +12,8 @@ import {
   faMapMarkerAlt,
   faLongArrowAltRight,
   faCalendarAlt,
-  faClock
+  faClock,
+  faCheckCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 const PostRideModal = ({
@@ -27,6 +28,11 @@ const PostRideModal = ({
   specificPickup,
   specificDropoff,
   driverNote,
+  specificOnly,
+  noPet,
+  oneCarryOn,
+  oneLuggage,
+  instantBook,
   history
 }) => {
   const mainContext = useContext(MainContext);
@@ -60,7 +66,12 @@ const PostRideModal = ({
         time: time,
         specificDropoff: specificDropoff,
         specificPickup: specificPickup,
-        driverNote: driverNote
+        driverNote: driverNote,
+        specificOnly: specificOnly,
+        noPet: noPet,
+        oneCarryOn: oneCarryOn,
+        oneLuggage: oneLuggage,
+        instantBook: instantBook
       }
     });
   };
@@ -68,6 +79,8 @@ const PostRideModal = ({
   return (
     <div>
       <Modal
+        size="lg"
+        style={{ maxWidth: "1600px", width: "40%" }}
         className="modal-font"
         isOpen={isOpen}
         toggle={() => toggleModal(!isOpen)}
@@ -76,12 +89,28 @@ const PostRideModal = ({
           <div className="bodyTitle">Is the ride information correct?</div>
           <div className="rideInfoCard">
             <div className="cardLine">
-              {from}
-              <FontAwesomeIcon
-                icon={faLongArrowAltRight}
-                style={{ marginLeft: "30px", marginRight: "10px" }}
-              />
-              {to}
+              {instantBook ? (
+                <div className="instant-allowed-flexrow">
+                  {from}
+                  <FontAwesomeIcon
+                    icon={faLongArrowAltRight}
+                    style={{ marginLeft: "30px", marginRight: "30px" }}
+                  />
+                  {to}
+                  <div className="instant-allowed-sign">
+                    Instant Book Allowed
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  {from}
+                  <FontAwesomeIcon
+                    icon={faLongArrowAltRight}
+                    style={{ marginLeft: "30px", marginRight: "30px" }}
+                  />
+                  {to}
+                </div>
+              )}
             </div>
             <div className="cardLine">
               <FontAwesomeIcon
@@ -91,7 +120,7 @@ const PostRideModal = ({
               {date}
               <FontAwesomeIcon
                 icon={faClock}
-                style={{ marginLeft: "15px", marginRight: "10px" }}
+                style={{ marginLeft: "40px", marginRight: "10px" }}
               />
               {time}
             </div>
@@ -107,6 +136,68 @@ const PostRideModal = ({
               />
               Dropoff: {specificDropoff}
             </div>
+            <div className="cardLine">
+              {instantBook ? (
+                <div>
+                  <div>Instant Book Requirements:</div>
+                  <div>
+                    {specificOnly ? (
+                      <div className="instant-book-criteria">
+                        <FontAwesomeIcon
+                          className="icon-check-circle"
+                          icon={faCheckCircle}
+                        ></FontAwesomeIcon>
+                        Specific pick off and drop off only
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+                  <div>
+                    {noPet ? (
+                      <div className="instant-book-criteria">
+                        <FontAwesomeIcon
+                          className="icon-check-circle"
+                          icon={faCheckCircle}
+                        ></FontAwesomeIcon>
+                        No pets on ride
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+                  <div>
+                    {oneCarryOn ? (
+                      <div className="instant-book-criteria">
+                        <FontAwesomeIcon
+                          className="icon-check-circle"
+                          icon={faCheckCircle}
+                        ></FontAwesomeIcon>
+                        One carry-on only
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+                  <div>
+                    {oneLuggage ? (
+                      <div className="instant-book-criteria">
+                        <FontAwesomeIcon
+                          className="icon-check-circle"
+                          icon={faCheckCircle}
+                        ></FontAwesomeIcon>
+                        One luggage only
+                      </div>
+                    ) : (
+                      <div></div>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <div></div>
+              )}
+            </div>
+
             <div className="cardLine">
               <div> Driver's Note </div>
               <div> {driverNote} </div>
