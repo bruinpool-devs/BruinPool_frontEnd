@@ -30,16 +30,40 @@
   flex-flow: column;
   background-color: #ffffff;
   color: #5c5c5c;
-  height: 250px;
+  height: 420px;
   width: 98%;
   padding-top: 20px;
   padding-left: 30px;
   margin-top: 30px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
   border: 1px solid #c4c4c4;
 }
 
 .cardLine {
   margin-bottom: 15px;
+}
+
+.icon-check-circle {
+  color: #3d77ff;
+  margin-right: 10px;
+}
+
+.instant-book-criteria {
+  margin-top: 10px;
+}
+
+.instant-allowed-sign {
+  color: #3d77ff;
+  border-radius: 3px;
+  border-color: #3d77ff;
+  margin-left: 200px;
+  border-style: solid;
+  padding: 3px;
+  font-size: 11px;
+}
+
+.instant-allowed-flexrow {
+  display: flex;
+  flex-direction: row;
 }

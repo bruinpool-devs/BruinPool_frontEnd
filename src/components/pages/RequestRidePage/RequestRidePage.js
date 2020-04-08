@@ -118,9 +118,9 @@ const RequestRidePage = ({ location, history }) => {
         <div className="request-ride-left-div">
           <div className="request-ride-content">
             <div className="request-ride-title">Request Ride</div>
-            <div className="request-ride-path1">Review Ride Details</div>
+            <div className="request-ride-path1">Request Ride</div>
             <div className="request-ride-path1">></div>
-            <div className="request-ride-path2">Pending Request</div>
+            <div className="request-ride-path2">Request Sent</div>
           </div>
           <div className="request-ride-left-content">
             <div className="request-ride-options">Carry-on bags:</div>

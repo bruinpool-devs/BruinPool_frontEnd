@@ -6,7 +6,10 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Input
+  Input,
+  UncontrolledCollapse,
+  Card,
+  CardBody
 } from "reactstrap";
 import {
   faMapMarkerAlt,
@@ -15,7 +18,9 @@ import {
 import {
   faCalendarAlt,
   faClock,
-  faUser
+  faUser,
+  faCheckSquare,
+  faSquare
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -47,6 +52,11 @@ const DriverPost = ({ toggleRegistered }) => {
   const [price, setPrice] = useState(0);
   const [seats, setSeats] = useState(0);
   const [driverNote, setDriverNote] = useState("");
+  const [specificOnly, setSpecificOnly] = useState(true);
+  const [noPet, setNoPet] = useState(false);
+  const [oneCarryOn, setOneCarryOn] = useState(false);
+  const [oneLuggage, setOneLuggage] = useState(false);
+  const [instantBook, setInstantBook] = useState(false);
 
   const dropdownButtonStyle = {
     display: "flex",
@@ -93,7 +103,8 @@ const DriverPost = ({ toggleRegistered }) => {
   const textAreaStyle = {
     height: "120px",
     marginTop: "40px",
-    boxShadow: "none"
+    boxShadow: "none",
+    paddingLeft: "27px"
   };
 
   const iconStyle = {
@@ -229,10 +240,122 @@ const DriverPost = ({ toggleRegistered }) => {
               onChange={e => setTime(e.target.value)}
             />
           </div>
+          <div>
+            <div className="instant-options">
+              Allow Instant Book (Optional)
+              {!instantBook ? (
+                <FontAwesomeIcon
+                  className="instantBook-checkbox"
+                  id="toggler"
+                  icon={faSquare}
+                  onClick={() => setInstantBook(!instantBook)}
+                  value={instantBook}
+                ></FontAwesomeIcon>
+              ) : (
+                <FontAwesomeIcon
+                  className="instantBook-checkbox"
+                  id="toggler"
+                  icon={faCheckSquare}
+                  onClick={() => setInstantBook(!instantBook)}
+                  value={instantBook}
+                ></FontAwesomeIcon>
+              )}
+              {/* <Input addon type="checkbox" id="toggler" /> */}
+            </div>
+            <UncontrolledCollapse toggler="#toggler">
+              <Card className="instant-card">
+                <CardBody>
+                  Riders will be able to instant book only if they agree on the
+                  following parameters:
+                  <div className="instantBook-list">
+                    Specific pick up and drop off only
+                    {!specificOnly ? (
+                      <FontAwesomeIcon
+                        className="instantBook-square1"
+                        icon={faSquare}
+                        onClick={() => setSpecificOnly(!specificOnly)}
+                        value={specificOnly}
+                      ></FontAwesomeIcon>
+                    ) : (
+                      <FontAwesomeIcon
+                        className="instantBook-check1"
+                        icon={faCheckSquare}
+                        onClick={() => setSpecificOnly(!specificOnly)}
+                        value={specificOnly}
+                      ></FontAwesomeIcon>
+                    )}
+                  </div>
+                  <div className="instantBook-list">
+                    No pets on ride
+                    {!noPet ? (
+                      <FontAwesomeIcon
+                        className="instantBook-square2"
+                        icon={faSquare}
+                        onClick={() => setNoPet(!noPet)}
+                        value={noPet}
+                      ></FontAwesomeIcon>
+                    ) : (
+                      <FontAwesomeIcon
+                        className="instantBook-check2"
+                        icon={faCheckSquare}
+                        onClick={() => setNoPet(!noPet)}
+                        value={noPet}
+                      ></FontAwesomeIcon>
+                    )}
+                  </div>
+                  <div className="instantBook-list">
+                    One carry-on only
+                    {!oneCarryOn ? (
+                      <FontAwesomeIcon
+                        className="instantBook-square3"
+                        icon={faSquare}
+                        onClick={() => setOneCarryOn(!oneCarryOn)}
+                        value={oneCarryOn}
+                      ></FontAwesomeIcon>
+                    ) : (
+                      <FontAwesomeIcon
+                        className="instantBook-check3"
+                        icon={faCheckSquare}
+                        onClick={() => setOneCarryOn(!oneCarryOn)}
+                        value={oneCarryOn}
+                      ></FontAwesomeIcon>
+                    )}
+                  </div>
+                  <div className="instantBook-list">
+                    One luggage only
+                    {!oneLuggage ? (
+                      <FontAwesomeIcon
+                        className="instantBook-square4"
+                        icon={faSquare}
+                        onClick={() => setOneLuggage(!oneLuggage)}
+                        value={oneLuggage}
+                      ></FontAwesomeIcon>
+                    ) : (
+                      <FontAwesomeIcon
+                        className="instantBook-check4"
+                        icon={faCheckSquare}
+                        onClick={() => setOneLuggage(!oneLuggage)}
+                        value={oneLuggage}
+                      ></FontAwesomeIcon>
+                    )}
+                  </div>
+                  <div className="instantBook-list">
+                    4.0+ rating only
+                    <div className="instantBook-coming-soon">Coming Soon</div>
+                  </div>
+                  <div className="instantBook-list">
+                    No eating in car
+                    <div className="instantBook-coming-soon">Coming Soon</div>
+                  </div>
+                </CardBody>
+              </Card>
+            </UncontrolledCollapse>
+          </div>
+          <div className="additional-detail-card">Additional Details</div>
           <div className="post-options">
             <Input
               type="textarea"
-              placeholder="Write about your ride! I am traveling to... I am flexible with location and time..."
+              placeholder="Flexible about where and when to meet? Any pets in car? Got limited space in your trunk? Keep your riders in the loop."
               style={textAreaStyle}
               onChange={e => setDriverNote(e.target.value)}
               value={driverNote}
@@ -252,9 +375,15 @@ const DriverPost = ({ toggleRegistered }) => {
                 price={price}
                 seats={seats}
                 driverNote={driverNote}
+                specificOnly={specificOnly}
+                noPet={noPet}
+                oneCarryOn={oneCarryOn}
+                oneLuggage={oneLuggage}
+                instantBook={instantBook}
               />
             )}
-
+          </div>
+          <div className="post-options">
             <Button
               style={buttonStyle}
               onClick={() => {

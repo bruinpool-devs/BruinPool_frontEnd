@@ -15,12 +15,34 @@
   margin-top: 40px;
   margin-left: 40px;
   margin-bottom: 30px;
+  margin-right: 300px;
 }
 
-.ride-summary {
-  margin-left: 40px;
+.flowchart-img {
+  width: 100%;
+  height: 330px;
+  margin-bottom: 35px;
+  margin-top: 20px;
+  object-fit: contain;
+}
+
+.ride-summary-bold {
+  margin-left: 70px;
+  margin-bottom: 10px;
+  color: #3d77ff;
+  font-weight: bold;
+}
+.ride-summary-text {
+  margin-left: 70px;
   margin-bottom: 30px;
-  font-size: 20px;
+  font-size: 15px;
+  width: 85%;
+}
+
+.post-ride-summary-left-div {
+  width: 60%;
+  margin: auto;
+  margin-bottom: 100px;
 }
 
 .post-ride-summary-right-div {

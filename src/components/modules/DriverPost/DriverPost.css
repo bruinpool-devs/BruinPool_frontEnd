@@ -22,6 +22,92 @@
   margin-left: 13px;
 }
 
+.instant-options {
+  background-color: #3d77ff;
+  width: 100%;
+  border-radius: 5px;
+  margin-left: 13px;
+  margin-top: 20px;
+  height: 35px;
+  padding-left: 30px;
+  padding-top: 5px;
+  color: white;
+}
+
+.instant-card {
+  margin-left: 13px;
+  width: 100%;
+}
+
+.additional-detail-card {
+  background-color: #f1f1f1;
+  width: 100%;
+  border-radius: 5px;
+  margin-left: 13px;
+  margin-top: 20px;
+  height: 35px;
+  padding-left: 30px;
+  padding-top: 5px;
+  margin-bottom: -40px;
+}
+
+.instantBook-checkbox {
+  margin-left: 640px;
+  margin-top: 3px;
+}
+
+.instantBook-list {
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-left: 50px;
+}
+
+.instantBook-check1 {
+  margin-left: 450px;
+  color: #3d77ff;
+}
+
+.instantBook-check2 {
+  margin-left: 578px;
+  color: #3d77ff;
+}
+
+.instantBook-check3 {
+  margin-left: 558px;
+  color: #3d77ff;
+}
+
+.instantBook-check4 {
+  margin-left: 561px;
+  color: #3d77ff;
+}
+
+.instantBook-square1 {
+  margin-left: 450px;
+  color: #b1b1b1;
+}
+
+.instantBook-square2 {
+  margin-left: 578px;
+  color: #b1b1b1;
+}
+
+.instantBook-square3 {
+  margin-left: 558px;
+  color: #b1b1b1;
+}
+
+.instantBook-square4 {
+  margin-left: 561px;
+  color: #b1b1b1;
+}
+
+.instantBook-coming-soon {
+  color: #b1b1b1;
+  margin-left: 500px;
+}
+
 .post-specific-location {
   display: flex;
   flex-direction: row;
