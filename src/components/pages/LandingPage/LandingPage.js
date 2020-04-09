@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import Cookies from "universal-cookie";
 
-import SignupForm from "../../modules/SignupForm/SignupForm";
+import LoginModal from "../../modals/LoginModal/LoginModal";
 
 import "./LandingPage.css";
 
@@ -25,7 +25,7 @@ const LandingPage = ({ history }) => {
         </div>
       </div>
       <div className="login-section">
-        <SignupForm />
+        <LoginModal />
       </div>
     </div>
   );

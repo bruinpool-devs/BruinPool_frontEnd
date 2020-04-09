@@ -8,15 +8,6 @@ import "./RequestRideSummary.css";
 import requestChart from "./rideRequestSummary1.png";
 
 const RequestRideSummary = ({ history }) => {
-  const iconStyle = {
-    marginLeft: "30px",
-    marginRight: "32px",
-    marginBottom: "-7px",
-    color: "#3D77FF",
-    width: "35px",
-    height: "35px"
-  };
-
   return (
     <div className="request-ride-summary">
       <div>
@@ -33,7 +24,12 @@ const RequestRideSummary = ({ history }) => {
           </div>
 
           <div className="post-ride-summary-left-div">
-            <img className="flowchart-img1" src={requestChart}></img>
+            <img
+              className="flowchart-img1"
+              src={requestChart}
+              alt="request-chart"
+              style={{ borderRadius: "0px" }}
+            ></img>
 
             <div className="ride-summary-text">
               You are able to messgae your driver while waiting to hear back
@@ -51,7 +47,6 @@ const RequestRideSummary = ({ history }) => {
                   marginTop: "30px",
                   marginLeft: "70px"
                 }}
-                onClick={() => history.push("/driver/my-drives")}
               >
                 Go to Messages
               </Button>
@@ -65,7 +60,7 @@ const RequestRideSummary = ({ history }) => {
                   marginTop: "30px",
                   marginLeft: "120px"
                 }}
-                onClick={() => history.push("/driver/my-rides")}
+                onClick={() => history.push("/rider/my-rides")}
               >
                 Go to My Rides
               </Button>

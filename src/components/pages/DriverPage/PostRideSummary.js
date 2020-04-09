@@ -1,5 +1,4 @@
 import React from "react";
-import Cookies from "universal-cookie";
 
 import Navbar from "../../navbar/Navbar";
 import { Button } from "reactstrap";
@@ -11,18 +10,6 @@ import nonInstantChart from "./postRideConfirm.png";
 import "./PostRideSummary.css";
 
 const PostRideSummary = ({ location, history }) => {
-  const iconStyle = {
-    marginLeft: "30px",
-    marginRight: "32px",
-    marginBottom: "-7px",
-    color: "#3D77FF",
-    width: "35px",
-    height: "35px"
-  };
-
-  const cookies = new Cookies();
-  const userName = cookies.get("userName");
-
   return (
     <div className="post-ride-summary">
       <div>
@@ -40,11 +27,19 @@ const PostRideSummary = ({ location, history }) => {
           <div>
             {location.state.instantBook ? (
               <div>
-                <img className="flowchart-img" src={instantChart}></img>
+                <img
+                  className="flowchart-img"
+                  src={instantChart}
+                  alt="instant-chart"
+                ></img>
               </div>
             ) : (
               <div>
-                <img className="flowchart-img" src={nonInstantChart}></img>
+                <img
+                  className="flowchart-img"
+                  src={nonInstantChart}
+                  alt="non-instant-chart"
+                ></img>
               </div>
             )}
           </div>
@@ -86,7 +81,6 @@ const PostRideSummary = ({ location, history }) => {
                 marginTop: "30px",
                 marginLeft: "70px"
               }}
-              onClick={() => history.push("/driver/my-drives")}
             >
               Go to Messages
             </Button>

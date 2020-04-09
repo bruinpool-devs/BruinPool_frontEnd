@@ -111,8 +111,8 @@ const SignupForm = ({ history }) => {
           />
           <h3>Sign up to start riding</h3>
           <p>
-            Use your <span className="blue-text">university email</span> to
-            create your account!
+            Use your <span className="login-blue-text">university email</span>{" "}
+            to create your account!
           </p>
         </div>
         <div className="form">

@@ -58,14 +58,14 @@ const MainState = ({ children }) => {
       });
   };
 
-  // VALIDATE USERNAME
-  const validateUsername = async username => {
+  // VALIDATE EMAIL
+  const validateEmail = async email => {
     var validity = "";
 
     await axios
-      .get("/users/usernameValidation", {
+      .get("/users/emailValidation", {
         params: {
-          username
+          email
         }
       })
       .then(res => {
@@ -819,7 +819,7 @@ const MainState = ({ children }) => {
         profilePic: state.profilePic,
         publicProfile: state.publicProfile,
         signup,
-        validateUsername,
+        validateEmail,
         login,
         logout,
         rideDetails,

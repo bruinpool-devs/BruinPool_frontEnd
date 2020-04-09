@@ -1,0 +1,133 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.signup-page-wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
+.signup-form-wrapper {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+}
+
+.signup-progress-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 15px;
+}
+
+.signup-current-step {
+  font-weight: bold;
+}
+
+.signup-progress-divider {
+  font-size: 25px;
+}
+
+.signup1-title {
+  color: black;
+  font-size: 40px;
+  margin-top: 40px;
+}
+
+.signup1-subtitle {
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.enter-school-email {
+  color: #616161;
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.signup-tos {
+  font-size: 13px;
+  color: #383838;
+  font-weight: bold;
+  margin-top: 15px;
+}
+
+.tos-blue-text {
+  color: #0c52f6;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.signup-verification-text {
+  font-size: 20px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 23vh;
+}
+
+.profile-start-text {
+  font-size: 20px;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 23vh;
+}
+
+.signup-account-info {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.account-info-title {
+  color: black;
+  font-size: 30px;
+}
+
+.account-info-form {
+  margin-top: 30px;
+}
+
+.setup-profile-title {
+  font-size: 30px;
+  color: black;
+  margin-top: 3vh;
+}
+
+.short-bio-desc {
+  font-size: 15px;
+  color: #818181;
+  margin-top: 30px;
+  font-weight: bold;
+  margin-left: -60px;
+}
+
+.signup-welcome-title {
+  font-size: 30px;
+  color: black;
+  margin-top: 5vh;
+}
+
+.how-it-works {
+  color: #b1b1b1;
+  font-size: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  border-bottom: 1px solid #c4c4c4;
+  margin-top: 15px;
+  width: 1044px;
+}
