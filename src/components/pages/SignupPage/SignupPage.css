@@ -131,3 +131,9 @@
   margin-top: 15px;
   width: 1044px;
 }
+
+.correct-text {
+  color: green;
+  font-size: 13px;
+  margin: 2px;
+}

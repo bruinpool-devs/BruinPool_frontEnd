@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { Button, Input, Form, FormGroup, FormFeedback } from "reactstrap";
+import { Button, Input, Form, FormGroup } from "reactstrap";
 
 import AltNavbar from "../../navbar/AltNavbar";
 
@@ -17,13 +17,6 @@ const SignupPage4 = ({ history }) => {
   const [passwordValid, setPasswordValid] = useState("");
   const [passwordFeedback, setPasswordFeedback] = useState("");
   const [passwordConfirmValid, setPasswordConfirmValid] = useState("");
-
-  const inputStyle = {
-    width: "438px",
-    height: "56px",
-    fontSize: "15px",
-    borderColor: "#B4B1B1"
-  };
 
   const validateFirstName = () => {
     if (firstName === "") {
@@ -102,61 +95,85 @@ const SignupPage4 = ({ history }) => {
             <Form>
               <FormGroup>
                 <Input
-                  valid={firstNameValid === "true"}
-                  invalid={firstNameValid === "false"}
-                  style={inputStyle}
+                  style={{
+                    width: "438px",
+                    height: "56px",
+                    fontSize: "15px",
+                    borderColor:
+                      (firstNameValid === "true" && "green") ||
+                      (firstNameValid === "false" && "red")
+                  }}
                   placeholder="First name"
                   value={firstName}
                   onChange={e => setFirstName(e.target.value)}
                   onBlur={validateFirstName}
                 />
-                <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-                  First name should not be empty.
-                </FormFeedback>
+                {firstNameValid === "false" && (
+                  <div className="error-text">
+                    First name should not be empty.
+                  </div>
+                )}
               </FormGroup>
               <FormGroup>
                 <Input
-                  valid={lastNameValid === "true"}
-                  invalid={lastNameValid === "false"}
-                  style={inputStyle}
+                  style={{
+                    width: "438px",
+                    height: "56px",
+                    fontSize: "15px",
+                    borderColor:
+                      (lastNameValid === "true" && "green") ||
+                      (lastNameValid === "false" && "red")
+                  }}
                   placeholder="Last name"
                   value={lastName}
                   onChange={e => setLastName(e.target.value)}
                   onBlur={validateLastName}
                 />
-                <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-                  Last name should not be empty.
-                </FormFeedback>
+                {lastNameValid === "false" && (
+                  <div className="error-text">
+                    Last name should not be empty.
+                  </div>
+                )}
               </FormGroup>
               <FormGroup>
                 <Input
-                  valid={passwordValid === "true"}
-                  invalid={passwordValid === "false"}
                   type="password"
-                  style={inputStyle}
+                  style={{
+                    width: "438px",
+                    height: "56px",
+                    fontSize: "15px",
+                    borderColor:
+                      (passwordValid === "true" && "green") ||
+                      (passwordValid === "false" && "red")
+                  }}
                   placeholder="Enter password"
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   onBlur={validatePassword}
                 />
-                <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-                  {passwordFeedback}
-                </FormFeedback>
+                {passwordValid === "false" && (
+                  <div className="error-text">{passwordFeedback}</div>
+                )}
               </FormGroup>
               <FormGroup>
                 <Input
-                  valid={passwordConfirmValid === "true"}
-                  invalid={passwordConfirmValid === "false"}
                   type="password"
-                  style={inputStyle}
+                  style={{
+                    width: "438px",
+                    height: "56px",
+                    fontSize: "15px",
+                    borderColor:
+                      (passwordConfirmValid === "true" && "green") ||
+                      (passwordConfirmValid === "false" && "red")
+                  }}
                   placeholder="Re-enter password"
                   value={password2}
                   onChange={e => setPassword2(e.target.value)}
                   onBlur={validatePasswordConfirm}
                 />
-                <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-                  Passwords are not matching.
-                </FormFeedback>
+                {passwordConfirmValid === "false" && (
+                  <div className="error-text">Passwords are not matching.</div>
+                )}
               </FormGroup>
               <Button
                 style={{

@@ -3,6 +3,7 @@ import { withRouter } from "react-router-dom";
 import { Button } from "reactstrap";
 
 import AltNavbar from "../../navbar/AltNavbar";
+import WelcomeDiagram from "./diagram.png";
 
 import "./SignupPage.css";
 
@@ -22,6 +23,16 @@ const SignupPage6 = ({ history }) => {
           Welcome to the PoolUp experience!
         </div>
         <div className="how-it-works">How it works?</div>
+        <img
+          src={WelcomeDiagram}
+          alt="welcome"
+          style={{
+            width: "1028px",
+            height: "352px",
+            borderRadius: "0px",
+            marginTop: "30px"
+          }}
+        />
         <Button
           style={{
             backgroundColor: "#3d77ff",
@@ -31,7 +42,7 @@ const SignupPage6 = ({ history }) => {
             width: "230px",
             height: "60px",
             fontSize: "20px",
-            marginTop: "40px",
+            marginTop: "45px",
             borderRadius: "10px"
           }}
         >

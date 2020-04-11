@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "reactstrap";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -9,32 +10,53 @@ import "./SettingsNotification.css";
 import "../SettingsAccountOverview/SettingsAccountOverview.css";
 
 const SettingsNotification = () => {
+  const [editMode, toggleEditMode] = useState(false);
+  const [messageEmail, setMessageEmail] = useState(false);
+  const [messageText, setMessageText] = useState(true);
+  const [promotionEmail, setPromotionEmail] = useState(false);
+  const [promotionText, setPromotionText] = useState(false);
+  const [policyEmail, setPolicyEmail] = useState(false);
+  const [policyText, setPolicyText] = useState(false);
+  const [supportEmail, setSupportEmail] = useState(false);
+  const [supportText, setSupportText] = useState(false);
+  const [subscribe, setSubscribe] = useState(false);
+
   const iconStyle1 = {
     marginTop: "32px",
-    color: "gray",
+    color: editMode ? "#3d77ff" : "gray",
     width: "20px",
-    height: "20px"
+    height: "20px",
+    cursor: editMode && "pointer"
   };
 
   const iconStyle2 = {
     marginTop: "73px",
-    color: "gray",
+    color: editMode ? "#3d77ff" : "gray",
     width: "20px",
-    height: "20px"
+    height: "20px",
+    cursor: editMode && "pointer"
   };
 
   const iconStyle3 = {
     marginTop: "90px",
-    color: "gray",
+    color: editMode ? "#3d77ff" : "gray",
     width: "20px",
-    height: "20px"
+    height: "20px",
+    cursor: editMode && "pointer"
   };
 
   return (
     <div className="settings-overview">
       <div className="settings-overview-toprow">
         <div className="settings-overview-title">Notifications</div>
-        <div className="settings-overview-edit">Edit</div>
+        {!editMode && (
+          <div
+            className="settings-overview-edit"
+            onClick={() => toggleEditMode(!editMode)}
+          >
+            Edit
+          </div>
+        )}
       </div>
       <div className="settings-noti-cols">
         <div className="settings-noti-left">
@@ -83,21 +105,124 @@ const SettingsNotification = () => {
         </div>
         <div className="settings-noti-middle">
           <div>Email</div>
-          <FontAwesomeIcon icon={faSquare} style={iconStyle1} />
-          <FontAwesomeIcon icon={faSquare} style={iconStyle2} />
-          <FontAwesomeIcon icon={faSquare} style={iconStyle2} />
-          <FontAwesomeIcon icon={faSquare} style={iconStyle3} />
-          <div className="settings-unsubscribe">Unsubscribe</div>
-          <div className="settings-subscribe">Subscribe</div>
+          <FontAwesomeIcon
+            icon={messageEmail ? faCheckSquare : faSquare}
+            style={iconStyle1}
+            onClick={() => {
+              if (editMode) {
+                setMessageEmail(!messageEmail);
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={promotionEmail ? faCheckSquare : faSquare}
+            style={iconStyle2}
+            onClick={() => {
+              if (editMode) {
+                setPromotionEmail(!promotionEmail);
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={policyEmail ? faCheckSquare : faSquare}
+            style={iconStyle2}
+            onClick={() => {
+              if (editMode) {
+                setPolicyEmail(!policyEmail);
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={supportEmail ? faCheckSquare : faSquare}
+            style={iconStyle3}
+            onClick={() => {
+              if (editMode) {
+                setSupportEmail(!supportEmail);
+              }
+            }}
+          />
+          <div
+            className="settings-unsubscribe"
+            style={{ color: subscribe ? "#3d77ff" : "gray" }}
+            onClick={() => {
+              if (editMode) {
+                setSubscribe(false);
+              }
+            }}
+          >
+            Unsubscribe
+          </div>
+          <div
+            className="settings-subscribe"
+            style={{ color: subscribe ? "gray" : "#3d77ff" }}
+            onClick={() => {
+              if (editMode) {
+                setSubscribe(true);
+              }
+            }}
+          >
+            Subscribe
+          </div>
         </div>
         <div className="settings-noti-right">
           <div>Text</div>
-          <FontAwesomeIcon icon={faCheckSquare} style={iconStyle1} />
-          <FontAwesomeIcon icon={faSquare} style={iconStyle2} />
-          <FontAwesomeIcon icon={faSquare} style={iconStyle2} />
-          <FontAwesomeIcon icon={faSquare} style={iconStyle3} />
+          <FontAwesomeIcon
+            icon={messageText ? faCheckSquare : faSquare}
+            style={iconStyle1}
+            onClick={() => {
+              if (editMode) {
+                setMessageText(!messageText);
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={promotionText ? faCheckSquare : faSquare}
+            style={iconStyle2}
+            onClick={() => {
+              if (editMode) {
+                setPromotionText(!promotionText);
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={policyText ? faCheckSquare : faSquare}
+            style={iconStyle2}
+            onClick={() => {
+              if (editMode) {
+                setPolicyText(!policyText);
+              }
+            }}
+          />
+          <FontAwesomeIcon
+            icon={supportText ? faCheckSquare : faSquare}
+            style={iconStyle3}
+            onClick={() => {
+              if (editMode) {
+                setSupportText(!supportText);
+              }
+            }}
+          />
         </div>
       </div>
+      {editMode && (
+        <Button
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "220px",
+            height: "43px",
+            marginTop: "20px",
+            backgroundColor: "#3d77ff",
+            borderWidth: "0px",
+            boxShadow: "none",
+            borderRadius: "10px"
+          }}
+          onClick={() => toggleEditMode(!editMode)}
+        >
+          Save
+        </Button>
+      )}
     </div>
   );
 };

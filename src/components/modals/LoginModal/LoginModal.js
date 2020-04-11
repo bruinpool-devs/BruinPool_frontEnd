@@ -1,13 +1,5 @@
 import React, { useState, useContext } from "react";
-import {
-  Modal,
-  ModalBody,
-  Button,
-  Form,
-  FormGroup,
-  FormFeedback,
-  Input
-} from "reactstrap";
+import { Modal, ModalBody, Button, Form, FormGroup, Input } from "reactstrap";
 import { withRouter } from "react-router-dom";
 
 import MainContext from "../../../context/mainContext";
@@ -76,27 +68,32 @@ const LoginModal = ({ history }) => {
               <Form>
                 <FormGroup>
                   <Input
-                    invalid={loginValid === "false"}
                     type="email"
                     name="email"
                     id="email"
                     placeholder="Email Address"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    style={{ width: "592px", height: "60px", fontSize: "15px" }}
+                    style={{
+                      width: "592px",
+                      height: "60px",
+                      fontSize: "15px",
+                      borderColor: loginValid === "false" && "red"
+                    }}
                     onKeyDown={e => {
                       if (e.key === "Enter") {
                         handleLogin();
                       }
                     }}
                   />
-                  <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-                    Email or password may be incorrect.
-                  </FormFeedback>
+                  {loginValid === "false" && (
+                    <div className="error-text">
+                      Email or password may be incorrect.
+                    </div>
+                  )}
                 </FormGroup>
                 <FormGroup>
                   <Input
-                    invalid={loginValid === "false"}
                     type="password"
                     name="password"
                     id="password"
@@ -107,7 +104,8 @@ const LoginModal = ({ history }) => {
                       width: "592px",
                       height: "60px",
                       fontSize: "15px",
-                      marginTop: "-15px"
+                      marginTop: "-15px",
+                      borderColor: loginValid === "false" && "red"
                     }}
                     onKeyDown={e => {
                       if (e.key === "Enter") {
@@ -115,9 +113,11 @@ const LoginModal = ({ history }) => {
                       }
                     }}
                   />
-                  <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-                    Email or password may be incorrect.
-                  </FormFeedback>
+                  {loginValid === "false" && (
+                    <div className="error-text">
+                      Email or password may be incorrect.
+                    </div>
+                  )}
                 </FormGroup>
                 <Button
                   onClick={handleLogin}

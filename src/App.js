@@ -26,6 +26,7 @@ import RequestRidePage from "./components/pages/RequestRidePage/RequestRidePage"
 import RequestRideSummary from "./components/pages/RequestRidePage/RequestRideSummary";
 import InstantBookPage from "./components/pages/InstantBookPage/InstantBookPage";
 import InstantBookConfirmPage from "./components/pages/InstantBookConfirmPage/InstantBookConfirmPage";
+import CloseAccountPage from "./components/pages/CloseAccountPage/CloseAccountPage";
 import MainState from "./context/MainState";
 
 import "./App.css";
@@ -42,6 +43,7 @@ const App = () => {
           <Route exact path="/signup/4" component={SignupPage4} />
           <Route exact path="/signup/5" component={SignupPage5} />
           <Route exact path="/signup/6" component={SignupPage6} />
+          <Route exact path="/close-account" component={CloseAccountPage} />
           <Route exact path="/rider" component={RiderPage} />
           <Route exact path="/rider/my-rides" component={MyRidesPage} />
           <Route exact path="/rider/help" component={HelpPage} />

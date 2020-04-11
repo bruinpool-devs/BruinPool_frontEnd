@@ -1,6 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { Input, Button, Form, FormGroup, FormFeedback } from "reactstrap";
+import { Input, Button, Form, FormGroup } from "reactstrap";
+import Cookies from "universal-cookie";
 
 import AltNavbar from "../../navbar/AltNavbar";
 import MainContext from "../../../context/mainContext";
@@ -11,6 +12,15 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import "./SignupPage.css";
 
 const SignupPage1 = ({ history }) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (authToken) {
+      history.push("/rider");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [email, setEmail] = useState("");
   const [emailValid, setEmailValid] = useState("");
   const [emailFeedback, setEmailFeedback] = useState("");
@@ -36,6 +46,7 @@ const SignupPage1 = ({ history }) => {
 
     if (response === "true") {
       setEmailValid("true");
+      setEmailFeedback("This email is available!");
     } else {
       setEmailValid("false");
       setEmailFeedback("Email is already taken.");
@@ -79,8 +90,6 @@ const SignupPage1 = ({ history }) => {
         <Form>
           <FormGroup>
             <Input
-              valid={emailValid === "true"}
-              invalid={emailValid === "false"}
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
@@ -88,14 +97,19 @@ const SignupPage1 = ({ history }) => {
                 width: "438px",
                 height: "68px",
                 marginTop: "10px",
-                borderColor: "#B4B1B1",
+                borderColor:
+                  (emailValid === "true" && "green") ||
+                  (emailValid === "false" && "red"),
                 fontSize: "20px"
               }}
               onBlur={validateEmail}
             />
-            <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-              {emailFeedback}
-            </FormFeedback>
+            {emailValid === "true" && (
+              <div className="correct-text">{emailFeedback}</div>
+            )}
+            {emailValid === "false" && (
+              <div className="error-text">{emailFeedback}</div>
+            )}
           </FormGroup>
         </Form>
         <div className="signup-tos">

@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Button } from "reactstrap";
+import Cookies from "universal-cookie";
 
 import AltNavbar from "../../navbar/AltNavbar";
 
 import "./SignupPage.css";
 
 const SignupPage2 = ({ history, location }) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (authToken) {
+      history.push("/rider");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const resendVerificationEmail = () => {
     history.push("/signup/3");
   };

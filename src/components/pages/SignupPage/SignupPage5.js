@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Input,
-  FormFeedback,
-  FormText
-} from "reactstrap";
+import { Button, Form, FormGroup, Input, FormText } from "reactstrap";
 
 import AltNavbar from "../../navbar/AltNavbar";
 
@@ -84,7 +77,6 @@ const SignupPage5 = ({ history }) => {
         <Form>
           <FormGroup>
             <Input
-              invalid={bioValid === "false"}
               type="textarea"
               value={shortBio}
               placeholder="Tell your future drivers or riders about your major, interests, favorite trips..."
@@ -94,12 +86,16 @@ const SignupPage5 = ({ history }) => {
                 width: "438px",
                 padding: "10px 15px 10px 15px",
                 fontSize: "15px",
-                marginTop: "7px"
+                marginTop: "7px",
+                borderColor:
+                  (bioValid === "true" && "green") ||
+                  (bioValid === "false" && "red")
               }}
+              onBlur={validateBio}
             />
-            <FormFeedback style={{ marginLeft: "2px" }} invalid="true">
-              Character requirement not met.
-            </FormFeedback>
+            {bioValid === "false" && (
+              <div className="error-text">Character requirement not met.</div>
+            )}
             <FormText>(Min. 10 characters)</FormText>
           </FormGroup>
         </Form>
