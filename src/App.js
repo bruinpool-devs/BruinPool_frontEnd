@@ -9,6 +9,7 @@ import {
 import LandingPage from "./components/pages/LandingPage/LandingPage";
 import SignupPage1 from "./components/pages/SignupPage/SignupPage1";
 import SignupPage2 from "./components/pages/SignupPage/SignupPage2";
+import VerificationExpiredPage from "./components/pages/SignupPage/VerificationExpiredPage";
 import SignupPage3 from "./components/pages/SignupPage/SignupPage3";
 import SignupPage4 from "./components/pages/SignupPage/SignupPage4";
 import SignupPage5 from "./components/pages/SignupPage/SignupPage5";
@@ -41,6 +42,11 @@ const App = () => {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup/1" component={SignupPage1} />
           <Route exact path="/signup/2" component={SignupPage2} />
+          <Route
+            exact
+            path="/signup/2/expired"
+            component={VerificationExpiredPage}
+          />
           <Route exact path="/signup/3" component={SignupPage3} />
           <Route exact path="/signup/4" component={SignupPage4} />
           <Route exact path="/signup/5" component={SignupPage5} />

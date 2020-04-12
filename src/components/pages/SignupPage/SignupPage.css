@@ -137,3 +137,11 @@
   font-size: 13px;
   margin: 2px;
 }
+
+.change-my-email {
+  font-size: 20px;
+  color: #3d77ff;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-top: 25px;
+}

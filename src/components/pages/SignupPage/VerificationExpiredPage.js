@@ -7,7 +7,7 @@ import AltNavbar from "../../navbar/AltNavbar";
 
 import "./SignupPage.css";
 
-const SignupPage2 = ({ history, location }) => {
+const VerificationExpiredPage = ({ history }) => {
   useEffect(() => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
@@ -34,14 +34,12 @@ const SignupPage2 = ({ history, location }) => {
         </div>
       </div>
       <div className="signup-verification-text">
+        <div>We're sorry, your email verification link has expired.</div>
         <div>
-          Before setting up your account, we need to verify your email address.
+          Please resend verification email to{" "}
+          <span style={{ fontWeight: "bold" }}>youremail@inbox.com</span>
         </div>
-        <div>
-          We've just sent a verification email to{" "}
-          <span style={{ fontWeight: "bold" }}>{location.state.email}</span>.
-        </div>
-        <div>Please click on the link in that email to continue.</div>
+        <div>and try again.</div>
       </div>
       <Button
         style={{
@@ -57,10 +55,16 @@ const SignupPage2 = ({ history, location }) => {
         }}
         onClick={resendVerificationEmail}
       >
-        Send verification email again
+        Resend email
       </Button>
+      <div
+        className="change-my-email"
+        onClick={() => history.push("/signup/1")}
+      >
+        I need to change my email
+      </div>
     </div>
   );
 };
 
-export default withRouter(SignupPage2);
+export default withRouter(VerificationExpiredPage);
