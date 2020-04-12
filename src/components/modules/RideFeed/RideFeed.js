@@ -58,11 +58,11 @@ const RideFeed = ({
 
   return (
     <div className="ride-feed-container">
-      <div className="table-header">
+      <div className={mainRidesBool ? "instant-table-header" : "table-header"}>
         <div className="from-to-title">From</div>
         <div className="from-to-title">To</div>
         {mainRidesBool && (
-          <div className="remaining-titles">
+          <div className="instant-book-title">
             <div>Instant Book</div>
             <div>
               <FontAwesomeIcon
@@ -396,32 +396,30 @@ const RideFeed = ({
                           width: "20%"
                         }}
                       >
-                        <div style={{ fontSize: "25px", marginBottom: "10px" }}>
-                          Help:
-                        </div>
+                        <Button
+                          style={{
+                            backgroundColor: "#3d77ff",
+                            boxShadow: "none",
+                            borderWidth: "0px",
+                            width: "131px",
+                            height: "45px",
+                            fontSize: "15px",
+                            borderRadius: "10px",
+                            marginTop: "20px"
+                          }}
+                        >
+                          Leave a review
+                        </Button>
                         <div
                           style={{
                             textDecoration: "underline",
-                            cursor: "pointer"
+                            cursor: "pointer",
+                            color: "#3d77ff",
+                            marginTop: "20px",
+                            marginLeft: "20px"
                           }}
                         >
-                          Report an accident or incident
-                        </div>
-                        <div
-                          style={{
-                            textDecoration: "underline",
-                            cursor: "pointer"
-                          }}
-                        >
-                          Lost Items
-                        </div>
-                        <div
-                          style={{
-                            textDecoration: "underline",
-                            cursor: "pointer"
-                          }}
-                        >
-                          Contact PoolUp
+                          Need Help?
                         </div>
                       </div>
                     </div>
