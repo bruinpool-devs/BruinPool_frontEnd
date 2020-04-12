@@ -1,0 +1,15 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.begin-driving-top-row {
+  display: flex;
+  flex-direction: row;
+  width: 90vw;
+  font-family: "Montserrat";
+}
+
+.begin-driving-title {
+  font-size: 35px;
+  font-weight: bold;
+  width: 340px;
+  margin-right: 17vw;
+}

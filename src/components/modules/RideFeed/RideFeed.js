@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { withRouter } from "react-router-dom";
 import moment from "moment";
 
 import CancelRideModal from "../../modals/CancelRideModal/CancelRideModal";
@@ -27,7 +28,8 @@ const RideFeed = ({
   mainRidesBool,
   upcomingRidesBool,
   rideHistoryBool,
-  postedDrivesBool
+  postedDrivesBool,
+  history
 }) => {
   const [modal, setModal] = useState(false);
   const [from, setFrom] = useState("");
@@ -137,10 +139,16 @@ const RideFeed = ({
               </div>
               {mainRidesBool && (
                 <div className="remaining-card-values">
-                  <FontAwesomeIcon
-                    icon={faCheckCircle}
-                    style={{ height: "30px", width: "50px", color: "#3d77ff" }}
-                  />
+                  {ride.instantBook.enabled && (
+                    <FontAwesomeIcon
+                      icon={faCheckCircle}
+                      style={{
+                        height: "30px",
+                        width: "50px",
+                        color: "#3d77ff"
+                      }}
+                    />
+                  )}
                 </div>
               )}
               <div className="remaining-card-values">
@@ -187,7 +195,31 @@ const RideFeed = ({
                         <div>Westwood In N Out</div>
                       </div>
                       <div className="ride-detail-button">
-                        <InstantBookModal ride={ride} />
+                        {ride.instantBook.enabled ? (
+                          <InstantBookModal ride={ride} />
+                        ) : (
+                          <Button
+                            style={{
+                              backgroundColor: "#3d77ff",
+                              color: "white",
+                              borderWidth: "0px",
+                              boxShadow: "none",
+                              width: "145px",
+                              height: "45px",
+                              fontSize: "20px"
+                            }}
+                            onClick={() =>
+                              history.push({
+                                pathname: "/rider/request-ride",
+                                state: {
+                                  ride
+                                }
+                              })
+                            }
+                          >
+                            Book Ride
+                          </Button>
+                        )}
                       </div>
                     </div>
                   </CardBody>
@@ -522,4 +554,4 @@ const RideFeed = ({
   );
 };
 
-export default RideFeed;
+export default withRouter(RideFeed);

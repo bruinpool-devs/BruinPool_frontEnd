@@ -15,7 +15,9 @@ import SignupPage5 from "./components/pages/SignupPage/SignupPage5";
 import SignupPage6 from "./components/pages/SignupPage/SignupPage6";
 import RiderPage from "./components/pages/RiderPage/RiderPage";
 import MyRidesPage from "./components/pages/MyRidesPage/MyRidesPage";
-import DriverPage from "./components/pages/DriverPage/DriverPage";
+import DriverRegister1 from "./components/modules/DriverRegister/DriverRegister1";
+import DriverRegister2 from "./components/modules/DriverRegister/DriverRegister2";
+import DriverPost from "./components/modules/DriverPost/DriverPost";
 import MyDrivesPage from "./components/pages/MyDrivesPage/MyDrivesPage";
 import HelpPage from "./components/pages/HelpPage/HelpPage";
 import ProfilePage from "./components/pages/ProfilePage/ProfilePage";
@@ -49,7 +51,9 @@ const App = () => {
           <Route exact path="/rider/help" component={HelpPage} />
           <Route exact path="/rider/profile" component={ProfilePage} />
           <Route exact path="/rider/settings" component={AccountSettingsPage} />
-          <Route exact path="/driver" component={DriverPage} />
+          <Route exact path="/driver/signup/1" component={DriverRegister1} />
+          <Route exact path="/driver/signup/2" component={DriverRegister2} />
+          <Route exact path="/driver/post" component={DriverPost} />
           <Route exact path="/driver/my-drives" component={MyDrivesPage} />
           <Route exact path="/driver/help" component={HelpPage} />
           <Route exact path="/driver/profile" component={ProfilePage} />

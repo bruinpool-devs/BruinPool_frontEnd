@@ -7,12 +7,6 @@ import { faCheckCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import "./InstantBookModal.css";
 
-const mockOptions = [
-  "Specific pick up and drop off only",
-  "No pets on ride",
-  "One carry-on only"
-];
-
 const InstantBookModal = ({ history, ride }) => {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
@@ -72,8 +66,8 @@ const InstantBookModal = ({ history, ride }) => {
               Do you meet all of the instant book requirements?
             </div>
             <div className="instant-book-options">
-              {mockOptions.map((option, index) => (
-                <div key={index} className="each-option">
+              {ride.instantBook.specificPickUpDropOff && (
+                <div className="each-option">
                   <FontAwesomeIcon
                     icon={faCheckCircle}
                     style={{
@@ -84,9 +78,54 @@ const InstantBookModal = ({ history, ride }) => {
                       marginTop: "-3px"
                     }}
                   />
-                  <div>{option}</div>
+                  <div>Specific pick up and drop off only</div>
                 </div>
-              ))}
+              )}
+              {ride.instantBook.noPetsAllowed && (
+                <div className="each-option">
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      color: "#3d77ff",
+                      marginRight: "10px",
+                      marginTop: "-3px"
+                    }}
+                  />
+                  <div>No pets on ride</div>
+                </div>
+              )}
+              {ride.instantBook.singleCarryOn && (
+                <div className="each-option">
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      color: "#3d77ff",
+                      marginRight: "10px",
+                      marginTop: "-3px"
+                    }}
+                  />
+                  <div>One carry-on only</div>
+                </div>
+              )}
+              {ride.instantBook.singleLuggage && (
+                <div className="each-option">
+                  <FontAwesomeIcon
+                    icon={faCheckCircle}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      color: "#3d77ff",
+                      marginRight: "10px",
+                      marginTop: "-3px"
+                    }}
+                  />
+                  <div>One luggage only</div>
+                </div>
+              )}
             </div>
             <div className="instant-book-buttons">
               <Button

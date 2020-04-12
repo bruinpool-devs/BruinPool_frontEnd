@@ -41,10 +41,11 @@ const PostRideModal = ({
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
     const userName = cookies.get("userName");
+    const email = cookies.get("email");
     const dateString = `${date}T${time}:00.000Z`;
 
     const rideObject = {
-      ownerEmail: userName + "@g.ucla.edu",
+      ownerEmail: email,
       ownerUsername: userName,
       from: from,
       to: to,
@@ -52,7 +53,15 @@ const PostRideModal = ({
       price: `${price}`,
       seats: seats,
       detail: driverNote,
-      passengers: []
+      passengers: [],
+      instantBook: {
+        enabled: instantBook,
+        specificPickUpDropOff: specificOnly,
+        smokingAllowed: false,
+        noPetsAllowed: noPet,
+        singleCarryOn: oneCarryOn,
+        singleLuggage: oneLuggage
+      }
     };
 
     await mainContext.postRide(rideObject, authToken);
@@ -60,17 +69,6 @@ const PostRideModal = ({
     history.push({
       pathname: "/driver/post-summary",
       state: {
-        from: from,
-        to: to,
-        date: date,
-        time: time,
-        specificDropoff: specificDropoff,
-        specificPickup: specificPickup,
-        driverNote: driverNote,
-        specificOnly: specificOnly,
-        noPet: noPet,
-        oneCarryOn: oneCarryOn,
-        oneLuggage: oneLuggage,
         instantBook: instantBook
       }
     });

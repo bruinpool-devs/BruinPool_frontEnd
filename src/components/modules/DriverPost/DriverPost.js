@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 import {
   Button,
@@ -25,8 +27,9 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import "./DriverPost.css";
-import "../DriverRegister/DriverRegister.css";
+import "../DriverRegister/DriverRegister1.css";
 import PostRideModal from "../../modals/PostRideModal/PostRideModal";
+import Navbar from "../../navbar/Navbar";
 
 const mockData = [
   "UCLA",
@@ -39,7 +42,7 @@ const mockData = [
 
 const _ = require("underscore");
 
-const DriverPost = ({ toggleRegistered }) => {
+const DriverPost = ({ history }) => {
   const [fromDropdown, setFromDropdown] = useState(false);
   const [toDropdown, setToDropdown] = useState(false);
   const [fromLocation, setFromLocation] = useState("From");
@@ -57,6 +60,15 @@ const DriverPost = ({ toggleRegistered }) => {
   const [oneCarryOn, setOneCarryOn] = useState(false);
   const [oneLuggage, setOneLuggage] = useState(false);
   const [instantBook, setInstantBook] = useState(false);
+
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (!authToken) {
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const dropdownButtonStyle = {
     display: "flex",
@@ -124,274 +136,273 @@ const DriverPost = ({ toggleRegistered }) => {
   };
 
   return (
-    <div className="drive-register-wrapper">
-      <div className="drive-register-container">
-        <div className="drive-register-title-row">
-          <div className="title">Post a Ride</div>
-          <Button
-            onClick={() => toggleRegistered(false)}
-            color="success"
-            style={{ marginLeft: "20px" }}
-          >
-            Toggle Screen
-          </Button>
-        </div>
-        <div className="post-form">
-          <div className="post-from-to">
-            <ButtonDropdown
-              isOpen={fromDropdown}
-              toggle={() => setFromDropdown(!fromDropdown)}
-              style={{ width: "420px" }}
-            >
-              <DropdownToggle style={fromButtonStyle}>
-                <FontAwesomeIcon
-                  icon={faMapMarkerAlt}
-                  style={{ color: "#818181", height: "21px", width: "16px" }}
-                />
-                <div style={{ marginLeft: "20px" }}>{fromLocation}</div>
-              </DropdownToggle>
-              <DropdownMenu>
-                {mockData.map((location, index) => (
-                  <div style={{ width: "420px" }}>
-                    <DropdownItem onClick={() => setFromLocation(location)}>
-                      {location}
-                    </DropdownItem>
-                    {index !== mockData.length - 1 && <DropdownItem divider />}
-                  </div>
-                ))}
-              </DropdownMenu>
-            </ButtonDropdown>
-            <ButtonDropdown
-              isOpen={toDropdown}
-              toggle={() => setToDropdown(!toDropdown)}
-              style={{ width: "420px" }}
-            >
-              <DropdownToggle style={toButtonStyle}>
-                <FontAwesomeIcon
-                  icon={faMapMarkerAlt}
-                  style={{ color: "#818181", height: "21px", width: "16px" }}
-                />
-                <div style={{ marginLeft: "20px" }}>{toLocation}</div>
-              </DropdownToggle>
-              <DropdownMenu>
-                {mockData.map((location, index) => (
-                  <div style={{ width: "420px" }}>
-                    <DropdownItem onClick={() => setToLocation(location)}>
-                      {location}
-                    </DropdownItem>
-                    {index !== mockData.length - 1 && <DropdownItem divider />}
-                  </div>
-                ))}
-              </DropdownMenu>
-            </ButtonDropdown>
+    <div>
+      <Navbar />
+      <div className="drive-register-wrapper">
+        <div className="drive-register-container">
+          <div className="drive-register-title-row">
+            <div className="title">Post a Ride</div>
           </div>
-          <div className="post-from-to">
+          <div className="post-form">
+            <div className="post-from-to">
+              <ButtonDropdown
+                isOpen={fromDropdown}
+                toggle={() => setFromDropdown(!fromDropdown)}
+                style={{ width: "420px" }}
+              >
+                <DropdownToggle style={fromButtonStyle}>
+                  <FontAwesomeIcon
+                    icon={faMapMarkerAlt}
+                    style={{ color: "#818181", height: "21px", width: "16px" }}
+                  />
+                  <div style={{ marginLeft: "20px" }}>{fromLocation}</div>
+                </DropdownToggle>
+                <DropdownMenu>
+                  {mockData.map((location, index) => (
+                    <div key={index} style={{ width: "420px" }}>
+                      <DropdownItem onClick={() => setFromLocation(location)}>
+                        {location}
+                      </DropdownItem>
+                      {index !== mockData.length - 1 && (
+                        <DropdownItem divider />
+                      )}
+                    </div>
+                  ))}
+                </DropdownMenu>
+              </ButtonDropdown>
+              <ButtonDropdown
+                isOpen={toDropdown}
+                toggle={() => setToDropdown(!toDropdown)}
+                style={{ width: "420px" }}
+              >
+                <DropdownToggle style={toButtonStyle}>
+                  <FontAwesomeIcon
+                    icon={faMapMarkerAlt}
+                    style={{ color: "#818181", height: "21px", width: "16px" }}
+                  />
+                  <div style={{ marginLeft: "20px" }}>{toLocation}</div>
+                </DropdownToggle>
+                <DropdownMenu>
+                  {mockData.map((location, index) => (
+                    <div key={index} style={{ width: "420px" }}>
+                      <DropdownItem onClick={() => setToLocation(location)}>
+                        {location}
+                      </DropdownItem>
+                      {index !== mockData.length - 1 && (
+                        <DropdownItem divider />
+                      )}
+                    </div>
+                  ))}
+                </DropdownMenu>
+              </ButtonDropdown>
+            </div>
+            <div className="post-from-to">
+              <div className="post-options">
+                <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
+                <Input
+                  placeholder="Specific Pickup Location... e.g. Westwood In n Out"
+                  style={optionStyle2}
+                  value={specificPickup}
+                  onChange={e => setSpecificPickup(e.target.value)}
+                />
+              </div>
+              <div className="post-specific-location">
+                <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
+                <Input
+                  placeholder="Specific Dropoff Location... e.g. Cupertino"
+                  style={optionStyle2}
+                  value={specificDropoff}
+                  onChange={e => setSpecificDropoff(e.target.value)}
+                />
+              </div>
+            </div>
             <div className="post-options">
-              <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
+              <FontAwesomeIcon icon={faCalendarAlt} style={iconStyle} />
               <Input
-                placeholder="Specific Pickup Location... e.g. Westwood In n Out"
-                style={optionStyle2}
-                value={specificPickup}
-                onChange={e => setSpecificPickup(e.target.value)}
+                type="date"
+                style={optionStyle}
+                onChange={e => setDate(e.target.value)}
               />
             </div>
-            <div className="post-specific-location">
-              <FontAwesomeIcon icon={faMapMarkerAlt} style={iconStyle} />
+            <div className="post-options">
+              <FontAwesomeIcon icon={faDollarSign} style={iconStyle} />
               <Input
-                placeholder="Specific Dropoff Location... e.g. Cupertino"
-                style={optionStyle2}
-                value={specificDropoff}
-                onChange={e => setSpecificDropoff(e.target.value)}
+                type="number"
+                placeholder="Price"
+                style={optionStyle}
+                onChange={e => setPrice(e.target.value)}
               />
             </div>
-          </div>
-          <div className="post-options">
-            <FontAwesomeIcon icon={faCalendarAlt} style={iconStyle} />
-            <Input
-              type="date"
-              style={optionStyle}
-              onChange={e => setDate(e.target.value)}
-            />
-          </div>
-          <div className="post-options">
-            <FontAwesomeIcon icon={faDollarSign} style={iconStyle} />
-            <Input
-              type="number"
-              placeholder="Price"
-              style={optionStyle}
-              onChange={e => setPrice(e.target.value)}
-            />
-          </div>
-          <div className="post-options">
-            <FontAwesomeIcon icon={faUser} style={iconStyle} />
-            <Input
-              type="number"
-              placeholder="Available Seats"
-              style={optionStyle}
-              onChange={e => setSeats(e.target.value)}
-            />
-          </div>
-          <div className="post-options">
-            <FontAwesomeIcon icon={faClock} style={iconStyle} />
-            <Input
-              type="time"
-              placeholder="Pickup Time"
-              style={optionStyle}
-              onChange={e => setTime(e.target.value)}
-            />
-          </div>
-          <div>
-            <div className="instant-options">
-              Allow Instant Book (Optional)
-              {!instantBook ? (
-                <FontAwesomeIcon
-                  className="instantBook-checkbox"
-                  id="toggler"
-                  icon={faSquare}
-                  onClick={() => setInstantBook(!instantBook)}
-                  value={instantBook}
-                ></FontAwesomeIcon>
-              ) : (
-                <FontAwesomeIcon
-                  className="instantBook-checkbox"
-                  id="toggler"
-                  icon={faCheckSquare}
-                  onClick={() => setInstantBook(!instantBook)}
-                  value={instantBook}
-                ></FontAwesomeIcon>
+            <div className="post-options">
+              <FontAwesomeIcon icon={faUser} style={iconStyle} />
+              <Input
+                type="number"
+                placeholder="Available Seats"
+                style={optionStyle}
+                onChange={e => setSeats(e.target.value)}
+              />
+            </div>
+            <div className="post-options">
+              <FontAwesomeIcon icon={faClock} style={iconStyle} />
+              <Input
+                type="time"
+                placeholder="Pickup Time"
+                style={optionStyle}
+                onChange={e => setTime(e.target.value)}
+              />
+            </div>
+            <div>
+              <div className="instant-options">
+                Allow Instant Book (Optional)
+                {!instantBook ? (
+                  <FontAwesomeIcon
+                    className="instantBook-checkbox"
+                    id="toggler"
+                    icon={faSquare}
+                    onClick={() => setInstantBook(!instantBook)}
+                    value={instantBook}
+                  ></FontAwesomeIcon>
+                ) : (
+                  <FontAwesomeIcon
+                    className="instantBook-checkbox"
+                    id="toggler"
+                    icon={faCheckSquare}
+                    onClick={() => setInstantBook(!instantBook)}
+                    value={instantBook}
+                  ></FontAwesomeIcon>
+                )}
+              </div>
+              <UncontrolledCollapse toggler="#toggler">
+                <Card className="instant-card">
+                  <CardBody>
+                    Riders will be able to instant book only if they agree on
+                    the following parameters:
+                    <div className="instantBook-list">
+                      Specific pick up and drop off only
+                      {!specificOnly ? (
+                        <FontAwesomeIcon
+                          className="instantBook-square1"
+                          icon={faSquare}
+                          onClick={() => setSpecificOnly(!specificOnly)}
+                          value={specificOnly}
+                        ></FontAwesomeIcon>
+                      ) : (
+                        <FontAwesomeIcon
+                          className="instantBook-check1"
+                          icon={faCheckSquare}
+                          onClick={() => setSpecificOnly(!specificOnly)}
+                          value={specificOnly}
+                        ></FontAwesomeIcon>
+                      )}
+                    </div>
+                    <div className="instantBook-list">
+                      No pets on ride
+                      {!noPet ? (
+                        <FontAwesomeIcon
+                          className="instantBook-square2"
+                          icon={faSquare}
+                          onClick={() => setNoPet(!noPet)}
+                          value={noPet}
+                        ></FontAwesomeIcon>
+                      ) : (
+                        <FontAwesomeIcon
+                          className="instantBook-check2"
+                          icon={faCheckSquare}
+                          onClick={() => setNoPet(!noPet)}
+                          value={noPet}
+                        ></FontAwesomeIcon>
+                      )}
+                    </div>
+                    <div className="instantBook-list">
+                      One carry-on only
+                      {!oneCarryOn ? (
+                        <FontAwesomeIcon
+                          className="instantBook-square3"
+                          icon={faSquare}
+                          onClick={() => setOneCarryOn(!oneCarryOn)}
+                          value={oneCarryOn}
+                        ></FontAwesomeIcon>
+                      ) : (
+                        <FontAwesomeIcon
+                          className="instantBook-check3"
+                          icon={faCheckSquare}
+                          onClick={() => setOneCarryOn(!oneCarryOn)}
+                          value={oneCarryOn}
+                        ></FontAwesomeIcon>
+                      )}
+                    </div>
+                    <div className="instantBook-list">
+                      One luggage only
+                      {!oneLuggage ? (
+                        <FontAwesomeIcon
+                          className="instantBook-square4"
+                          icon={faSquare}
+                          onClick={() => setOneLuggage(!oneLuggage)}
+                          value={oneLuggage}
+                        ></FontAwesomeIcon>
+                      ) : (
+                        <FontAwesomeIcon
+                          className="instantBook-check4"
+                          icon={faCheckSquare}
+                          onClick={() => setOneLuggage(!oneLuggage)}
+                          value={oneLuggage}
+                        ></FontAwesomeIcon>
+                      )}
+                    </div>
+                    <div className="instantBook-list">
+                      4.0+ rating only
+                      <div className="instantBook-coming-soon">Coming Soon</div>
+                    </div>
+                    <div className="instantBook-list">
+                      No eating in car
+                      <div className="instantBook-coming-soon">Coming Soon</div>
+                    </div>
+                  </CardBody>
+                </Card>
+              </UncontrolledCollapse>
+            </div>
+            <div className="additional-detail-card">Additional Details</div>
+            <div className="post-options">
+              <Input
+                type="textarea"
+                placeholder="Flexible about where and when to meet? Any pets in car? Got limited space in your trunk? Keep your riders in the loop."
+                style={textAreaStyle}
+                onChange={e => setDriverNote(e.target.value)}
+                value={driverNote}
+              />
+            </div>
+            <div className="post-options">
+              {modal && (
+                <PostRideModal
+                  isOpen={modal}
+                  toggleModal={setModal}
+                  from={fromLocation}
+                  to={toLocation}
+                  specificPickup={specificPickup}
+                  specificDropoff={specificDropoff}
+                  date={date}
+                  time={time}
+                  price={price}
+                  seats={seats}
+                  driverNote={driverNote}
+                  specificOnly={specificOnly}
+                  noPet={noPet}
+                  oneCarryOn={oneCarryOn}
+                  oneLuggage={oneLuggage}
+                  instantBook={instantBook}
+                />
               )}
-              {/* <Input addon type="checkbox" id="toggler" /> */}
             </div>
-            <UncontrolledCollapse toggler="#toggler">
-              <Card className="instant-card">
-                <CardBody>
-                  Riders will be able to instant book only if they agree on the
-                  following parameters:
-                  <div className="instantBook-list">
-                    Specific pick up and drop off only
-                    {!specificOnly ? (
-                      <FontAwesomeIcon
-                        className="instantBook-square1"
-                        icon={faSquare}
-                        onClick={() => setSpecificOnly(!specificOnly)}
-                        value={specificOnly}
-                      ></FontAwesomeIcon>
-                    ) : (
-                      <FontAwesomeIcon
-                        className="instantBook-check1"
-                        icon={faCheckSquare}
-                        onClick={() => setSpecificOnly(!specificOnly)}
-                        value={specificOnly}
-                      ></FontAwesomeIcon>
-                    )}
-                  </div>
-                  <div className="instantBook-list">
-                    No pets on ride
-                    {!noPet ? (
-                      <FontAwesomeIcon
-                        className="instantBook-square2"
-                        icon={faSquare}
-                        onClick={() => setNoPet(!noPet)}
-                        value={noPet}
-                      ></FontAwesomeIcon>
-                    ) : (
-                      <FontAwesomeIcon
-                        className="instantBook-check2"
-                        icon={faCheckSquare}
-                        onClick={() => setNoPet(!noPet)}
-                        value={noPet}
-                      ></FontAwesomeIcon>
-                    )}
-                  </div>
-                  <div className="instantBook-list">
-                    One carry-on only
-                    {!oneCarryOn ? (
-                      <FontAwesomeIcon
-                        className="instantBook-square3"
-                        icon={faSquare}
-                        onClick={() => setOneCarryOn(!oneCarryOn)}
-                        value={oneCarryOn}
-                      ></FontAwesomeIcon>
-                    ) : (
-                      <FontAwesomeIcon
-                        className="instantBook-check3"
-                        icon={faCheckSquare}
-                        onClick={() => setOneCarryOn(!oneCarryOn)}
-                        value={oneCarryOn}
-                      ></FontAwesomeIcon>
-                    )}
-                  </div>
-                  <div className="instantBook-list">
-                    One luggage only
-                    {!oneLuggage ? (
-                      <FontAwesomeIcon
-                        className="instantBook-square4"
-                        icon={faSquare}
-                        onClick={() => setOneLuggage(!oneLuggage)}
-                        value={oneLuggage}
-                      ></FontAwesomeIcon>
-                    ) : (
-                      <FontAwesomeIcon
-                        className="instantBook-check4"
-                        icon={faCheckSquare}
-                        onClick={() => setOneLuggage(!oneLuggage)}
-                        value={oneLuggage}
-                      ></FontAwesomeIcon>
-                    )}
-                  </div>
-                  <div className="instantBook-list">
-                    4.0+ rating only
-                    <div className="instantBook-coming-soon">Coming Soon</div>
-                  </div>
-                  <div className="instantBook-list">
-                    No eating in car
-                    <div className="instantBook-coming-soon">Coming Soon</div>
-                  </div>
-                </CardBody>
-              </Card>
-            </UncontrolledCollapse>
-          </div>
-          <div className="additional-detail-card">Additional Details</div>
-          <div className="post-options">
-            <Input
-              type="textarea"
-              placeholder="Flexible about where and when to meet? Any pets in car? Got limited space in your trunk? Keep your riders in the loop."
-              style={textAreaStyle}
-              onChange={e => setDriverNote(e.target.value)}
-              value={driverNote}
-            />
-          </div>
-          <div className="post-options">
-            {modal && (
-              <PostRideModal
-                isOpen={modal}
-                toggleModal={setModal}
-                from={fromLocation}
-                to={toLocation}
-                specificPickup={specificPickup}
-                specificDropoff={specificDropoff}
-                date={date}
-                time={time}
-                price={price}
-                seats={seats}
-                driverNote={driverNote}
-                specificOnly={specificOnly}
-                noPet={noPet}
-                oneCarryOn={oneCarryOn}
-                oneLuggage={oneLuggage}
-                instantBook={instantBook}
-              />
-            )}
-          </div>
-          <div className="post-options">
-            <Button
-              style={buttonStyle}
-              onClick={() => {
-                setModal(!modal);
-              }}
-            >
-              Post Ride
-            </Button>
+            <div className="post-options">
+              <Button
+                style={buttonStyle}
+                onClick={() => {
+                  setModal(!modal);
+                }}
+              >
+                Post Ride
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -399,4 +410,4 @@ const DriverPost = ({ toggleRegistered }) => {
   );
 };
 
-export default DriverPost;
+export default withRouter(DriverPost);

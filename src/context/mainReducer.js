@@ -1,6 +1,7 @@
 import {
   LOGIN,
   SET_FILTER,
+  SET_IS_DRIVER,
   FETCH_RIDE_FEED,
   FETCH_UPCOMING_RIDE,
   FETCH_RIDE_HISTORY,
@@ -27,6 +28,11 @@ export default (state, action) => {
       return {
         ...state,
         filter: action.payload
+      };
+    case SET_IS_DRIVER:
+      return {
+        ...state,
+        isDriver: action.payload
       };
     case FETCH_RIDE_FEED:
       return {

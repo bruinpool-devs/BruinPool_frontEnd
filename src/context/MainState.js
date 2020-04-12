@@ -6,6 +6,7 @@ import MainReducer from "./mainReducer";
 import {
   LOGIN,
   SET_FILTER,
+  SET_IS_DRIVER,
   FETCH_RIDE_FEED,
   FETCH_UPCOMING_RIDE,
   FETCH_RIDE_HISTORY,
@@ -36,7 +37,8 @@ const MainState = ({ children }) => {
     noti: [],
     reviews: [],
     profilePic: "",
-    publicProfile: {}
+    publicProfile: {},
+    isDriver: null
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -98,6 +100,7 @@ const MainState = ({ children }) => {
         if (res.status === 200) {
           cookies.set("authToken", res.data.authToken, { path: "/" });
           cookies.set("userName", username, { path: "/" });
+          cookies.set("email", email, { path: "/" });
           dispatch({
             type: LOGIN,
             payload: res.data
@@ -117,6 +120,22 @@ const MainState = ({ children }) => {
     const cookies = new Cookies();
     cookies.remove("authToken");
     window.location.reload();
+  };
+
+  // CHECK IF USER IS DRIVER
+  const checkIsDriver = token => {
+    axios
+      .get("/users/driverStatus", {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
+      .then(res => {
+        dispatch({
+          type: SET_IS_DRIVER,
+          payload: res.data.isDriver
+        });
+      });
   };
 
   // GET RIDE DETAILS
@@ -818,10 +837,12 @@ const MainState = ({ children }) => {
         reviews: state.reviews,
         profilePic: state.profilePic,
         publicProfile: state.publicProfile,
+        isDriver: state.isDriver,
         signup,
         validateEmail,
         login,
         logout,
+        checkIsDriver,
         rideDetails,
         fetchRiderRequestFeed,
         fetchDriverRequestFeed,

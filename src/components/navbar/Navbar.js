@@ -15,6 +15,7 @@ const Navbar = ({ history, location }) => {
   useEffect(() => {
     handleFetchNotification();
     handleFetchProfilePic();
+    handleFetchIsDriver();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -35,6 +36,13 @@ const Navbar = ({ history, location }) => {
     await mainContext.fetchProfilePic(userName, authToken);
   };
 
+  const handleFetchIsDriver = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.checkIsDriver(authToken);
+  };
+
   const path = location.pathname;
 
   return (
@@ -45,7 +53,13 @@ const Navbar = ({ history, location }) => {
           <div className="navbar-items-rider">
             <div
               className="non-active-item"
-              onClick={() => history.push("/driver")}
+              onClick={() => {
+                if (mainContext.isDriver) {
+                  history.push("/driver/post");
+                } else {
+                  history.push("/driver/signup/1");
+                }
+              }}
             >
               Become a Driver
             </div>
@@ -194,11 +208,20 @@ const Navbar = ({ history, location }) => {
             </div>
             <div
               className={
-                path === "/driver" || path === "/driver/post-summary"
+                path === "/driver/signup/1" ||
+                path === "/driver/signup/2" ||
+                path === "/driver/post" ||
+                path === "/driver/post-summary"
                   ? "active-item-driver"
                   : "non-active-item"
               }
-              onClick={() => history.push("/driver")}
+              onClick={() => {
+                if (mainContext.isDriver) {
+                  history.push("/driver/post");
+                } else {
+                  history.push("/driver/signup/1");
+                }
+              }}
             >
               Drive
             </div>
