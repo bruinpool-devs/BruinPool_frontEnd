@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import Cookies from "universal-cookie";
+import MainContext from "../../../context/mainContext";
 
 import {
   Button,
@@ -31,15 +32,6 @@ import "../DriverRegister/DriverRegister1.css";
 import PostRideModal from "../../modals/PostRideModal/PostRideModal";
 import Navbar from "../../navbar/Navbar";
 
-const mockData = [
-  "UCLA",
-  "UCSB",
-  "Orange County",
-  "Irvine",
-  "Los Angeles",
-  "Pasadena"
-];
-
 const _ = require("underscore");
 
 const DriverPost = ({ history }) => {
@@ -66,9 +58,17 @@ const DriverPost = ({ history }) => {
     const authToken = cookies.get("authToken");
     if (!authToken) {
       history.push("/");
+    } else {
+      handleFetchCities();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const mainContext = useContext(MainContext);
+
+  const handleFetchCities = async () => {
+    await mainContext.fetchCities();
+  };
 
   const dropdownButtonStyle = {
     display: "flex",
@@ -158,12 +158,12 @@ const DriverPost = ({ history }) => {
                   <div style={{ marginLeft: "20px" }}>{fromLocation}</div>
                 </DropdownToggle>
                 <DropdownMenu>
-                  {mockData.map((location, index) => (
+                  {mainContext.cities.map((location, index) => (
                     <div key={index} style={{ width: "420px" }}>
                       <DropdownItem onClick={() => setFromLocation(location)}>
                         {location}
                       </DropdownItem>
-                      {index !== mockData.length - 1 && (
+                      {index !== mainContext.cities.length - 1 && (
                         <DropdownItem divider />
                       )}
                     </div>
@@ -183,12 +183,12 @@ const DriverPost = ({ history }) => {
                   <div style={{ marginLeft: "20px" }}>{toLocation}</div>
                 </DropdownToggle>
                 <DropdownMenu>
-                  {mockData.map((location, index) => (
+                  {mainContext.cities.map((location, index) => (
                     <div key={index} style={{ width: "420px" }}>
                       <DropdownItem onClick={() => setToLocation(location)}>
                         {location}
                       </DropdownItem>
-                      {index !== mockData.length - 1 && (
+                      {index !== mainContext.cities.length - 1 && (
                         <DropdownItem divider />
                       )}
                     </div>

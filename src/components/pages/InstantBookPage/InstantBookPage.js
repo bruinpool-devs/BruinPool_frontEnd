@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import moment from "moment";
+import Cookies from "universal-cookie";
 
 import { Button } from "reactstrap";
 
@@ -9,6 +10,7 @@ import "./InstantBookPage.css";
 import "../RequestRidePage/RequestRidePage.css";
 
 import Navbar from "../../navbar/Navbar";
+import MainContext from "../../../context/mainContext";
 import { withRouter } from "react-router-dom";
 import {
   faLongArrowAltRight,
@@ -21,20 +23,47 @@ import {
 const InstantBookPage = ({ location, history }) => {
   let ride = location.state.ride;
 
-  const handlePayment = () => {
-    console.log(ride);
+  const mainContext = useContext(MainContext);
+
+  // const handlePayment = () => {
+  //   console.log(ride);
+  //   if (ride.seats < 1) {
+  //     alert("Ride is Full");
+  //   } else {
+  //     history.push({
+  //       pathname: "/ride/checkout",
+  //       state: {
+  //         ride,
+  //         requestID: "", // Used to differentiate between instant and normal request process
+  //         carryOn: 0, // TODO: Get actual Value
+  //         luggage: 0 // TODO: Get actual value
+  //       }
+  //     });
+  //   }
+  // };
+
+  const handleJoinRide = async () => {
     if (ride.seats < 1) {
       alert("Ride is Full");
     } else {
-      history.push({
-        pathname: "/ride/checkout",
-        state: {
-          ride,
-          requestID: "", // Used to differentiate between instant and normal request process
-          carryOn: 0, // TODO: Get actual Value
-          luggage: 0 // TODO: Get actual value
-        }
-      });
+      const cookies = new Cookies();
+      const authToken = cookies.get("authToken");
+
+      const resp = await mainContext.joinRide(ride, authToken);
+
+      if (resp === 200) {
+        history.push({
+          pathname: "/rider/instant-book/confirm",
+          state: {
+            to: location.state.ride.to,
+            from: location.state.ride.from,
+            date: location.state.ride.date,
+            price: location.state.ride.price,
+            ownerUsername: location.state.ride.ownerUsername,
+            driverNote: location.state.ride.detail
+          }
+        });
+      }
     }
   };
 
@@ -181,9 +210,9 @@ const InstantBookPage = ({ location, history }) => {
             height: "50px",
             borderRadius: "10px"
           }}
-          onClick={handlePayment}
+          onClick={handleJoinRide}
         >
-          Proceed to Payment
+          Join Ride
         </Button>
       </div>
     </div>

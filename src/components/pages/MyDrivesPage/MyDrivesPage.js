@@ -56,7 +56,7 @@ const MyDrivesPage = ({ history }) => {
 
   //   await mainContext.fetchDriveHistory(username, authToken);
   // };
-  console.log(mainContext.requestDriverFeed);
+
   return (
     <div>
       <Navbar />

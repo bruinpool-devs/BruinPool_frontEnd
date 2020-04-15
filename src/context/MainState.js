@@ -17,7 +17,9 @@ import {
   FETCH_PROFILE_PIC,
   FETCH_RIDER_REQUEST_FEED,
   FETCH_DRIVER_REQUEST_FEED,
-  FETCH_PUBLIC_PROFILE
+  FETCH_PUBLIC_PROFILE,
+  FETCH_COUNTIES,
+  FETCH_CITIES
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -38,22 +40,89 @@ const MainState = ({ children }) => {
     reviews: [],
     profilePic: "",
     publicProfile: {},
-    isDriver: null
+    isDriver: null,
+    counties: [],
+    cities: []
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
 
+  // FETCH COUNTIES
+  const fetchCounties = () => {
+    axios
+      .get("/rides/getAvailableCounties")
+      .then(res => {
+        if (res.status === 200) {
+          dispatch({
+            type: FETCH_COUNTIES,
+            payload: res.data
+          });
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // FETCH CITIES
+  const fetchCities = () => {
+    axios
+      .get("/rides/getAvailableCities")
+      .then(res => {
+        if (res.status === 200) {
+          dispatch({
+            type: FETCH_CITIES,
+            payload: res.data
+          });
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
+  // SEND VERIFICATION EMAIL
+  const sendVerificationEmail = email => {
+    return axios
+      .get("/users/sendVerificationEmail", {
+        params: {
+          email
+        }
+      })
+      .then(res => {
+        if (res.status === 200) {
+          alert("Verification email sent!");
+          return res.status;
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+
   // SIGNUP
-  const signup = (password, username) => {
+  const signup = (email, firstName, lastName, password) => {
     const signupInfo = {
-      password,
-      username
+      email,
+      firstName,
+      lastName,
+      password
     };
 
-    axios
+    return axios
       .post("/users/signup", signupInfo)
-      .then(() => {
-        alert("User signed up!");
+      .then(res => {
+        if (res.status === 200 || res.status === 201) {
+          const cookies = new Cookies();
+          cookies.set("authToken", res.data.token, { path: "/" });
+          cookies.set("userName", res.data.registeredUser.username, {
+            path: "/"
+          });
+          cookies.set("email", res.data.registeredUser.email, { path: "/" });
+          alert("User signed up!");
+        }
+
+        return res.status;
       })
       .catch(error => {
         console.error(error);
@@ -171,7 +240,7 @@ const MainState = ({ children }) => {
 
   // FETCH RIDER REQUEST FEED
   const fetchRiderRequestFeed = (username, token) => {
-    axios
+    return axios
       .get("/request/sender", {
         params: {
           status: "visible",
@@ -186,6 +255,7 @@ const MainState = ({ children }) => {
           type: FETCH_RIDER_REQUEST_FEED,
           payload: res.data.requests
         });
+        return res.status;
       })
       .catch(error => {
         console.error(error);
@@ -218,8 +288,7 @@ const MainState = ({ children }) => {
   // CREATE NEW REQUEST
   const createRequest = (requestInfo, token) => {
     return axios
-      .post("/request/new", {
-        requestInfo,
+      .post("/request/new", requestInfo, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -263,6 +332,7 @@ const MainState = ({ children }) => {
         }
       })
       .then(res => {
+        alert("Request archived!");
         return res.data;
       })
       .catch(error => {
@@ -282,6 +352,9 @@ const MainState = ({ children }) => {
         }
       })
       .then(res => {
+        if (res.status === 200 || res.status === 201) {
+          alert("Request approved!");
+        }
         return res.data;
       })
       .catch(error => {
@@ -291,7 +364,6 @@ const MainState = ({ children }) => {
 
   // DECLINE REQUEST
   const denyRequest = (requestID, msg, token) => {
-    console.log(requestID);
     return axios
       .put("/request/deny", {
         params: {
@@ -303,6 +375,9 @@ const MainState = ({ children }) => {
         }
       })
       .then(res => {
+        if (res.status === 200 || res.status === 201) {
+          alert("Request denied!");
+        }
         return res.data;
       })
       .catch(error => {
@@ -356,15 +431,18 @@ const MainState = ({ children }) => {
       ride: entry
     };
 
-    axios
+    return axios
       .put("/rides/join-ride", rideObject, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-      .then(() => {
+      .then(res => {
         fetchRideFeed({}, token);
         fetchUpcomingRide(token);
+        alert("Ride joined!");
+
+        return res.status;
       })
       .catch(error => {
         console.error(error);
@@ -619,7 +697,7 @@ const MainState = ({ children }) => {
       });
   };
 
-  // REDICTS DRIVER TO STRIPE AUTHENTICATION SETUP
+  // REDIRECTS DRIVER TO STRIPE AUTHENTICATION SETUP
   const redirectStripeAuth = (driverInfo, token) => {
     axios.defaults.withCredentials = true;
     return axios
@@ -761,15 +839,16 @@ const MainState = ({ children }) => {
     var fileObject = new FormData();
     fileObject.append("file", picture);
 
-    axios
+    return axios
       .patch("/users/upload-profile-pic", fileObject, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data"
         }
       })
-      .then(() => {
+      .then(res => {
         alert("Picture uploaded!");
+        return res.status;
       })
       .catch(error => {
         console.error(error);
@@ -782,14 +861,15 @@ const MainState = ({ children }) => {
       aboutMe: aboutMe
     };
 
-    axios
+    return axios
       .patch("/users/updateAboutMe", aboutMeObject, {
         headers: {
           Authorization: `Bearer ${token}`
         }
       })
-      .then(() => {
+      .then(res => {
         alert("Profile updated!");
+        return res.status;
       })
       .catch(error => {
         console.error(error);
@@ -838,6 +918,9 @@ const MainState = ({ children }) => {
         profilePic: state.profilePic,
         publicProfile: state.publicProfile,
         isDriver: state.isDriver,
+        counties: state.counties,
+        cities: state.cities,
+        sendVerificationEmail,
         signup,
         validateEmail,
         login,
@@ -874,7 +957,9 @@ const MainState = ({ children }) => {
         getPublicStripeKey,
         createPaymentIntent,
         redirectStripeAuth,
-        triggerPaymentIntentSucessful
+        triggerPaymentIntentSucessful,
+        fetchCounties,
+        fetchCities
       }}
     >
       {children}

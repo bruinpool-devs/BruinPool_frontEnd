@@ -18,6 +18,7 @@ const RequestFeed = ({ requestFeed, rideFeed, userType }) => {
 
   if (requestFeed.length > 0) {
     content = requestFeed.map((curr_request, index) => {
+      console.log(curr_request);
       let rideDetailsResult = getRideDetails(curr_request);
       if (rideDetailsResult.length === 0) {
         console.log("Ride Not Found for request: ");

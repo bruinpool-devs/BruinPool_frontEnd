@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal, ModalBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 import "../CancelRideModal/CancelRideModal.css";
 import CancelFilters from "../../modules/Filters/CancelFilters";
@@ -20,7 +21,22 @@ const DeclineModal = ({ requestID, authToken, isOpen, toggleModal }) => {
 
     if (!response) {
       // TODO: Add better UI to display failure
-      console.log("Deny Request Failed");
+      alert("Deny Request Failed");
+      return;
+    }
+
+    const cookies = new Cookies();
+    const username = cookies.get("username");
+
+    // Update rider request status
+    const response2 = await mainContext.fetchRiderRequestFeed(
+      username,
+      authToken
+    );
+
+    if (response2 === 200) {
+      // Make card disappear
+      toggleModal(!isOpen);
     }
   };
 

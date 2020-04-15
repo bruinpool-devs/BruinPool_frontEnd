@@ -124,3 +124,8 @@
   align-items: center;
   padding-left: 60px;
 }
+
+.dropdown-menu {
+  height: 35vh;
+  overflow-y: scroll;
+}

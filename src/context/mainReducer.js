@@ -14,7 +14,9 @@ import {
   FETCH_PROFILE_PIC,
   FETCH_RIDER_REQUEST_FEED,
   FETCH_DRIVER_REQUEST_FEED,
-  FETCH_PUBLIC_PROFILE
+  FETCH_PUBLIC_PROFILE,
+  FETCH_COUNTIES,
+  FETCH_CITIES
 } from "./types";
 
 export default (state, action) => {
@@ -23,6 +25,16 @@ export default (state, action) => {
       return {
         ...state,
         userInfo: action.payload
+      };
+    case FETCH_COUNTIES:
+      return {
+        ...state,
+        counties: action.payload
+      };
+    case FETCH_CITIES:
+      return {
+        ...state,
+        cities: action.payload
       };
     case SET_FILTER:
       return {

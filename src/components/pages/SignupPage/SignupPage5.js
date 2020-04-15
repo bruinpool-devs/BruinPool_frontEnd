@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { Button, Form, FormGroup, Input, FormText } from "reactstrap";
 
+import Cookies from "universal-cookie";
 import AltNavbar from "../../navbar/AltNavbar";
+import MainContext from "../../../context/mainContext";
 
 import "./SignupPage.css";
 
@@ -10,7 +12,30 @@ const SignupPage5 = ({ history }) => {
   const [shortBio, setShortBio] = useState("");
   const [bioValid, setBioValid] = useState("");
 
+  useEffect(() => {
+    handleFetchPicture();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const mainContext = useContext(MainContext);
   const fileInputRef = React.createRef();
+
+  const handleFetchPicture = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const username = cookies.get("username");
+
+    await mainContext.fetchProfilePic(username, authToken);
+  }
+
+  const handleUpdateBio = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    const resp = await mainContext.updateAboutMe(shortBio, authToken);
+
+    return resp;
+  }
 
   const validateBio = () => {
     if (shortBio.length < 10) {
@@ -21,14 +46,25 @@ const SignupPage5 = ({ history }) => {
   };
 
   const onAddFile = async file => {
-    console.log(file);
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    const resp = await mainContext.uploadProfilePic(file, authToken);
+
+    if (resp === 200) {
+      await handleFetchPicture();
+    }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     validateBio();
 
     if (bioValid === "true") {
-      history.push("/signup/6");
+      const resp = await handleUpdateBio();
+
+      if (resp === 200) {
+        history.push("/signup/6");
+      }
     }
   };
 
@@ -45,7 +81,7 @@ const SignupPage5 = ({ history }) => {
         </div>
         <div className="setup-profile-title">Set Up Your Profile</div>
         <img
-          src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+          src={mainContext.profilePic}
           alt="bear"
           style={{ height: "200px", width: "200px", marginTop: "20px" }}
         />

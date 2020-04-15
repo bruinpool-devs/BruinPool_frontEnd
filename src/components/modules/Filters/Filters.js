@@ -1,4 +1,4 @@
-import React, { Component, useState, useContext } from "react";
+import React, { Component, useState, useContext, useEffect } from "react";
 import Cookies from "universal-cookie";
 
 import DatePicker from "react-datepicker";
@@ -17,15 +17,6 @@ import MainContext from "../../../context/mainContext";
 
 import "./Filters.css";
 import "react-datepicker/dist/react-datepicker.css";
-
-const mockData = [
-  "UCLA",
-  "UCSB",
-  "Orange County",
-  "Irvine",
-  "Los Angeles",
-  "Pasadena"
-];
 
 const _ = require("underscore");
 
@@ -65,7 +56,16 @@ const Filters = () => {
   const [toLocation, setToLocation] = useState("To");
   const [date, setDate] = useState(new Date());
 
+  useEffect(() => {
+    handleFetchCounties();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const mainContext = useContext(MainContext);
+
+  const handleFetchCounties = async () => {
+    await mainContext.fetchCounties();
+  };
 
   const filterResults = async () => {
     const cookies = new Cookies();
@@ -126,12 +126,14 @@ const Filters = () => {
           <div style={{ marginLeft: "10px" }}>{fromLocation}</div>
         </DropdownToggle>
         <DropdownMenu>
-          {mockData.map((location, index) => (
+          {mainContext.counties.map((location, index) => (
             <div key={index} style={{ width: "367px" }}>
               <DropdownItem onClick={() => setFromLocation(location)}>
                 {location}
               </DropdownItem>
-              {index !== mockData.length - 1 && <DropdownItem divider />}
+              {index !== mainContext.counties.length - 1 && (
+                <DropdownItem divider />
+              )}
             </div>
           ))}
         </DropdownMenu>
@@ -149,12 +151,14 @@ const Filters = () => {
           <div style={{ marginLeft: "10px" }}>{toLocation}</div>
         </DropdownToggle>
         <DropdownMenu>
-          {mockData.map((location, index) => (
+          {mainContext.counties.map((location, index) => (
             <div key={index} style={{ width: "367px" }}>
               <DropdownItem onClick={() => setToLocation(location)}>
                 {location}
               </DropdownItem>
-              {index !== mockData.length - 1 && <DropdownItem divider />}
+              {index !== mainContext.counties.length - 1 && (
+                <DropdownItem divider />
+              )}
             </div>
           ))}
         </DropdownMenu>

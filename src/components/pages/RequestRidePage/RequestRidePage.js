@@ -37,21 +37,22 @@ const RequestRidePage = ({ location, history }) => {
 
     let requestInfo = {
       senderID: username,
-      rideID: ride.id,
+      rideID: ride._id,
       recipientID: ride.ownerUsername,
       luggage: luggage,
       carryOn: carryOn,
-      msg: ride.driverNote
+      msg: ride.detail
     };
 
     let res = await mainContext.createRequest(requestInfo, authToken);
+
     if (!res) {
       // TODO: Add better UI to display failure
-      console.log("Create Request Failed");
+      alert("Create Request Failed");
       return;
+    } else {
+      history.push("/rider/request-ride-summary");
     }
-
-    history.push("/rider/request-ride-summary");
   };
 
   const incrementCarryOn = () => {
@@ -110,10 +111,7 @@ const RequestRidePage = ({ location, history }) => {
 
   return (
     <div className="request-ride">
-      <div>
-        <Navbar />
-      </div>
-
+      <Navbar />
       <div className="request-ride-content">
         <div className="request-ride-left-div">
           <div className="request-ride-content">
@@ -245,7 +243,7 @@ const RequestRidePage = ({ location, history }) => {
           </div>
           <div className="cardLine-info">
             <div className="cardLine-info-driverNote"> Driver's Note </div>
-            <div className="cardLine-info-note">{ride.driverNote} </div>
+            <div className="cardLine-info-note">{ride.detail} </div>
           </div>
         </div>
       </div>

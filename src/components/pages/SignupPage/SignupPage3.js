@@ -6,7 +6,17 @@ import AltNavbar from "../../navbar/AltNavbar";
 
 import "./SignupPage.css";
 
-const SignupPage3 = ({ history }) => {
+const SignupPage3 = ({ history, location }) => {
+  const handleNext = () => {
+    const params = new URLSearchParams(location.search);
+    const email = params.get("email");
+
+    history.push({
+      pathname: "/signup/4",
+      state: { email: email }
+    });
+  };
+
   return (
     <div className="signup-page-wrapper">
       <AltNavbar />
@@ -35,7 +45,7 @@ const SignupPage3 = ({ history }) => {
           marginTop: "60px",
           borderRadius: "10px"
         }}
-        onClick={() => history.push("/signup/4")}
+        onClick={handleNext}
       >
         Next
       </Button>

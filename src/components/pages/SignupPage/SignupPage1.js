@@ -57,10 +57,14 @@ const SignupPage1 = ({ history }) => {
     await validateEmail();
 
     if (emailValid === "true") {
-      history.push({
-        pathname: "/signup/2",
-        state: { email: email }
-      });
+      const resp = await mainContext.sendVerificationEmail(email);
+
+      if (resp === 200) {
+        history.push({
+          pathname: "/signup/2",
+          state: { email: email }
+        });
+      }
     }
   };
 

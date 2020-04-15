@@ -42,12 +42,8 @@ const App = () => {
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/signup/1" component={SignupPage1} />
           <Route exact path="/signup/2" component={SignupPage2} />
-          <Route
-            exact
-            path="/signup/2/expired"
-            component={VerificationExpiredPage}
-          />
-          <Route exact path="/signup/3" component={SignupPage3} />
+          <Route path="/signup/2/expired" component={VerificationExpiredPage} />
+          <Route path="/signup/3" component={SignupPage3} />
           <Route exact path="/signup/4" component={SignupPage4} />
           <Route exact path="/signup/5" component={SignupPage5} />
           <Route exact path="/signup/6" component={SignupPage6} />

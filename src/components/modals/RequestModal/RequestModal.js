@@ -9,6 +9,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-regular-svg-icons";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
+import moment from "moment";
 
 import { Button, Modal, ModalHeader, ModalBody, Row, Col } from "reactstrap";
 import { withRouter } from "react-router-dom";
@@ -37,6 +38,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
   // Get Cookie
   const cookies = new Cookies();
   const authToken = cookies.get("authToken");
+  const username = cookies.get("username");
 
   // Dynamic Elements
   let requestStatusText;
@@ -98,13 +100,12 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
 
     if (!response) {
       // TODO: Add better UI to display failure
-      console.log("Remove Request Failed");
+      alert("Remove Request Failed");
       return;
     }
 
-    // Make card disappear
-    toggle();
-    confirmToggle();
+    // Reload page to reflect removed request
+    window.location.reload();
   };
 
   // ================================
@@ -121,8 +122,17 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
       return;
     }
 
-    // Make card disappear
-    toggle();
+    // Update rider request status
+    const response2 = await mainContext.fetchRiderRequestFeed(
+      username,
+      authToken
+    );
+
+    if (response2 === 200) {
+      // Make card disappear
+      toggle();
+      confirmToggle();
+    }
   };
 
   // Set Custom UI elements based on Request Status and User Type
@@ -157,12 +167,12 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
         );
 
         break;
-      case "declined":
+      case "denied":
         requestStatusText = (
           <span className="red-highlight">{request.status}</span>
         );
         primaryBtn = (
-          <Button className="primary-btn" onClick={handleRemoveRequest}>
+          <Button className="secondary-btn" onClick={handleRemoveRequest}>
             Remove
           </Button>
         );
@@ -177,25 +187,30 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
         primaryBtn = (
           <Button
             className="primary-btn proceed-to-payment"
-            onClick={() => {
+            onClick={async () => {
               if (ride.seats < 1) {
                 alert("Ride is full, try again later");
               } else {
-                history.push({
-                  pathname: "/ride/checkout",
-                  state: {
-                    ride,
-                    requestID: request._id,
-                    carryOn: request.carryOn,
-                    luggage: request.luggage
-                  }
-                });
+                // history.push({
+                //   pathname: "/ride/checkout",
+                //   state: {
+                //     ride,
+                //     requestID: request._id,
+                //     carryOn: request.carryOn,
+                //     luggage: request.luggage
+                //   }
+                // });
+
+                const resp = await mainContext.joinRide(ride, authToken);
+
+                if (resp === 200) {
+                  toggle();
+                  contactToggle();
+                }
               }
-              // toggle();
-              // contactToggle();
             }}
           >
-            Confirm
+            Join Ride
           </Button>
         );
 
@@ -258,7 +273,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
             alt="bear"
           />
           <br />
-          <span className="card-name">{ride.ownerFullName}</span>
+          <span className="card-name">{ride.ownerUsername}</span>
         </Col>
 
         <Col xs={8} className="card-info">
@@ -278,8 +293,16 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
           </Row>
           <Row>
             <Col xs={1}></Col>
-            <Col>{ride.date}</Col>
-            <Col>{ride.time}</Col>
+            <Col>
+              {moment(ride.date)
+                .utc()
+                .format("M/DD/YY")}
+            </Col>
+            <Col>
+              {moment(ride.date)
+                .utc()
+                .format("h A")}
+            </Col>
           </Row>
         </Col>
       </Row>
@@ -308,11 +331,19 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                     icon={faCalendarAlt}
                     className="small-icon"
                   />{" "}
-                  <span className="icon-text">{ride.date}</span>
+                  <span className="icon-text">
+                    {moment(ride.date)
+                      .utc()
+                      .format("M/DD/YY")}
+                  </span>
                 </Col>
                 <Col>
                   <FontAwesomeIcon icon={faClock} className="small-icon" />
-                  <span className="icon-text">{ride.time}</span>
+                  <span className="icon-text">
+                    {moment(ride.date)
+                      .utc()
+                      .format("h A")}
+                  </span>
                 </Col>
               </Row>
               <Row>
@@ -354,7 +385,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                       </Col>
                       <Col>
                         <span style={{ fontSize: "25px" }}>
-                          {ride.ownerFullName}
+                          {ride.ownerUsername}
                         </span>
                         <div style={{}}>
                           <FontAwesomeIcon

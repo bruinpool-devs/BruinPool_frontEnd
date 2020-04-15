@@ -45,6 +45,7 @@ const SignupPage6 = ({ history }) => {
             marginTop: "45px",
             borderRadius: "10px"
           }}
+          onClick={() => history.push("/rider")}
         >
           Get Started
         </Button>

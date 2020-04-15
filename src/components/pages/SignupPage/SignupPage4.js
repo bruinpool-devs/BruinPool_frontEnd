@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { Button, Input, Form, FormGroup } from "reactstrap";
 
 import AltNavbar from "../../navbar/AltNavbar";
+import MainContext from "../../../context/mainContext";
 
 import "./SignupPage.css";
 
-const SignupPage4 = ({ history }) => {
+const SignupPage4 = ({ history, location }) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +18,8 @@ const SignupPage4 = ({ history }) => {
   const [passwordValid, setPasswordValid] = useState("");
   const [passwordFeedback, setPasswordFeedback] = useState("");
   const [passwordConfirmValid, setPasswordConfirmValid] = useState("");
+
+  const mainContext = useContext(MainContext);
 
   const validateFirstName = () => {
     if (firstName === "") {
@@ -62,7 +65,7 @@ const SignupPage4 = ({ history }) => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     validateFirstName();
     validateLastName();
     validatePassword();
@@ -74,7 +77,16 @@ const SignupPage4 = ({ history }) => {
       passwordValid === "true" &&
       passwordConfirmValid === "true"
     ) {
-      history.push("/signup/5");
+      const resp = await mainContext.signup(
+        location.state.email,
+        firstName,
+        lastName,
+        password
+      );
+
+      if (resp === 200 || resp === 201) {
+        history.push("/signup/5");
+      }
     }
   };
 

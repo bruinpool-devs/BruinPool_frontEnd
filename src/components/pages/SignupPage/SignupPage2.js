@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { withRouter } from "react-router-dom";
 import { Button } from "reactstrap";
 import Cookies from "universal-cookie";
 
 import AltNavbar from "../../navbar/AltNavbar";
+import MainContext from "../../../context/mainContext";
 
 import "./SignupPage.css";
 
@@ -17,8 +18,10 @@ const SignupPage2 = ({ history, location }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const resendVerificationEmail = () => {
-    history.push("/signup/3");
+  const mainContext = useContext(MainContext);
+
+  const resendVerificationEmail = async () => {
+    await mainContext.sendVerificationEmail(location.state.email);
   };
 
   return (
