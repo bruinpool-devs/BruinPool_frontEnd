@@ -47,16 +47,18 @@ const SignupPage1 = ({ history }) => {
     if (response === "true") {
       setEmailValid("true");
       setEmailFeedback("This email is available!");
+      return true;
     } else {
       setEmailValid("false");
       setEmailFeedback("Email is already taken.");
+      return false;
     }
   };
 
   const handleSignup = async () => {
-    await validateEmail();
+    const emailresp = await validateEmail();
 
-    if (emailValid === "true") {
+    if (emailresp) {
       const resp = await mainContext.sendVerificationEmail(email);
 
       if (resp === 200) {
@@ -107,6 +109,12 @@ const SignupPage1 = ({ history }) => {
                 fontSize: "20px"
               }}
               onBlur={validateEmail}
+              onKeyPress={e => {
+                if (e.key === "Enter") {
+                  e.preventDefault();
+                  handleSignup();
+                }
+              }}
             />
             {emailValid === "true" && (
               <div className="correct-text">{emailFeedback}</div>
