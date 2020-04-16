@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.review-confirmation-body {
+  padding: 30px;
+  font-family: "Montserrat";
+}
+
+.review-confirmation-exit {
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.review-confirmation-header {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.review-confirmation-content {
+  font-size: 15px;
+  margin-top: 20px;
+}

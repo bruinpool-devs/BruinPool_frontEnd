@@ -1,0 +1,42 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.review-modal-body {
+  padding: 30px;
+  font-family: "Montserrat";
+}
+
+.review-modal-exit {
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.review-modal-header {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.review-modal-header-info {
+  font-size: 13px;
+}
+
+.review-modal-center {
+  text-align: center;
+}
+
+.review-modal-starSummary {
+  font-family: "Montserrat";
+  font-size: 15px;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.review-modal-buttons {
+  margin-top: 40px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

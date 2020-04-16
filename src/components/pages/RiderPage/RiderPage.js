@@ -9,6 +9,8 @@ import Navbar from "../../navbar/Navbar";
 import RideFeed from "../../modules/RideFeed/RideFeed";
 import Filters from "../../modules/Filters/Filters";
 
+import ReviewModal from "../../modals/ReviewModal/ReviewModal";
+
 import "./RiderPage.css";
 
 const RiderPage = ({ history }) => {
@@ -65,7 +67,7 @@ const RiderPage = ({ history }) => {
                 fontSize: "20px",
                 boxShadow: "none",
                 borderRadius: "20px",
-                marginRight: "20px"
+                marginRight: "20px",
               }}
             >
               More Filters
@@ -73,6 +75,7 @@ const RiderPage = ({ history }) => {
             <Button onClick={() => handleAddReview()} color="success">
               Add Review
             </Button>
+            <ReviewModal />
           </div>
           <div className="feed-container">
             <RideFeed feed={mainContext.rideFeed} mainRidesBool={true} />
