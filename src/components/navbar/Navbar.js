@@ -1,13 +1,19 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Cookies from "universal-cookie";
 import moment from "moment";
 
 import MainContext from "../../context/mainContext";
 
-import { UncontrolledPopover, PopoverHeader, PopoverBody } from "reactstrap";
+import {
+  UncontrolledPopover,
+  PopoverHeader,
+  PopoverBody,
+  Popover,
+} from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faBell } from "@fortawesome/free-regular-svg-icons";
+import ReviewModal from "../modals/ReviewModal/ReviewModal";
 
 import "./Navbar.css";
 
@@ -18,6 +24,11 @@ const Navbar = ({ history, location }) => {
     handleFetchIsDriver();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [reviewModal, setReviewModal] = useState(false);
+  const [isOpenPopover, setIsOpenPopover] = useState(false);
+
+  const toggle = () => setIsOpenPopover(!isOpenPopover);
 
   const mainContext = useContext(MainContext);
 
@@ -138,11 +149,20 @@ const Navbar = ({ history, location }) => {
                 placement="bottom"
                 target="RiderNotificationPopover"
                 hideArrow={true}
+                isOpen={isOpenPopover}
+                toggle={toggle}
               >
                 <PopoverHeader>Notifications</PopoverHeader>
                 <PopoverBody>
                   {mainContext.noti.map((noti, index) => (
-                    <div key={index} className="single-noti">
+                    <div
+                      key={index}
+                      className="single-noti"
+                      onClick={() => {
+                        setReviewModal(!reviewModal);
+                        setIsOpenPopover(!isOpenPopover);
+                      }}
+                    >
                       <div>{noti.msg}</div>
                       <div className="gray-text">
                         {moment(noti.date).fromNow()}
@@ -154,6 +174,7 @@ const Navbar = ({ history, location }) => {
                   </div>
                 </PopoverBody>
               </UncontrolledPopover>
+              <ReviewModal isOpen={reviewModal} toggleModal={setReviewModal} />
             </div>
             <div
               className={
@@ -287,11 +308,20 @@ const Navbar = ({ history, location }) => {
                 placement="bottom"
                 target="DriverNotificationPopover"
                 hideArrow={true}
+                isOpen={isOpenPopover}
+                toggle={toggle}
               >
                 <PopoverHeader>Notifications</PopoverHeader>
                 <PopoverBody>
                   {mainContext.noti.map((noti, index) => (
-                    <div key={index} className="single-noti">
+                    <div
+                      key={index}
+                      className="single-noti"
+                      onClick={() => {
+                        setReviewModal(!reviewModal);
+                        setIsOpenPopover(!isOpenPopover);
+                      }}
+                    >
                       {noti.msg} {moment(noti.date).fromNow()}
                     </div>
                   ))}
@@ -300,6 +330,7 @@ const Navbar = ({ history, location }) => {
                   </div>
                 </PopoverBody>
               </UncontrolledPopover>
+              <ReviewModal isOpen={reviewModal} toggleModal={setReviewModal} />
             </div>
             <div
               className={
