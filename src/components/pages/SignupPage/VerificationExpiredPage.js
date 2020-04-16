@@ -20,10 +20,10 @@ const VerificationExpiredPage = ({ history, location }) => {
 
   const mainContext = useContext(MainContext);
 
-  const resendVerificationEmail = async () => {
-    const params = new URLSearchParams(location.search);
-    const email = params.get("email");
+  const params = new URLSearchParams(location.search);
+  const email = params.get("email");
 
+  const resendVerificationEmail = async () => {
     await mainContext.sendVerificationEmail(email);
   };
 
@@ -43,7 +43,7 @@ const VerificationExpiredPage = ({ history, location }) => {
         <div>We're sorry, your email verification link has expired.</div>
         <div>
           Please resend verification email to{" "}
-          <span style={{ fontWeight: "bold" }}>youremail@inbox.com</span>
+          <span style={{ fontWeight: "bold" }}>{email}</span>
         </div>
         <div>and try again.</div>
       </div>

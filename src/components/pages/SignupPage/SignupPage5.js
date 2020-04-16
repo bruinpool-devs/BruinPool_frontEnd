@@ -23,10 +23,10 @@ const SignupPage5 = ({ history }) => {
   const handleFetchPicture = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
-    const username = cookies.get("username");
+    const username = cookies.get("userName");
 
     await mainContext.fetchProfilePic(username, authToken);
-  }
+  };
 
   const handleUpdateBio = async () => {
     const cookies = new Cookies();
@@ -35,7 +35,7 @@ const SignupPage5 = ({ history }) => {
     const resp = await mainContext.updateAboutMe(shortBio, authToken);
 
     return resp;
-  }
+  };
 
   const validateBio = () => {
     if (shortBio.length < 10) {

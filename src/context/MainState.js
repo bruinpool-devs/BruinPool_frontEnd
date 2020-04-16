@@ -716,6 +716,25 @@ const MainState = ({ children }) => {
       });
   };
 
+  // REGISTER DRIVER (ALPHA)
+  const registerDriver = (driverInfo, token) => {
+    axios.defaults.withCredentials = true;
+    return axios
+      .post("/driver/create", driverInfo, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        },
+        withCredentials: true
+      })
+      .then(res => {
+        alert("Driver registered!");
+        return res.status;
+      })
+      .catch(err => {
+        throw err.response.data.error;
+      });
+  };
+
   // GET PUBLIC STRIPE KEY
   const getPublicStripeKey = (token) => {
     return axios
@@ -783,7 +802,7 @@ const MainState = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
+      .then(() => {
         alert("Review added!");
       })
       .catch((error) => {
@@ -888,8 +907,7 @@ const MainState = ({ children }) => {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then((res) => {
-        console.log(res.data);
+      .then(res => {
         dispatch({
           type: FETCH_PUBLIC_PROFILE,
           payload: res.data,
@@ -958,6 +976,7 @@ const MainState = ({ children }) => {
         getPublicStripeKey,
         createPaymentIntent,
         redirectStripeAuth,
+        registerDriver,
         triggerPaymentIntentSucessful,
         fetchCounties,
         fetchCities,
