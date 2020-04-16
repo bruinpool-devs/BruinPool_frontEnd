@@ -1,5 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Button, Input } from "reactstrap";
+import Cookies from "universal-cookie";
+
+import MainContext from "../../../../context/mainContext";
 
 import "./SettingsAccountOverview.css";
 
@@ -9,6 +12,32 @@ const SettingsAccountOverview = () => {
   const [lastName, setLastName] = useState("Qin");
   const [password, setPassword] = useState("12345678");
   const [phoneNumber, setPhoneNumber] = useState("805-805-8050");
+
+  useEffect(() => {
+    handleFetchPublicProfile();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const mainContext = useContext(MainContext);
+
+  const handleFetchPublicProfile = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const userName = cookies.get("userName");
+
+    await mainContext.fetchPublicProfile(userName, authToken);
+  };
+
+  const handleSave = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    // if (firstName !== mainContext.publicProfile.firstName || lastName !== mainContext.publicProfile.lastName) {
+    //   await handleFetchPublicProfile();
+    // }
+
+    toggleEditMode(!editMode);
+  };
 
   const inputStyle = {
     width: "557px",
@@ -28,7 +57,11 @@ const SettingsAccountOverview = () => {
         {!editMode && (
           <div
             className="settings-overview-edit"
-            onClick={() => toggleEditMode(!editMode)}
+            onClick={() => {
+              setFirstName(mainContext.publicProfile.firstName);
+              setLastName(mainContext.publicProfile.lastName);
+              toggleEditMode(!editMode);
+            }}
           >
             Edit
           </div>
@@ -43,8 +76,12 @@ const SettingsAccountOverview = () => {
         </div>
         {!editMode ? (
           <div className="settings-overview-info-right">
-            <div className="settings-overview-right-text">{firstName}</div>
-            <div className="settings-overview-right-text">{lastName}</div>
+            <div className="settings-overview-right-text">
+              {mainContext.publicProfile.firstName}
+            </div>
+            <div className="settings-overview-right-text">
+              {mainContext.publicProfile.lastName}
+            </div>
             <div className="settings-overview-right-text">{password}</div>
             <div className="settings-overview-right-text">{phoneNumber}</div>
           </div>
@@ -87,7 +124,7 @@ const SettingsAccountOverview = () => {
             boxShadow: "none",
             borderRadius: "10px"
           }}
-          onClick={() => toggleEditMode(!editMode)}
+          onClick={handleSave}
         >
           Save
         </Button>

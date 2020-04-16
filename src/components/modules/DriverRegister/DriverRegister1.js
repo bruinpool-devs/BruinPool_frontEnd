@@ -67,7 +67,7 @@ const DriverRegister1 = ({ history }) => {
     return true;
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!validateForm()) {
       alert("Not all driver info fields are populated!");
       return;
@@ -81,14 +81,20 @@ const DriverRegister1 = ({ history }) => {
       vehicleColor: vehicleColor
     };
 
-    mainContext
-      .redirectStripeAuth(driverInfo, authToken)
-      .then(res => {
-        window.location = res.redirectUrl;
-      })
-      .catch(err => {
-        alert(err);
-      });
+    const resp = await mainContext.registerDriver(driverInfo, authToken);
+
+    if (resp === 200) {
+      history.push("/driver/post");
+    }
+
+    // mainContext
+    //   .redirectStripeAuth(driverInfo, authToken)
+    //   .then(res => {
+    //     window.location = res.redirectUrl;
+    //   })
+    //   .catch(err => {
+    //     alert(err);
+    //   });
   };
 
   const _ = require("underscore");

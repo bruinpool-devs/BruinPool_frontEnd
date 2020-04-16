@@ -69,25 +69,33 @@ const ProfilePage = ({ history }) => {
 
     const resp = await mainContext.fetchPublicProfile(userName, authToken);
 
-    const fullStars = Math.floor(parseFloat(resp.rating));
-    const halfStars = parseFloat(resp.rating) % 1 >= 0.5 ? 1 : 0;
-    const emptyStars = 5 - fullStars - halfStars;
-
     var temp = [];
 
-    for (var i = 0; i < fullStars; i++) {
-      temp.push(1);
-    }
+    if (!resp.rating) {
+      for (var x = 0; x < 5; x++) {
+        temp.push(0);
+      }
 
-    for (var j = 0; j < halfStars; j++) {
-      temp.push(0.5);
-    }
+      setStarRatings(temp);
+    } else {
+      const fullStars = Math.floor(parseFloat(resp.rating));
+      const halfStars = parseFloat(resp.rating) % 1 >= 0.5 ? 1 : 0;
+      const emptyStars = 5 - fullStars - halfStars;
 
-    for (var k = 0; k < emptyStars; k++) {
-      temp.push(0);
-    }
+      for (var i = 0; i < fullStars; i++) {
+        temp.push(1);
+      }
 
-    setStarRatings(temp);
+      for (var j = 0; j < halfStars; j++) {
+        temp.push(0.5);
+      }
+
+      for (var k = 0; k < emptyStars; k++) {
+        temp.push(0);
+      }
+
+      setStarRatings(temp);
+    }
   };
 
   const onAddFile = async file => {
@@ -159,7 +167,8 @@ const ProfilePage = ({ history }) => {
                 )}
               </div>
               <div className="profile-name">
-                {mainContext.publicProfile.name}
+                {mainContext.publicProfile.firstName}{" "}
+                {mainContext.publicProfile.lastName}
               </div>
               <div className="profile-school">
                 <FontAwesomeIcon
@@ -205,7 +214,9 @@ const ProfilePage = ({ history }) => {
                   })}
                 </div>
                 <div className="profile-rating-number">
-                  {mainContext.publicProfile.rating}
+                  {mainContext.publicProfile.rating
+                    ? mainContext.publicProfile.rating
+                    : "0"}
                 </div>
               </div>
               <div className="profile-rating">

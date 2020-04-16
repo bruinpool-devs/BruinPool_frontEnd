@@ -32,13 +32,6 @@ const RiderPage = ({ history }) => {
     await mainContext.fetchRideFeed({}, authToken);
   };
 
-  const joinFirstRide = async () => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
-
-    await mainContext.joinRide(mainContext.rideFeed[0], authToken);
-  };
-
   const handleAddReview = async () => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
@@ -47,11 +40,12 @@ const RiderPage = ({ history }) => {
     const reviewObject = {
       revieweeUsername: userName,
       rideId: mainContext.rideFeed[0]._id,
-      rating: 3,
+      rating: 5,
       comment: "Driver arrived really late and was super rude!"
     };
 
     await mainContext.addReview(reviewObject, authToken);
+    await mainContext.fetchReviews(userName, authToken);
   };
 
   return (
@@ -75,13 +69,6 @@ const RiderPage = ({ history }) => {
               }}
             >
               More Filters
-            </Button>
-            <Button
-              style={{ marginRight: "20px" }}
-              onClick={() => joinFirstRide()}
-              color="success"
-            >
-              Join First Ride
             </Button>
             <Button onClick={() => handleAddReview()} color="success">
               Add Review
