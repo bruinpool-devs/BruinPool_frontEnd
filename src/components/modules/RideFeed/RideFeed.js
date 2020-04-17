@@ -416,6 +416,18 @@ const RideFeed = ({
                         <ReviewModal
                           isOpen={reviewModal}
                           toggleModal={setReviewModal}
+                          noti={{
+                            additionalProperties: {
+                              rideId: ride._id,
+                              usersToReview: [
+                                {
+                                  username: ride.ownerUsername,
+                                  firstName: ride.ownerUsername,
+                                  picUrl: ""
+                                }
+                              ]
+                            }
+                          }}
                         />
                         <div
                           style={{

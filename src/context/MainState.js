@@ -796,14 +796,15 @@ const MainState = ({ children }) => {
 
   // ADD REVIEW
   const addReview = (entry, token) => {
-    axios
+    return axios
       .post("/reviews", entry, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(() => {
+      .then((res) => {
         // alert("Review added!");
+        return res.status;
       })
       .catch((error) => {
         console.error(error);
