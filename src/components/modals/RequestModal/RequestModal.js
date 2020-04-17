@@ -191,15 +191,15 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
               if (ride.seats < 1) {
                 alert("Ride is full, try again later");
               } else {
-//                 history.push({
-//                   pathname: "/ride/checkout",
-//                   state: {
-//                     ride,
-//                     requestID: request._id,
-//                     carryOn: request.carryOn,
-//                     luggage: request.luggage,
-//                   },
-//                 });
+                //                 history.push({
+                //                   pathname: "/ride/checkout",
+                //                   state: {
+                //                     ride,
+                //                     requestID: request._id,
+                //                     carryOn: request.carryOn,
+                //                     luggage: request.luggage,
+                //                   },
+                //                 });
 
                 const resp = await mainContext.joinRide(ride, authToken);
 
@@ -303,17 +303,17 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
         <ModalBody>
           <Row className="itinerary-head">
             <Col>
-              <span class="pop-itinerary-from">{ride.from}</span>
+              <span className="pop-itinerary-from">{ride.from}</span>
               <FontAwesomeIcon
                 icon={faLongArrowAltRight}
                 className="arrow-icon"
               />
-              <span class="pop-itinerary-to">{ride.to}</span>
-              <span class="popup-status-txt">{requestStatusText}</span>
+              <span className="pop-itinerary-to">{ride.to}</span>
+              <span className="popup-status-txt">{requestStatusText}</span>
             </Col>
             <Col>
               <button
-                class="close"
+                className="close"
                 type="button"
                 aria-label="Close"
                 onClick={() => {

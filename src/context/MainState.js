@@ -303,14 +303,17 @@ const MainState = ({ children }) => {
   // WITHDRAW REQUEST
   const withdrawRequest = (requestID, token) => {
     return axios
-      .put("/request/cancel", {
-        params: {
+      .put(
+        "/request/cancel",
+        {
           requestID,
         },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         return res.data;
       })
@@ -322,14 +325,17 @@ const MainState = ({ children }) => {
   // ARCHIVE REQUEST
   const archiveRequest = (requestID, token) => {
     return axios
-      .put("/request/archive", {
-        params: {
+      .put(
+        "/request/archive",
+        {
           requestID,
         },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         // alert("Request archived!");
         return res.data;
@@ -342,14 +348,17 @@ const MainState = ({ children }) => {
   // ACCEPT REQUEST
   const approveRequest = (requestID, token) => {
     return axios
-      .put("/request/approve", {
-        params: {
+      .put(
+        "/request/approve",
+        {
           requestID,
         },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
           // alert("Request approved!");
@@ -364,15 +373,18 @@ const MainState = ({ children }) => {
   // DECLINE REQUEST
   const denyRequest = (requestID, msg, token) => {
     return axios
-      .put("/request/deny", {
-        params: {
+      .put(
+        "/request/deny",
+        {
           requestID: requestID,
           msg: msg,
         },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.status === 200 || res.status === 201) {
           // alert("Request denied!");
@@ -387,14 +399,19 @@ const MainState = ({ children }) => {
   // Remind the Recipient of the request
   const remindDriver = (requestID, token) => {
     return axios
-      .get("/request/remind", {
-        params: {
-          requestID,
+      .get(
+        "/request/remind",
+        {
+          params: {
+            requestID,
+          },
         },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
       .then((res) => {
         return res.data;
       })
