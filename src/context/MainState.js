@@ -19,7 +19,7 @@ import {
   FETCH_DRIVER_REQUEST_FEED,
   FETCH_PUBLIC_PROFILE,
   FETCH_COUNTIES,
-  FETCH_CITIES
+  FETCH_CITIES,
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -42,7 +42,7 @@ const MainState = ({ children }) => {
     publicProfile: {},
     isDriver: null,
     counties: [],
-    cities: []
+    cities: [],
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -51,15 +51,15 @@ const MainState = ({ children }) => {
   const fetchCounties = () => {
     axios
       .get("/rides/getAvailableCounties")
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           dispatch({
             type: FETCH_COUNTIES,
-            payload: res.data
+            payload: res.data,
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -68,34 +68,33 @@ const MainState = ({ children }) => {
   const fetchCities = () => {
     axios
       .get("/rides/getAvailableCities")
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           dispatch({
             type: FETCH_CITIES,
-            payload: res.data
+            payload: res.data,
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   // SEND VERIFICATION EMAIL
-  const sendVerificationEmail = email => {
+  const sendVerificationEmail = (email) => {
     return axios
       .get("/users/sendVerificationEmail", {
         params: {
-          email
-        }
+          email,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
-          alert("Verification email sent!");
           return res.status;
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -106,47 +105,47 @@ const MainState = ({ children }) => {
       email,
       firstName,
       lastName,
-      password
+      password,
     };
 
     return axios
       .post("/users/signup", signupInfo)
-      .then(res => {
+      .then((res) => {
         if (res.status === 200 || res.status === 201) {
           const cookies = new Cookies();
           cookies.set("authToken", res.data.token, { path: "/" });
           cookies.set("userName", res.data.registeredUser.username, {
-            path: "/"
+            path: "/",
           });
           cookies.set("email", res.data.registeredUser.email, { path: "/" });
-          alert("User signed up!");
+          // alert("User signed up!");
         }
 
         return res.status;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   // VALIDATE EMAIL
-  const validateEmail = async email => {
+  const validateEmail = async (email) => {
     var validity = "";
 
     await axios
       .get("/users/emailValidation", {
         params: {
-          email
-        }
+          email,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.data.length === 0) {
           validity = "true";
         } else {
           validity = "false";
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
 
@@ -158,26 +157,26 @@ const MainState = ({ children }) => {
     const cookies = new Cookies();
     const loginInfo = {
       email,
-      password
+      password,
     };
 
     var validity = false;
 
     await axios
       .post("/users/login", loginInfo)
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           cookies.set("authToken", res.data.authToken, { path: "/" });
           cookies.set("userName", username, { path: "/" });
           cookies.set("email", email, { path: "/" });
           dispatch({
             type: LOGIN,
-            payload: res.data
+            payload: res.data,
           });
           validity = true;
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
 
@@ -192,17 +191,17 @@ const MainState = ({ children }) => {
   };
 
   // CHECK IF USER IS DRIVER
-  const checkIsDriver = token => {
+  const checkIsDriver = (token) => {
     axios
       .get("/users/driverStatus", {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: SET_IS_DRIVER,
-          payload: res.data.isDriver
+          payload: res.data.isDriver,
         });
       });
   };
@@ -212,20 +211,20 @@ const MainState = ({ children }) => {
     return axios
       .get("/rides/ride-details", {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
         params: {
-          rideID: rideID
-        }
+          rideID: rideID,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           return res.data;
         } else {
           return null;
         }
       })
-      .then(data => {
+      .then((data) => {
         if (!data || data.error) {
           console.log("API error:", { data });
           throw Error("Ride Details Error");
@@ -233,7 +232,7 @@ const MainState = ({ children }) => {
           return data;
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -244,20 +243,20 @@ const MainState = ({ children }) => {
       .get("/request/requester", {
         params: {
           status: "visible",
-          requesterUsername: username
+          requesterUsername: username,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_RIDER_REQUEST_FEED,
-          payload: res.data.requests
+          payload: res.data.requests,
         });
         return res.status;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -268,19 +267,19 @@ const MainState = ({ children }) => {
       .get("/request/requestee", {
         params: {
           status: "visible",
-          requesteeUsername: username
+          requesteeUsername: username,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_DRIVER_REQUEST_FEED,
-          payload: res.data.requests
+          payload: res.data.requests,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -290,13 +289,13 @@ const MainState = ({ children }) => {
     return axios
       .post("/request/new", requestInfo, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -306,16 +305,16 @@ const MainState = ({ children }) => {
     return axios
       .put("/request/cancel", {
         params: {
-          requestID
+          requestID,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -325,17 +324,17 @@ const MainState = ({ children }) => {
     return axios
       .put("/request/archive", {
         params: {
-          requestID
+          requestID,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
-        alert("Request archived!");
+      .then((res) => {
+        // alert("Request archived!");
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -345,19 +344,19 @@ const MainState = ({ children }) => {
     return axios
       .put("/request/approve", {
         params: {
-          requestID
+          requestID,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200 || res.status === 201) {
-          alert("Request approved!");
+          // alert("Request approved!");
         }
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -368,19 +367,19 @@ const MainState = ({ children }) => {
       .put("/request/deny", {
         params: {
           requestID: requestID,
-          msg: msg
+          msg: msg,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200 || res.status === 201) {
-          alert("Request denied!");
+          // alert("Request denied!");
         }
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -390,16 +389,16 @@ const MainState = ({ children }) => {
     return axios
       .get("/request/remind", {
         params: {
-          requestID
+          requestID,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -407,20 +406,20 @@ const MainState = ({ children }) => {
   // POST RIDE
   const postRide = (info, token) => {
     const rideObject = {
-      rideInfo: info
+      rideInfo: info,
     };
 
     axios
       .post("/rides/post-ride", rideObject, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(() => {
-        alert("Ride posted!");
+        // alert("Ride posted!");
         fetchRideFeed({}, token);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -428,23 +427,23 @@ const MainState = ({ children }) => {
   // JOIN RIDE
   const joinRide = (entry, token) => {
     const rideObject = {
-      ride: entry
+      ride: entry,
     };
 
     return axios
       .put("/rides/join-ride", rideObject, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         fetchRideFeed({}, token);
         fetchUpcomingRide(token);
-        alert("Ride joined!");
+        // alert("Ride joined!");
 
         return res.status;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -452,21 +451,21 @@ const MainState = ({ children }) => {
   // CANCEL RIDE
   const cancelRide = (entry, token) => {
     const rideObject = {
-      ride: entry
+      ride: entry,
     };
 
     axios
       .put("/rides/cancel-ride", rideObject, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(() => {
-        alert("Ride cancelled!");
+        // alert("Ride cancelled!");
         fetchRideFeed({}, token);
         fetchUpcomingRide(token);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -474,39 +473,39 @@ const MainState = ({ children }) => {
   // DELETE RIDE
   const deleteRide = (entry, token) => {
     const rideObject = {
-      ride: entry
+      ride: entry,
     };
 
     axios
       .delete("/rides/delete-ride", {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        data: rideObject
+        data: rideObject,
       })
       .then(() => {
-        alert("Ride deleted!");
+        // alert("Ride deleted!");
         fetchRideFeed({}, token);
         fetchUpcomingRide(token);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   // EDIT RIDE
-  const editRide = entry => {
+  const editRide = (entry) => {
     axios
       .put("/rideList", {
-        entry
+        entry,
       })
       .then(() => {
-        alert("Edited!");
+        // alert("Edited!");
         fetchUpcomingDrive();
         fetchDriveHistory();
         fetchRideFeed();
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -516,74 +515,74 @@ const MainState = ({ children }) => {
     const { riderPageNum } = state;
     dispatch({
       type: SET_FILTER,
-      payload: filter
+      payload: filter,
     });
 
     axios
       .get("/rides/matching-rides", {
         params: {
           filter,
-          pageNum: riderPageNum
+          pageNum: riderPageNum,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_RIDE_FEED,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   // FETCH UPCOMING RIDE
-  const fetchUpcomingRide = token => {
+  const fetchUpcomingRide = (token) => {
     const { riderPageNum } = state;
 
     axios
       .get("/rides/my-rides-upcoming", {
         params: {
-          pageNum: riderPageNum
+          pageNum: riderPageNum,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_UPCOMING_RIDE,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   // FETCH RIDE HISTORY
-  const fetchRideHistory = token => {
+  const fetchRideHistory = (token) => {
     const { riderPageNum } = state;
 
     axios
       .get("/rides/my-rides-history", {
         params: {
-          pageNum: riderPageNum
+          pageNum: riderPageNum,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_RIDE_HISTORY,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -596,19 +595,19 @@ const MainState = ({ children }) => {
       .get("/rides/drives-history", {
         params: {
           pageNum: driverPageNum,
-          username
+          username,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_DRIVE_HISTORY,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -621,41 +620,41 @@ const MainState = ({ children }) => {
       .get("/rides/drives-upcoming", {
         params: {
           pageNum: driverPageNum,
-          username
+          username,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_UPCOMING_DRIVE,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
 
   // FETCH NOTIFICATIONS
-  const fetchNotification = token => {
+  const fetchNotification = (token) => {
     axios
       .get("/notis/noti", {
         params: {
-          pageNum: 1
+          pageNum: 1,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_NOTIFICATION,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -663,21 +662,21 @@ const MainState = ({ children }) => {
   // VIEW NOTIFICATION
   const viewNotification = (noti, token) => {
     const notiObject = {
-      notiInfo: noti
+      notiInfo: noti,
     };
 
     return axios
       .put("/notis/view", notiObject, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         fetchNotification(token);
-        alert("Notification viewed!");
+        // alert("Notification viewed!");
         return res.status;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -688,14 +687,14 @@ const MainState = ({ children }) => {
     return axios
       .post("/stripe/driver/auth", driverInfo, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        withCredentials: true
+        withCredentials: true,
       })
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
-      .catch(err => {
+      .catch((err) => {
         throw err.response.data.error;
       });
   };
@@ -706,31 +705,31 @@ const MainState = ({ children }) => {
     return axios
       .post("/driver/create", driverInfo, {
         headers: {
-          Authorization: `Bearer ${token}`
+          Authorization: `Bearer ${token}`,
         },
-        withCredentials: true
+        withCredentials: true,
       })
-      .then(res => {
-        alert("Driver registered!");
+      .then((res) => {
+        // alert("Driver registered!");
         return res.status;
       })
-      .catch(err => {
+      .catch((err) => {
         throw err.response.data.error;
       });
   };
 
   // GET PUBLIC STRIPE KEY
-  const getPublicStripeKey = token => {
+  const getPublicStripeKey = (token) => {
     return axios
       .get("/stripe/public-key", {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         return res.data;
       })
-      .catch(err => {
+      .catch((err) => {
         throw err;
       });
   };
@@ -741,17 +740,17 @@ const MainState = ({ children }) => {
       .post("/stripe/create-payment-intent", {
         options,
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           return res.data.clientSecret;
         } else {
           return null;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         throw err;
       });
   };
@@ -762,17 +761,17 @@ const MainState = ({ children }) => {
       .post("/stripe/development/triggerPaymentIntentSucessful", {
         paymentIntent,
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         if (res.status === 200) {
           return true;
         } else {
           return false;
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         return false;
       });
@@ -783,13 +782,13 @@ const MainState = ({ children }) => {
     axios
       .post("/reviews", entry, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
       .then(() => {
-        alert("Review added!");
+        // alert("Review added!");
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -799,19 +798,19 @@ const MainState = ({ children }) => {
     axios
       .get("/reviews", {
         params: {
-          username
+          username,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_REVIEWS,
-          payload: res.data
+          payload: res.data,
         });
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -821,20 +820,20 @@ const MainState = ({ children }) => {
     return axios
       .get("/users/usersPic", {
         params: {
-          username
+          username,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_PROFILE_PIC,
-          payload: res.data
+          payload: res.data,
         });
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -848,14 +847,14 @@ const MainState = ({ children }) => {
       .patch("/users/upload-profile-pic", fileObject, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data"
-        }
+          "Content-Type": "multipart/form-data",
+        },
       })
-      .then(res => {
-        alert("Picture uploaded!");
+      .then((res) => {
+        // alert("Picture uploaded!");
         return res.status;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -863,20 +862,20 @@ const MainState = ({ children }) => {
   // UPDATE ABOUT ME
   const updateAboutMe = (aboutMe, token) => {
     const aboutMeObject = {
-      aboutMe: aboutMe
+      aboutMe: aboutMe,
     };
 
     return axios
       .patch("/users/updateAboutMe", aboutMeObject, {
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
-        alert("Profile updated!");
+      .then((res) => {
+        // alert("Profile updated!");
         return res.status;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -886,20 +885,20 @@ const MainState = ({ children }) => {
     return axios
       .get("/users/get-public-profile", {
         params: {
-          username
+          username,
         },
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .then(res => {
+      .then((res) => {
         dispatch({
           type: FETCH_PUBLIC_PROFILE,
-          payload: res.data
+          payload: res.data,
         });
         return res.data;
       })
-      .catch(error => {
+      .catch((error) => {
         console.error(error);
       });
   };
@@ -963,7 +962,7 @@ const MainState = ({ children }) => {
         registerDriver,
         triggerPaymentIntentSucessful,
         fetchCounties,
-        fetchCities
+        fetchCities,
       }}
     >
       {children}
