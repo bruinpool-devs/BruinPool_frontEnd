@@ -9,8 +9,6 @@ import Navbar from "../../navbar/Navbar";
 import RideFeed from "../../modules/RideFeed/RideFeed";
 import Filters from "../../modules/Filters/Filters";
 
-import ReviewModal from "../../modals/ReviewModal/ReviewModal";
-
 import "./RiderPage.css";
 
 const RiderPage = ({ history }) => {
@@ -34,22 +32,6 @@ const RiderPage = ({ history }) => {
     await mainContext.fetchRideFeed({}, authToken);
   };
 
-  const handleAddReview = async () => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
-    const userName = cookies.get("userName");
-
-    const reviewObject = {
-      revieweeUsername: userName,
-      rideId: mainContext.rideFeed[0]._id,
-      rating: 5,
-      comment: "Driver arrived really late and was super rude!"
-    };
-
-    await mainContext.addReview(reviewObject, authToken);
-    await mainContext.fetchReviews(userName, authToken);
-  };
-
   return (
     <div>
       <Navbar />
@@ -67,15 +49,11 @@ const RiderPage = ({ history }) => {
                 fontSize: "20px",
                 boxShadow: "none",
                 borderRadius: "20px",
-                marginRight: "20px",
+                marginRight: "20px"
               }}
             >
               More Filters
             </Button>
-            <Button onClick={() => handleAddReview()} color="success">
-              Add Review
-            </Button>
-            <ReviewModal />
           </div>
           <div className="feed-container">
             <RideFeed feed={mainContext.rideFeed} mainRidesBool={true} />

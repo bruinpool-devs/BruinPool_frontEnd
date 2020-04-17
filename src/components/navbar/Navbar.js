@@ -24,6 +24,7 @@ const Navbar = ({ history, location }) => {
 
   const [reviewModal, setReviewModal] = useState(false);
   const [isOpenPopover, setIsOpenPopover] = useState(false);
+  const [modalNoti, setModalNoti] = useState(null);
 
   const toggle = () => setIsOpenPopover(!isOpenPopover);
 
@@ -166,18 +167,31 @@ const Navbar = ({ history, location }) => {
                         noti.viewed ? "single-noti-viewed" : "single-noti"
                       }
                       onClick={async () => {
-                        if (!noti.viewed) {
-                          const resp = await handleViewNotification(noti);
+                        if (!noti.redirectPath) {
+                          if (!noti.viewed) {
+                            const resp = await handleViewNotification(noti);
 
-                          if (resp === 200) {
-                            history.push(noti.redirectPath);
+                            if (resp === 200) {
+                              setModalNoti(noti);
+                              setReviewModal(!reviewModal);
+                              setIsOpenPopover(!isOpenPopover);
+                            }
+                          } else {
+                            setModalNoti(noti);
+                            setReviewModal(!reviewModal);
+                            setIsOpenPopover(!isOpenPopover);
                           }
                         } else {
-                          history.push(noti.redirectPath);
-                        }
+                          if (!noti.viewed) {
+                            const resp = await handleViewNotification(noti);
 
-                        // setReviewModal(!reviewModal);
-                        // setIsOpenPopover(!isOpenPopover);
+                            if (resp === 200) {
+                              history.push(noti.redirectPath);
+                            }
+                          } else {
+                            history.push(noti.redirectPath);
+                          }
+                        }
                       }}
                     >
                       <div>
@@ -200,7 +214,13 @@ const Navbar = ({ history, location }) => {
                   </div>
                 </PopoverBody>
               </UncontrolledPopover>
-              <ReviewModal isOpen={reviewModal} toggleModal={setReviewModal} />
+              {modalNoti && (
+                <ReviewModal
+                  isOpen={reviewModal}
+                  toggleModal={setReviewModal}
+                  noti={modalNoti}
+                />
+              )}
             </div>
             <div
               className={
@@ -347,18 +367,31 @@ const Navbar = ({ history, location }) => {
                         noti.viewed ? "single-noti-viewed" : "single-noti"
                       }
                       onClick={async () => {
-                        if (!noti.viewed) {
-                          const resp = await handleViewNotification(noti);
+                        if (!noti.redirectPath) {
+                          if (!noti.viewed) {
+                            const resp = await handleViewNotification(noti);
 
-                          if (resp === 200) {
-                            history.push(noti.redirectPath);
+                            if (resp === 200) {
+                              setModalNoti(noti);
+                              setReviewModal(!reviewModal);
+                              setIsOpenPopover(!isOpenPopover);
+                            }
+                          } else {
+                            setModalNoti(noti);
+                            setReviewModal(!reviewModal);
+                            setIsOpenPopover(!isOpenPopover);
                           }
                         } else {
-                          history.push(noti.redirectPath);
-                        }
+                          if (!noti.viewed) {
+                            const resp = await handleViewNotification(noti);
 
-                        // setReviewModal(!reviewModal);
-                        // setIsOpenPopover(!isOpenPopover);
+                            if (resp === 200) {
+                              history.push(noti.redirectPath);
+                            }
+                          } else {
+                            history.push(noti.redirectPath);
+                          }
+                        }
                       }}
                     >
                       <div>
@@ -381,7 +414,13 @@ const Navbar = ({ history, location }) => {
                   </div>
                 </PopoverBody>
               </UncontrolledPopover>
-              <ReviewModal isOpen={reviewModal} toggleModal={setReviewModal} />
+              {modalNoti && (
+                <ReviewModal
+                  isOpen={reviewModal}
+                  toggleModal={setReviewModal}
+                  noti={modalNoti}
+                />
+              )}
             </div>
             <div
               className={

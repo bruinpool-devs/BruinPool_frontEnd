@@ -30,7 +30,7 @@ const ReviewConfirmationModal = ({ isOpen, toggleModal }) => {
               />
             </div>
             <div className="review-confirmation-header">
-              Thank you! Your review has been submitted!
+              Thank you! Your review(s) has been submitted!
             </div>
             <div className="review-confirmation-content">
               [EXPLAIN REVIEW POLICY]
