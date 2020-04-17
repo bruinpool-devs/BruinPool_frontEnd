@@ -80,8 +80,9 @@ const LoginModal = ({ history }) => {
                       fontSize: "15px",
                       borderColor: loginValid === "false" && "red"
                     }}
-                    onKeyDown={e => {
+                    onKeyPress={e => {
                       if (e.key === "Enter") {
+                        e.preventDefault();
                         handleLogin();
                       }
                     }}
@@ -107,8 +108,9 @@ const LoginModal = ({ history }) => {
                       marginTop: "-15px",
                       borderColor: loginValid === "false" && "red"
                     }}
-                    onKeyDown={e => {
+                    onKeyPress={e => {
                       if (e.key === "Enter") {
+                        e.preventDefault();
                         handleLogin();
                       }
                     }}

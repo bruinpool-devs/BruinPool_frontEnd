@@ -4,16 +4,13 @@ import moment from "moment";
 
 import MainContext from "../../context/mainContext";
 
-import {
-  UncontrolledPopover,
-  PopoverHeader,
-  PopoverBody,
-  Popover,
-} from "reactstrap";
+import { UncontrolledPopover, PopoverHeader, PopoverBody } from "reactstrap";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faBell } from "@fortawesome/free-regular-svg-icons";
 import ReviewModal from "../modals/ReviewModal/ReviewModal";
+
+import Paul from "../modals/ReviewModal/Paul.jpg";
 
 import "./Navbar.css";
 
@@ -37,6 +34,13 @@ const Navbar = ({ history, location }) => {
     const authToken = cookies.get("authToken");
 
     await mainContext.fetchNotification(authToken);
+  };
+
+  const handleViewNotification = async noti => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    return await mainContext.viewNotification(noti, authToken);
   };
 
   const handleFetchProfilePic = async () => {
@@ -148,6 +152,7 @@ const Navbar = ({ history, location }) => {
                 trigger="legacy"
                 placement="bottom"
                 target="RiderNotificationPopover"
+                className="popover-container"
                 hideArrow={true}
                 isOpen={isOpenPopover}
                 toggle={toggle}
@@ -157,15 +162,36 @@ const Navbar = ({ history, location }) => {
                   {mainContext.noti.map((noti, index) => (
                     <div
                       key={index}
-                      className="single-noti"
-                      onClick={() => {
-                        setReviewModal(!reviewModal);
-                        setIsOpenPopover(!isOpenPopover);
+                      className={
+                        noti.viewed ? "single-noti-viewed" : "single-noti"
+                      }
+                      onClick={async () => {
+                        if (!noti.viewed) {
+                          const resp = await handleViewNotification(noti);
+
+                          if (resp === 200) {
+                            history.push(noti.redirectPath);
+                          }
+                        } else {
+                          history.push(noti.redirectPath);
+                        }
+
+                        // setReviewModal(!reviewModal);
+                        // setIsOpenPopover(!isOpenPopover);
                       }}
                     >
-                      <div>{noti.msg}</div>
+                      <div>
+                        <img
+                          src={Paul}
+                          style={{ width: "35px", height: "35px" }}
+                          alt="paul"
+                        />
+                      </div>
+                      <div className="single-noti-msg">{noti.msg}</div>
                       <div className="gray-text">
-                        {moment(noti.date).fromNow()}
+                        {moment(noti.date)
+                          .fromNow()
+                          .replace("minutes", "min")}
                       </div>
                     </div>
                   ))}
@@ -307,6 +333,7 @@ const Navbar = ({ history, location }) => {
                 trigger="legacy"
                 placement="bottom"
                 target="DriverNotificationPopover"
+                className="popover-container"
                 hideArrow={true}
                 isOpen={isOpenPopover}
                 toggle={toggle}
@@ -316,13 +343,37 @@ const Navbar = ({ history, location }) => {
                   {mainContext.noti.map((noti, index) => (
                     <div
                       key={index}
-                      className="single-noti"
-                      onClick={() => {
-                        setReviewModal(!reviewModal);
-                        setIsOpenPopover(!isOpenPopover);
+                      className={
+                        noti.viewed ? "single-noti-viewed" : "single-noti"
+                      }
+                      onClick={async () => {
+                        if (!noti.viewed) {
+                          const resp = await handleViewNotification(noti);
+
+                          if (resp === 200) {
+                            history.push(noti.redirectPath);
+                          }
+                        } else {
+                          history.push(noti.redirectPath);
+                        }
+
+                        // setReviewModal(!reviewModal);
+                        // setIsOpenPopover(!isOpenPopover);
                       }}
                     >
-                      {noti.msg} {moment(noti.date).fromNow()}
+                      <div>
+                        <img
+                          src={Paul}
+                          style={{ width: "35px", height: "35px" }}
+                          alt="paul"
+                        />
+                      </div>
+                      <div className="single-noti-msg">{noti.msg}</div>
+                      <div className="gray-text">
+                        {moment(noti.date)
+                          .fromNow()
+                          .replace("minutes", "min")}
+                      </div>
                     </div>
                   ))}
                   <div className="see-all-noti">

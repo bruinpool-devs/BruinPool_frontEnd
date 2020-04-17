@@ -29,8 +29,8 @@ const SettingsAccountOverview = () => {
   };
 
   const handleSave = async () => {
-    const cookies = new Cookies();
-    const authToken = cookies.get("authToken");
+    // const cookies = new Cookies();
+    // const authToken = cookies.get("authToken");
 
     // if (firstName !== mainContext.publicProfile.firstName || lastName !== mainContext.publicProfile.lastName) {
     //   await handleFetchPublicProfile();

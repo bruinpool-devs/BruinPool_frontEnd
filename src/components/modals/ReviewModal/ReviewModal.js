@@ -28,7 +28,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
     height: "90px",
     boxShadow: "none",
     paddingLeft: "10px",
-    fontSize: "12px",
+    fontSize: "12px"
   };
 
   const starStyle1 = {
@@ -37,7 +37,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
     color: "#c4c4c4",
     cursor: "pointer",
     marginRight: "2px",
-    marginBottom: "10px",
+    marginBottom: "10px"
   };
 
   const starStyle2 = {
@@ -46,14 +46,14 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
     color: "#fff61b",
     cursor: "pointer",
     marginRight: "2px",
-    marginBottom: "10px",
+    marginBottom: "10px"
   };
 
   const profileStyle = {
     width: "85px",
     height: "85px",
     marginTop: "15px",
-    marginBottom: "10px",
+    marginBottom: "10px"
   };
 
   return (
@@ -71,7 +71,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
                     marginTop: "-30px",
                     marginRight: "-25px",
                     color: "#c4c4c4",
-                    cursor: "pointer",
+                    cursor: "pointer"
                   }}
                   onClick={toggle}
                 />
@@ -81,7 +81,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
               </div>
               <div className="review-modal-center">
                 <div>
-                  <img src={Paul} style={profileStyle} />
+                  <img src={Paul} style={profileStyle} alt="paul" />
                 </div>
                 <div>
                   <FontAwesomeIcon
@@ -162,7 +162,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
                   type="textarea"
                   style={textAreaStyle}
                   placeholder={review}
-                  onChange={(e) => setReviewText(e.target.value)}
+                  onChange={e => setReviewText(e.target.value)}
                   value={reviewText}
                 />
               </div>
@@ -176,7 +176,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
                     boxShadow: "none",
                     width: "120px",
                     height: "40px",
-                    borderRadius: "10px",
+                    borderRadius: "10px"
                   }}
                   onClick={() => setReviewConfirm(!reviewConfirm)}
                 >
@@ -197,7 +197,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
                     marginTop: "-30px",
                     marginRight: "-25px",
                     color: "#c4c4c4",
-                    cursor: "pointer",
+                    cursor: "pointer"
                   }}
                   onClick={toggle}
                 />
@@ -210,7 +210,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
               </div>
               <div className="review-modal-center">
                 <div>
-                  <img src={Paul} style={profileStyle} />
+                  <img src={Paul} style={profileStyle} alt="paul" />
                 </div>
                 <div>
                   <FontAwesomeIcon
@@ -251,7 +251,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
                     boxShadow: "none",
                     width: "120px",
                     height: "40px",
-                    borderRadius: "10px",
+                    borderRadius: "10px"
                   }}
                   onClick={() => setReviewConfirm(!reviewConfirm)}
                 >
@@ -265,7 +265,7 @@ const ReviewModal = ({ isOpen, toggleModal }) => {
                     boxShadow: "none",
                     width: "120px",
                     height: "40px",
-                    borderRadius: "10px",
+                    borderRadius: "10px"
                   }}
                   onClick={() => {
                     setReviewConfirmationModal(!reviewConfirmationModal);

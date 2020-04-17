@@ -4,6 +4,7 @@ import moment from "moment";
 
 import CancelRideModal from "../../modals/CancelRideModal/CancelRideModal";
 import InstantBookModal from "../../modals/InstantBookModal/InstantBookModal";
+import ReviewModal from "../../modals/ReviewModal/ReviewModal";
 
 import {
   faLongArrowAltRight,
@@ -32,6 +33,7 @@ const RideFeed = ({
   history
 }) => {
   const [modal, setModal] = useState(false);
+  const [reviewModal, setReviewModal] = useState(false);
   const [from, setFrom] = useState("");
   const [to, setTo] = useState("");
   const [date, setDate] = useState(new Date());
@@ -407,9 +409,14 @@ const RideFeed = ({
                             borderRadius: "10px",
                             marginTop: "20px"
                           }}
+                          onClick={() => setReviewModal(!reviewModal)}
                         >
                           Leave a review
                         </Button>
+                        <ReviewModal
+                          isOpen={reviewModal}
+                          toggleModal={setReviewModal}
+                        />
                         <div
                           style={{
                             textDecoration: "underline",

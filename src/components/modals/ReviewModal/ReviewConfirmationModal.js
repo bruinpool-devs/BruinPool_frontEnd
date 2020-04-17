@@ -24,7 +24,7 @@ const ReviewConfirmationModal = ({ isOpen, toggleModal }) => {
                   marginTop: "-30px",
                   marginRight: "-25px",
                   color: "#c4c4c4",
-                  cursor: "pointer",
+                  cursor: "pointer"
                 }}
                 onClick={toggle}
               />

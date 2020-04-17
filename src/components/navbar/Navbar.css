@@ -172,16 +172,41 @@ img {
   color: #3d77ff;
 }
 
+.popover-container > .popover {
+  max-width: 400px;
+}
+
 .single-noti {
   border-bottom: 2px solid #c4c4c4;
-  font-size: 11px;
+  font-size: 10px;
   height: 50px;
-  width: 250px;
+  width: 310px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.single-noti-viewed {
+  border-bottom: 2px solid #c4c4c4;
+  font-size: 10px;
+  height: 50px;
+  width: 310px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  background-color: #e4e4e4;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.single-noti-msg {
+  width: 180px;
 }
 
 .single-message {
@@ -211,7 +236,7 @@ img {
 
 .see-all-noti {
   height: 30px;
-  width: 250px;
+  width: 310px;
   display: flex;
   flex-direction: row;
   justify-content: center;

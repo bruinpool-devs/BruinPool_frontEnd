@@ -193,7 +193,7 @@ const InstantBookConfirmPage = ({ location, history }) => {
             height: "50px",
             borderRadius: "10px"
           }}
-          onClick={() => history.push("/rider")}
+          onClick={() => history.push("/rider/my-rides")}
         >
           Go to My Rides
         </Button>

@@ -36,12 +36,12 @@ const RequestRidePage = ({ location, history }) => {
     const username = cookies.get("userName");
 
     let requestInfo = {
-      senderID: username,
+      requesterUsername: username,
       rideID: ride._id,
-      recipientID: ride.ownerUsername,
+      requesteeUsername: ride.ownerUsername,
+      msg: ride.detail,
       luggage: luggage,
-      carryOn: carryOn,
-      msg: ride.detail
+      carryOn: carryOn
     };
 
     let res = await mainContext.createRequest(requestInfo, authToken);
