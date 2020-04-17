@@ -243,7 +243,7 @@ const DriverRegister1 = ({ history }) => {
                   }}
                   onClick={handleSubmit}
                 >
-                  Connect payment method
+                  Register as Driver
                 </Button>
               </div>
             </div>

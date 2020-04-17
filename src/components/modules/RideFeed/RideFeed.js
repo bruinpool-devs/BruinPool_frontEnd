@@ -173,7 +173,7 @@ const RideFeed = ({
                     <div className="ride-detail-card">
                       <div className="ride-detail-photo">
                         <img
-                          src={process.env.PUBLIC_URL + "/images/bp_logo.svg"}
+                          src={ride.picUrl}
                           alt="bear"
                         />
                       </div>
