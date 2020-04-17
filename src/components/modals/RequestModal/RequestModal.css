@@ -37,11 +37,26 @@
   padding: 10px;
 }
 
-.request-card-ride-details {
-  border-right: 1px solid #c4c4c4;
-  margin-right: 15px;
+.bottom-divider {
+  padding-bottom: 30px;
+  margin-left: 10px;
 }
 
+.request-card-ride-details {
+  display: flex;
+  flex-flow: column;
+  background-color: #ffffff;
+  color: #5c5c5c;
+  height: 300px;
+  width: 25%;
+  padding-top: 20px;
+  margin-right: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1);
+  border: 1px solid #c4c4c4;
+}
+.sub-label {
+  font-size: 12px;
+}
 .request-card-driver-details > .row,
 .request-card-ride-details > .row {
   padding: 10px;
@@ -89,6 +104,14 @@
   font-size: 16px;
 }
 
+.pop-itinerary-from,
+.pop-itinerary-to {
+  font-size: 25px;
+  color: black;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
 .card-button {
   margin-left: 30px;
   display: flex;
@@ -99,6 +122,8 @@
 
 .popup-status-txt {
   padding-top: 5px;
+  padding-left: 10%;
+  font-size: 16px;
 }
 
 .itinerary-head {
@@ -112,25 +137,25 @@
   font-weight: bold;
 }
 
+.green-highlight,
+.red-highlight,
+.orange-highlight {
+  border-radius: 15px;
+  padding: 6px 12px 6px 12px;
+}
 .green-highlight {
   background-color: rgb(121, 240, 127);
-  border-radius: 15px;
   border: 1px solid rgb(121, 240, 127);
-  padding: 0px 8px 0px 8px;
 }
 
 .red-highlight {
   background-color: rgb(240, 125, 121);
-  border-radius: 15px;
   border: 1px solid rgb(240, 125, 121);
-  padding: 0px 8px 0px 8px;
 }
 
 .orange-highlight {
   background-color: rgb(240, 188, 121);
-  border-radius: 15px;
   border: 1px solid rgb(240, 188, 121);
-  padding: 0px 8px 0px 8px;
 }
 
 .confirm-withdraw-col {
@@ -192,7 +217,7 @@
 }
 
 .arrow-icon {
-  width: 50px;
+  width: 60px !important;
   height: 30px;
 }
 

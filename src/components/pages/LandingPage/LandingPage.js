@@ -21,7 +21,7 @@ const LandingPage = ({ history }) => {
       <div className="landing-image" style={imageStyle}>
         <div className="text">
           <h1>PoolUp</h1>
-          <p>Enter new slogan here</p>
+          <p>Let's Go Far Together</p>
         </div>
       </div>
       <div className="login-section">
@@ -35,7 +35,7 @@ const imageStyle = {
   backgroundImage: `url(${process.env.PUBLIC_URL}/images/login_photo.jpg)`,
   backgroundPosition: "center",
   backgroundSize: "cover",
-  backgroundRepeat: "no-repeat"
+  backgroundRepeat: "no-repeat",
 };
 
 export default withRouter(LandingPage);
