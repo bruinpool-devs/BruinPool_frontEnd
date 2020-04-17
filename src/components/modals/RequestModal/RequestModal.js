@@ -201,12 +201,12 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
 //                   },
 //                 });
 
-                //const resp = await mainContext.joinRide(ride, authToken);
+                const resp = await mainContext.joinRide(ride, authToken);
 
-                // if (resp === 200) {
-                //   toggle();
-                //   contactToggle();
-                // }
+                if (resp === 200) {
+                  toggle();
+                  contactToggle();
+                }
               }
             }}
           >
