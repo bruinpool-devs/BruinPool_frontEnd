@@ -4,7 +4,7 @@ import {
   faCalendarAlt,
   faClock,
   faMapMarker,
-  faTimes
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-regular-svg-icons";
@@ -191,22 +191,22 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
               if (ride.seats < 1) {
                 alert("Ride is full, try again later");
               } else {
-                // history.push({
-                //   pathname: "/ride/checkout",
-                //   state: {
-                //     ride,
-                //     requestID: request._id,
-                //     carryOn: request.carryOn,
-                //     luggage: request.luggage
-                //   }
-                // });
+                history.push({
+                  pathname: "/ride/checkout",
+                  state: {
+                    ride,
+                    requestID: request._id,
+                    carryOn: request.carryOn,
+                    luggage: request.luggage,
+                  },
+                });
 
-                const resp = await mainContext.joinRide(ride, authToken);
+                //const resp = await mainContext.joinRide(ride, authToken);
 
-                if (resp === 200) {
-                  toggle();
-                  contactToggle();
-                }
+                // if (resp === 200) {
+                //   toggle();
+                //   contactToggle();
+                // }
               }
             }}
           >
@@ -293,34 +293,36 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
           </Row>
           <Row>
             <Col xs={1}></Col>
-            <Col>
-              {moment(ride.date)
-                .utc()
-                .format("M/DD/YY")}
-            </Col>
-            <Col>
-              {moment(ride.date)
-                .utc()
-                .format("h A")}
-            </Col>
+            <Col>{moment(ride.date).utc().format("M/DD/YY")}</Col>
+            <Col>{moment(ride.date).utc().format("h A")}</Col>
           </Row>
         </Col>
       </Row>
 
       <Modal isOpen={modal} toggle={toggle} size="xl">
-        <ModalHeader toggle={toggle}>Trip Request</ModalHeader>
         <ModalBody>
           <Row className="itinerary-head">
-            <Col className="itinerary-from">{ride.from}</Col>
             <Col>
+              <span class="pop-itinerary-from">{ride.from}</span>
               <FontAwesomeIcon
                 icon={faLongArrowAltRight}
                 className="arrow-icon"
               />
+              <span class="pop-itinerary-to">{ride.to}</span>
+              <span class="popup-status-txt">{requestStatusText}</span>
             </Col>
-            <Col className="itinerary-to">{ride.to}</Col>
-            <Col className="popup-status-txt">{requestStatusText}</Col>
-            <Col md={7}></Col>
+            <Col>
+              <button
+                class="close"
+                type="button"
+                aria-label="Close"
+                onClick={() => {
+                  toggle();
+                }}
+              >
+                <span aria-hidden="true">x</span>
+              </button>
+            </Col>
           </Row>
 
           <Row className="itinerary-body">
@@ -332,21 +334,17 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                     className="small-icon"
                   />{" "}
                   <span className="icon-text">
-                    {moment(ride.date)
-                      .utc()
-                      .format("M/DD/YY")}
+                    {moment(ride.date).utc().format("M/DD/YY")}
                   </span>
                 </Col>
                 <Col>
                   <FontAwesomeIcon icon={faClock} className="small-icon" />
                   <span className="icon-text">
-                    {moment(ride.date)
-                      .utc()
-                      .format("h A")}
+                    {moment(ride.date).utc().format("h A")}
                   </span>
                 </Col>
               </Row>
-              <Row>
+              <Row className="bottom-divider">
                 <Col xs={2}>
                   <FontAwesomeIcon icon={faMapMarker} className="small-icon" />
                 </Col>
@@ -357,7 +355,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
               </Row>
               <Row>
                 <Col>
-                  Seats: <span className="bold-text">1</span>
+                  Carry On: <span className="bold-text">{request.carryOn}</span>
                 </Col>
                 <Col>
                   Luggage: <span className="bold-text">{request.luggage}</span>
@@ -384,10 +382,10 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                         />
                       </Col>
                       <Col>
-                        <span style={{ fontSize: "25px" }}>
+                        <span style={{ fontSize: "20px" }}>
                           {ride.ownerUsername}
                         </span>
-                        <div style={{}}>
+                        <div className="sub-label">
                           <FontAwesomeIcon
                             icon={faGraduationCap}
                             style={{ marginRight: "5px" }}
@@ -484,7 +482,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                 color: "#5c5c5c",
                 padding: "20px",
                 boxShadow:
-                  "0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1)"
+                  "0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1)",
               }}
             >
               <div>Driver</div>
@@ -492,7 +490,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  marginTop: "10px"
+                  marginTop: "10px",
                 }}
               >
                 <div>
@@ -509,7 +507,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                     alignItems: "center",
                     marginLeft: "20px",
                     justifyContent: "space-between",
-                    width: "400px"
+                    width: "400px",
                   }}
                 >
                   <div>{ride.ownerFullName}</div>
