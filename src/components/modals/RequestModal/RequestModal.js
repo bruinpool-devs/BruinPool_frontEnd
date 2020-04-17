@@ -191,15 +191,15 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
               if (ride.seats < 1) {
                 alert("Ride is full, try again later");
               } else {
-                history.push({
-                  pathname: "/ride/checkout",
-                  state: {
-                    ride,
-                    requestID: request._id,
-                    carryOn: request.carryOn,
-                    luggage: request.luggage,
-                  },
-                });
+//                 history.push({
+//                   pathname: "/ride/checkout",
+//                   state: {
+//                     ride,
+//                     requestID: request._id,
+//                     carryOn: request.carryOn,
+//                     luggage: request.luggage,
+//                   },
+//                 });
 
                 //const resp = await mainContext.joinRide(ride, authToken);
 
