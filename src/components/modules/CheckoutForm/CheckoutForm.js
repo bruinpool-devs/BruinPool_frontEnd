@@ -7,9 +7,11 @@ import Cookies from "universal-cookie";
 class CheckoutForm extends Component {
   constructor(props) {
     super(props);
-
+    console.log(props.applicationFee);
     this.state = {
-      amount: props.rideCheckoutDetails.ride.price,
+      amount:
+        Number(props.rideCheckoutDetails.ride.price) +
+        Number(props.rideCheckoutDetails.ride.price) * props.applicationFee,
       currency: "usd",
       clientSecret: null,
       error: null,
@@ -19,7 +21,7 @@ class CheckoutForm extends Component {
       processing: false,
       rideID: "",
       requestID: "",
-      riderUsername: ""
+      riderUsername: "",
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,11 +39,12 @@ class CheckoutForm extends Component {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
     const currentUserName = cookies.get("userName");
+    const applicationFee = this.props.applicationFee;
 
     // Get Latest Ride details
     mainContext
       .rideDetails(rideCheckoutDetails.ride._id, authToken)
-      .then(ride => {
+      .then((ride) => {
         if (1 > ride.seats) {
           this.setState({ error: "Error: Not Enough Seats" });
           return;
@@ -53,30 +56,32 @@ class CheckoutForm extends Component {
             {
               rideID: rideCheckoutDetails.ride._id,
               requestID: rideCheckoutDetails.requestID,
-              riderUsername: currentUserName
+              riderUsername: currentUserName,
             },
             authToken
           )
-          .then(clientSecret => {
+          .then((clientSecret) => {
             this.setState({
-              amount: rideCheckoutDetails.ride.price,
+              amount:
+                rideCheckoutDetails.ride.price +
+                rideCheckoutDetails.ride.price * applicationFee,
               clientSecret: clientSecret,
               disabled: true,
               processing: true,
               rideID: rideCheckoutDetails.ride._id,
               requestID: rideCheckoutDetails.requestID,
-              riderUsername: currentUserName
+              riderUsername: currentUserName,
             });
 
             // Step 2: Use clientSecret from PaymentIntent to handle payment in stripe.handleCardPayment() call
             this.props.stripe
               .handleCardPayment(this.state.clientSecret)
-              .then(payload => {
+              .then((payload) => {
                 if (payload.error) {
                   this.setState({
                     error: `Payment failed: ${payload.error.message}`,
                     disabled: false,
-                    processing: false
+                    processing: false,
                   });
                   console.log("[error]", payload.error);
                 } else {
@@ -84,18 +89,18 @@ class CheckoutForm extends Component {
                     processing: false,
                     succeeded: true,
                     error: "",
-                    metadata: payload.paymentIntent
+                    metadata: payload.paymentIntent,
                   });
                   console.log("[PaymentIntent]", payload.paymentIntent);
                 }
               });
           })
-          .catch(err => {
+          .catch((err) => {
             this.setState({ error: err.error });
             return;
           });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         this.setState({ error: err.message });
         return;
@@ -116,13 +121,13 @@ class CheckoutForm extends Component {
               rideID: this.state.rideID,
               requestID: this.state.requestID,
               riderUsername: this.state.riderUsername,
-              driverStripeAcct: this.state.driverStripeAcct
+              driverStripeAcct: this.state.driverStripeAcct,
             },
-            amount: this.state.metadata.amount
+            amount: this.state.metadata.amount,
           },
           authToken
         )
-        .then(successful => {
+        .then((successful) => {
           if (successful) {
             console.log("Successfully Joined Ride");
           } else {
@@ -147,7 +152,7 @@ class CheckoutForm extends Component {
             width: "265px",
             height: "50px",
             borderRadius: "10px",
-            marginTop: "25px"
+            marginTop: "25px",
           }}
           onClick={() => triggerSuccessfulPaymentFlow()}
         >
@@ -165,13 +170,13 @@ class CheckoutForm extends Component {
         fontSmoothing: "antialiased",
         fontSize: "16px",
         "::placeholder": {
-          color: "#aab7c4"
-        }
+          color: "#aab7c4",
+        },
       },
       invalid: {
         color: "#fa755a",
-        iconColor: "#fa755a"
-      }
+        iconColor: "#fa755a",
+      },
     };
     return (
       <form onSubmit={this.handleSubmit}>
@@ -179,7 +184,7 @@ class CheckoutForm extends Component {
           {"Total: "}
           {this.state.currency.toLocaleUpperCase()}{" "}
           {this.state.amount.toLocaleString(navigator.language, {
-            minimumFractionDigits: 2
+            minimumFractionDigits: 2,
           })}{" "}
         </h1>
 
