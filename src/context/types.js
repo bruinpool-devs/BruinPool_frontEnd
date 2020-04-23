@@ -27,3 +27,6 @@ export const FETCH_PUBLIC_PROFILE = "FETCH_PUBLIC_PROFILE";
 // Fetch Location Data
 export const FETCH_COUNTIES = "FETCH_COUNTIES";
 export const FETCH_CITIES = "FETCH_CITIES";
+
+// Stripe
+export const FETCH_APP_FEE = "FETCH_APP_FEE";

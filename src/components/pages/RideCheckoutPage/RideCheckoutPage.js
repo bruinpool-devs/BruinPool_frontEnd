@@ -12,26 +12,31 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "../../navbar/Navbar";
 import MainContext from "../../../context/mainContext";
+import Cookies from "universal-cookie";
 
 const RideCheckoutPage = (props) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    if (!authToken) {
+      props.history.push("/");
+    } else {
+      fetchApplicationFee();
+    }
+  }, []);
+
+  const fetchApplicationFee = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchApplicationFeePercentage(authToken);
+  };
+
   const rideCheckoutDetails = props.history.location.state;
   const tripSubTotal = Number(rideCheckoutDetails.ride.price);
   const mainContext = useContext(MainContext);
-  const [applicationFee, setAppFee] = useState(0);
-  const [poolUpFee, setPoolUpFee] = useState(0);
-
-  useEffect(() => {
-    mainContext
-      .getApplicationFee()
-      .then((res) => {
-        setAppFee(res.applicationFee);
-        setPoolUpFee(tripSubTotal * applicationFee);
-      })
-      .catch((err) => {
-        // TODO: Better Error Handling
-        console.log(err);
-      });
-  });
+  const poolUpFee = tripSubTotal * mainContext.appFee;
 
   return (
     <div>
@@ -124,10 +129,7 @@ const RideCheckoutPage = (props) => {
             <h3>Payment Summary</h3>
             <h4>Subtotal: {tripSubTotal}</h4>
             <h4>Pool Up Fee: {poolUpFee}</h4>
-            <Checkout
-              rideCheckoutDetails={rideCheckoutDetails}
-              applicationFee={applicationFee}
-            />
+            <Checkout rideCheckoutDetails={rideCheckoutDetails} />
           </Col>
         </Row>
       </Container>
