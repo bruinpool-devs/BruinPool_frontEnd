@@ -3,10 +3,11 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect
+  Redirect,
 } from "react-router-dom";
 
 import LandingPage from "./components/pages/LandingPage/LandingPage";
+import HowItWorksPage from "./components/pages/LandingPage/HowItWorksPage/HowItWorksPage";
 import SignupPage1 from "./components/pages/SignupPage/SignupPage1";
 import SignupPage2 from "./components/pages/SignupPage/SignupPage2";
 import VerificationExpiredPage from "./components/pages/SignupPage/VerificationExpiredPage";
@@ -40,6 +41,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path="/" component={LandingPage} />
+          <Route exact path="/how-it-works" component={HowItWorksPage} />
           <Route exact path="/signup/1" component={SignupPage1} />
           <Route exact path="/signup/2" component={SignupPage2} />
           <Route path="/signup/2/expired" component={VerificationExpiredPage} />

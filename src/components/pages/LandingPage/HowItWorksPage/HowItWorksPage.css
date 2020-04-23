@@ -1,0 +1,8 @@
+.how-it-works-wrapper {
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

@@ -921,6 +921,23 @@ const MainState = ({ children }) => {
       });
   };
 
+  // UPDATE USER
+  const updateUser = (userObject, token) => {
+    return axios
+      .patch("/users/updateUser", userObject, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        // alert("User updated!");
+        return res.status;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   // FETCH PUBLIC PROFILE
   const fetchPublicProfile = (username, token) => {
     return axios
@@ -1016,6 +1033,7 @@ const MainState = ({ children }) => {
         fetchProfilePic,
         uploadProfilePic,
         updateAboutMe,
+        updateUser,
         fetchPublicProfile,
         getPublicStripeKey,
         fetchApplicationFeePercentage,

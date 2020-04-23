@@ -1,0 +1,50 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.landing-navbar-wrapper {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  margin-top: 10px;
+  font-family: "Montserrat";
+}
+
+.landing-navbar-container {
+  width: 78vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.landing-navbar-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.landing-navbar-dropdown {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.landing-navbar-login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 15vw;
+}
+
+.landing-navbar-dropdown {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 23vw;
+}

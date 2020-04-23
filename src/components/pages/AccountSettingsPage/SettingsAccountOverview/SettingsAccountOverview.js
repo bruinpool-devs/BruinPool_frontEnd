@@ -8,8 +8,8 @@ import "./SettingsAccountOverview.css";
 
 const SettingsAccountOverview = () => {
   const [editMode, toggleEditMode] = useState(false);
-  const [firstName, setFirstName] = useState("Michelle");
-  const [lastName, setLastName] = useState("Qin");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("12345678");
   const [phoneNumber, setPhoneNumber] = useState("805-805-8050");
 
@@ -29,12 +29,25 @@ const SettingsAccountOverview = () => {
   };
 
   const handleSave = async () => {
-    // const cookies = new Cookies();
-    // const authToken = cookies.get("authToken");
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
 
-    // if (firstName !== mainContext.publicProfile.firstName || lastName !== mainContext.publicProfile.lastName) {
-    //   await handleFetchPublicProfile();
-    // }
+    if (
+      firstName !== mainContext.publicProfile.firstName ||
+      lastName !== mainContext.publicProfile.lastName
+    ) {
+      const userObject = {
+        firstName,
+        lastName,
+        phoneNumber,
+      };
+
+      const resp = await mainContext.updateUser(userObject, authToken);
+
+      if (resp === 200) {
+        await handleFetchPublicProfile();
+      }
+    }
 
     toggleEditMode(!editMode);
   };
@@ -47,7 +60,7 @@ const SettingsAccountOverview = () => {
     borderTop: "0px",
     borderRight: "0px",
     borderRadius: "0px",
-    boxShadow: "none"
+    boxShadow: "none",
   };
 
   return (
@@ -90,22 +103,22 @@ const SettingsAccountOverview = () => {
             <Input
               style={inputStyle}
               value={firstName}
-              onChange={e => setFirstName(e.target.value)}
+              onChange={(e) => setFirstName(e.target.value)}
             />
             <Input
               style={inputStyle}
               value={lastName}
-              onChange={e => setLastName(e.target.value)}
+              onChange={(e) => setLastName(e.target.value)}
             />
             <Input
               style={inputStyle}
               value={password}
-              onChange={e => setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
             />
             <Input
               style={inputStyle}
               value={phoneNumber}
-              onChange={e => setPhoneNumber(e.target.value)}
+              onChange={(e) => setPhoneNumber(e.target.value)}
             />
           </div>
         )}
@@ -122,7 +135,7 @@ const SettingsAccountOverview = () => {
             backgroundColor: "#3d77ff",
             borderWidth: "0px",
             boxShadow: "none",
-            borderRadius: "10px"
+            borderRadius: "10px",
           }}
           onClick={handleSave}
         >

@@ -1,66 +1,79 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro");
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
 
 .landing-container {
   display: flex;
   flex-flow: row;
-  width: 100%;
-  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-family: "Montserrat";
 }
 
-.landing-image {
-  display: flex;
-  flex-flow: column;
-  justify-content: center;
-  align-items: center;
-  width: 50%;
-  height: 100%;
-}
-
-.landing-image .text {
-  height: 100vh;
-  width: 100%;
-  font-family: "Source Sans Pro", sans-serif;
+.landing-text {
+  margin-top: 120px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 }
 
-.landing-image .text h1 {
-  color: white;
+.landing-text-title {
   font-weight: bold;
-  font-size: 100px;
-  letter-spacing: 3px;
-  margin-top: -140px;
+  color: white;
+  font-size: 70px;
 }
 
-.landing-image .text p {
+.landing-text-subtitle {
   color: white;
-  font-weight: bold;
-  font-size: 30px;
+  font-size: 28px;
+  width: 500px;
   text-align: center;
-  white-space: nowrap;
-  margin-top: -20px;
-  letter-spacing: 2px;
 }
 
-.login-section {
+.landing-about-poolup {
+  margin-top: 52vh;
+  margin-bottom: 10vh;
   display: flex;
-  width: 50%;
-  height: 100vh;
-  justify-content: center;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60vw;
 }
 
-@media screen and (max-width: 1000px) {
-  .landing-image {
-    visibility: hidden;
-    display: none;
-    width: 0%;
-    height: 0%;
-  }
+.about-poolup-left-text {
+  font-weight: bold;
+  font-size: 40px;
+}
 
-  .login-section {
-    width: 100%;
-  }
+.blue-underline {
+  border-bottom: 5px solid #3d77ff;
+}
+
+.about-poolup-right-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30vw;
+  margin-top: 10px;
+}
+
+.about-poolup-right-top-text {
+  font-weight: 16px;
+}
+
+.landing-poolup-experience {
+  margin-top: 10vh;
+}
+
+.landing-poolup-exp-title {
+  font-weight: bold;
+  font-size: 40px;
+  width: 60vw;
+}
+
+.learn-more-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-left: 220px;
+  padding-top: 440px;
+  width: 755px;
 }
