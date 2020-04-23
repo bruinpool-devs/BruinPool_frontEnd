@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
 
 import {
   faFacebook,
   faLinkedin,
-  faInstagram
+  faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -12,12 +14,21 @@ import Navbar from "../../navbar/Navbar";
 import "../RiderPage/RiderPage.css";
 import "./HelpPage.css";
 
-const HelpPage = () => {
+const HelpPage = ({ history }) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (!authToken) {
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const iconStyle = {
     color: "#3d77ff",
     width: "27px",
     height: "27px",
-    cursor: "pointer"
+    cursor: "pointer",
   };
 
   return (
@@ -73,4 +84,4 @@ const HelpPage = () => {
   );
 };
 
-export default HelpPage;
+export default withRouter(HelpPage);

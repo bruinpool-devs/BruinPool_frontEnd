@@ -1,6 +1,8 @@
-import React, { useState } from "react";
-import Navbar from "../../navbar/Navbar";
+import React, { useState, useEffect } from "react";
+import { withRouter } from "react-router-dom";
+import Cookies from "universal-cookie";
 
+import Navbar from "../../navbar/Navbar";
 import SettingsAccountOverview from "./SettingsAccountOverview/SettingsAccountOverview";
 import SettingsDriverAccount from "./SettingsDriverAccount/SettingsDriverAccount";
 import SettingsPaymentMethod from "./SettingsPaymentMethod/SettingsPaymentMethod";
@@ -9,14 +11,23 @@ import SettingsCloseAccount from "./SettingsCloseAccount/SettingsCloseAccount";
 
 import "./AccountSettingsPage.css";
 
-const AccountSettingsPage = () => {
+const AccountSettingsPage = ({ history }) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (!authToken) {
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const [accountOverview, setAccountOverview] = useState(true);
   const [driverAccount, setDriverAccount] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState(false);
   const [notifications, setNotifications] = useState(false);
   const [closeAccount, setCloseAccount] = useState(false);
 
-  const toggleNavbar = target => {
+  const toggleNavbar = (target) => {
     target === 1 ? setAccountOverview(true) : setAccountOverview(false);
     target === 2 ? setDriverAccount(true) : setDriverAccount(false);
     target === 3 ? setPaymentMethod(true) : setPaymentMethod(false);
@@ -85,4 +96,4 @@ const AccountSettingsPage = () => {
   );
 };
 
-export default AccountSettingsPage;
+export default withRouter(AccountSettingsPage);

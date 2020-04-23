@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { Button } from "reactstrap";
+import Cookies from "universal-cookie";
 
 import Navbar from "../../navbar/Navbar";
 import WelcomeDiagram from "./begin_driving.png";
@@ -8,6 +9,15 @@ import WelcomeDiagram from "./begin_driving.png";
 import "./DriverRegister2.css";
 
 const DriverRegister2 = ({ history }) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    if (!authToken) {
+      history.push("/");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="signup-page-wrapper">
       <Navbar />
@@ -33,7 +43,7 @@ const DriverRegister2 = ({ history }) => {
             width: "1028px",
             height: "352px",
             borderRadius: "0px",
-            marginTop: "30px"
+            marginTop: "30px",
           }}
         />
         <Button
@@ -46,7 +56,7 @@ const DriverRegister2 = ({ history }) => {
             height: "60px",
             fontSize: "20px",
             marginTop: "45px",
-            borderRadius: "10px"
+            borderRadius: "10px",
           }}
           onClick={() => history.push("/driver/post")}
         >

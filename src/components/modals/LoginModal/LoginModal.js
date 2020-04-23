@@ -9,13 +9,14 @@ import LogoTextImage from "./logo-text.png";
 
 import "./LoginModal.css";
 
-const LoginModal = ({ history }) => {
+const LoginModal = ({ history, location }) => {
   const [modal, setModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginValid, setLoginValid] = useState("");
 
   const mainContext = useContext(MainContext);
+  const path = location.pathname;
 
   const toggle = () => setModal(!modal);
 
@@ -37,17 +38,18 @@ const LoginModal = ({ history }) => {
     <div>
       <Button
         style={{
-          backgroundColor: "#3d77ff",
-          color: "white",
+          background: "transparent",
+          color: path === "/" ? "white" : "black",
           borderWidth: "0px",
           boxShadow: "none",
-          width: "145px",
+          width: "130px",
           height: "45px",
-          fontSize: "20px"
+          fontSize: "18px",
+          fontWeight: "bold",
         }}
         onClick={toggle}
       >
-        Login
+        Log in
       </Button>
       <Modal isOpen={modal} toggle={toggle} size="lg">
         <ModalBody>
@@ -73,14 +75,14 @@ const LoginModal = ({ history }) => {
                     id="email"
                     placeholder="Email Address"
                     value={email}
-                    onChange={e => setEmail(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
                     style={{
                       width: "592px",
                       height: "60px",
                       fontSize: "15px",
-                      borderColor: loginValid === "false" && "red"
+                      borderColor: loginValid === "false" && "red",
                     }}
-                    onKeyPress={e => {
+                    onKeyPress={(e) => {
                       if (e.key === "Enter") {
                         e.preventDefault();
                         handleLogin();
@@ -100,15 +102,15 @@ const LoginModal = ({ history }) => {
                     id="password"
                     placeholder="Password"
                     value={password}
-                    onChange={e => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     style={{
                       width: "592px",
                       height: "60px",
                       fontSize: "15px",
                       marginTop: "-15px",
-                      borderColor: loginValid === "false" && "red"
+                      borderColor: loginValid === "false" && "red",
                     }}
-                    onKeyPress={e => {
+                    onKeyPress={(e) => {
                       if (e.key === "Enter") {
                         e.preventDefault();
                         handleLogin();
@@ -132,7 +134,7 @@ const LoginModal = ({ history }) => {
                     height: "46px",
                     fontSize: "20px",
                     borderRadius: "10px",
-                    marginTop: "10px"
+                    marginTop: "10px",
                   }}
                 >
                   Log In
