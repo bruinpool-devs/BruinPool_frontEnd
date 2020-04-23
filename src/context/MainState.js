@@ -795,7 +795,7 @@ const MainState = ({ children }) => {
   // Trigger Payment Intent Success Flow (Development only)
   const triggerSuccessfulPayment = (paymentIntent, token) => {
     return axios
-      .post("/stripe/development/triggerSuccessfulPayment", paymentIntent, {
+      .post("/stripe/dev/triggerSuccessfulPayment", paymentIntent, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
