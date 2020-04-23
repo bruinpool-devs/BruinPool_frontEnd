@@ -793,17 +793,13 @@ const MainState = ({ children }) => {
   };
 
   // Trigger Payment Intent Success Flow (Development only)
-  const triggerPaymentIntentSucessful = (paymentIntent, token) => {
+  const triggerSuccessfulPayment = (paymentIntent, token) => {
     return axios
-      .post(
-        "/stripe/development/triggerPaymentIntentSucessful",
-        paymentIntent,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      .post("/stripe/development/triggerSuccessfulPayment", paymentIntent, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       .then((res) => {
         if (res.status === 200) {
           return true;
@@ -1040,7 +1036,7 @@ const MainState = ({ children }) => {
         createPaymentIntent,
         redirectStripeAuth,
         registerDriver,
-        triggerPaymentIntentSucessful,
+        triggerSuccessfulPayment,
         fetchCounties,
         fetchCities,
         fetchUserInfo,

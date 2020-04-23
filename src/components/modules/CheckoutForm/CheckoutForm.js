@@ -118,7 +118,7 @@ class CheckoutForm extends Component {
 
       // TODO: Fix this so it gets the correct appFee
       mainContext
-        .triggerPaymentIntentSucessful(
+        .triggerSuccessfulPayment(
           {
             id: this.state.metadata.id,
             metadata: {
