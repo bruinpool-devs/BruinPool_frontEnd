@@ -35,17 +35,51 @@ const Footer = ({ history }) => {
         <div className="footer-top-right">
           <div className="top-right-item">
             <div className="top-right-title">How it works</div>
-            <div className="top-right-rider">Rider</div>
-            <div className="top-right-driver">Driver</div>
+            <div
+              className="top-right-rider"
+              onClick={() =>
+                history.push({
+                  pathname: "/how-it-works",
+                  state: {
+                    driver: false,
+                  },
+                })
+              }
+            >
+              Rider
+            </div>
+            <div
+              className="top-right-driver"
+              onClick={() =>
+                history.push({
+                  pathname: "/how-it-works",
+                  state: {
+                    driver: true,
+                  },
+                })
+              }
+            >
+              Driver
+            </div>
           </div>
           <div className="top-right-item">
             <div className="top-right-title">Company</div>
-            <div className="top-right-rider">Our Team</div>
+            <div
+              className="top-right-rider"
+              onClick={() => history.push("/about-us")}
+            >
+              Our Team
+            </div>
             <div className="top-right-driver">Newsroom</div>
           </div>
           <div className="top-right-item">
             <div className="top-right-title">Support</div>
-            <div className="top-right-rider">Help</div>
+            <div
+              className="top-right-rider"
+              onClick={() => history.push("/help-center")}
+            >
+              Help
+            </div>
           </div>
         </div>
       </div>

@@ -8,6 +8,9 @@ import {
 
 import LandingPage from "./components/pages/LandingPage/LandingPage";
 import HowItWorksPage from "./components/pages/LandingPage/HowItWorksPage/HowItWorksPage";
+import AboutUsPage from "./components/pages/LandingPage/AboutUsPage/AboutUsPage";
+import AboutUsDetailPage from "./components/pages/LandingPage/AboutUsDetailPage/AboutUsDetailPage";
+import HelpCenterPage from "./components/pages/LandingPage/HelpCenterPage/HelpCenterPage";
 import SignupPage1 from "./components/pages/SignupPage/SignupPage1";
 import SignupPage2 from "./components/pages/SignupPage/SignupPage2";
 import VerificationExpiredPage from "./components/pages/SignupPage/VerificationExpiredPage";
@@ -42,6 +45,9 @@ const App = () => {
         <Switch>
           <Route exact path="/" component={LandingPage} />
           <Route exact path="/how-it-works" component={HowItWorksPage} />
+          <Route exact path="/about-us" component={AboutUsPage} />
+          <Route exact path="/about-us/detail" component={AboutUsDetailPage} />
+          <Route exact path="/help-center" component={HelpCenterPage} />
           <Route exact path="/signup/1" component={SignupPage1} />
           <Route exact path="/signup/2" component={SignupPage2} />
           <Route path="/signup/2/expired" component={VerificationExpiredPage} />

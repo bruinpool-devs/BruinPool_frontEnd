@@ -1,0 +1,36 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.about-us-detail-wrapper {
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
+.about-us-detail-content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 1033px;
+  height: 410;
+  margin-top: 11vh;
+}
+
+.about-us-detail-text {
+  display: flex;
+  flex-direction: column;
+  width: 480px;
+}
+
+.detail-name {
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.detail-bio {
+  margin-top: 10px;
+  font-size: 15px;
+}

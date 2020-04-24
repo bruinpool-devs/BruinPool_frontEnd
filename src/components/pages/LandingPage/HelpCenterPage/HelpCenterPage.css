@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.help-center-wrapper {
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
+.help-center-title {
+  font-weight: bold;
+  font-size: 35px;
+  display: flex;
+  flex-direction: row;
+  width: 64vw;
+  margin-top: 3vh;
+  margin-bottom: 3vh;
+}
+
+.rider-help {
+  background-color: #f2f6f9;
+  width: 1440px;
+  height: 518px;
+  display: flex;
+  flex-direction: row;
+}
+
+.help-toggle {
+  padding-left: 6vw;
+  margin-top: 5vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.active-help-toggle {
+  color: #3d77ff;
+  border-left: 5px solid #3d77ff;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.non-active-help-toggle {
+  color: #878c8f;
+  border-left: 5px solid #c1c5c8;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.help-first-column {
+  display: flex;
+  flex-direction: column;
+  margin-left: 11vw;
+}
+
+.help-column-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 5vh;
+  margin-bottom: 17px;
+}
+
+.help-column-item {
+  margin-bottom: 11px;
+}
+
+.help-column-item-margin {
+  margin-top: 5vh;
+  margin-bottom: 11px;
+}
+
+.help-column-item-margin:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.help-column-item:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.driver-help {
+  background-color: #e8f8f7;
+  width: 1440px;
+  height: 518px;
+  display: flex;
+  flex-direction: row;
+}

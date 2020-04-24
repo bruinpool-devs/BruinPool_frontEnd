@@ -44,11 +44,29 @@ const LandingNavbar = ({ history, location }) => {
               How It Works
             </DropdownToggle>
             <DropdownMenu style={DropdownMenuStyle}>
-              <DropdownItem onClick={() => history.push("/how-it-works")}>
+              <DropdownItem
+                onClick={() =>
+                  history.push({
+                    pathname: "/how-it-works",
+                    state: {
+                      driver: false,
+                    },
+                  })
+                }
+              >
                 Rider
               </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem onClick={() => history.push("/how-it-works")}>
+              <DropdownItem
+                onClick={() =>
+                  history.push({
+                    pathname: "/how-it-works",
+                    state: {
+                      driver: true,
+                    },
+                  })
+                }
+              >
                 Driver
               </DropdownItem>
             </DropdownMenu>
@@ -58,7 +76,9 @@ const LandingNavbar = ({ history, location }) => {
               About
             </DropdownToggle>
             <DropdownMenu style={DropdownMenuStyle}>
-              <DropdownItem>Our Team</DropdownItem>
+              <DropdownItem onClick={() => history.push("/about-us")}>
+                Our Team
+              </DropdownItem>
               <DropdownItem divider />
               <DropdownItem>Newsroom</DropdownItem>
             </DropdownMenu>
@@ -68,7 +88,9 @@ const LandingNavbar = ({ history, location }) => {
               Support
             </DropdownToggle>
             <DropdownMenu style={DropdownMenuStyle}>
-              <DropdownItem>Help</DropdownItem>
+              <DropdownItem onClick={() => history.push("/help-center")}>
+                Help
+              </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </div>

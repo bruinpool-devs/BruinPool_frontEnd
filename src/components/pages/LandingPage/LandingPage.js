@@ -66,8 +66,32 @@ const LandingPage = ({ history }) => {
             </div>
             <div style={poolupExpStyle}>
               <div className="learn-more-buttons">
-                <Button style={learnMoreStyle2}>Learn More</Button>
-                <Button style={learnMoreStyle2}>Learn More</Button>
+                <Button
+                  style={learnMoreStyle2}
+                  onClick={() =>
+                    history.push({
+                      pathname: "/how-it-works",
+                      state: {
+                        driver: false,
+                      },
+                    })
+                  }
+                >
+                  Learn More
+                </Button>
+                <Button
+                  style={learnMoreStyle2}
+                  onClick={() =>
+                    history.push({
+                      pathname: "/how-it-works",
+                      state: {
+                        driver: true,
+                      },
+                    })
+                  }
+                >
+                  Learn More
+                </Button>
               </div>
             </div>
           </div>

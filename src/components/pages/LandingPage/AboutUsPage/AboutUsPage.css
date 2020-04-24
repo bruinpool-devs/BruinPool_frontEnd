@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.about-us-wrapper {
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
+.about-us-title {
+  font-weight: bold;
+  font-size: 28px;
+  margin-bottom: 40px;
+}
+
+.about-us-pics {
+  width: 1440px;
+  height: 1281px;
+  background-color: #f2f6f9;
+  display: flex;
+  flex-direction: column;
+  padding-top: 75px;
+  padding-left: 117px;
+  margin-top: 7vh;
+}
+
+.each-member {
+  display: flex;
+  flex-direction: column;
+}
+
+.each-member img {
+  border-radius: 0px;
+  height: 223px;
+  width: 223px;
+  cursor: pointer;
+}
+
+.member-name {
+  font-weight: bold;
+  font-size: 19px;
+  margin-top: 10px;
+}
+
+.member-title {
+  font-size: 13px;
+}
+
+.about-us-first-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 1201px;
+  height: 280px;
+}
+
+.about-us-second-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 1201px;
+  height: 280px;
+  margin-top: 10vh;
+  margin-bottom: 10vh;
+}
+
+.about-us-third-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 875px;
+  height: 280px;
+}
