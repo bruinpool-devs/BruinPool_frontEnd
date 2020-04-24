@@ -16,7 +16,8 @@ import {
   FETCH_DRIVER_REQUEST_FEED,
   FETCH_PUBLIC_PROFILE,
   FETCH_COUNTIES,
-  FETCH_CITIES
+  FETCH_CITIES,
+  FETCH_APP_FEE,
 } from "./types";
 
 export default (state, action) => {
@@ -24,92 +25,97 @@ export default (state, action) => {
     case LOGIN:
       return {
         ...state,
-        userInfo: action.payload
+        userInfo: action.payload,
       };
     case FETCH_COUNTIES:
       return {
         ...state,
-        counties: action.payload
+        counties: action.payload,
       };
     case FETCH_CITIES:
       return {
         ...state,
-        cities: action.payload
+        cities: action.payload,
       };
     case SET_FILTER:
       return {
         ...state,
-        filter: action.payload
+        filter: action.payload,
       };
     case SET_IS_DRIVER:
       return {
         ...state,
-        isDriver: action.payload
+        isDriver: action.payload,
       };
     case FETCH_RIDE_FEED:
       return {
         ...state,
-        rideFeed: action.payload
+        rideFeed: action.payload,
       };
     case FETCH_UPCOMING_RIDE:
       return {
         ...state,
-        upcomingRide: action.payload
+        upcomingRide: action.payload,
       };
     case FETCH_RIDE_HISTORY:
       return {
         ...state,
-        rideHistory: action.payload
+        rideHistory: action.payload,
       };
     case INCREMENT_RIDER_NUM:
       return {
         ...state,
-        riderPageNum: action.payload
+        riderPageNum: action.payload,
       };
     case FETCH_DRIVE_HISTORY:
       return {
         ...state,
-        driveHistory: action.payload
+        driveHistory: action.payload,
       };
     case FETCH_UPCOMING_DRIVE:
       return {
         ...state,
-        upcomingDrive: action.payload
+        upcomingDrive: action.payload,
       };
     case INCREMENT_DRIVER_NUM:
       return {
         ...state,
-        driverPageNum: action.payload
+        driverPageNum: action.payload,
       };
     case FETCH_NOTIFICATION:
       return {
         ...state,
-        noti: action.payload
+        noti: action.payload,
       };
     case FETCH_REVIEWS:
       return {
         ...state,
-        reviews: action.payload
+        reviews: action.payload,
       };
     case FETCH_PROFILE_PIC:
       return {
         ...state,
-        profilePic: action.payload
+        profilePic: action.payload,
       };
     case FETCH_PUBLIC_PROFILE:
       return {
         ...state,
-        publicProfile: action.payload
+        publicProfile: action.payload,
       };
     case FETCH_RIDER_REQUEST_FEED:
       return {
         ...state,
-        requestRiderFeed: action.payload
+        requestRiderFeed: action.payload,
       };
     case FETCH_DRIVER_REQUEST_FEED:
       return {
         ...state,
-        requestDriverFeed: action.payload
+        requestDriverFeed: action.payload,
+      };
+    case FETCH_APP_FEE:
+      return {
+        ...state,
+        appFee: action.payload,
       };
     default:
       return state;

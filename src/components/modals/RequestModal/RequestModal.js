@@ -4,7 +4,7 @@ import {
   faCalendarAlt,
   faClock,
   faMapMarker,
-  faTimes
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckSquare } from "@fortawesome/free-regular-svg-icons";
@@ -191,15 +191,15 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
               if (ride.seats < 1) {
                 alert("Ride is full, try again later");
               } else {
-                //                 history.push({
-                //                   pathname: "/ride/checkout",
-                //                   state: {
-                //                     ride,
-                //                     requestID: request._id,
-                //                     carryOn: request.carryOn,
-                //                     luggage: request.luggage,
-                //                   },
-                //                 });
+                history.push({
+                  pathname: "/ride/checkout",
+                  state: {
+                    ride,
+                    requestID: request._id,
+                    carryOn: request.carryOn,
+                    luggage: request.luggage,
+                  },
+                });
 
                 const resp = await mainContext.joinRide(ride, authToken);
 
@@ -293,16 +293,8 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
           </Row>
           <Row>
             <Col xs={1}></Col>
-            <Col>
-              {moment(ride.date)
-                .utc()
-                .format("M/DD/YY")}
-            </Col>
-            <Col>
-              {moment(ride.date)
-                .utc()
-                .format("h A")}
-            </Col>
+            <Col>{moment(ride.date).utc().format("M/DD/YY")}</Col>
+            <Col>{moment(ride.date).utc().format("h A")}</Col>
           </Row>
         </Col>
       </Row>
@@ -342,17 +334,13 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                     className="small-icon"
                   />{" "}
                   <span className="icon-text">
-                    {moment(ride.date)
-                      .utc()
-                      .format("M/DD/YY")}
+                    {moment(ride.date).utc().format("M/DD/YY")}
                   </span>
                 </Col>
                 <Col>
                   <FontAwesomeIcon icon={faClock} className="small-icon" />
                   <span className="icon-text">
-                    {moment(ride.date)
-                      .utc()
-                      .format("h A")}
+                    {moment(ride.date).utc().format("h A")}
                   </span>
                 </Col>
               </Row>
@@ -494,7 +482,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                 color: "#5c5c5c",
                 padding: "20px",
                 boxShadow:
-                  "0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1)"
+                  "0 2px 4px 0 rgba(0, 0, 0, 0.1), 0 3px 10px 0 rgba(0, 0, 0, 0.1)",
               }}
             >
               <div>Driver</div>
@@ -502,7 +490,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                 style={{
                   display: "flex",
                   flexDirection: "row",
-                  marginTop: "10px"
+                  marginTop: "10px",
                 }}
               >
                 <div>
@@ -519,7 +507,7 @@ const RequestModal = ({ request, ride, userType, index, history }) => {
                     alignItems: "center",
                     marginLeft: "20px",
                     justifyContent: "space-between",
-                    width: "400px"
+                    width: "400px",
                   }}
                 >
                   <div>{ride.ownerFullName}</div>

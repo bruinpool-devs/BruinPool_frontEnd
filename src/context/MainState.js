@@ -20,6 +20,7 @@ import {
   FETCH_PUBLIC_PROFILE,
   FETCH_COUNTIES,
   FETCH_CITIES,
+  FETCH_APP_FEE,
 } from "./types";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
@@ -43,6 +44,7 @@ const MainState = ({ children }) => {
     isDriver: null,
     counties: [],
     cities: [],
+    appFee: 0.0,
   };
 
   const [state, dispatch] = useReducer(MainReducer, initialState);
@@ -751,11 +753,29 @@ const MainState = ({ children }) => {
       });
   };
 
+  // GET APPLICATION FEE
+  const fetchApplicationFeePercentage = (token) => {
+    return axios
+      .get("/stripe/application-fee", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        dispatch({
+          type: FETCH_APP_FEE,
+          payload: res.data.applicationFee,
+        });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
   // CREATE PAYMENT INTENT
   const createPaymentIntent = (options, token) => {
     return axios
-      .post("/stripe/create-payment-intent", {
-        options,
+      .post("/stripe/create-payment-intent", options, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -773,10 +793,9 @@ const MainState = ({ children }) => {
   };
 
   // Trigger Payment Intent Success Flow (Development only)
-  const triggerPaymentIntentSucessful = (paymentIntent, token) => {
+  const triggerSuccessfulPayment = (paymentIntent, token) => {
     return axios
-      .post("/stripe/development/triggerPaymentIntentSucessful", {
-        paymentIntent,
+      .post("/stripe/dev/triggerSuccessfulPayment", paymentIntent, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -938,6 +957,25 @@ const MainState = ({ children }) => {
       });
   };
 
+  // FETCH USER INFO
+  const fetchUserInfo = (username, token) => {
+    return axios
+      .get("/users/info", {
+        params: {
+          username,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        return res.data;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <MainContext.Provider
       value={{
@@ -958,6 +996,7 @@ const MainState = ({ children }) => {
         isDriver: state.isDriver,
         counties: state.counties,
         cities: state.cities,
+        appFee: state.appFee,
         sendVerificationEmail,
         signup,
         validateEmail,
@@ -993,12 +1032,14 @@ const MainState = ({ children }) => {
         updateUser,
         fetchPublicProfile,
         getPublicStripeKey,
+        fetchApplicationFeePercentage,
         createPaymentIntent,
         redirectStripeAuth,
         registerDriver,
-        triggerPaymentIntentSucessful,
+        triggerSuccessfulPayment,
         fetchCounties,
         fetchCities,
+        fetchUserInfo,
       }}
     >
       {children}

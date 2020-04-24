@@ -3,19 +3,18 @@ import { Elements, StripeProvider } from "react-stripe-elements";
 import CheckoutForm from "../../modules/CheckoutForm/CheckoutForm.js";
 import MainContext from "../../../context/mainContext";
 
-const Checkout = props => {
+const Checkout = (props) => {
   const { rideCheckoutDetails } = props;
-
   const [key, setApiKey] = useState("");
   const mainContext = useContext(MainContext);
 
   useEffect(() => {
     mainContext
       .getPublicStripeKey()
-      .then(res => {
+      .then((res) => {
         setApiKey(res.publicKey);
       })
-      .catch(err => {
+      .catch((err) => {
         // TODO: Better Error Handling
         console.log(err);
       });
@@ -29,6 +28,7 @@ const Checkout = props => {
             <CheckoutForm
               rideCheckoutDetails={rideCheckoutDetails}
               mainContext={mainContext}
+              appFee={mainContext.appFee}
             />
           </Elements>
         </StripeProvider>

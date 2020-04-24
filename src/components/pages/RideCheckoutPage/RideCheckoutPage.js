@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import moment from "moment";
 import "./RideCheckoutPage.css";
 import Checkout from "./checkout.js";
@@ -7,14 +7,36 @@ import {
   faLongArrowAltRight,
   faCalendarAlt,
   faClock,
-  faMapMarker
+  faMapMarker,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Navbar from "../../navbar/Navbar";
+import MainContext from "../../../context/mainContext";
+import Cookies from "universal-cookie";
 
-const RideCheckoutPage = props => {
+const RideCheckoutPage = (props) => {
+  useEffect(() => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    if (!authToken) {
+      props.history.push("/");
+    } else {
+      fetchApplicationFee();
+    }
+  }, []);
+
+  const fetchApplicationFee = async () => {
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+
+    await mainContext.fetchApplicationFeePercentage(authToken);
+  };
+
   const rideCheckoutDetails = props.history.location.state;
-  const tripSubTotal = rideCheckoutDetails.ride.price;
+  const tripSubTotal = Number(rideCheckoutDetails.ride.price);
+  const mainContext = useContext(MainContext);
+  const poolUpFee = tripSubTotal * mainContext.appFee;
 
   return (
     <div>
@@ -56,9 +78,7 @@ const RideCheckoutPage = props => {
                     style={{ width: "20px", height: "20px" }}
                   />
                   <span className="icon-text">
-                    {moment(rideCheckoutDetails.ride.date)
-                      .utc()
-                      .format("h A")}
+                    {moment(rideCheckoutDetails.ride.date).utc().format("h A")}
                   </span>
                 </Col>
               </Row>
@@ -108,7 +128,7 @@ const RideCheckoutPage = props => {
           <Col className="checkOutCol">
             <h3>Payment Summary</h3>
             <h4>Subtotal: {tripSubTotal}</h4>
-            <h4>Pool Up Fee: 0</h4>
+            <h4>Pool Up Fee: {poolUpFee}</h4>
             <Checkout rideCheckoutDetails={rideCheckoutDetails} />
           </Col>
         </Row>
