@@ -89,7 +89,12 @@ const Footer = ({ history }) => {
           <div className="footer-poolup-llc">© 2020 PoolUp, LLC.</div>
         </div>
         <div className="footer-bottom-right">
-          <div className="footer-terms-privacy">Terms & Privacy</div>
+          <div
+            className="footer-terms-privacy"
+            onClick={() => history.push("/policy")}
+          >
+            Terms & Privacy
+          </div>
           <div className="footer-social-icons">
             <FontAwesomeIcon
               icon={faFacebook}

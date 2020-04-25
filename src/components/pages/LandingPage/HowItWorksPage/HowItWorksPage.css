@@ -10,9 +10,38 @@
   font-family: "Montserrat";
 }
 
+.how-rider-works-wrapper {
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
+.how-driver-works-wrapper {
+  width: 100vw;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
 .how-works-toggle {
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-top: 4vh;
+}
+
+.find-a-ride-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 77vh;
+  margin-left: 33vw;
+  height: 114vh;
 }

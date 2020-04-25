@@ -233,18 +233,41 @@ const AboutUsPage = ({ history }) => {
           </div>
         </div>
       </div>
-      <img src={BookFirstRide} alt="book-ride" style={firstRideStyle} />
+      <div style={firstRideStyle}>
+        <Button
+          onClick={() => history.push("/signup/1")}
+          style={GetStartedButton}
+        >
+          Get Started
+        </Button>
+      </div>
       <Footer />
     </div>
   );
 };
 
+const GetStartedButton = {
+  width: "153px",
+  height: "62px",
+  backgroundColor: "#3d77ff",
+  boxShadow: "none",
+  borderWidth: "0px",
+  fontWeight: "bold",
+  fontSize: "17px",
+  marginLeft: "848px",
+  marginTop: "82px",
+};
+
 const firstRideStyle = {
+  backgroundImage: `url(${BookFirstRide}`,
+  backgroundPosition: "center",
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
   width: "1150px",
   height: "230px",
   borderRadius: "0px",
   marginTop: "8vh",
-  marginBottom: "8vh",
+  marginBottom: "12vh",
 };
 
 const aboutUsStyle = {

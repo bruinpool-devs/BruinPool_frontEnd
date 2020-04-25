@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+
+.policy-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Montserrat";
+}
+
+.policy-title {
+  font-weight: bold;
+  font-size: 38px;
+  margin-top: 4vh;
+  margin-bottom: 5vh;
+  margin-left: -26vw;
+}
+
+.policy-content {
+  display: flex;
+  flex-direction: row;
+  width: 1116px;
+  height: 507px;
+  margin-bottom: 10vh;
+}
+
+.policy-toggle {
+  display: flex;
+  flex-direction: column;
+  width: 261px;
+  height: 507px;
+  background-color: #f2f6f9;
+  padding-left: 40px;
+  padding-top: 50px;
+}
+
+.policy-toggle-buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 70px;
+}
+
+.active-policy-toggle {
+  cursor: pointer;
+  color: #3d77ff;
+  font-weight: bold;
+}
+
+.non-active-policy-toggle {
+  color: #818181;
+  cursor: pointer;
+}
+
+.policy-text {
+  width: 855px;
+  height: 507px;
+}
