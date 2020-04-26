@@ -12,18 +12,18 @@ import {
   Input,
   UncontrolledCollapse,
   Card,
-  CardBody
+  CardBody,
 } from "reactstrap";
 import {
   faMapMarkerAlt,
-  faDollarSign
+  faDollarSign,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faCalendarAlt,
   faClock,
   faUser,
   faCheckSquare,
-  faSquare
+  faSquare,
 } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -37,8 +37,8 @@ const _ = require("underscore");
 const DriverPost = ({ history }) => {
   const [fromDropdown, setFromDropdown] = useState(false);
   const [toDropdown, setToDropdown] = useState(false);
-  const [fromLocation, setFromLocation] = useState("From");
-  const [toLocation, setToLocation] = useState("To");
+  const [fromLocation, setFromLocation] = useState("From City");
+  const [toLocation, setToLocation] = useState("To City");
   const [specificPickup, setSpecificPickup] = useState("");
   const [specificDropoff, setSpecificDropoff] = useState("");
   const [modal, setModal] = useState(false);
@@ -81,15 +81,15 @@ const DriverPost = ({ history }) => {
     boxShadow: "none",
     fontSize: "20px",
     height: "45px",
-    border: "1px solid #c4c4c4"
+    border: "1px solid #c4c4c4",
   };
 
   const fromButtonStyle = _.extend({}, dropdownButtonStyle, {
-    color: fromLocation === "From" ? "#b1b1b1" : "black"
+    color: fromLocation === "From City" ? "#b1b1b1" : "black",
   });
 
   const toButtonStyle = _.extend({}, dropdownButtonStyle, {
-    color: toLocation === "To" ? "#b1b1b1" : "black"
+    color: toLocation === "To City" ? "#b1b1b1" : "black",
   });
 
   const optionStyle = {
@@ -99,7 +99,7 @@ const DriverPost = ({ history }) => {
     borderWidth: "0px 0px 2px 0px",
     borderRadius: "0px",
     marginLeft: "10px",
-    boxShadow: "none"
+    boxShadow: "none",
   };
 
   const optionStyle2 = {
@@ -109,21 +109,21 @@ const DriverPost = ({ history }) => {
     borderWidth: "0px 0px 2px 0px",
     borderRadius: "0px",
     marginLeft: "10px",
-    boxShadow: "none"
+    boxShadow: "none",
   };
 
   const textAreaStyle = {
     height: "120px",
     marginTop: "40px",
     boxShadow: "none",
-    paddingLeft: "27px"
+    paddingLeft: "27px",
   };
 
   const iconStyle = {
     color: "#818181",
     height: "21px",
     width: "16px",
-    marginBottom: "-17px"
+    marginBottom: "-17px",
   };
 
   const buttonStyle = {
@@ -132,7 +132,7 @@ const DriverPost = ({ history }) => {
     boxShadow: "none",
     marginTop: "30px",
     width: "120px",
-    height: "40px"
+    height: "40px",
   };
 
   return (
@@ -203,7 +203,7 @@ const DriverPost = ({ history }) => {
                   placeholder="Specific Pickup Location... e.g. Westwood In n Out"
                   style={optionStyle2}
                   value={specificPickup}
-                  onChange={e => setSpecificPickup(e.target.value)}
+                  onChange={(e) => setSpecificPickup(e.target.value)}
                 />
               </div>
               <div className="post-specific-location">
@@ -212,7 +212,7 @@ const DriverPost = ({ history }) => {
                   placeholder="Specific Dropoff Location... e.g. Cupertino"
                   style={optionStyle2}
                   value={specificDropoff}
-                  onChange={e => setSpecificDropoff(e.target.value)}
+                  onChange={(e) => setSpecificDropoff(e.target.value)}
                 />
               </div>
             </div>
@@ -221,7 +221,7 @@ const DriverPost = ({ history }) => {
               <Input
                 type="date"
                 style={optionStyle}
-                onChange={e => setDate(e.target.value)}
+                onChange={(e) => setDate(e.target.value)}
               />
             </div>
             <div className="post-options">
@@ -230,7 +230,7 @@ const DriverPost = ({ history }) => {
                 type="number"
                 placeholder="Price"
                 style={optionStyle}
-                onChange={e => setPrice(e.target.value)}
+                onChange={(e) => setPrice(e.target.value)}
               />
             </div>
             <div className="post-options">
@@ -239,7 +239,7 @@ const DriverPost = ({ history }) => {
                 type="number"
                 placeholder="Available Seats"
                 style={optionStyle}
-                onChange={e => setSeats(e.target.value)}
+                onChange={(e) => setSeats(e.target.value)}
               />
             </div>
             <div className="post-options">
@@ -248,7 +248,7 @@ const DriverPost = ({ history }) => {
                 type="time"
                 placeholder="Pickup Time"
                 style={optionStyle}
-                onChange={e => setTime(e.target.value)}
+                onChange={(e) => setTime(e.target.value)}
               />
             </div>
             <div>
@@ -367,7 +367,7 @@ const DriverPost = ({ history }) => {
                 type="textarea"
                 placeholder="Flexible about where and when to meet? Any pets in car? Got limited space in your trunk? Keep your riders in the loop."
                 style={textAreaStyle}
-                onChange={e => setDriverNote(e.target.value)}
+                onChange={(e) => setDriverNote(e.target.value)}
                 value={driverNote}
               />
             </div>

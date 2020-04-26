@@ -10,7 +10,7 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  Button
+  Button,
 } from "reactstrap";
 
 import MainContext from "../../../context/mainContext";
@@ -36,7 +36,7 @@ class CustomInput extends Component {
           boxShadow: "none",
           fontSize: "20px",
           height: "51px",
-          width: "183px"
+          width: "183px",
         }}
       >
         <FontAwesomeIcon
@@ -52,8 +52,8 @@ class CustomInput extends Component {
 const Filters = () => {
   const [fromDropdown, setFromDropdown] = useState(false);
   const [toDropdown, setToDropdown] = useState(false);
-  const [fromLocation, setFromLocation] = useState("From");
-  const [toLocation, setToLocation] = useState("To");
+  const [fromLocation, setFromLocation] = useState("From County");
+  const [toLocation, setToLocation] = useState("To County");
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const Filters = () => {
     const filter = {
       from: fromLocation,
       to: toLocation,
-      date_from: date
+      date_from: date,
     };
 
     await mainContext.fetchRideFeed(filter, authToken);
@@ -90,7 +90,7 @@ const Filters = () => {
     borderWidth: "0px",
     boxShadow: "none",
     fontSize: "20px",
-    height: "51px"
+    height: "51px",
   };
 
   const searchButtonStyle = {
@@ -100,15 +100,15 @@ const Filters = () => {
     color: "white",
     borderWidth: "0px",
     boxShadow: "none",
-    fontSize: "20px"
+    fontSize: "20px",
   };
 
   const fromButtonStyle = _.extend({}, dropdownButtonStyle, {
-    color: fromLocation === "From" ? "#b1b1b1" : "black"
+    color: fromLocation === "From County" ? "#b1b1b1" : "black",
   });
 
   const toButtonStyle = _.extend({}, dropdownButtonStyle, {
-    color: toLocation === "To" ? "#b1b1b1" : "black"
+    color: toLocation === "To County" ? "#b1b1b1" : "black",
   });
 
   return (
@@ -166,7 +166,7 @@ const Filters = () => {
       <DatePicker
         customInput={<CustomInput />}
         selected={date}
-        onChange={date => setDate(date)}
+        onChange={(date) => setDate(date)}
         dateFormat="MM/dd/yy"
       />
       <Button onClick={() => filterResults()} style={searchButtonStyle}>
