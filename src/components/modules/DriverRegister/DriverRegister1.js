@@ -80,7 +80,7 @@ const DriverRegister1 = ({ history }) => {
 
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
-    const resp = await mainContext.registerDriver(ReddriverInfo, authToken);
+    const resp = await mainContext.registerDriver(driverInfo, authToken);
 
     if (resp === 200) {
       history.push("/driver/post");

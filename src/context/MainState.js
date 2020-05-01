@@ -721,7 +721,6 @@ const MainState = ({ children }) => {
   // REGISTER DRIVER (ALPHA)
   const registerDriver = (driverInfo, token) => {
     axios.defaults.withCredentials = true;
-    console.log(token);
     return axios
       .post("/driver/create", driverInfo, {
         headers: {
@@ -730,7 +729,7 @@ const MainState = ({ children }) => {
         withCredentials: true,
       })
       .then((res) => {
-        alert("Driver registered!");
+        // alert("Driver registered!");
         return res.status;
       })
       .catch((err) => {
