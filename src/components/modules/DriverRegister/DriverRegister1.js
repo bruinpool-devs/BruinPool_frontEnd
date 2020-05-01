@@ -6,7 +6,7 @@ import {
   ButtonDropdown,
   DropdownItem,
   DropdownToggle,
-  DropdownMenu
+  DropdownMenu,
 } from "reactstrap";
 
 import Cookies from "universal-cookie";
@@ -17,14 +17,11 @@ import RegisterImage from "./register.png";
 
 import "./DriverRegister1.css";
 
-const cookies = new Cookies();
-const authToken = cookies.get("authToken");
-
 const mockModels = [
   "Porsche 911",
   "Ford Mustang",
   "Chevrolet Corvette",
-  "Hyundai Sonata"
+  "Hyundai Sonata",
 ];
 
 const mockColors = ["Red", "Blue", "Black", "White"];
@@ -78,10 +75,12 @@ const DriverRegister1 = ({ history }) => {
       licensePlate: licensePlate,
       vehicleMakeModel: vehicleMakeModel,
       driversLicense: driversLicense,
-      vehicleColor: vehicleColor
+      vehicleColor: vehicleColor,
     };
 
-    const resp = await mainContext.registerDriver(driverInfo, authToken);
+    const cookies = new Cookies();
+    const authToken = cookies.get("authToken");
+    const resp = await mainContext.registerDriver(ReddriverInfo, authToken);
 
     if (resp === 200) {
       history.push("/driver/post");
@@ -103,7 +102,7 @@ const DriverRegister1 = ({ history }) => {
     width: "453px",
     height: "51px",
     marginTop: "20px",
-    borderColor: "#c4c4c4"
+    borderColor: "#c4c4c4",
   };
 
   const modelButtonStyle = {
@@ -119,14 +118,14 @@ const DriverRegister1 = ({ history }) => {
     borderColor: "#c4c4c4",
     boxShadow: "none",
     height: "51px",
-    marginTop: "20px"
+    marginTop: "20px",
   };
 
   const colorButtonStyle = _.extend({}, modelButtonStyle, {
     color:
       vehicleColor === "Vehicle Color (press to choose...)"
         ? "#b1b1b1"
-        : "black"
+        : "black",
   });
 
   return (
@@ -155,14 +154,14 @@ const DriverRegister1 = ({ history }) => {
                   name="phone-number"
                   placeholder="Phone"
                   value={phoneNumber}
-                  onChange={e => setPhoneNumber(e.target.value)}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
                 />
                 <Input
                   style={inputStyle}
                   name="drivers-license"
                   placeholder="Drivers License #"
                   value={driversLicense}
-                  onChange={e => setDriversLicense(e.target.value)}
+                  onChange={(e) => setDriversLicense(e.target.value)}
                 />
               </div>
               <div className="register-form-row">
@@ -217,7 +216,7 @@ const DriverRegister1 = ({ history }) => {
                   name="license-plate-number"
                   placeholder="Vehicle License Plate #"
                   value={licensePlate}
-                  onChange={e => setLicensePlate(e.target.value)}
+                  onChange={(e) => setLicensePlate(e.target.value)}
                 />
               </div>
               <div className="register-payment-title">Payment Information</div>
@@ -239,7 +238,7 @@ const DriverRegister1 = ({ history }) => {
                     width: "381px",
                     height: "53px",
                     fontSize: "20px",
-                    borderRadius: "10px"
+                    borderRadius: "10px",
                   }}
                   onClick={handleSubmit}
                 >
