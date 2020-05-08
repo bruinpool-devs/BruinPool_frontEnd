@@ -37,7 +37,7 @@ const Navbar = ({ history, location }) => {
     await mainContext.fetchNotification(authToken);
   };
 
-  const handleViewNotification = async noti => {
+  const handleViewNotification = async (noti) => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
 
@@ -65,7 +65,12 @@ const Navbar = ({ history, location }) => {
     <div>
       {path.substr(1, 4) === "ride" ? (
         <div className="navbar-container-rider">
-          <div className="navbar-logo-rider">POOLUP</div>
+          <div
+            className="navbar-logo-rider"
+            onClick={() => history.push("/rider")}
+          >
+            POOLUP
+          </div>
           <div className="navbar-items-rider">
             <div
               className="non-active-item"
@@ -203,9 +208,7 @@ const Navbar = ({ history, location }) => {
                       </div>
                       <div className="single-noti-msg">{noti.msg}</div>
                       <div className="gray-text">
-                        {moment(noti.date)
-                          .fromNow()
-                          .replace("minutes", "min")}
+                        {moment(noti.date).fromNow().replace("minutes", "min")}
                       </div>
                     </div>
                   ))}
@@ -265,7 +268,12 @@ const Navbar = ({ history, location }) => {
         </div>
       ) : (
         <div className="navbar-container-driver">
-          <div className="navbar-logo-driver">POOLUP</div>
+          <div
+            className="navbar-logo-driver"
+            onClick={() => history.push("/rider")}
+          >
+            POOLUP
+          </div>
           <div className="navbar-items-driver">
             <div
               className="non-active-item-bordered"
@@ -403,9 +411,7 @@ const Navbar = ({ history, location }) => {
                       </div>
                       <div className="single-noti-msg">{noti.msg}</div>
                       <div className="gray-text">
-                        {moment(noti.date)
-                          .fromNow()
-                          .replace("minutes", "min")}
+                        {moment(noti.date).fromNow().replace("minutes", "min")}
                       </div>
                     </div>
                   ))}

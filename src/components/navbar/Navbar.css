@@ -35,6 +35,7 @@
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 2px;
+  cursor: pointer;
 }
 
 .navbar-logo-driver {
@@ -45,6 +46,7 @@
   font-size: 20px;
   font-weight: bold;
   letter-spacing: 2px;
+  cursor: pointer;
 }
 
 .navbar-items-rider {
