@@ -229,8 +229,10 @@ const DriverPost = ({ history }) => {
               <Input
                 type="number"
                 placeholder="Price"
+                min="0"
+                max="99"
                 style={optionStyle}
-                onChange={(e) => setPrice(e.target.value)}
+                onChange={(e) => setPrice(e.target.value.slice(0, 2))}
               />
             </div>
             <div className="post-options">
@@ -238,8 +240,10 @@ const DriverPost = ({ history }) => {
               <Input
                 type="number"
                 placeholder="Available Seats"
+                min="1"
+                max="9"
                 style={optionStyle}
-                onChange={(e) => setSeats(e.target.value)}
+                onChange={(e) => setSeats(e.target.value.slice(0, 1))}
               />
             </div>
             <div className="post-options">
