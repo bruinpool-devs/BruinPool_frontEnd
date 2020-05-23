@@ -12,6 +12,8 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.3.1",
     "classnames": "^2.2.6",
+    "dotenv": "^8.2.0",
+    "dotenv-cli": "^3.1.0",
     "eslint-utils": "1.4.1",
     "jshint": "^2.10.2",
     "kind-of": "^6.0.3",
@@ -38,7 +40,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "dotenv -e .env.${REACT_APP_ENV} react-scripts build",
+    "build:production": "REACT_APP_ENV=production npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
