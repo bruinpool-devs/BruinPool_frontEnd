@@ -3,6 +3,23 @@
 This is the frontend code repository for PoolUp: made with ReactJS.<br>
 For additional guidance/help, email justinhan1997@gmail.com or your current Engineering Manager.
 
+## Devcontainer Setup
+
+### Prerequisites
+
+- [Docker](https://www.docker.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
+  - Extension Pack: ms-vscode-remote.vscode-remote-extensionpack
+
+### Environment Set Up
+
+- Open project folder in a [devcontainer](https://code.visualstudio.com/docs/remote/containers) by opening Visual Studio Code's command palette and executing `Remote-Containers: Open Folder in Container...`. For more information about our devcontainer look at .`devcontainer.json`
+- Start the API with `npm start`
+- Access the API at `http://localhost:3000`
+- Editing Configuration requires you to rebuild the devcontainer. Go to command palette and execute `Remote-Containers: Rebuild Container`
+
+---
+
 ## Local Environment Setup
 
 1. Install nodeJS by following installation guides from https://nodejs.org/en/download/.

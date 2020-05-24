@@ -1,0 +1,18 @@
+// See https://aka.ms/vscode-remote/devcontainer.json for format details.
+{
+  "name": "Poolup App",
+  // The order of the files is important since later fiels override previous ones
+  "dockerComposeFile": ["docker-compose.devcontainer.yml"],
+  "service": "app",
+  "workspaceFolder": "/app",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash",
+    "editor.formatOnSave": true
+  },
+  // Uncomment the next line to run commands after the container is created.
+  // "postCreateCommand": "",
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [3006],
+  // Add the IDs of extensions you want installed when the container is created in the array below.
+  "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+}

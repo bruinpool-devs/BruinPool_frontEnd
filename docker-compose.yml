@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+  web:
+    build:
+      context: .
+    ports:
+      - 3006:3006
+    volumes:
+      - .:/app

@@ -13,7 +13,7 @@ import {
   faLongArrowAltRight,
   faCalendarAlt,
   faClock,
-  faCheckCircle
+  faCheckCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 const PostRideModal = ({
@@ -33,7 +33,7 @@ const PostRideModal = ({
   oneCarryOn,
   oneLuggage,
   instantBook,
-  history
+  history,
 }) => {
   const mainContext = useContext(MainContext);
 
@@ -42,8 +42,7 @@ const PostRideModal = ({
     const authToken = cookies.get("authToken");
     const userName = cookies.get("userName");
     const email = cookies.get("email");
-    const dateString = `${date}T${time}:00.000Z`;
-
+    const dateString = new Date(`${date}T${time}Z`);
     const rideObject = {
       ownerEmail: email,
       ownerUsername: userName,
@@ -60,8 +59,8 @@ const PostRideModal = ({
         smokingAllowed: false,
         noPetsAllowed: noPet,
         singleCarryOn: oneCarryOn,
-        singleLuggage: oneLuggage
-      }
+        singleLuggage: oneLuggage,
+      },
     };
 
     await mainContext.postRide(rideObject, authToken);
@@ -69,8 +68,8 @@ const PostRideModal = ({
     history.push({
       pathname: "/driver/post-summary",
       state: {
-        instantBook: instantBook
-      }
+        instantBook: instantBook,
+      },
     });
   };
 
@@ -216,7 +215,7 @@ const PostRideModal = ({
               marginRight: "2vw",
               width: "120px",
               padding: "10px",
-              fontWeight: "bold"
+              fontWeight: "bold",
             }}
             onClick={() => toggleModal(!isOpen)}
           >
@@ -233,7 +232,7 @@ const PostRideModal = ({
               fontSize: "1vw",
               width: "120px",
               padding: "10px",
-              fontWeight: "bold"
+              fontWeight: "bold",
             }}
             onClick={() => handlePostRide()}
           >
