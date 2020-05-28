@@ -41,19 +41,57 @@ const RiderPage = ({ history }) => {
             <div className="title">Rides</div>
           </div>
           <Filters />
+          <div className="sort-by">Sort by:</div>
           <div className="more-filters">
             <Button
+              onClick={() => toggleTimeFilter()}
               style={{
                 backgroundColor: "white",
                 color: "#383838",
                 fontSize: "20px",
                 boxShadow: "none",
                 borderRadius: "20px",
-                marginRight: "20px"
+                marginRight: "20px",
+                marginLeft: "100px",
               }}
             >
-              More Filters
+              Departure Time
             </Button>
+            <div
+              id="dept-time-filter"
+              className="dept-time-rect"
+              style={{ display: "none" }}
+            >
+              <div className="before-tag">Before Noon</div>
+              <div className="before-times">12 am - 11:59 am</div>
+              <div className="before-ellipse"></div>
+              <div className="after-tag">Afternoon</div>
+              <div className="after-times">12 pm - 11:59 pm</div>
+              <div className="after-ellipse"></div>
+            </div>
+            <Button
+              onClick={() => togglePriceFilter()}
+              style={{
+                backgroundColor: "white",
+                color: "#383838",
+                fontSize: "20px",
+                boxShadow: "none",
+                borderRadius: "20px",
+                marginRight: "20px",
+              }}
+            >
+              Price
+            </Button>
+          </div>
+          <div
+            id="price-filter"
+            className="price-rect"
+            style={{ display: "none" }}
+          >
+            <div className="low-tag">Lowest</div>
+            <div className="low-ellipse"></div>
+            <div className="high-tag">Highest</div>
+            <div className="high-ellipse"></div>
           </div>
           <div className="feed-container">
             <RideFeed feed={mainContext.rideFeed} mainRidesBool={true} />
@@ -63,5 +101,24 @@ const RiderPage = ({ history }) => {
     </div>
   );
 };
+
+function toggleTimeFilter() {
+  let x = document.getElementById("dept-time-filter");
+
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+function togglePriceFilter() {
+  let x = document.getElementById("price-filter");
+
+  if (x.style.display == "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
 
 export default withRouter(RiderPage);
