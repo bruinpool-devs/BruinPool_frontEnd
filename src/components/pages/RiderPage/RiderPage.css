@@ -50,3 +50,216 @@
   height: 100%;
   background-color: #ffffff;
 }
+
+/* Sort by: */
+.sort-by {
+  position: absolute;
+  width: 77px;
+  height: 24px;
+  left: 48px;
+  top: 242px;
+
+  font-family: "Montserrat";
+  font-style: bolder;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+
+  color: #383838;
+
+  border-radius: 20px;
+}
+/* Rectangle 6 */
+.dept-time-rect {
+  position: absolute;
+  width: 323px;
+  height: 107px;
+  /*left: 150px;*/
+  margin-left: 100px;
+  top: 290px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+}
+
+/* Ellipse 1 */
+.before-ellipse {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 25px;
+  top: 20px;
+
+  border: 1px solid #383838;
+  border-radius: 50%;
+}
+
+/* Ellipse 2 */
+.after-ellipse {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 25px;
+  top: 60px;
+
+  border: 1px solid #383838;
+  border-radius: 50%;
+}
+
+/* Before Noon */
+.before-tag {
+  position: absolute;
+  width: 156px;
+  height: 23px;
+  left: 25px;
+  top: 20px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 40px;
+  /* or 200% */
+  display: flex;
+  align-items: center;
+
+  color: #383838;
+}
+
+/* 12 am - 11:59 am */
+.before-times {
+  position: absolute;
+  width: 156px;
+  height: 23px;
+  left: 175px;
+  top: 22px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 40px;
+  /* or 400% */
+  display: flex;
+  align-items: center;
+
+  color: #383838;
+}
+
+/* 12 pm - 11:59 pm */
+.after-times {
+  position: absolute;
+  width: 156px;
+  height: 23px;
+  left: 175px;
+  top: 62px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 10px;
+  line-height: 40px;
+  /* or 400% */
+  display: flex;
+  align-items: center;
+
+  color: #383838;
+}
+
+/* Afternoon */
+.after-tag {
+  position: absolute;
+  width: 156px;
+  height: 23px;
+  left: 25px;
+  top: 60px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 40px;
+  /* or 200% */
+  display: flex;
+  align-items: center;
+
+  color: #383838;
+}
+
+/* Rectangle 6 */
+.price-rect {
+  position: absolute;
+  width: 184px;
+  height: 107px;
+  margin-left: 303px;
+  top: 290px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.25);
+  border-radius: 7px;
+}
+
+.low-ellipse {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 25px;
+  top: 20px;
+
+  border: 1px solid #383838;
+  border-radius: 50%;
+}
+/* Ellipse 2 */
+.high-ellipse {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  right: 25px;
+  top: 60px;
+
+  border: 1px solid #383838;
+  border-radius: 50%;
+}
+
+/* Lowest */
+.low-tag {
+  position: absolute;
+  width: 156px;
+  height: 23px;
+  left: 25px;
+  top: 20px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 40px;
+  /* or 200% */
+  display: flex;
+  align-items: center;
+
+  color: #383838;
+}
+/* Highest */
+.high-tag {
+  position: absolute;
+  width: 156px;
+  height: 23px;
+  left: 25px;
+  top: 60px;
+
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 40px;
+  /* or 200% */
+  display: flex;
+  align-items: center;
+
+  color: #383838;
+}
