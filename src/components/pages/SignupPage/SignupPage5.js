@@ -4,6 +4,7 @@ import { Button, Form, FormGroup, Input, FormText } from "reactstrap";
 
 import Cookies from "universal-cookie";
 import AltNavbar from "../../navbar/AltNavbar";
+import CropImageModal from "../../modals/CropImageModal/CropImageModal";
 import MainContext from "../../../context/mainContext";
 
 import "./SignupPage.css";
@@ -45,7 +46,7 @@ const SignupPage5 = ({ history }) => {
     }
   };
 
-  const onAddFile = async file => {
+  const onAddFile = async (file) => {
     const cookies = new Cookies();
     const authToken = cookies.get("authToken");
 
@@ -85,47 +86,46 @@ const SignupPage5 = ({ history }) => {
           alt="bear"
           style={{ height: "200px", width: "200px", marginTop: "20px" }}
         />
-        <Button
-          style={{
-            backgroundColor: "white",
-            color: "#3D77FF",
-            borderColor: "#3D77FF",
-            boxShadow: "none",
-            width: "193px",
-            height: "32px",
-            fontSize: "14px",
-            marginTop: "15px",
-            borderRadius: "5px"
-          }}
-          onClick={() => fileInputRef.current.click()}
-        >
-          <div>Upload Profile Picture*</div>
-          <input
-            ref={fileInputRef}
-            type="file"
-            style={{ display: "none" }}
-            onChange={e => onAddFile(e.target.files[0])}
-          />
-        </Button>
-        <div className="short-bio-desc">
-          Add a short bio to tell people more about yourself.
-        </div>
+        <CropImageModal />
+        {
+          //   <Button
+          //   style={{
+          //     backgroundColor: "white",
+          //     color: "#3D77FF",
+          //     borderColor: "#3D77FF",
+          //     boxShadow: "none",
+          //     width: "193px",
+          //     height: "32px",
+          //     fontSize: "14px",
+          //     marginTop: "15px",
+          //     borderRadius: "5px"
+          //   }}
+          //   onClick={() => fileInputRef.current.click()}
+          // >
+          //   <div>Upload Profile Picture*</div>
+          //   <input
+          //     ref={fileInputRef}
+          //     type="file"
+          //     style={{ display: "none" }}
+          //     onChange={e => onAddFile(e.target.files[0])}
+          //   />
+          // </Button>
+        }
+        <div className="short-bio-desc">Add a short bio to tell people more about yourself.</div>
         <Form>
           <FormGroup>
             <Input
               type="textarea"
               value={shortBio}
               placeholder="Tell your future drivers or riders about your major, interests, favorite trips..."
-              onChange={e => setShortBio(e.target.value)}
+              onChange={(e) => setShortBio(e.target.value)}
               style={{
                 height: "159px",
                 width: "438px",
                 padding: "10px 15px 10px 15px",
                 fontSize: "15px",
                 marginTop: "7px",
-                borderColor:
-                  (bioValid === "true" && "green") ||
-                  (bioValid === "false" && "red")
+                borderColor: (bioValid === "true" && "green") || (bioValid === "false" && "red"),
               }}
               onBlur={validateBio}
             />
@@ -145,7 +145,7 @@ const SignupPage5 = ({ history }) => {
             height: "53px",
             fontSize: "20px",
             marginTop: "10px",
-            borderRadius: "10px"
+            borderRadius: "10px",
           }}
           onClick={handleSubmit}
         >
